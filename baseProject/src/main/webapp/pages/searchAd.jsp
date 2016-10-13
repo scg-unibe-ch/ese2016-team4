@@ -68,7 +68,7 @@ function validateType(form)
 	id="filterForm" autocomplete="off">
 
 	<div id="filterDiv">
-		<h2>Filter results:</h2>
+		<h2>Search:</h2>
 		<form:checkbox name="room" id="room" path="roomHelper" /><label>Room</label>
 		<form:checkbox name="studio" id="studio" path="studioHelper" /><label>Studio</label>
 	
@@ -147,7 +147,7 @@ function validateType(form)
 		</table>
 			
 		
-		<button type="submit" onClick="validateType(this.form)">Filter</button>	
+		<button type="submit" onClick="validateType(this.form)">Search</button>	
 		<button type="reset">Cancel</button>
 	</div>
 </form:form>
