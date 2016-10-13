@@ -22,6 +22,19 @@
 			autoFocus : true
 		});
 		
+		$("#field-earliestMoveInDate").datepicker({
+			dateFormat : 'dd-mm-yy'
+		});
+		$("#field-latestMoveInDate").datepicker({
+			dateFormat : 'dd-mm-yy'
+		});
+		$("#field-earliestMoveOutDate").datepicker({
+			dateFormat : 'dd-mm-yy'
+		});
+		$("#field-latestMoveOutDate").datepicker({
+			dateFormat : 'dd-mm-yy'
+		});
+		
 		var price = document.getElementById('prizeInput');
 		var radius = document.getElementById('radiusInput');
 		
