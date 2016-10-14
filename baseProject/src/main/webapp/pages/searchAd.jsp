@@ -80,7 +80,7 @@ function validateType(form)
 <form:form method="post" modelAttribute="searchForm" action="/results"
 	id="filterForm" autocomplete="off">
 
-	<div id="filterDiv">
+	<div id="searchDiv">
 		<h2>Search:</h2>
 		<form:checkbox name="room" id="room" path="roomHelper" /><label>Room</label>
 		<form:checkbox name="studio" id="studio" path="studioHelper" /><label>Studio</label>
