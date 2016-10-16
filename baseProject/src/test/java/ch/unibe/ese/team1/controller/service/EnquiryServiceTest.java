@@ -11,6 +11,7 @@ import java.util.Set;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -190,6 +191,7 @@ public class EnquiryServiceTest {
 		
 		assertEquals(VisitEnquiryState.ACCEPTED, visitEnquiryDao.findOne(venqID).getState());
 	}
+
 	
 	//Lean user creating method
 	User createUser(String email, String password, String firstName,
