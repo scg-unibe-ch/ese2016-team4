@@ -62,10 +62,10 @@ public class EnquiryServiceTest {
 	@Test
 	public void createVisits() throws Exception {		
 		//create user
-		User thomyF = createUser("thomy@f.ch", "password", "Thomy", "F",
+		User asiT = createUser("asi@toni.ch", "password", "Toni", "A",
 				Gender.MALE);
-		thomyF.setAboutMe("Supreme hustler");
-		userDao.save(thomyF);
+		asiT.setAboutMe("Supreme hustler");
+		userDao.save(asiT);
 		
 		//save an ad
 		Date date = new Date();
@@ -81,7 +81,7 @@ public class EnquiryServiceTest {
 		oltenResidence.setRoomDescription("blah");
 		oltenResidence.setPreferences("blah");
 		oltenResidence.setRoommates("None");
-		oltenResidence.setUser(thomyF);
+		oltenResidence.setUser(asiT);
 		oltenResidence.setTitle("Olten Residence");
 		oltenResidence.setStreet("Florastr. 100");
 		oltenResidence.setCity("Olten");
@@ -120,14 +120,15 @@ public class EnquiryServiceTest {
 	@Test
 	public void enquireAndAccept() throws Exception {		
 		//create two users
-		User adolfOgi = createUser("adolf@ogi.ch", "password", "Adolf", "Ogi",
+
+		User adolfOgi = createUser("adoldfogi@freudeherrscht", "password", "Adolf", "Ogi",
 				Gender.MALE);
 		adolfOgi.setAboutMe("Wallis rocks");
 		userDao.save(adolfOgi);
-		
 		User blocher = createUser("christoph@blocher.eu", "svp", "Christoph", "Blocher", Gender.MALE);
 		blocher.setAboutMe("I own you");
 		userDao.save(blocher);
+		
 		
 		//save an ad
 		Date date = new Date();
