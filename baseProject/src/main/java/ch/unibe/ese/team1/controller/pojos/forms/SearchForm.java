@@ -11,9 +11,10 @@ import org.hibernate.validator.constraints.NotBlank;
 public class SearchForm {
 
 	private boolean filtered;
-
-	// studio: true, room: false
+	
 	private boolean studio;
+	private boolean room;
+	private boolean flat;
 
 	@NotBlank(message = "Required")
 	@Pattern(regexp = "^[0-9]{4} - [-\\w\\s\\u00C0-\\u00FF]*", message = "Please pick a city from the list")
@@ -27,11 +28,14 @@ public class SearchForm {
 	@Min(value = 0, message = "In your dreams.")
 	private Integer prize;
 
-	@AssertFalse(message = "Please select either or both types")
-	private boolean noRoomNoStudio;
-
+	@AssertFalse(message = "Please select at least one type")
+	private boolean noRoomNoStudioNoFlat;
+	
 	private boolean bothRoomAndStudio;
-
+	private boolean bothRoomAndFlat;
+	private boolean bothStudioAndFlat;
+	private boolean allRoomAndStudioAndFlat;
+	
 	public String getCity() {
 		return city;
 	}
@@ -63,13 +67,29 @@ public class SearchForm {
 	public void setStudio(boolean studio) {
 		this.studio = studio;
 	}
-
-	public boolean getNoRoomNoStudio() {
-		return noRoomNoStudio;
+	
+	public boolean getRoom() {
+		return room;
+	}
+	
+	public void setRoom(boolean room) {
+		this.room = room;
+	}
+	
+	public boolean getFlat() {
+		return flat;
+	}
+	
+	public void setFlat(boolean flat) {
+		this.flat = flat;
+	}
+	
+	public boolean getNoRoomNoStudioNoFlat() {
+		return noRoomNoStudioNoFlat;
 	}
 
-	public void setNoRoomNoStudio(boolean noRoomNoStudio) {
-		this.noRoomNoStudio = noRoomNoStudio;
+	public void setNoRoomNoStudioNoFlat(boolean noRoomNoStudioNoFlat) {
+		this.noRoomNoStudioNoFlat = noRoomNoStudioNoFlat;
 	}
 
 	public boolean getBothRoomAndStudio() {
@@ -79,17 +99,41 @@ public class SearchForm {
 	public void setBothRoomAndStudio(boolean bothRoomAndStudio) {
 		this.bothRoomAndStudio = bothRoomAndStudio;
 	}
+	
+	public boolean getBothRoomAndFlat() {
+		return bothRoomAndFlat;
+	}
+
+	public void setBothRoomAndFlat(boolean bothRoomAndFlat) {
+		this.bothRoomAndFlat = bothRoomAndFlat;
+	}
+	
+	public boolean getBothStudioAndFlat() {
+		return bothStudioAndFlat;
+	}
+
+	public void setBothStudioAndFlat(boolean bothStudioAndFlat) {
+		this.bothStudioAndFlat = bothStudioAndFlat;
+	}
+	
+	public boolean getAllRoomAndStudioAndFlat() {
+		return allRoomAndStudioAndFlat;
+	}
+
+	public void setAllRoomAndStudioAndFlat(boolean allRoomAndStudioAndFlat) {
+		this.allRoomAndStudioAndFlat = allRoomAndStudioAndFlat;
+	}
 
 	// //////////////////
 	// Filtered results//
 	// //////////////////
 
 	public boolean getFiltered() {
-		return true;
+		return filtered;
 	}
 
 	public void setFiltered(boolean filtered) {
-		this.filtered = true;
+		this.filtered = filtered;
 	}
 
 	private String earliestMoveInDate;
@@ -106,11 +150,16 @@ public class SearchForm {
 	private boolean cable;
 	private boolean garage;
 	private boolean internet;
+	
 
 	private boolean roomHelper;
+	
+	private boolean studioHelper;
+	
+	private boolean flatHelper;
 
 	// the ugly stuff
-	private boolean studioHelper;
+	
 
 	public boolean getSmokers() {
 		return smokers;
@@ -231,4 +280,14 @@ public class SearchForm {
 	public void setRoomHelper(boolean helper) {
 		this.roomHelper = helper;
 	}
+
+	public boolean getFlatHelper() {
+		return flatHelper;
+	}
+
+	public void setFlatHelper(boolean flatHelper) {
+		this.flatHelper = flatHelper;
+	}
+
+	
 }

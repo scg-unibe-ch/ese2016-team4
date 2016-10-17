@@ -14,23 +14,52 @@ function validateType(form)
 {
 	var room = document.getElementById('room');
 	var studio = document.getElementById('studio');
+	var flat = document.getElementById('flat');
 	var neither = document.getElementById('neither');
-	var both = document.getElementById('both');
+	var all = document.getElementById('all');
+	var studioAndFlat = document.getElementById('studioAndFlat');
+	var roomAndFlat = document.getElementById('roomAndFlat');
+	var roomAndStudio = document.getElementById('roomAndStudio');
 	var type = document.getElementById('type');
 	var filtered = document.getElementById('filtered');
 	
-	if(room.checked && studio.checked) {
-		both.checked = true;
+	if(room.checked && studio.checked && flat.checked) {
+		all.checked = true;
 		neither.checked = false;
 	}
-	else if(!room.checked && !studio.checked) {
-		both.checked = false;
+	else if(!room.checked && !studio.checked && !flat.checked) {
+		all.checked = false;
 		neither.checked = true;
 	}
-	else {
-		both.checked = false;
+	else if(!room.checked && !studio.checked) {
+		all.checked = false;
+		neither.checked = false;
+		type.checked = flat.checked;
+	}
+	else if(!room.checked && !flat.checked) {
+		all.checked = false;
 		neither.checked = false;
 		type.checked = studio.checked;
+	}
+	else if(!flat.checked && !studio.checked) {
+		all.checked = false;
+		neither.checked = false;
+		type.checked = room.checked;
+	}
+	else if(!flat.checked) {
+		all.checked = false;
+		neither.checked = false;
+		roomAndStudio.checked = true;
+	}
+	else if(!room.checked) {
+		all.checked = false;
+		neither.checked = false;
+		studioAndFlat.checked = true;
+	}
+	else if(!studio.checked) {
+		all.checked = false;
+		neither.checked = false;
+		roomAndFlat.checked = true;
 	}
 	filtered.checked = true;
 }
@@ -153,8 +182,9 @@ function sort_div_attribute() {
 						<br />
 						<p>
 							<i><c:choose>
-									<c:when test="${ad.studio}">Studio</c:when>
-									<c:otherwise>Room</c:otherwise>
+									<c:when test="${ad.getOptions() == 1}">Room</c:when>
+									<c:when test="${ad.getOptions() == 2}">Studio</c:when>
+									<c:when test="${ad.getOptions() == 3}">Flat</c:when>
 								</c:choose></i>
 						</p>
 					</div>
@@ -180,12 +210,17 @@ function sort_div_attribute() {
 		<h2>Filter results:</h2>
 		<form:checkbox name="room" id="room" path="roomHelper" /><label>Room</label>
 		<form:checkbox name="studio" id="studio" path="studioHelper" /><label>Studio</label>
+		<form:checkbox name="flat" id="flat" path="flatHelper" /><label>Flat</label>
 	
-		<form:checkbox style="display:none" name="neither" id="neither" path="noRoomNoStudio" />
-		<form:checkbox style="display:none" name="both" id="both" path="bothRoomAndStudio" />
+		<form:checkbox style="display:none" name="neither" id="neither" path="noRoomNoStudioNoFlat" />
+		<form:checkbox style="display:none" name="all" id="all" path="allRoomAndStudioAndFlat" />
+		<form:checkbox style="display:none" name="studioAndFlat" id="studioAndFlat" path="bothStudioAndFlat" />
+		<form:checkbox style="display:none" name="roomAndFlat" id="roomAndFlat" path="bothRoomAndFlat" />
+		<form:checkbox style="display:none" name="roomAndStudio" id="roomAndStudio" path="bothRoomAndStudio" />
+
 		<form:checkbox style="display:none" name="type" id="type" path="studio" />
 		<form:checkbox style="display:none" name="filtered" id="filtered" path="filtered" />
-		<form:errors path="noRoomNoStudio" cssClass="validationErrorText" /> <br />
+		<form:errors path="noRoomNoStudioNoFlat" cssClass="validationErrorText" /> <br />
 	
 		<label for="city">City / zip code:</label>
 		<form:input type="text" name="city" id="city" path="city"

@@ -17,6 +17,7 @@
 			source : <c:import url="getzipcodes.jsp" />
 		});
 		$("#city").autocomplete("option", {
+		
 			enabled : true,
 			autoFocus : true
 		});
@@ -57,17 +58,17 @@ function validateType(form)
 	else if(!room.checked && !studio.checked) {
 		all.checked = false;
 		neither.checked = false;
-		type.checked = flat.checked;
+		flat.checked = true;
 	}
 	else if(!room.checked && !flat.checked) {
 		all.checked = false;
 		neither.checked = false;
-		type.checked = studio.checked;
+		studio.checked = true;
 	}
 	else if(!flat.checked && !studio.checked) {
 		all.checked = false;
 		neither.checked = false;
-		type.checked = room.checked;
+		room.checked = true;
 	}
 	else if(!flat.checked) {
 		all.checked = false;
@@ -106,9 +107,8 @@ function validateType(form)
 		<form:checkbox style="display:none" name="roomAndFlat" id="roomAndFlat" path="bothRoomAndFlat" />
 		<form:checkbox style="display:none" name="roomAndStudio" id="roomAndStudio" path="bothRoomAndStudio" />
 
-		<form:checkbox style="display:none" name="type" id="type" path="studio" />
 		<form:checkbox style="display:none" name="filtered" id="filtered" path="filtered" />
-		<form:errors path="noRoomNoStudio" cssClass="validationErrorText" />
+		<form:errors path="noRoomNoStudioNoFlat" cssClass="validationErrorText" />
 		
 		<br />
 		
