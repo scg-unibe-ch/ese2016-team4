@@ -1,5 +1,7 @@
 /target/
 /temp/
+.metadata/
+.project
 
 #maven
 target/

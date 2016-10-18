@@ -177,5 +177,5 @@ public class AlertServiceTest {
 		userRoles.add(role);
 		user.setUserRoles(userRoles);
 		return user;
-	}
+	}	
 }
