@@ -46,6 +46,11 @@ public class PlaceAdForm {
 	// optional for input
 	private String roomFriends;
 	
+	/* helper variable for addressing different options:
+	 * option 1 = room
+	 * option 2 = studio
+	 * option 3 = flat
+	 */
 	private int options;
 	
 	private boolean studio;
