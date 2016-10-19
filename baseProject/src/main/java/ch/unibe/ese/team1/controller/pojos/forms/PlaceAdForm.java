@@ -1,5 +1,6 @@
 package ch.unibe.ese.team1.controller.pojos.forms;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.Min;
@@ -45,8 +46,11 @@ public class PlaceAdForm {
 	// optional for input
 	private String roomFriends;
 	
-	//true if studio, false if room
+	private int options;
+	
 	private boolean studio;
+	private boolean room;
+	private boolean flat;
 	
 	private boolean smokers;
 	private boolean animals;
@@ -227,6 +231,22 @@ public class PlaceAdForm {
 	public void setStudio(boolean studio) {
 		this.studio = studio;
 	}
+	
+	public boolean getRoom() {
+		return room;
+	}
+	
+	public void setRoom(boolean room) {
+		this.room = room;
+	}
+	
+	public boolean getFlat() {
+		return flat;
+	}
+	
+	public void setFlat(boolean flat) {
+		this.flat = flat;
+	}
 
 	public List<String> getRegisteredRoommateEmails() {
 		return registeredRoommateEmails;
@@ -243,4 +263,13 @@ public class PlaceAdForm {
 	public void setVisits(List<String> visits) {
 		this.visits = visits;
 	}
+
+	public int getOptions() {
+		return options;
+	}
+
+	public void setOptions(int options) {
+		this.options = options;
+	}
+
 }

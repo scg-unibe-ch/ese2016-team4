@@ -143,15 +143,26 @@
 				<td><form:input id="field-title" path="title" value="${ad.title}" /></td>
 				<td>
 					<c:choose>
-						<c:when test="${ad.studio == 'true'}">
-							<form:radiobutton id="type-room" path="studio" value="1"
-								checked="checked" />Room <form:radiobutton id="type-studio"
-								path="studio" value="0" />Studio
+						<c:when test="${ad.getOptions() == 1}">
+							<form:select name="options" path="options">
+								<form:option value="1" label="Room"/>
+								<form:option value="2" label="Studio"/>
+								<form:option value="3" label="Flat"/>
+							</form:select>	
+						</c:when>
+						<c:when test="${ad.getOptions() == 2}">
+							<form:select name="options" path="options">
+								<form:option value="2" label="Studio"/>
+								<form:option value="1" label="Room"/>
+								<form:option value="3" label="Flat"/>
+							</form:select>	
 						</c:when>
 						<c:otherwise>
-							<form:radiobutton id="type-room" path="studio" value="0"
-								checked="checked" />Room <form:radiobutton id="type-studio"
-								path="studio" value="1" />Studio
+							<form:select name="options" path="options">
+								<form:option value="3" label="Flat"/>
+								<form:option value="1" label="Room"/>
+								<form:option value="2" label="Studio"/>
+							</form:select>	
 						</c:otherwise>
 					</c:choose>
 			</tr>

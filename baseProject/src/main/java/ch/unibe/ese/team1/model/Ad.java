@@ -99,9 +99,16 @@ public class Ad {
 	@Column(nullable = false)
 	private boolean internet;
 
-	// true if studio, false if room
 	@Column(nullable = false)
 	private boolean studio;
+	
+	@Column(nullable = false)
+	private boolean room;
+	
+	@Column(nullable = false)
+	private boolean flat;
+	
+	private int options;
 
 	@Fetch(FetchMode.SELECT)
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -127,6 +134,22 @@ public class Ad {
 
 	public void setStudio(boolean studio) {
 		this.studio = studio;
+	}
+	
+	public boolean getRoom() {
+		return room;
+	}
+	
+	public void setRoom(boolean room) {
+		this.room = room;
+	}
+	
+	public boolean getFlat() {
+		return flat;
+	}
+	
+	public void setFlat(boolean flat) {
+		this.flat = flat;
 	}
 
 	public boolean getSmokers() {
@@ -357,5 +380,13 @@ public class Ad {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	public int getOptions() {
+		return options;
+	}
+
+	public void setOptions(int options) {
+		this.options = options;
 	}
 }
