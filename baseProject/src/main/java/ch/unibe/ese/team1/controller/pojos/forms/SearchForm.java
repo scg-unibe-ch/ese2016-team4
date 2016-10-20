@@ -13,7 +13,24 @@ public class SearchForm {
 	private boolean filtered;
 	
 	private boolean buy, rent, auction;
+	private boolean flat, house;
 	
+	public boolean getFlat() {
+		return flat;
+	}
+
+	public void setFlat(boolean flat) {
+		this.flat = flat;
+	}
+
+	public boolean getHouse() {
+		return house;
+	}
+
+	public void setHouse(boolean house) {
+		this.house = house;
+	}
+
 	public boolean getAuction() {
 		return buy;
 	}
