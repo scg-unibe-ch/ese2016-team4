@@ -11,6 +11,24 @@ import org.hibernate.validator.constraints.NotBlank;
 public class SearchForm {
 
 	private boolean filtered;
+	
+	private boolean buy, rent;
+	
+	public boolean getBuy() {
+		return buy;
+	}
+
+	public void setBuy(boolean buy) {
+		this.buy = buy;
+	}
+	
+	public boolean getRent() {
+		return smokers;
+	}
+
+	public void setRent(boolean rent) {
+		this.rent = rent;
+	}
 
 	// studio: true, room: false
 	private boolean studio;
@@ -231,4 +249,6 @@ public class SearchForm {
 	public void setRoomHelper(boolean helper) {
 		this.roomHelper = helper;
 	}
+	
+	
 }
