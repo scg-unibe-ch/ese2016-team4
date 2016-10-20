@@ -69,6 +69,9 @@ public class AdService {
 
 		Date now = new Date();
 		ad.setCreationDate(now);
+		
+		ad.setSellType(placeAdForm.getSellType());
+		ad.setPropertyType(placeAdForm.getPropertyType());
 
 		ad.setTitle(placeAdForm.getTitle());
 

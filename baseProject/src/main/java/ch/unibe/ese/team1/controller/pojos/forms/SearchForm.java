@@ -12,7 +12,15 @@ public class SearchForm {
 
 	private boolean filtered;
 	
-	private boolean buy, rent;
+	private boolean buy, rent, auction;
+	
+	public boolean getAuction() {
+		return buy;
+	}
+
+	public void setAuction(boolean auction) {
+		this.auction = auction;
+	}
 	
 	public boolean getBuy() {
 		return buy;
@@ -23,7 +31,7 @@ public class SearchForm {
 	}
 	
 	public boolean getRent() {
-		return smokers;
+		return rent;
 	}
 
 	public void setRent(boolean rent) {

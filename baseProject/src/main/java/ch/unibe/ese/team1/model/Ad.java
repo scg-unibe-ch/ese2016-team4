@@ -26,9 +26,17 @@ public class Ad {
 	@Id
 	@GeneratedValue
 	private long id;
+	
+	@Column(nullable = true)
+	private int sellType;
+
+	@Column(nullable = true)
+	private int propertyType;
+
 
 	@Column(nullable = false)
 	private String title;
+	
 
 	@Column(nullable = false)
 	private String street;
@@ -112,6 +120,22 @@ public class Ad {
 	
 	@OneToMany(mappedBy = "ad", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Visit> visits;
+	
+	public int getPropertyType() {
+		return propertyType;
+	}
+
+	public void setPropertyType(int propertyType) {
+		this.propertyType = propertyType;
+	}
+	
+	public int getSellType() {
+		return sellType;
+	}
+
+	public void setSellType(int sellType) {
+		this.sellType = sellType;
+	}
 
 	public Date getCreationDate() {
 		return creationDate;

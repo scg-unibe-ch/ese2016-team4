@@ -82,12 +82,21 @@ function validateType(form)
 
 	<div id="searchDiv">
 		<h2>Search:</h2>
-		<form:checkbox name="room" id="room" path="roomHelper" /><label>Room</label>
-		<form:checkbox name="studio" id="studio" path="studioHelper" /><label>Studio</label>
-		
-		<form:checkbox id="field-buy" path="buy" value="1" /><label>Rent</label>
-		<form:checkbox id="field-rent" path="rent" value="1" /><label>Buy</label>
-	
+		<table>
+		<tr>
+		<td><form:checkbox id="buy" path="buy" value="1" /><label>Buy</label></td>
+		<td><form:checkbox id="rent" path="rent" value="1" /><label>Rent</label></td>
+		<td><form:checkbox id="auction" path="auction" value="1" /><label>Auction</label></td>
+
+		</tr>
+		<tr>
+		<td><form:checkbox name="room" id="room" path="roomHelper" /><label>Room</label></td>
+		<td><form:checkbox name="studio" id="studio" path="studioHelper" /><label>Studio</label></td>
+		<td><form:checkbox name="flat" id="flat" path="flat" /><label>Flat</label></td>
+		<td><form:checkbox name="house" id="house" path="house" /><label>House</label></td>
+		</tr>
+		</table>
+			
 		<form:checkbox style="display:none" name="neither" id="neither" path="noRoomNoStudio" />
 		<form:checkbox style="display:none" name="both" id="both" path="bothRoomAndStudio" />
 		<form:checkbox style="display:none" name="type" id="type" path="studio" />
