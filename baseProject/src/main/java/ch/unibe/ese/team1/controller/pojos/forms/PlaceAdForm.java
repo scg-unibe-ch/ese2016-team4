@@ -3,12 +3,19 @@ package ch.unibe.ese.team1.controller.pojos.forms;
 import java.util.List;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 /** This form is used when a user wants to place a new ad. */
 public class PlaceAdForm {
+	
+	
+	@Min(value=0, message = "YOU SHALL CHOOSE")
+	private int propertyType;
+	@Min(value=0, message = "YOU SHALL CHOOSE")
+	private int sellType;
 	
 	@NotBlank(message = "Required")
 	private String title;
@@ -46,7 +53,7 @@ public class PlaceAdForm {
 	private String roomFriends;
 	
 	//true if studio, false if room
-	private boolean studio;
+	private boolean studio = true;
 	
 	private boolean smokers;
 	private boolean animals;
@@ -60,6 +67,23 @@ public class PlaceAdForm {
 	
 	private List<String> visits;
 
+	
+	public int getPropertyType() {
+		return propertyType;
+	}
+
+	public void setPropertyType(int propertyType) {
+		this.propertyType = propertyType;
+	}
+
+	public int getSellType() {
+		return sellType;
+	}
+
+	public void setSellType(int saleType) {
+		this.sellType = sellType;
+	}
+	
 	public String getCity() {
 		return city;
 	}

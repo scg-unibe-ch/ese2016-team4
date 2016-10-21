@@ -121,15 +121,33 @@
 		<table class="placeAdTable">
 			<tr>
 				<td><label for="field-title">Ad Title</label></td>
-				<td><label for="type-room">Type:</label></td>
+				
+				<td>
+				<form:select path="sellType">
+				<form:option value ="0">Select a Sale Type</form:option>
+				<form:option id="type-room" value="1">Rent(1)</form:option>
+				<form:option id="type-room" value="2">Buy(2)</form:option>
+				<form:option id="type-room" value="3">Auction(3)</form:option>
+				<td><form:errors path="sellType" cssClass="validationErrorText" /></td>
+				</form:select>
+				</td>
+				
 			</tr>
 
 			<tr>
 				<td><form:input id="field-title" path="title"
 						placeholder="Ad Title" /></td>
-				<td><form:radiobutton id="type-room" path="studio" value="0"
-						checked="checked" />Room <form:radiobutton id="type-studio"
-						path="studio" value="1" />Studio</td>
+				
+				<td>
+				<form:select path="propertyType">
+				<form:option value ="0">Select a Property Type</form:option>
+				<form:option id="type-room" value="1">Room(1)</form:option>
+				<form:option id="type-room" value="2">Studio(2)</form:option>
+				<form:option id="type-room" value="3">Flat(3)</form:option>
+				<form:option id="type-room" value="4">House(4)</form:option>
+				<td><form:errors path="propertyType" cssClass="validationErrorText" /></td>
+				</form:select>
+				</td>
 			</tr>
 
 			<tr>
