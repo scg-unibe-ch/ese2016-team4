@@ -54,10 +54,10 @@ function validateType(form)
 	var flat = document.getElementById('flat');
 	var house = document.getElementById('house');
 	
-	if(room) propertyType.value = "1";
-	if(studio) propertyType.value = "2";
-	if(flat) propertyType.value = "3";
-	if(house) propertyType.value = "4";
+	if(room.checked) propertyType.value = "1";
+	if(studio.checked) propertyType.value = "2";
+	if(flat.checked) propertyType.value = "3";
+	if(house.checked) propertyType.value = "4";
 
 }
 </script>
