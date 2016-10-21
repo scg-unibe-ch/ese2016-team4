@@ -12,6 +12,13 @@
 
 <script src="/js/pictureUpload.js"></script>
 
+<script>
+$(document).ready( function() {
+    var now = new Date();
+    var today = now.getDate() + '-' + (now.getMonth() + 1) + '-' + now.getFullYear();
+    $('#field-moveInDate').val(today);
+});
+</script>
 
 <script>
 	$(document).ready(function() {
