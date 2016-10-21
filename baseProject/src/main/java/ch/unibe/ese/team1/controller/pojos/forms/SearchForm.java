@@ -29,10 +29,7 @@ public class SearchForm {
 	*/
 	
 	public int getPropertyType(){
-		if(getRoom()) return 1;
-		else if(getStudio()) return 2;
-		else if(getFlat()) return 3;
-		else return 4;
+		return propertyType;
 	}
 	
 	public void setPropertyType(int propertyType){

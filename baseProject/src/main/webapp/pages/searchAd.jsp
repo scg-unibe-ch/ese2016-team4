@@ -53,11 +53,12 @@ function validateType(form)
 	var studio = document.getElementById('studio');
 	var flat = document.getElementById('flat');
 	var house = document.getElementById('house');
+	var onlyone = document.getElementById('onlyone')
 	
-	if(room.checked) propertyType.value = "1";
-	if(studio.checked) propertyType.value = "2";
-	if(flat.checked) propertyType.value = "3";
-	if(house.checked) propertyType.value = "4";
+	if(room.checked) onlyone.value = "1";
+	if(studio.checked) onlyone.value = "2";
+	if(flat.checked) onlyone.value = "3";
+	if(house.checked) onlyone.value = "4";
 
 }
 </script>
@@ -83,6 +84,7 @@ function validateType(form)
 		<td><form:checkbox name="studio" id="studio" path="studioHelper" /><label>Studio</label></td>
 		<td><form:checkbox name="flat" id="flat" path="flat" /><label>Flat</label></td>
 		<td><form:checkbox name="house" id="house" path="house" /><label>House</label></td>
+		<form:input style="display:none" id="onlyone" type="number" path="propertyType"/>
 		</tr>
 		</table>
 
