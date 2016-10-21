@@ -14,6 +14,39 @@ public class SearchForm {
 	
 	private boolean buy, rent, auction;
 	private boolean flat, house;
+	private int propertyType;
+	
+	/*
+	sellType:
+	1">Rent
+	2">Buy
+	3">Auction			
+	
+	propertyType:
+	1">Room
+	2">Studio
+	3">Flat
+	4">House
+	*/
+	
+	public int getPropertyType(){
+		if(getRoom()) return 1;
+		else if(getStudio()) return 2;
+		else if(getFlat()) return 3;
+		else return 4;
+	}
+	
+	public void setPropertyType(int propertyType){
+		this.propertyType = propertyType;
+	}
+	
+	public boolean getRoom() {
+		return flat;
+	}
+
+	public void setRoom(boolean flat) {
+		this.flat = flat;
+	}
 	
 	public boolean getFlat() {
 		return flat;
