@@ -10,14 +10,6 @@
 <pre><a href="/">Home</a>   &gt;   <a href="/searchAd/">Search</a>   &gt;   Results</pre>
 
 <script>
-function validateType(form)
-{
-
-	}
-}
-</script>
-
-<script>
 /*
  * This script takes all the resultAd divs and sorts them by a parameter specified by the user.
  * No arguments need to be passed, since the function simply looks up the dropdown selection.
@@ -247,7 +239,7 @@ function sort_div_attribute() {
 		</table>
 			
 		
-		<button type="submit" onClick="validateType(this.form)">Filter</button>	
+		<button type="submit">Filter</button>	
 		<button type="reset">Cancel</button>
 	</div>
 </form:form>

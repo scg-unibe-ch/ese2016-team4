@@ -46,13 +46,6 @@
 </script>
 
 
-<script>
-function validateType(form)
-{
-
-}
-</script>
-
 <h1>Search for an ad</h1>
 <hr />
 
@@ -148,7 +141,7 @@ function validateType(form)
 		</table>
 			
 		
-		<button type="submit" onClick="validateType(this.form)">Search</button>	
+		<button type="submit">Search</button>	
 		<button type="reset">Cancel</button>
 	</div>
 </form:form>

@@ -250,12 +250,12 @@ public class AdService {
 		// values as used in the database
 		final int ROOM = 1, STUDIO = 2, FLAT = 3, HOUSE = 4;
 		
+		
+		//lists with rooms, studios, flats and houses from the database with the specified price
 		if(searchForm.getRoom()) matchingRooms = adDao.findByPropertyTypeAndPrizePerMonthLessThan(ROOM, searchForm.getPrize() + 1);
 		if(searchForm.getStudio()) matchingStudios = adDao.findByPropertyTypeAndPrizePerMonthLessThan(STUDIO, searchForm.getPrize() + 1);
 		if(searchForm.getFlat()) matchingFlats = adDao.findByPropertyTypeAndPrizePerMonthLessThan(FLAT, searchForm.getPrize() + 1);
 		if(searchForm.getHouse()) matchingHouses = adDao.findByPropertyTypeAndPrizePerMonthLessThan(HOUSE, searchForm.getPrize() + 1);
-
-		// we use this method if we are looking for whatever
 
 
 		// filter out zipcode
@@ -266,7 +266,7 @@ public class AdService {
 		Location searchedLocation = geoDataService.getLocationsByCity(city)
 				.get(0);
 
-		// create a list of the results and of their locations
+		// create a list of the results and of their locations. Adds together the lists of the different properties
 		List<Ad> locatedResults = new ArrayList<>();
 		for (Ad ad : matchingRooms) {
 			locatedResults.add(ad);
