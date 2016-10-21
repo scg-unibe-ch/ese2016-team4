@@ -244,8 +244,8 @@ public class AdService {
 
 		// we use this method if we are looking for whatever
 		
-			results = adDao.findByPropertyTypeAndPrizePerMonthLessThan(
-					searchForm.getPropertyType(), searchForm.getPrize() + 1);
+			results = adDao.findByStudioAndPrizePerMonthLessThan(
+					searchForm.getStudio(), searchForm.getPrize() + 1);
 
 
 		// filter out zipcode

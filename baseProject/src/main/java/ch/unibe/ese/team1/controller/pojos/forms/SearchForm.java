@@ -103,6 +103,7 @@ public class SearchForm {
 	@Min(value = 0, message = "In your dreams.")
 	private Integer prize;
 
+	
 	@AssertFalse(message = "Please select either or both types")
 	private boolean noRoomNoStudio;
 
