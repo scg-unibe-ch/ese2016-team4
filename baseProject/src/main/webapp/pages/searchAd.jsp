@@ -51,25 +51,14 @@ function validateType(form)
 {
 	var room = document.getElementById('room');
 	var studio = document.getElementById('studio');
-	var neither = document.getElementById('neither');
-	var both = document.getElementById('both');
-	var type = document.getElementById('type');
-	var filtered = document.getElementById('filtered');
+	var flat = document.getElementById('flat');
+	var house = document.getElementById('house');
 	
-	if(room.checked && studio.checked) {
-		both.checked = true;
-		neither.checked = false;
-	}
-	else if(!room.checked && !studio.checked) {
-		both.checked = false;
-		neither.checked = true;
-	}
-	else {
-		both.checked = false;
-		neither.checked = false;
-		type.checked = studio.checked;
-	}
-	filtered.checked = false;
+	if(room) propertyType.value = "1";
+	if(studio) propertyType.value = "2";
+	if(flat) propertyType.value = "3";
+	if(house) propertyType.value = "4";
+
 }
 </script>
 
@@ -96,12 +85,7 @@ function validateType(form)
 		<td><form:checkbox name="house" id="house" path="house" /><label>House</label></td>
 		</tr>
 		</table>
-			
-		<form:checkbox style="display:none" name="neither" id="neither" path="noRoomNoStudio" />
-		<form:checkbox style="display:none" name="both" id="both" path="bothRoomAndStudio" />
-		<form:checkbox style="display:none" name="type" id="type" path="studio" />
-		<form:checkbox style="display:none" name="filtered" id="filtered" path="filtered" />
-		<form:errors path="noRoomNoStudio" cssClass="validationErrorText" /> <br />
+
 	
 		<label for="city">City / zip code:</label>
 		<form:input type="text" name="city" id="city" path="city"

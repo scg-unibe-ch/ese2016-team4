@@ -10,10 +10,9 @@ import org.hibernate.validator.constraints.NotBlank;
 /** This form is used for searching for an ad. */
 public class SearchForm {
 
-	private boolean filtered;
 	
 	private boolean buy, rent, auction;
-	private boolean flat, house;
+	private boolean flat, house, studio, room;
 	private int propertyType;
 	
 	/*
@@ -41,11 +40,11 @@ public class SearchForm {
 	}
 	
 	public boolean getRoom() {
-		return flat;
+		return room;
 	}
 
-	public void setRoom(boolean flat) {
-		this.flat = flat;
+	public void setRoom(boolean room) {
+		this.room = room;
 	}
 	
 	public boolean getFlat() {
@@ -65,7 +64,7 @@ public class SearchForm {
 	}
 
 	public boolean getAuction() {
-		return buy;
+		return auction;
 	}
 
 	public void setAuction(boolean auction) {
@@ -88,8 +87,6 @@ public class SearchForm {
 		this.rent = rent;
 	}
 
-	// studio: true, room: false
-	private boolean studio;
 
 	@NotBlank(message = "Required")
 	@Pattern(regexp = "^[0-9]{4} - [-\\w\\s\\u00C0-\\u00FF]*", message = "Please pick a city from the list")
@@ -107,7 +104,6 @@ public class SearchForm {
 	@AssertFalse(message = "Please select either or both types")
 	private boolean noRoomNoStudio;
 
-	private boolean bothRoomAndStudio;
 
 	public String getCity() {
 		return city;
@@ -141,33 +137,9 @@ public class SearchForm {
 		this.studio = studio;
 	}
 
-	public boolean getNoRoomNoStudio() {
-		return noRoomNoStudio;
-	}
-
-	public void setNoRoomNoStudio(boolean noRoomNoStudio) {
-		this.noRoomNoStudio = noRoomNoStudio;
-	}
-
-	public boolean getBothRoomAndStudio() {
-		return bothRoomAndStudio;
-	}
-
-	public void setBothRoomAndStudio(boolean bothRoomAndStudio) {
-		this.bothRoomAndStudio = bothRoomAndStudio;
-	}
-
 	// //////////////////
 	// Filtered results//
 	// //////////////////
-
-	public boolean getFiltered() {
-		return true;
-	}
-
-	public void setFiltered(boolean filtered) {
-		this.filtered = true;
-	}
 
 	private String earliestMoveInDate;
 	private String latestMoveInDate;

@@ -244,8 +244,8 @@ public class AdService {
 
 		// we use this method if we are looking for whatever
 		
-			results = adDao.findByStudioAndPrizePerMonthLessThan(
-					searchForm.getStudio(), searchForm.getPrize() + 1);
+			results = adDao.findByPropertyTypeAndPrizePerMonthLessThan(
+					searchForm.getPropertyType(), searchForm.getPrize() + 1);
 
 
 		// filter out zipcode
@@ -294,8 +294,6 @@ public class AdService {
 				.filter(ad -> zipcodes.contains(ad.getZipcode()))
 				.collect(Collectors.toList());
 
-		// filter for additional criteria
-		if (searchForm.getFiltered()) {
 			// prepare date filtering - by far the most difficult filter
 			Date earliestInDate = null;
 			Date latestInDate = null;
@@ -421,7 +419,7 @@ public class AdService {
 						iterator.remove();
 				}
 			}
-		}
+		
 		return locatedResults;
 	}
 
