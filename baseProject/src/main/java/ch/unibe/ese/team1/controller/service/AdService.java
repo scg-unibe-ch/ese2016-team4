@@ -241,11 +241,21 @@ public class AdService {
 	@Transactional
 	public Iterable<Ad> queryResults(SearchForm searchForm) {
 		Iterable<Ad> results = null;
+		
+		Iterable<Ad> matchingRooms = new ArrayList<>();
+		Iterable<Ad> matchingStudios = new ArrayList<>();
+		Iterable<Ad> matchingFlats = new ArrayList<>();
+		Iterable<Ad> matchingHouses = new ArrayList<>();
+		
+		// values as used in the database
+		final int ROOM = 1, STUDIO = 2, FLAT = 3, HOUSE = 4;
+		
+		if(searchForm.getRoom()) matchingRooms = adDao.findByPropertyTypeAndPrizePerMonthLessThan(ROOM, searchForm.getPrize() + 1);
+		if(searchForm.getStudio()) matchingStudios = adDao.findByPropertyTypeAndPrizePerMonthLessThan(STUDIO, searchForm.getPrize() + 1);
+		if(searchForm.getFlat()) matchingFlats = adDao.findByPropertyTypeAndPrizePerMonthLessThan(FLAT, searchForm.getPrize() + 1);
+		if(searchForm.getHouse()) matchingHouses = adDao.findByPropertyTypeAndPrizePerMonthLessThan(HOUSE, searchForm.getPrize() + 1);
 
 		// we use this method if we are looking for whatever
-		
-			results = adDao.findByPropertyTypeAndPrizePerMonthLessThan(
-					searchForm.getPropertyType(), searchForm.getPrize() + 1);
 
 
 		// filter out zipcode
@@ -258,7 +268,16 @@ public class AdService {
 
 		// create a list of the results and of their locations
 		List<Ad> locatedResults = new ArrayList<>();
-		for (Ad ad : results) {
+		for (Ad ad : matchingRooms) {
+			locatedResults.add(ad);
+		}
+		for (Ad ad : matchingStudios) {
+			locatedResults.add(ad);
+		}
+		for (Ad ad : matchingFlats) {
+			locatedResults.add(ad);
+		}
+		for (Ad ad : matchingHouses) {
 			locatedResults.add(ad);
 		}
 

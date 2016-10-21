@@ -12,27 +12,8 @@
 <script>
 function validateType(form)
 {
-	var room = document.getElementById('room');
-	var studio = document.getElementById('studio');
-	var neither = document.getElementById('neither');
-	var both = document.getElementById('both');
-	var type = document.getElementById('type');
-	var filtered = document.getElementById('filtered');
-	
-	if(room.checked && studio.checked) {
-		both.checked = true;
-		neither.checked = false;
+
 	}
-	else if(!room.checked && !studio.checked) {
-		both.checked = false;
-		neither.checked = true;
-	}
-	else {
-		both.checked = false;
-		neither.checked = false;
-		type.checked = studio.checked;
-	}
-	filtered.checked = true;
 }
 </script>
 
@@ -180,9 +161,23 @@ function sort_div_attribute() {
 
 	<div id="filterDiv">
 		<h2>Filter results:</h2>
-		<form:checkbox name="room" id="room" path="roomHelper" /><label>Room</label>
-		<form:checkbox name="studio" id="studio" path="studioHelper" /><label>Studio</label>
-	
+		
+		<table>
+		<tr>
+		<td><form:checkbox id="buy" path="buy" value="1" /><label>Buy</label></td>
+		<td><form:checkbox id="rent" path="rent" value="1" /><label>Rent</label></td>
+		<td><form:checkbox id="auction" path="auction" value="1" /><label>Auction</label></td>
+
+		</tr>
+		<tr>
+		<td><form:checkbox name="room" id="room" path="room" /><label>Room</label></td>
+		<td><form:checkbox name="studio" id="studio" path="studio" /><label>Studio</label></td>
+		<td><form:checkbox name="flat" id="flat" path="flat" /><label>Flat</label></td>
+		<td><form:checkbox name="house" id="house" path="house" /><label>House</label></td>
+
+		</tr>
+		</table>
+		
 		<label for="city">City / zip code:</label>
 		<form:input type="text" name="city" id="city" path="city"
 			placeholder="e.g. Bern" tabindex="3" />

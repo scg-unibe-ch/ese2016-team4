@@ -11,9 +11,6 @@ import org.hibernate.validator.constraints.NotBlank;
 public class SearchForm {
 
 	
-	private boolean buy, rent, auction;
-	private boolean flat, house, studio, room;
-	private int propertyType;
 	
 	/*
 	sellType:
@@ -28,13 +25,9 @@ public class SearchForm {
 	4">House
 	*/
 	
-	public int getPropertyType(){
-		return propertyType;
-	}
-	
-	public void setPropertyType(int propertyType){
-		this.propertyType = propertyType;
-	}
+	private boolean buy, rent, auction;
+	private boolean flat, house, studio, room;
+
 	
 	public boolean getRoom() {
 		return room;
@@ -153,10 +146,8 @@ public class SearchForm {
 	private boolean garage;
 	private boolean internet;
 
-	private boolean roomHelper;
 
 	// the ugly stuff
-	private boolean studioHelper;
 
 	public boolean getSmokers() {
 		return smokers;
@@ -260,22 +251,6 @@ public class SearchForm {
 
 	public void setLatestMoveOutDate(String latestMoveOutDate) {
 		this.latestMoveOutDate = latestMoveOutDate;
-	}
-
-	public boolean getStudioHelper() {
-		return studioHelper;
-	}
-
-	public void setStudioHelper(boolean helper) {
-		this.studioHelper = helper;
-	}
-
-	public boolean getRoomHelper() {
-		return roomHelper;
-	}
-
-	public void setRoomHelper(boolean helper) {
-		this.roomHelper = helper;
 	}
 	
 	
