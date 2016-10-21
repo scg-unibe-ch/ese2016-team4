@@ -125,12 +125,13 @@
 				<td>
 				<form:select path="sellType">
 				<form:option value ="0">Select a Sale Type</form:option>
-				<form:option id="type-room" value="1">Rent(1)</form:option>
-				<form:option id="type-room" value="2">Buy(2)</form:option>
-				<form:option id="type-room" value="3">Auction(3)</form:option>
-				<td><form:errors path="sellType" cssClass="validationErrorText" /></td>
+				<form:option id="type-room" value="1">Rent</form:option>
+				<form:option id="type-room" value="2">Buy</form:option>
+				<form:option id="type-room" value="3">Auction</form:option>				
 				</form:select>
 				</td>
+				<td><form:errors path="sellType" cssClass="validationErrorText" /></td>
+				
 				
 			</tr>
 
@@ -141,13 +142,13 @@
 				<td>
 				<form:select path="propertyType">
 				<form:option value ="0">Select a Property Type</form:option>
-				<form:option id="type-room" value="1">Room(1)</form:option>
-				<form:option id="type-room" value="2">Studio(2)</form:option>
-				<form:option id="type-room" value="3">Flat(3)</form:option>
-				<form:option id="type-room" value="4">House(4)</form:option>
-				<td><form:errors path="propertyType" cssClass="validationErrorText" /></td>
+				<form:option id="type-room" value="1">Room</form:option>
+				<form:option id="type-room" value="2">Studio</form:option>
+				<form:option id="type-room" value="3">Flat</form:option>
+				<form:option id="type-room" value="4">House</form:option>
 				</form:select>
 				</td>
+				<td><form:errors path="propertyType" cssClass="validationErrorText" /></td>
 			</tr>
 
 			<tr>

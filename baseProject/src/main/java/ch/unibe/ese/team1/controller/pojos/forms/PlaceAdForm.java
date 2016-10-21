@@ -12,9 +12,10 @@ import org.hibernate.validator.constraints.NotBlank;
 public class PlaceAdForm {
 	
 	
-	@Min(value=0, message = "YOU SHALL CHOOSE")
+	@Min(value=1, message = "YOU SHALL CHOOSE")
 	private int propertyType;
-	@Min(value=0, message = "YOU SHALL CHOOSE")
+	
+	@Min(value=1, message = "YOU SHALL CHOOSE")
 	private int sellType;
 	
 	@NotBlank(message = "Required")
@@ -80,7 +81,7 @@ public class PlaceAdForm {
 		return sellType;
 	}
 
-	public void setSellType(int saleType) {
+	public void setSellType(int sellType) {
 		this.sellType = sellType;
 	}
 	
