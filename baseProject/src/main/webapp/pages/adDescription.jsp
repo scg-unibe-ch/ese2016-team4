@@ -161,8 +161,10 @@
 			<td><h2>Type</h2></td>
 			<td>
 				<c:choose>
-					<c:when test="${shownAd.studio}">Studio</c:when>
-					<c:otherwise>Room</c:otherwise>
+					<c:when test="${shownAd.getPropertyType() == 1}">Room</c:when>
+					<c:when test="${shownAd.getPropertyType() == 2}">Studio</c:when>
+					<c:when test="${shownAd.getPropertyType() == 3}">Flat</c:when>
+					<c:when test="${shownAd.getPropertyType() == 4}">House</c:when>
 				</c:choose>
 			</td>
 		</tr>
