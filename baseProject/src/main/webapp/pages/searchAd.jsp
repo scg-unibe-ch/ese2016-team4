@@ -57,9 +57,9 @@
 		<h2>Search:</h2>
 		<table>
 		<tr>
-		<td><form:checkbox id="buy" path="buy" value="1" /><label>Buy</label></td>
-		<td><form:checkbox id="rent" path="rent" value="1" /><label>Rent</label></td>
-		<td><form:checkbox id="auction" path="auction" value="1" /><label>Auction</label></td>
+		<td><form:checkbox name="buy" id="buy" path="buy"/><label>Buy</label></td>
+		<td><form:checkbox name="rent" id="rent" path="rent"/><label>Rent</label></td>
+		<td><form:checkbox name="auction" id="auction" path="auction"/><label>Auction</label></td>
 
 		</tr>
 		<tr>

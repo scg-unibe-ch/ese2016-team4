@@ -240,23 +240,7 @@ public class AdService {
 	 */
 	@Transactional
 	public Iterable<Ad> queryResults(SearchForm searchForm) {
-		Iterable<Ad> results = null;
 		
-		Iterable<Ad> matchingRooms = new ArrayList<>();
-		Iterable<Ad> matchingStudios = new ArrayList<>();
-		Iterable<Ad> matchingFlats = new ArrayList<>();
-		Iterable<Ad> matchingHouses = new ArrayList<>();
-		
-		// values as used in the database
-		final int ROOM = 1, STUDIO = 2, FLAT = 3, HOUSE = 4;
-		
-		
-		//lists with rooms, studios, flats and houses from the database with the specified price
-		if(searchForm.getRoom()) matchingRooms = adDao.findByPropertyTypeAndPrizePerMonthLessThan(ROOM, searchForm.getPrize() + 1);
-		if(searchForm.getStudio()) matchingStudios = adDao.findByPropertyTypeAndPrizePerMonthLessThan(STUDIO, searchForm.getPrize() + 1);
-		if(searchForm.getFlat()) matchingFlats = adDao.findByPropertyTypeAndPrizePerMonthLessThan(FLAT, searchForm.getPrize() + 1);
-		if(searchForm.getHouse()) matchingHouses = adDao.findByPropertyTypeAndPrizePerMonthLessThan(HOUSE, searchForm.getPrize() + 1);
-
 
 		// filter out zipcode
 		String city = searchForm.getCity().substring(7);
@@ -268,18 +252,16 @@ public class AdService {
 
 		// create a list of the results and of their locations. Adds together the lists of the different properties
 		List<Ad> locatedResults = new ArrayList<>();
-		for (Ad ad : matchingRooms) {
-			locatedResults.add(ad);
+		
+		for (int property : searchForm.getPropertyType()){
+			for (int sell : searchForm.getSellType()){
+				for (Ad ad : adDao.findByPropertyTypeAndSellTypeAndPrizePerMonthLessThan(property, sell, searchForm.getPrize() + 1)){
+					locatedResults.add(ad);
+				}
+			}
+			
 		}
-		for (Ad ad : matchingStudios) {
-			locatedResults.add(ad);
-		}
-		for (Ad ad : matchingFlats) {
-			locatedResults.add(ad);
-		}
-		for (Ad ad : matchingHouses) {
-			locatedResults.add(ad);
-		}
+		
 
 		final int earthRadiusKm = 6380;
 		List<Location> locations = geoDataService.getAllLocations();

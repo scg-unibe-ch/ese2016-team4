@@ -1,5 +1,8 @@
 package ch.unibe.ese.team1.controller.pojos.forms;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -7,27 +10,37 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import ch.unibe.ese.team1.model.Ad;
+
 /** This form is used for searching for an ad. */
 public class SearchForm {
 
 	
+	final int ROOM = 1, STUDIO = 2, FLAT = 3, HOUSE = 4;
+	final int RENT = 1, BUY = 2, AUCTION = 3;
 	
-	/*
-	sellType:
-	1">Rent
-	2">Buy
-	3">Auction			
-	
-	propertyType:
-	1">Room
-	2">Studio
-	3">Flat
-	4">House
-	*/
 	
 	private boolean buy, rent, auction;
 	private boolean flat, house, studio, room;
+	List<Integer> propertyType = new ArrayList<>();
+	List<Integer> sellType = new ArrayList<>();
+	
+	
+	public List<Integer> getPropertyType() {
+		return propertyType;
+	}
 
+	public void setPropertyType(int propertyType) {
+		this.propertyType.add(propertyType);
+	}
+
+	public List<Integer> getSellType() {
+		return sellType;
+	}
+
+	public void setSellType(int sellType) {
+		this.sellType.add(sellType);
+	}
 	
 	public boolean getRoom() {
 		return room;
@@ -35,6 +48,16 @@ public class SearchForm {
 
 	public void setRoom(boolean room) {
 		this.room = room;
+		if(room && !propertyType.contains(ROOM)) setPropertyType(ROOM);
+	}
+	
+	public boolean getStudio() {
+		return studio;
+	}
+
+	public void setStudio(boolean studio) {
+		this.studio = studio;
+		if(studio && !propertyType.contains(STUDIO))setPropertyType(STUDIO);
 	}
 	
 	public boolean getFlat() {
@@ -43,6 +66,7 @@ public class SearchForm {
 
 	public void setFlat(boolean flat) {
 		this.flat = flat;
+		if(flat && !propertyType.contains(FLAT)) setPropertyType(FLAT);
 	}
 
 	public boolean getHouse() {
@@ -51,6 +75,7 @@ public class SearchForm {
 
 	public void setHouse(boolean house) {
 		this.house = house;
+		if(house && !propertyType.contains(HOUSE)) setPropertyType(HOUSE);
 	}
 
 	public boolean getAuction() {
@@ -59,6 +84,7 @@ public class SearchForm {
 
 	public void setAuction(boolean auction) {
 		this.auction = auction;
+		if(auction && !sellType.contains(AUCTION)) setSellType(AUCTION);
 	}
 	
 	public boolean getBuy() {
@@ -67,6 +93,7 @@ public class SearchForm {
 
 	public void setBuy(boolean buy) {
 		this.buy = buy;
+		if(buy && !sellType.contains(BUY)) setSellType(BUY);
 	}
 	
 	public boolean getRent() {
@@ -75,6 +102,7 @@ public class SearchForm {
 
 	public void setRent(boolean rent) {
 		this.rent = rent;
+		if(rent && !sellType.contains(RENT)) setSellType(RENT);
 	}
 
 
@@ -117,14 +145,6 @@ public class SearchForm {
 
 	public void setPrize(Integer prize) {
 		this.prize = prize;
-	}
-
-	public boolean getStudio() {
-		return studio;
-	}
-
-	public void setStudio(boolean studio) {
-		this.studio = studio;
 	}
 
 	// //////////////////
