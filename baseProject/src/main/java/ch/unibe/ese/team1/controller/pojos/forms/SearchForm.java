@@ -25,7 +25,10 @@ public class SearchForm {
 	List<Integer> propertyType = new ArrayList<>();
 	List<Integer> sellType = new ArrayList<>();
 	
-	
+	public void deleteLists(){
+		propertyType = new ArrayList<>();
+		sellType = new ArrayList<>();
+	}
 	public List<Integer> getPropertyType() {
 		return propertyType;
 	}

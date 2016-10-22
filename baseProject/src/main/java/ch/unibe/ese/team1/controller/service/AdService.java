@@ -420,7 +420,7 @@ public class AdService {
 						iterator.remove();
 				}
 			}
-		
+		searchForm.deleteLists();
 		return locatedResults;
 	}
 

@@ -90,6 +90,7 @@ function sort_div_attribute() {
 	});
 </script>
 
+
 <h1>Search results:</h1>
 
 <hr />
@@ -156,9 +157,10 @@ function sort_div_attribute() {
 		
 		<table>
 		<tr>
-		<td><form:checkbox id="buy" path="buy" value="1" /><label>Buy</label></td>
-		<td><form:checkbox id="rent" path="rent" value="1" /><label>Rent</label></td>
-		<td><form:checkbox id="auction" path="auction" value="1" /><label>Auction</label></td>
+		<td><form:checkbox name="buy" id="buy" path="buy"/><label>Buy</label></td>
+		<td><form:checkbox name="rent" id="rent" path="rent"/><label>Rent</label></td>
+		<td><form:checkbox name="auction" id="auction" path="auction"/><label>Auction</label></td>
+		
 
 		</tr>
 		<tr>
@@ -166,6 +168,7 @@ function sort_div_attribute() {
 		<td><form:checkbox name="studio" id="studio" path="studio" /><label>Studio</label></td>
 		<td><form:checkbox name="flat" id="flat" path="flat" /><label>Flat</label></td>
 		<td><form:checkbox name="house" id="house" path="house" /><label>House</label></td>
+		
 
 		</tr>
 		</table>
