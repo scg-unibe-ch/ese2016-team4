@@ -21,20 +21,23 @@
   $( function() {
     $( "#RoomDescriptor" ).accordion({
       collapsible: true,
-      active: false
+      active: false,
+      event: "mouseover"
     });
   } );
   
   $( function() {
     $( "#Roommates" ).accordion({
       collapsible: true,
-      active: false
+      active: false,
+      event: "mouseover"
     });
     
   $( function() {
 	$( "#Preferences" ).accordion({
       collapsible: true,
-      active: false
+      active: false,
+      event: "mouseover"
     });
   } );
   });
