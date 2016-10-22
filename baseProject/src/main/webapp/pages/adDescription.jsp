@@ -24,23 +24,18 @@
       active: false,
       event: "mouseover"
     });
-  } );
-  
-  $( function() {
     $( "#Roommates" ).accordion({
-      collapsible: true,
-      active: false,
-      event: "mouseover"
-    });
-    
-  $( function() {
+        collapsible: true,
+        active: false,
+        event: "mouseover"
+      });
 	$( "#Preferences" ).accordion({
-      collapsible: true,
-      active: false,
-      event: "mouseover"
-    });
-  } );
+	      collapsible: true,
+	      active: false,
+	      event: "mouseover"
+	    });
   });
+
   </script>
 
 <script>
