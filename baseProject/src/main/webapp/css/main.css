@@ -749,6 +749,7 @@ footer nav ul li {
 	border-width: 3px;
 	border-style: solid;
 	padding: 15px;
+	width: 300px;
 }
 
 .thinButton {

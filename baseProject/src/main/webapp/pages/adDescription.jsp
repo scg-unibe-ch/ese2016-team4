@@ -17,6 +17,29 @@
 <script src="/js/image_slider.js"></script>
 <script src="/js/adDescription.js"></script>
 
+  <script>
+  $( function() {
+    $( "#RoomDescriptor" ).accordion({
+      collapsible: true,
+      active: false
+    });
+  } );
+  
+  $( function() {
+    $( "#Roommates" ).accordion({
+      collapsible: true,
+      active: false
+    });
+    
+  $( function() {
+	$( "#Preferences" ).accordion({
+      collapsible: true,
+      active: false
+    });
+  } );
+  });
+  </script>
+
 <script>
 	var shownAdvertisementID = "${shownAd.id}";
 	var shownAdvertisement = "${shownAd}";
@@ -69,7 +92,7 @@
 			});
 		});
 	}
-
+	
 	$(document).ready(function() {
 		attachBookmarkClickHandler();
 		attachBookmarkedClickHandler();
@@ -221,13 +244,13 @@
 
 <section>
 	<div id="descriptionTexts">
-		<div class="adDescDiv">
-			<h2>Room Description</h2>
+		<div class="adDescDiv" id="RoomDescriptor">
+			<h1>Room Description</h1>
 			<p>${shownAd.roomDescription}</p>
 		</div>
 		<br />
 
-		<div class="adDescDiv">
+		<div class="adDescDiv" id="Roommates">
 			<h2>Roommates</h2>
 			<p>${shownAd.roommates}</p>
 			<c:forEach var="mate" items="${shownAd.registeredRoommates}">
@@ -264,41 +287,13 @@
 		</div>
 		<br />
 
-		<div class="adDescDiv">
+		<div class="adDescDiv" id="Preferences">
 			<h2>Preferences</h2>
 			<p>${shownAd.preferences}</p>
 		</div>
 		<br />
 
-		<div id="visitList" class="adDescDiv">
-			<h2>Visiting times</h2>
-			<table>
-				<c:forEach items="${visits }" var="visit">
-					<tr>
-						<td>
-							<fmt:formatDate value="${visit.startTimestamp}" pattern="dd-MM-yyyy " />
-							&nbsp; from
-							<fmt:formatDate value="${visit.startTimestamp}" pattern=" HH:mm " />
-							until
-							<fmt:formatDate value="${visit.endTimestamp}" pattern=" HH:mm" />
-						</td>
-						<td><c:choose>
-								<c:when test="${loggedIn}">
-									<c:if test="${loggedInUserEmail != shownAd.user.username}">
-										<button class="thinButton" type="button" data-id="${visit.id}">Send
-											enquiry to advertiser</button>
-									</c:if>
-								</c:when>
-								<c:otherwise>
-									<a href="/login"><button class="thinInactiveButton" type="button"
-										data-id="${visit.id}">Login to send enquiries</button></a>
-								</c:otherwise>
-							</c:choose></td>
-					</tr>
-				</c:forEach>
-			</table>
-		</div>
-
+	
 	</div>
 
 	<table id="checkBoxTable" class="adDescDiv">
@@ -396,6 +391,36 @@
 </section>
 
 <div class="clearBoth"></div>
+<br>
+
+<div id="visitList" class="adDescDiv">
+			<h2>Visiting times</h2>
+			<table>
+				<c:forEach items="${visits }" var="visit">
+					<tr>
+						<td>
+							<fmt:formatDate value="${visit.startTimestamp}" pattern="dd-MM-yyyy " />
+							&nbsp; from
+							<fmt:formatDate value="${visit.startTimestamp}" pattern=" HH:mm " />
+							until
+							<fmt:formatDate value="${visit.endTimestamp}" pattern=" HH:mm" />
+						</td>
+						<td><c:choose>
+								<c:when test="${loggedIn}">
+									<c:if test="${loggedInUserEmail != shownAd.user.username}">
+										<button class="thinButton" type="button" data-id="${visit.id}">Send
+											enquiry to advertiser</button>
+									</c:if>
+								</c:when>
+								<c:otherwise>
+									<a href="/login"><button class="thinInactiveButton" type="button"
+										data-id="${visit.id}">Login to send enquiries</button></a>
+								</c:otherwise>
+							</c:choose></td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
 <br>
 
 <table id="advertiserTable" class="adDescDiv">
