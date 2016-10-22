@@ -48,6 +48,7 @@ public class AdTestDataSaver {
 		Date creationDate6 = formatter.parse("01.12.2014");
 		Date creationDate7 = formatter.parse("16.11.2014");
 		Date creationDate8 = formatter.parse("27.11.2014");
+		Date creationDate9 = formatter.parse("15.10.2016");
 		
 		Date moveInDate1 = formatter.parse("15.12.2014");
 		Date moveInDate2 = formatter.parse("21.12.2014");
@@ -57,6 +58,7 @@ public class AdTestDataSaver {
 		Date moveInDate6 = formatter.parse("01.03.2015");
 		Date moveInDate7 = formatter.parse("15.03.2015");
 		Date moveInDate8 = formatter.parse("16.02.2015");
+		Date moveInDate9 = formatter.parse("18.10.2016");
 		
 		Date moveOutDate1 = formatter.parse("31.03.2015");
 		Date moveOutDate2 = formatter.parse("30.04.2015");
@@ -566,6 +568,45 @@ public class AdTestDataSaver {
 		pictures.add(createPicture(adLocarno, "/img/test/ad6_1.png"));
 		adLocarno.setPictures(pictures);
 		adDao.save(adLocarno);
+		
+		String HouseDescription13 = "This is a huge house with several kitchens, bathrooms and a large living room."
+				+ "Several 1000 square meters of space should be enough for even the most severe cases of claustrophobia"
+				+ "It's located at Güterstrasse 14, 3550 Langnau, only about 200 meters away from the train station."
+				+ "The only downside is that some of the floor is covered in ice, so it might get a bit frosty sometimes."
+				+ "As you can see in the third picture, it was just newly renovated in 2012.";
+		String preferences13 = "I will auction this off to literally anyone";
+
+		Ad adLangnau = new Ad();
+		adLangnau.setZipcode(3550);
+		adLangnau.setMoveInDate(moveInDate9);
+		adLangnau.setCreationDate(creationDate9);
+		adLangnau.setPrizePerMonth(100);
+		adLangnau.setSquareFootage(10000);
+		adLangnau.setStudio(false);
+		adLangnau.setPropertyType(4);
+		adLangnau.setSellType(3);
+		adLangnau.setSmokers(true);
+		adLangnau.setAnimals(true);
+		adLangnau.setRoomDescription(HouseDescription13);
+		adLangnau.setPreferences(preferences13);
+		adLangnau.setRoommates("Sometimes up to 6000");
+		adLangnau.setUser(bernerBaer);
+		adLangnau.setTitle("Huge mansion to sell by auction in Langnau");
+		adLangnau.setStreet("Güterstrasse 14");
+		adLangnau.setCity("Langnau");
+		adLangnau.setGarden(false);
+		adLangnau.setBalcony(true);
+		adLangnau.setCellar(true);
+		adLangnau.setFurnished(true);
+		adLangnau.setCable(true);
+		adLangnau.setGarage(true);
+		adLangnau.setInternet(true);
+		pictures = new ArrayList<>();
+		pictures.add(createPicture(adLangnau, "/img/test/ad9_1.png"));
+		pictures.add(createPicture(adLangnau, "/img/test/ad9_2.jpg"));
+		pictures.add(createPicture(adLangnau, "/img/test/ad9_3.jpg"));
+		adLangnau.setPictures(pictures);
+		adDao.save(adLangnau);
 
 	}
 
