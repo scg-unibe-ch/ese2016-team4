@@ -149,6 +149,7 @@ public class PlaceAdController {
 
 			List<String> fileNames = pictureUploader.getFileNames();
 			Ad ad = adService.saveFrom(placeAdForm, fileNames, user);
+
 			// triggers all alerts that match the placed ad
 			alertService.triggerAlerts(ad);
 

@@ -161,9 +161,8 @@
 			<td><h2>Type</h2></td>
 			<td>
 				<c:choose>
-					<c:when test="${shownAd.getOptions() == 1}">Room</c:when>
-					<c:when test="${shownAd.getOptions() == 2}">Studio</c:when>
-					<c:when test="${shownAd.getOptions() == 3}">Flat</c:when>
+					<c:when test="${shownAd.studio}">Studio</c:when>
+					<c:otherwise>Room</c:otherwise>
 				</c:choose>
 			</td>
 		</tr>
