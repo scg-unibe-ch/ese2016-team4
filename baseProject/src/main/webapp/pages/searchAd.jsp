@@ -105,27 +105,29 @@ function validateType(form)
 <hr />
 
 <form:form method="post" modelAttribute="searchForm" action="/results"
-	id="filterForm" autocomplete="off">
+	id="searchForm" autocomplete="off">
 
-	<div id="searchDiv">
- 		<h2>Filter results:</h2>
+	<fieldset>
 		<form:checkbox name="room" id="room" path="roomHelper" /><label>Room</label>
 		<form:checkbox name="studio" id="studio" path="studioHelper" /><label>Studio</label>
-		<form:checkbox name="flat" id="flat" path="flatHelper" /><label>Flat</label>		
+		<form:checkbox name="flat" id="flat" path="flatHelper" /><label>Flat</label>
+
+		
 		<form:checkbox style="display:none" name="neither" id="neither" path="noRoomNoStudioNoFlat" />
 		<form:checkbox style="display:none" name="all" id="all" path="allRoomAndStudioAndFlat" />
-		
 		<form:checkbox style="display:none" name="studioAndFlat" id="studioAndFlat" path="bothStudioAndFlat" />
 		<form:checkbox style="display:none" name="roomAndFlat" id="roomAndFlat" path="bothRoomAndFlat" />
 		<form:checkbox style="display:none" name="roomAndStudio" id="roomAndStudio" path="bothRoomAndStudio" />
-		
-		<form:checkbox style="display:none" name="filtered" id="filtered" path="filtered" />
-		<form:errors path="noRoomNoStudioNoFlat" cssClass="validationErrorText" /> <br />
 
+		<form:checkbox style="display:none" name="filtered" id="filtered" path="filtered" />
+		<form:errors path="noRoomNoStudioNoFlat" cssClass="validationErrorText" />
+		
+		<br />
+		
 		<label for="city">City / zip code:</label>
 		<form:input type="text" name="city" id="city" path="city"
 			placeholder="e.g. Bern" tabindex="3" />
-		<form:errors path="city" cssClass="validationErrorText" /><br />
+		<form:errors path="city" cssClass="validationErrorText" />
 		
 
 		<label for="radius">Within radius of (max.):</label>
@@ -143,7 +145,7 @@ function validateType(form)
 		
 		<hr class="slim">		
 		
-		<table style="width: 110%">
+		<table style="width: 80%">
 			<tr>
 				<td><label for="earliestMoveInDate">Earliest move-in date</label></td>
 				<td><label for="earliestMoveOutDate">Earliest move-out date (optional)</label></td>
@@ -195,7 +197,7 @@ function validateType(form)
 
 		<button type="submit" tabindex="7" onClick="validateType(this.form)">Search</button>
 		<button type="reset" tabindex="8">Cancel</button>
-	</div>
+	</fieldset>
 
 </form:form>
 
