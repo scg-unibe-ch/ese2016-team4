@@ -129,11 +129,11 @@ public class SearchForm {
 	// //////////////////
 
 	public boolean getFiltered() {
-		return true;
+		return filtered;
 	}
 
 	public void setFiltered(boolean filtered) {
-		this.filtered = true;
+		this.filtered = filtered;
 	}
 
 	private String earliestMoveInDate;
