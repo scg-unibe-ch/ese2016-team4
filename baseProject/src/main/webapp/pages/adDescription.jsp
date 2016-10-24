@@ -17,31 +17,25 @@
 <script src="/js/image_slider.js"></script>
 <script src="/js/adDescription.js"></script>
 
-  <script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
   $( function() {
-    $( "#RoomDescriptor" ).accordion({
+    $( "#accordion" ).accordion({
       collapsible: true,
       active: false,
-      event: "mouseover"
+      heightStyle: "content"
     });
-    $( "#Roommates" ).accordion({
-        collapsible: true,
-        active: false,
-        event: "mouseover"
-      });
-	$( "#Preferences" ).accordion({
-	      collapsible: true,
-	      active: false,
-	      event: "mouseover"
-	    });
-  });
+	});
 
-  </script>
+</script>
 
 <script>
 	var shownAdvertisementID = "${shownAd.id}";
 	var shownAdvertisement = "${shownAd}";
-	
+	var today = new Date();
+
 	function attachBookmarkClickHandler(){
 		$("#bookmarkButton").click(function() {
 			
@@ -189,6 +183,17 @@
 				</c:choose>
 			</td>
 		</tr>
+		
+		<tr>
+			<td><h2>Purpose</h2></td>
+			<td>
+				<c:choose>
+					<c:when test="${shownAd.getSellType() == 1}">Rent</c:when>
+					<c:when test="${shownAd.getSellType() == 2}">Buy</c:when>
+					<c:when test="${shownAd.getSellType() == 3}">Auction</c:when>
+				</c:choose>
+			</td>
+		</tr>
 
 		<tr>
 			<td><h2>Address</h2></td>
@@ -241,57 +246,100 @@
 <hr class="clearBoth" />
 
 <section>
-	<div id="descriptionTexts">
-		<div class="adDescDiv" id="RoomDescriptor">
-			<h1>Room Description</h1>
-			<p>${shownAd.roomDescription}</p>
-		</div>
-		<br />
-
-		<div class="adDescDiv" id="Roommates">
-			<h2>Roommates</h2>
-			<p>${shownAd.roommates}</p>
-			<c:forEach var="mate" items="${shownAd.registeredRoommates}">
-				<div class="roommate">
-				<table id="mate">
-					<tr>
-						<td>
-						<a href="/user?id=${mate.id}">
-						<c:choose>
-							<c:when test="${mate.picture.filePath != null}">
-								<img src="${mate.picture.filePath}">
-							</c:when>
-							<c:otherwise>
-								<img src="/img/avatar.png">
-							</c:otherwise>
-						</c:choose>
-						</a>
-						</td>
-						<td>${mate.firstName} ${mate.lastName}</td>
-						<td>${mate.username}</td>
-						<td>
-						<c:choose>
-							<c:when test="${mate.gender == 'MALE'}">
-								male
-							</c:when>
-							<c:otherwise>
-								female
-							</c:otherwise>
-						</c:choose></td>
-					</tr>
-				</table>
+	<div id="accordion">
+		<h2 class="panel">Room Description</h2>
+			<div>
+				<p>${shownAd.roomDescription}</p>
 			</div>
-			</c:forEach>
-		</div>
-		<br />
-
-		<div class="adDescDiv" id="Preferences">
-			<h2>Preferences</h2>
-			<p>${shownAd.preferences}</p>
-		</div>
-		<br />
-
 	
+		<h2 class="panel">Roommates</h2>
+			<div>
+				<p>${shownAd.roommates}</p>
+				<c:forEach var="mate" items="${shownAd.registeredRoommates}">
+					<div class="roommate">
+					<table id="mate">
+						<tr>
+							<td>
+							<a href="/user?id=${mate.id}">
+							<c:choose>
+								<c:when test="${mate.picture.filePath != null}">
+									<img src="${mate.picture.filePath}">
+								</c:when>
+								<c:otherwise>
+									<img src="/img/avatar.png">
+								</c:otherwise>
+							</c:choose>
+							</a>
+							</td>
+							<td>${mate.firstName} ${mate.lastName}</td>
+							<td>${mate.username}</td>
+							<td>
+							<c:choose>
+								<c:when test="${mate.gender == 'MALE'}">
+									male
+								</c:when>
+								<c:otherwise>
+									female
+								</c:otherwise>
+							</c:choose></td>
+						</tr>
+					</table>
+					</div>
+				</c:forEach>
+			</div>
+		
+		<h2 class="panel">Preferences</h2>
+			<div>
+				<p>${shownAd.preferences}</p>
+			</div>	
+		<c:choose>
+			<c:when test="${shownAd.getSellType() == 3}">
+					<h2>Bidding (Auction)</h2>
+						<div id="helperDiv">
+							<p>Datum: "Aktuelles Datum"</p>
+							<p>Verbleibende Auktionsdauer: "Tage:Stunden:Minuten:Sekunden"</p>
+							
+							<br />
+							
+							<table id="bidTable">
+								<tr>
+									<td>Aktueller Preis:</td>
+									<td colspan="2">"Aktueller Preis in CHF"</td>
+								</tr>
+								<tr>
+									<td>Ihr Gebot:</td>
+									<td colspan="2">"Gebot in CHF"</td>
+								</tr>
+
+							</table>
+							
+							<br />
+							
+							<table id="bidTable">
+								<thead>
+									<tr>
+										<th>Benutzername</th>
+										<th>Gebot</th>
+										<th>Datum</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>User1</td>
+										<td>Gebot User 1</td>
+										<td>Datum des Gebots</td>
+									</tr>
+									<tr>
+										<td>User2</td>
+										<td>Gebot User 2</td>
+										<td>Datum des Gebots</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+			</c:when>
+		</c:choose>
+		
 	</div>
 
 	<table id="checkBoxTable" class="adDescDiv">
@@ -390,8 +438,7 @@
 
 <div class="clearBoth"></div>
 <br>
-
-<div id="visitList" class="adDescDiv">
+	<div id="visitList" class="adDescDiv">
 			<h2>Visiting times</h2>
 			<table>
 				<c:forEach items="${visits }" var="visit">
