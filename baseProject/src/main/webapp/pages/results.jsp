@@ -132,6 +132,12 @@ function sort_div_attribute() {
 									<c:when test="${ad.getPropertyType() == 3}">Flat</c:when>
 									<c:when test="${ad.getPropertyType() == 4}">House</c:when>
 								</c:choose></i>
+							<br /><br />
+							<i><c:choose>
+									<c:when test="${ad.getSellType() == 1}">Rent</c:when>
+									<c:when test="${ad.getSellType() == 2}">Buy</c:when>
+									<c:when test="${ad.getSellType() == 3}">Auction</c:when>
+								</c:choose></i>
 						</p>
 					</div>
 					<div class="resultRight">

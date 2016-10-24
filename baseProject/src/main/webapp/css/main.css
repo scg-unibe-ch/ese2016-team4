@@ -562,7 +562,7 @@ footer nav ul li {
 }
 
 #filterDiv {
-	width: 35%;
+	width: 30%;
 	margin-top: 30px;
 	float: right;
 	padding: 10px;
@@ -574,13 +574,13 @@ footer nav ul li {
 }
 
 #resultsDiv {
-	width: 60%;
+	width: 65%;
 	margin-top: 10px;
 	float: left;
 }
 
 #resultsDiv div {
-	height: 100px;
+	height: 120px;
 	padding: 10px;
 	margin-top: 20px;
 	border-style: solid;
@@ -594,7 +594,7 @@ footer nav ul li {
 }
 
 #resultsDiv div img {
-	height: 100px;
+	height: 120px;
 	float: left;
 	margin-right: 50px;
 }
@@ -620,6 +620,43 @@ footer nav ul li {
 /* -------------------------------------------------------------------- */
 /* adDescription.jsp */
 
+#accordion {
+	width: 50%;
+	float: left;
+	border-color: #2dc16d;
+	border-radius: 5px;
+	border-width: 3px;
+	border-style: solid;
+	padding: 15px;
+	
+}
+
+
+
+#bidTable {
+	border-collapse: collapse;
+	border: 1px solid black;
+	width: 100%;
+	border-radius: 5px;
+}
+
+#bidTable th {
+	background-color: #2dc16d;
+	border: 1px solid black;
+	color: white;
+	padding: 5px;
+}
+
+#bidTable td {
+	border: 1px solid black;
+	padding: 5px;
+}
+
+#bidTable tr {
+	padding: 5px;
+}
+
+
 #adDescTable {
 	width: 40%;
 	float: left;
@@ -635,6 +672,7 @@ footer nav ul li {
 
 #checkBoxTable {
 	width: 27%;
+	float: right;
 }
 
 #checkBoxTable h2 {
@@ -780,6 +818,9 @@ footer nav ul li {
 	border-color: #bbbbbb;
 	cursor: pointer;
 }
+
+
+
 
 /* -------------------------------------------------------------------- */
 /* messages.jsp */
