@@ -376,8 +376,16 @@ function auctionTimer() {
 							<p id="auctionend"></p>
 							<p id="timeTilEnd"></p>
 							
+							<form:form method="post" modelAttribute="bidForm" id="bidForm" autocomplete="off">
+								<label for="bid">Your bid:</label>
+								
+								<%-- <form:input id="bidInput" type="number" 
+								path="bid" placeholder="e.g. 105" step="1" />  --%>
+								
+								<button type="submit">Place bid</button>
+							</form:form>
+								
 							<br />
-							
 							<table id="bidTable">
 								<tr>
 									<td>Aktueller Preis:</td>
