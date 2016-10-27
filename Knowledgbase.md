@@ -15,3 +15,4 @@ Try to stay near this [model](http://nvie.com/posts/a-successful-git-branching-m
 |```git revert HEAD~3..HEAD```| reverts back the last 3 commits| Beahves as a normal commit and should be prefered over ```revert``` to go back on **public** repos! *If there were merges on the last commits, set the ```-m``` option!*|
 |```git revert f9c142..7431e2```|revert all commits between those commit-id's (oldId..newId)||
 |```git revert m 1 f9c142```|revert over a branch, where ```1``` means that you revert back to the branch merged to (and ```2``` would mean, you're going back the path of the branch merged from)||
+|```for remote in `git branch -r `; do git branch --track $remote; done```|track all remote branches|bash-script|
