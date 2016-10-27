@@ -286,7 +286,24 @@ function myTimer() {
 				</c:choose>
 			</td>
 		</tr>
-
+		<c:choose>
+			<c:when test="${shownAd.getSellType() == 3}">
+				<tr>
+					<td><h2>Auction start</h2></td>
+					<td>  </td>
+				</tr>
+			</c:when>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${shownAd.getSellType() == 3}">
+				<tr>
+					<td><h2>Auction end</h2></td>
+					<td>  </td>
+				</tr>
+			</c:when>
+		</c:choose>
+					
 		<tr>
 			<td><h2>Address</h2></td>
 			<td>
