@@ -1,5 +1,6 @@
 package ch.unibe.ese.team1.model;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -389,5 +390,17 @@ public class Ad {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	public Calendar getAuctionEndTime() {
+		// TODO Auto-generated method stub
+		Calendar now = Calendar.getInstance();
+		now.setTimeInMillis(now.getTimeInMillis()+9999);
+		return now;
+	}
+
+	public boolean isAuctionAvailable() {
+		Calendar now = Calendar.getInstance();
+		return now.compareTo(getAuctionEndTime())<0;
 	}
 }
