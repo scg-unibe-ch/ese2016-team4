@@ -216,6 +216,40 @@ function auctionTimer() {
 
 <hr />
 
+<c:choose>
+	<c:when test="${shownAd.getSellType() == 3}">
+
+		<form:form method="post" modelAttribute="bidForm" id="bidForm" autocomplete="off">
+			<table style="width: 80%; vertical-align: top;">
+			<tr>
+			<td> 
+				<img src="/img/test/auct_live.gif">
+				<p class="timeTilEnd" id="timeTilEnd"></p> 
+			</td>
+			<td valign="top">
+				<h2>Current Price: ${shownAd.prizePerMonth}&#32; CHF</h2>
+			</td>
+			</tr>
+			<tr>
+			<td>
+				
+			</td>
+
+			<td valign="top">
+			<label for="bid">Your bid:</label>
+			<%--<form:input id="bidInput" type="number" path="bid" placeholder="e.g. 105" step="1" /> --%>
+			<input type="number" id="dummy box" />	
+			<button type="submit">Place bid</button>
+			</td>
+			</tr>
+			</table>
+		</form:form>
+
+	<hr />
+	</c:when>
+</c:choose>
+		
+		
 <section>
 	<c:choose>
 		<c:when test="${loggedIn}">
@@ -374,7 +408,7 @@ function auctionTimer() {
 							<p id="datetoday"></p>
 							<p id="auctionstart"></p>
 							<p id="auctionend"></p>
-							<p id="timeTilEnd"></p>
+							<p class="timeTilEnd" id="timeTilEnd2"></p>
 							
 							<form:form method="post" modelAttribute="bidForm" id="bidForm" autocomplete="off">
 								<label for="bid">Your bid:</label>
