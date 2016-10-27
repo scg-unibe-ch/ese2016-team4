@@ -6,15 +6,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import static org.junit.Assert.assertTrue;
 
-import java.sql.Date;
+import java.util.Calendar;
 
 /** Describes an advertisement that users can place and search for. */
 @Entity
 public class BidHistory {
+	
+	public BidHistory(){
+		
+	}
+	public BidHistory(long adId, long userId, long bid){
+		this.adId = adId;
+		this.userId= userId;
+		this.bid = bid;
+		this.bidTime = Calendar.getInstance();
+	}
 
 	@Id
 	@GeneratedValue
-	private long id;
+	private long id;	
 
 	@Column(nullable = false)
 	private long userId;
@@ -26,8 +36,24 @@ public class BidHistory {
 	private long bid;
 	
 	@Column(nullable = false)
-	private Date bidTime;
+	private Calendar bidTime;
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Calendar getBidTime() {
+		return bidTime;
+	}
+
+	public void setBidTime(Calendar bidTime) {
+		this.bidTime = bidTime;
+	}
+	
 	public long getUserId() {
 		return userId;
 	}
