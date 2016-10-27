@@ -31,6 +31,7 @@
 
 </script>
 
+
 <script>
 	var shownAdvertisementID = "${shownAd.id}";
 	var shownAdvertisement = "${shownAd}";
@@ -131,6 +132,63 @@
 </script>
 
 
+<!-- Handles the auction date infos and the remaining time -->
+
+<script>
+
+function getFormattedDate(date){
+	var dd = date.getDate();
+	var mm = date.getMonth()+1; //January is 0!
+	var yyyy = date.getFullYear();
+	
+	if(dd<10){
+	    dd='0'+dd
+	} 
+	if(mm<10){
+    	mm='0'+mm
+	} 
+	
+	return d = dd+'.'+mm+'.'+yyyy;
+}
+
+// get start and end date in ms
+var auctionStartMs = ${shownAd.getCreationMs()};
+var auctionEndMs = ${shownAd.getMoveOutMs()};
+
+// create real dates
+var auctionStart = new Date(auctionStartMs);
+var auctionEnd = new Date(auctionEndMs);
+var dateNow = new Date();
+
+// load the info into the paragraphs, while formatting the date
+window.onload = function() {
+	document.getElementById('datetoday').innerHTML = "today: " + getFormattedDate(dateNow).toString();
+	document.getElementById('auctionstart').innerHTML = "auction start: " + getFormattedDate(auctionStart).toString();
+	document.getElementById('auctionend').innerHTML = "auction end: " + getFormattedDate(auctionEnd).toString();
+}
+
+
+// set timer to refresh every second
+setInterval(auctionTimer, 1000);
+
+// calculate the remaining of the auction. This gets refreshed every second
+function auctionTimer() {
+	var dateNow = new Date();
+	
+	var remaining = auctionEnd - dateNow;
+	var remaining_days = Math.floor(remaining / (1000 * 3600 * 24));
+	var remaining_hours = Math.floor((remaining/(1000*3600))%24);
+	var remaining_minutes = Math.floor((remaining/(1000*60))%60);
+	var remaining_seconds = Math.floor((remaining/(1000))%60);
+	
+	document.getElementById('timeTilEnd').innerHTML = "remaining time: " 
+	+ remaining_days + "d " + remaining_hours + "h " + remaining_minutes + "m " + remaining_seconds + "s";
+}
+
+
+</script>
+
+
 <!-- format the dates -->
 <fmt:formatDate value="${shownAd.moveInDate}" var="formattedMoveInDate"
 	type="date" pattern="dd.MM.yyyy" />
@@ -194,7 +252,24 @@
 				</c:choose>
 			</td>
 		</tr>
-
+		<c:choose>
+			<c:when test="${shownAd.getSellType() == 3}">
+				<tr>
+					<td><h2>Auction start</h2></td>
+					<td>  </td>
+				</tr>
+			</c:when>
+		</c:choose>
+		
+		<c:choose>
+			<c:when test="${shownAd.getSellType() == 3}">
+				<tr>
+					<td><h2>Auction end</h2></td>
+					<td>  </td>
+				</tr>
+			</c:when>
+		</c:choose>
+					
 		<tr>
 			<td><h2>Address</h2></td>
 			<td>
@@ -296,8 +371,10 @@
 			<c:when test="${shownAd.getSellType() == 3}">
 					<h2>Bidding (Auction)</h2>
 						<div id="helperDiv">
-							<p>Datum: "Aktuelles Datum"</p>
-							<p>Verbleibende Auktionsdauer: "Tage:Stunden:Minuten:Sekunden"</p>
+							<p id="datetoday"></p>
+							<p id="auctionstart"></p>
+							<p id="auctionend"></p>
+							<p id="timeTilEnd"></p>
 							
 							<br />
 							
@@ -535,6 +612,7 @@
 	<button type="button" id="confirmationDialogCancel">Cancel</button>
 	</form>
 </div>
+
 
 
 <c:import url="template/footer.jsp" />

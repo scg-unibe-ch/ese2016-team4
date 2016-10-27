@@ -144,6 +144,14 @@ public class Ad {
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
+	
+	public long getCreationMs(){
+		return creationDate.getTime();
+	}
+	
+	public long getMoveOutMs(){
+		return moveOutDate.getTime();
+	}
 
 	public boolean getStudio() {
 		return studio;

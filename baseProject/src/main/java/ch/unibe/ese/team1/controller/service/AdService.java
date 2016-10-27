@@ -253,6 +253,7 @@ public class AdService {
 		// create a list of the results and of their locations. Adds together the lists of the different properties
 		List<Ad> locatedResults = new ArrayList<>();
 		
+		//loop through every propertytype/selltype combination, add the matching ads to the list
 		for (int property : searchForm.getPropertyType()){
 			for (int sell : searchForm.getSellType()){
 				for (Ad ad : adDao.findByPropertyTypeAndSellTypeAndPrizePerMonthLessThan(property, sell, searchForm.getPrize() + 1)){
