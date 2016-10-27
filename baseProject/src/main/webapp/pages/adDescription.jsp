@@ -131,12 +131,15 @@
 		
 </script>
 
+
+<!-- Handles the auction date infos and the remaining time -->
+
 <script>
 
-function getFormattedDate(wat){
-	var dd = wat.getDate();
-	var mm = wat.getMonth()+1; //January is 0!
-	var yyyy = wat.getFullYear();
+function getFormattedDate(date){
+	var dd = date.getDate();
+	var mm = date.getMonth()+1; //January is 0!
+	var yyyy = date.getFullYear();
 	
 	if(dd<10){
 	    dd='0'+dd
@@ -148,73 +151,36 @@ function getFormattedDate(wat){
 	return d = dd+'.'+mm+'.'+yyyy;
 }
 
+// get start and end date in ms
+var auctionStartMs = ${shownAd.getCreationMs()};
+var auctionEndMs = ${shownAd.getMoveOutMs()};
 
-/*window.onload = function() {
-	var auctionstart = ${shownAd.getCreationMs()};
-	var auctionend = ${shownAd.getMoveOutMs()};
+// create real dates
+var auctionStart = new Date(auctionStartMs);
+var auctionEnd = new Date(auctionEndMs);
+var dateNow = new Date();
+
+// load the info into the paragraphs, while formatting the date
+window.onload = function() {
+	document.getElementById('datetoday').innerHTML = "today: " + getFormattedDate(dateNow).toString();
+	document.getElementById('auctionstart').innerHTML = "auction start: " + getFormattedDate(auctionStart).toString();
+	document.getElementById('auctionend').innerHTML = "auction end: " + getFormattedDate(auctionEnd).toString();
+}
+
+
+// set timer to refresh every second
+setInterval(auctionTimer, 1000);
+
+// calculate the remaining of the auction. This gets refreshed every second
+function auctionTimer() {
+	var dateNow = new Date();
 	
-	
-	var aust = new Date(auctionstart);
-	
-	var now = new Date();
-	
-	var remaining = auctionend - now;
+	var remaining = auctionEnd - dateNow;
 	var remaining_days = Math.floor(remaining / (1000 * 3600 * 24));
-	var remaining_hours = Math.floor((remaining - (remaining_days * (1000 * 3600 * 24))) / (1000 * 3600));
+	var remaining_hours = Math.floor((remaining/(1000*3600))%24);
 	var remaining_minutes = Math.floor((remaining/(1000*60))%60);
 	var remaining_seconds = Math.floor((remaining/(1000))%60);
 	
-	var dd = today.getDate();
-	var mm = today.getMonth()+1; //January is 0!
-	var yyyy = today.getFullYear();
-	
-	if(dd<10){
-	    dd='0'+dd
-	} 
-	if(mm<10){
-    	mm='0'+mm
-	} 
-	
-	var d = dd+'.'+mm+'.'+yyyy;
-	document.getElementById('datetoday').innerHTML = "today: " + d.toString();
-	document.getElementById('auctionstart').innerHTML = "auction start: " + getFormattedDate(aust).toString();
-	document.getElementById('timeTilEnd').innerHTML = "remaining time: " 
-	+ remaining_days + "d " + remaining_hours + "h " + remaining_minutes + "m " + remaining_seconds + "s";
-}*/
-
-setInterval(myTimer, 1000);
-
-function myTimer() {
-	var auctionstart = ${shownAd.getCreationMs()};
-	var auctionend = ${shownAd.getMoveOutMs()};
-	
-	
-	var aust = new Date(auctionstart);
-	var auen = new Date(auctionend);
-	
-	var now = new Date();
-	
-	var remaining = auctionend - now;
-	var remaining_days = Math.floor(remaining / (1000 * 3600 * 24));
-	var remaining_hours = Math.floor((remaining - (remaining_days * (1000 * 3600 * 24))) / (1000 * 3600));
-	var remaining_minutes = Math.floor((remaining/(1000*60))%60);
-	var remaining_seconds = Math.floor((remaining/(1000))%60);
-	
-	var dd = today.getDate();
-	var mm = today.getMonth()+1; //January is 0!
-	var yyyy = today.getFullYear();
-	
-	if(dd<10){
-	    dd='0'+dd
-	} 
-	if(mm<10){
-    	mm='0'+mm
-	} 
-	
-	var d = dd+'.'+mm+'.'+yyyy;
-	document.getElementById('datetoday').innerHTML = "today: " + d.toString();
-	document.getElementById('auctionstart').innerHTML = "auction start: " + getFormattedDate(aust).toString();
-	document.getElementById('auctionend').innerHTML = "auction end: " + getFormattedDate(auen).toString();
 	document.getElementById('timeTilEnd').innerHTML = "remaining time: " 
 	+ remaining_days + "d " + remaining_hours + "h " + remaining_minutes + "m " + remaining_seconds + "s";
 }
