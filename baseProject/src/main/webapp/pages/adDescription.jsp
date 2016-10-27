@@ -14,11 +14,12 @@
 
 <pre><a href="/">Home</a>   &gt;   <a href="/profile/myRooms">My Rooms</a>   &gt;   Ad Description</pre>
 
-<script src="/js/image_slider.js"></script>
-<script src="/js/adDescription.js"></script>
-
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script src="/js/image_slider.js"></script>
+<script src="/js/adDescription.js"></script>
+<script src="/js/flipclock.js"></script>
 
 <script>
   $( function() {
@@ -30,7 +31,6 @@
 	});
 
 </script>
-
 
 <script>
 	var shownAdvertisementID = "${shownAd.id}";
@@ -185,6 +185,34 @@ function auctionTimer() {
 	+ remaining_days + "d " + remaining_hours + "h " + remaining_minutes + "m " + remaining_seconds + "s";
 }
 
+//the mighty timer from http://www.dwuser.com/education/content/easy-javascript-jquery-countdown-clock-builder/
+$(function(){
+	FlipClock.Lang.Custom = { days:'Days', hours:'Hours', minutes:'Minutes', seconds:'Seconds' };
+	var opts = {
+		clockFace: 'DailyCounter',
+		countdown: true,
+		language: 'Custom'
+	};  
+	opts.classes = {
+			active: 'flip-clock-active',
+			before: 'flip-clock-before',
+			divider: 'flip-clock-divider',
+			dot: 'flip-clock-dot',
+			label: 'flip-clock-label',
+			flip: 'flip',
+			play: 'play',
+			wrapper: 'flip-clock-small-wrapper'
+		};  
+	
+	//there is a 2 second delay before the timer starts ticking, which gets adjusted here
+	var countdown = ((auctionEndMs-2000)/1000) - ((new Date().getTime())/1000);
+	countdown = Math.max(0, countdown);
+	$('.clock-builder-output').FlipClock(countdown, opts);
+});
+</script>
+
+<%-- The mighty timer script, stolen from http://www.dwuser.com/education/content/easy-javascript-jquery-countdown-clock-builder/ --%>
+<script type="text/javascript">
 
 </script>
 
@@ -224,7 +252,7 @@ function auctionTimer() {
 			<tr>
 			<td> 
 				<img src="/img/test/auct_live.gif">
-				<p class="timeTilEnd" id="timeTilEnd"></p> 
+				<%-- <p class="timeTilEnd" id="timeTilEnd"></p> --%>
 			</td>
 			<td valign="top">
 				<h2>Current Price: ${shownAd.prizePerMonth}&#32; CHF</h2>
@@ -232,7 +260,7 @@ function auctionTimer() {
 			</tr>
 			<tr>
 			<td>
-				
+				<div class="clock-builder-output"></div>
 			</td>
 
 			<td valign="top">
@@ -244,11 +272,14 @@ function auctionTimer() {
 			</tr>
 			</table>
 		</form:form>
+		
+		
 
-	<hr />
+	
 	</c:when>
 </c:choose>
-		
+
+<hr />
 		
 <section>
 	<c:choose>
@@ -408,7 +439,7 @@ function auctionTimer() {
 							<p id="datetoday"></p>
 							<p id="auctionstart"></p>
 							<p id="auctionend"></p>
-							<p class="timeTilEnd" id="timeTilEnd2"></p>
+							<p class="timeTilEnd" id="timeTilEnd"></p>
 							
 							<form:form method="post" modelAttribute="bidForm" id="bidForm" autocomplete="off">
 								<label for="bid">Your bid:</label>
