@@ -6,5 +6,5 @@ import ch.unibe.ese.team1.model.BidHistory;
 
 public interface BidHistoryDao extends CrudRepository<BidHistory, Long> {
 
-	public Iterable<BidHistory> findByadIdOrderBybidTime(int adId);
+	//public Iterable<BidHistory> findByadIdOrderBybidTime(int adId);
 }
