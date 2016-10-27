@@ -273,13 +273,10 @@ $(function(){
 			</table>
 		</form:form>
 		
-		
-
+		<hr />
 	
 	</c:when>
 </c:choose>
-
-<hr />
 		
 <section>
 	<c:choose>
