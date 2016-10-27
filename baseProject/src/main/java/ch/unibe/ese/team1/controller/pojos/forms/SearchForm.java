@@ -15,16 +15,18 @@ import ch.unibe.ese.team1.model.Ad;
 /** This form is used for searching for an ad. */
 public class SearchForm {
 
-	
-	final int ROOM = 1, STUDIO = 2, FLAT = 3, HOUSE = 4;
-	final int RENT = 1, BUY = 2, AUCTION = 3;
+	// variables as used in the database
+	private static final int ROOM = 1, STUDIO = 2, FLAT = 3, HOUSE = 4;
+	private static final int RENT = 1, BUY = 2, AUCTION = 3;
 	
 	
 	private boolean buy, rent, auction;
 	private boolean flat, house, studio, room;
+	// list of all the propertytypes/selltypes for the database request
 	List<Integer> propertyType = new ArrayList<>();
 	List<Integer> sellType = new ArrayList<>();
 	
+	// lists get deleted after every search, to not get duplicated values
 	public void deleteLists(){
 		propertyType = new ArrayList<>();
 		sellType = new ArrayList<>();
