@@ -41,18 +41,17 @@ public class BidHistoryService {
 			user.getId();
 			Queue<BidHistory> bidHist = new LinkedList<BidHistory>();
 			bidHist.add(newBid);
-//			Iterator<BidHistory> bidHistIter = bidHistoryDao.findByAdIdOrderByBid(newBid.getAdId()).iterator();
-//			while(bidHistIter.hasNext()){
-//				bidHist.add(bidHistIter.next());
-//			}
+			Iterator<BidHistory> bidHistIter = bidHistoryDao.findByAdIdOrderByBidDesc(newBid.getAdId()).iterator();
+			while(bidHistIter.hasNext()){
+				bidHist.add(bidHistIter.next());
+			}
 			bidHistoryDao.save(bidHist);
 		}
 	}
 	
 	public boolean isHighestBid(BidHistory bidHistory){
-//		BidHistory bidH = bidHistoryDao.findTop1ByadIdOrderByBid( bidHistory.getAdId() );
-//		return bidHistory.getBid()>bidH.getBid();
-		return true;
+		BidHistory bidH = bidHistoryDao.findTop1ByadIdOrderByBidDesc( bidHistory.getAdId() );
+		return bidHistory.getBid()>bidH.getBid();
 	}
 	
 	
