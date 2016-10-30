@@ -5,20 +5,23 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 
 <!-- check if user is logged in -->
 <security:authorize var="loggedIn" url="/profile" />
 
 <c:import url="template/header.jsp" />
 
-<pre><a href="/">Home</a>   &gt;   <a href="/profile/myRooms">My Rooms</a>   &gt;   Ad Description</pre>
-
-<script src="/js/image_slider.js"></script>
-<script src="/js/adDescription.js"></script>
+<pre>
+	<a href="/">Home</a>   &gt;   <a href="/profile/myRooms">My Rooms</a>   &gt;   Ad Description</pre>
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script src="/js/image_slider.js"></script>
+<script src="/js/adDescription.js"></script>
+<script src="/js/flipclock.js"></script>
 
 <script>
   $( function() {
@@ -30,7 +33,6 @@
 	});
 
 </script>
-
 
 <script>
 	var shownAdvertisementID = "${shownAd.id}";
@@ -137,6 +139,8 @@
 <script>
 
 function getFormattedDate(date){
+	var min = date.getMinutes();
+	var hh = date.getHours();
 	var dd = date.getDate();
 	var mm = date.getMonth()+1; //January is 0!
 	var yyyy = date.getFullYear();
@@ -147,8 +151,14 @@ function getFormattedDate(date){
 	if(mm<10){
     	mm='0'+mm
 	} 
+	if(hh<10){
+	    hh='0'+hh
+	} 
+	if(min<10){
+    	min='0'+min
+	} 
 	
-	return d = dd+'.'+mm+'.'+yyyy;
+	return d = dd+'.'+mm+'.'+yyyy+' '+hh+':'+min;
 }
 
 // get start and end date in ms
@@ -185,6 +195,34 @@ function auctionTimer() {
 	+ remaining_days + "d " + remaining_hours + "h " + remaining_minutes + "m " + remaining_seconds + "s";
 }
 
+//the mighty timer from http://www.dwuser.com/education/content/easy-javascript-jquery-countdown-clock-builder/
+$(function(){
+	FlipClock.Lang.Custom = { days:'Days', hours:'Hours', minutes:'Minutes', seconds:'Seconds' };
+	var opts = {
+		clockFace: 'DailyCounter',
+		countdown: true,
+		language: 'Custom'
+	};  
+	opts.classes = {
+			active: 'flip-clock-active',
+			before: 'flip-clock-before',
+			divider: 'flip-clock-divider',
+			dot: 'flip-clock-dot',
+			label: 'flip-clock-label',
+			flip: 'flip',
+			play: 'play',
+			wrapper: 'flip-clock-small-wrapper'
+		};  
+	
+	//there is a 2 second delay before the timer starts ticking, which gets adjusted here
+	var countdown = ((auctionEndMs-2000)/1000) - ((new Date().getTime())/1000);
+	countdown = Math.max(0, countdown);
+	$('.clock-builder-output').FlipClock(countdown, opts);
+});
+</script>
+
+<%-- The mighty timer script, stolen from http://www.dwuser.com/education/content/easy-javascript-jquery-countdown-clock-builder/ --%>
+<script type="text/javascript">
 
 </script>
 
@@ -192,8 +230,8 @@ function auctionTimer() {
 <!-- format the dates -->
 <fmt:formatDate value="${shownAd.moveInDate}" var="formattedMoveInDate"
 	type="date" pattern="dd.MM.yyyy" />
-<fmt:formatDate value="${shownAd.creationDate}" var="formattedCreationDate"
-	type="date" pattern="dd.MM.yyyy" />
+<fmt:formatDate value="${shownAd.creationDate}"
+	var="formattedCreationDate" type="date" pattern="dd.MM.yyyy" />
 <c:choose>
 	<c:when test="${empty shownAd.moveOutDate }">
 		<c:set var="formattedMoveOutDate" value="unlimited" />
@@ -216,6 +254,48 @@ function auctionTimer() {
 
 <hr />
 
+<c:choose>
+	<c:when test="${shownAd.getSellType() == 3}">
+
+		<form:form method="post" modelAttribute="bidForm" id="bidForm"
+			autocomplete="off">
+			<table style="width: 100%; vertical-align: center;">
+				<tr>
+					<td style="text-indent:50px;"><img src="/img/test/auct_live.gif"> <%-- <p class="timeTilEnd" id="timeTilEnd"></p> --%>
+					</td>
+					<td valign="bottom">
+						<h2>Current Price: ${shownAd.prizePerMonth}&#32; CHF</h2>
+					</td>
+					<td>
+						<p id="auctionstart"></p>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="clock-builder-output"></div>
+					</td>
+
+					<td><form:form method="post"
+							modelAttribute="bidForm" id="bidForm" autocomplete="off">
+							<label for="bid">Your bid:</label>
+
+							<%-- <form:input id="bidInput" type="number" 
+								path="bid" placeholder="e.g. 150" step="1" />  --%>
+							<input type="number" id="dummy box" />
+							<button type="submit">Place bid</button>
+						</form:form></td>
+					<td>
+						<p id="auctionend"></p>
+					</td>
+				</tr>
+			</table>
+		</form:form>
+
+		<hr />
+
+	</c:when>
+</c:choose>
+
 <section>
 	<c:choose>
 		<c:when test="${loggedIn}">
@@ -226,56 +306,50 @@ function auctionTimer() {
 			</c:if>
 		</c:when>
 	</c:choose>
-	<br>
-	<br>
+	<br> <br>
 
 	<table id="adDescTable" class="adDescDiv">
 		<tr>
 			<td><h2>Type</h2></td>
-			<td>
-				<c:choose>
+			<td><c:choose>
 					<c:when test="${shownAd.getPropertyType() == 1}">Room</c:when>
 					<c:when test="${shownAd.getPropertyType() == 2}">Studio</c:when>
 					<c:when test="${shownAd.getPropertyType() == 3}">Flat</c:when>
 					<c:when test="${shownAd.getPropertyType() == 4}">House</c:when>
-				</c:choose>
-			</td>
+				</c:choose></td>
 		</tr>
-		
+
 		<tr>
 			<td><h2>Purpose</h2></td>
-			<td>
-				<c:choose>
+			<td><c:choose>
 					<c:when test="${shownAd.getSellType() == 1}">Rent</c:when>
 					<c:when test="${shownAd.getSellType() == 2}">Buy</c:when>
 					<c:when test="${shownAd.getSellType() == 3}">Auction</c:when>
-				</c:choose>
-			</td>
+				</c:choose></td>
 		</tr>
-		<c:choose>
+		<%--<c:choose>
 			<c:when test="${shownAd.getSellType() == 3}">
 				<tr>
 					<td><h2>Auction start</h2></td>
-					<td>  </td>
+					<td></td>
 				</tr>
 			</c:when>
 		</c:choose>
-		
+
 		<c:choose>
 			<c:when test="${shownAd.getSellType() == 3}">
 				<tr>
 					<td><h2>Auction end</h2></td>
-					<td>  </td>
+					<td></td>
 				</tr>
 			</c:when>
-		</c:choose>
-					
+		</c:choose>--%>
+
 		<tr>
 			<td><h2>Address</h2></td>
-			<td>
-				<a class="link" href="http://maps.google.com/?q=${shownAd.street}, ${shownAd.zipcode}, ${shownAd.city}">${shownAd.street},
-						${shownAd.zipcode} ${shownAd.city}</a>
-			</td>
+			<td><a class="link"
+				href="http://maps.google.com/?q=${shownAd.street}, ${shownAd.zipcode}, ${shownAd.city}">${shownAd.street},
+					${shownAd.zipcode} ${shownAd.city}</a></td>
 		</tr>
 
 		<tr>
@@ -323,199 +397,202 @@ function auctionTimer() {
 <section>
 	<div id="accordion">
 		<h2 class="panel">Room Description</h2>
-			<div>
-				<p>${shownAd.roomDescription}</p>
-			</div>
-	
+		<div>
+			<p>${shownAd.roomDescription}</p>
+		</div>
+
 		<h2 class="panel">Roommates</h2>
-			<div>
-				<p>${shownAd.roommates}</p>
-				<c:forEach var="mate" items="${shownAd.registeredRoommates}">
-					<div class="roommate">
+		<div>
+			<p>${shownAd.roommates}</p>
+			<c:forEach var="mate" items="${shownAd.registeredRoommates}">
+				<div class="roommate">
 					<table id="mate">
 						<tr>
-							<td>
-							<a href="/user?id=${mate.id}">
-							<c:choose>
-								<c:when test="${mate.picture.filePath != null}">
-									<img src="${mate.picture.filePath}">
-								</c:when>
-								<c:otherwise>
-									<img src="/img/avatar.png">
-								</c:otherwise>
-							</c:choose>
-							</a>
-							</td>
-							<td>${mate.firstName} ${mate.lastName}</td>
+							<td><a href="/user?id=${mate.id}"> <c:choose>
+										<c:when test="${mate.picture.filePath != null}">
+											<img src="${mate.picture.filePath}">
+										</c:when>
+										<c:otherwise>
+											<img src="/img/avatar.png">
+										</c:otherwise>
+									</c:choose>
+							</a></td>
+							<td>${mate.firstName}${mate.lastName}</td>
 							<td>${mate.username}</td>
-							<td>
-							<c:choose>
-								<c:when test="${mate.gender == 'MALE'}">
+							<td><c:choose>
+									<c:when test="${mate.gender == 'MALE'}">
 									male
 								</c:when>
-								<c:otherwise>
+									<c:otherwise>
 									female
 								</c:otherwise>
-							</c:choose></td>
+								</c:choose></td>
 						</tr>
 					</table>
-					</div>
-				</c:forEach>
-			</div>
-		
+				</div>
+			</c:forEach>
+		</div>
+
 		<h2 class="panel">Preferences</h2>
-			<div>
-				<p>${shownAd.preferences}</p>
-			</div>	
+		<div>
+			<p>${shownAd.preferences}</p>
+		</div>
 		<c:choose>
 			<c:when test="${shownAd.getSellType() == 3}">
-					<h2>Bidding (Auction)</h2>
-						<div id="helperDiv">
-							<p id="datetoday"></p>
-							<p id="auctionstart"></p>
-							<p id="auctionend"></p>
-							<p id="timeTilEnd"></p>
-							
-							<form:form method="post" modelAttribute="bidForm" id="bidForm" autocomplete="off">
-								<label for="bid">Your bid:</label>
-								
-								<%-- <form:input id="bidInput" type="number" 
-								path="bid" placeholder="e.g. 105" step="1" />  --%>
-								
-								<button type="submit">Place bid</button>
-							</form:form>
-								
-							<br />
-							<table id="bidTable">
-								<tr>
-									<td>Aktueller Preis:</td>
-									<td colspan="2">"Aktueller Preis in CHF"</td>
-								</tr>
-								<tr>
-									<td>Ihr Gebot:</td>
-									<td colspan="2">"Gebot in CHF"</td>
-								</tr>
+				<h2>Bidding (Auction)</h2>
+				<div id="helperDiv">
+					<p id="datetoday"></p>
+					<p class="timeTilEnd" id="timeTilEnd"></p>
 
-							</table>
-							
-							<br />
-							
-							<table id="bidTable">
-								<thead>
-									<tr>
-										<th>Benutzername</th>
-										<th>Gebot</th>
-										<th>Datum</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>User1</td>
-										<td>Gebot User 1</td>
-										<td>Datum des Gebots</td>
-									</tr>
-									<tr>
-										<td>User2</td>
-										<td>Gebot User 2</td>
-										<td>Datum des Gebots</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+					<br />
+					<table id="bidTable">
+						<tr>
+							<td>Aktueller Preis:</td>
+							<td colspan="2">"Aktueller Preis in CHF"</td>
+						</tr>
+						<tr>
+							<td>Ihr Gebot:</td>
+							<td colspan="2">"Gebot in CHF"</td>
+						</tr>
+
+					</table>
+
+					<br />
+
+					<table id="bidTable">
+						<thead>
+							<tr>
+								<th>Benutzername</th>
+								<th>Gebot</th>
+								<th>Datum</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>User1</td>
+								<td>Gebot User 1</td>
+								<td>Datum des Gebots</td>
+							</tr>
+							<tr>
+								<td>User2</td>
+								<td>Gebot User 2</td>
+								<td>Datum des Gebots</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</c:when>
 		</c:choose>
-		
+
 	</div>
 
 	<table id="checkBoxTable" class="adDescDiv">
 		<tr>
 			<td><h2>Smoking inside allowed</h2></td>
-			<td>
-				<c:choose>
-					<c:when test="${shownAd.smokers}"><img src="/img/check-mark.png"></c:when>
-					<c:otherwise><img src="/img/check-mark-negative.png"></c:otherwise>
-				</c:choose>
-			</td>
+			<td><c:choose>
+					<c:when test="${shownAd.smokers}">
+						<img src="/img/check-mark.png">
+					</c:when>
+					<c:otherwise>
+						<img src="/img/check-mark-negative.png">
+					</c:otherwise>
+				</c:choose></td>
 		</tr>
 
 		<tr>
 			<td><h2>Animals allowed</h2></td>
-			<td>
-				<c:choose>
-					<c:when test="${shownAd.animals}"><img src="/img/check-mark.png"></c:when>
-					<c:otherwise><img src="/img/check-mark-negative.png"></c:otherwise>
-				</c:choose>
-			</td>
+			<td><c:choose>
+					<c:when test="${shownAd.animals}">
+						<img src="/img/check-mark.png">
+					</c:when>
+					<c:otherwise>
+						<img src="/img/check-mark-negative.png">
+					</c:otherwise>
+				</c:choose></td>
 		</tr>
 
 		<tr>
 			<td><h2>Furnished Room</h2></td>
-			<td>
-				<c:choose>
-					<c:when test="${shownAd.furnished}"><img src="/img/check-mark.png"></c:when>
-					<c:otherwise><img src="/img/check-mark-negative.png"></c:otherwise>
-				</c:choose>
-			</td>
+			<td><c:choose>
+					<c:when test="${shownAd.furnished}">
+						<img src="/img/check-mark.png">
+					</c:when>
+					<c:otherwise>
+						<img src="/img/check-mark-negative.png">
+					</c:otherwise>
+				</c:choose></td>
 		</tr>
-		
+
 		<tr>
 			<td><h2>WiFi available</h2></td>
-			<td>
-				<c:choose>
-					<c:when test="${shownAd.internet}"><img src="/img/check-mark.png"></c:when>
-					<c:otherwise><img src="/img/check-mark-negative.png"></c:otherwise>
-				</c:choose>
-			</td>
+			<td><c:choose>
+					<c:when test="${shownAd.internet}">
+						<img src="/img/check-mark.png">
+					</c:when>
+					<c:otherwise>
+						<img src="/img/check-mark-negative.png">
+					</c:otherwise>
+				</c:choose></td>
 		</tr>
 
 		<tr>
 			<td><h2>Cable TV</h2></td>
-			<td>
-				<c:choose>
-					<c:when test="${shownAd.cable}"><img src="/img/check-mark.png"></c:when>
-					<c:otherwise><img src="/img/check-mark-negative.png"></c:otherwise>
-				</c:choose>
-			</td>
+			<td><c:choose>
+					<c:when test="${shownAd.cable}">
+						<img src="/img/check-mark.png">
+					</c:when>
+					<c:otherwise>
+						<img src="/img/check-mark-negative.png">
+					</c:otherwise>
+				</c:choose></td>
 		</tr>
 
 		<tr>
 			<td><h2>Garage</h2></td>
-			<td>
-				<c:choose>
-					<c:when test="${shownAd.garage}"><img src="/img/check-mark.png"></c:when>
-					<c:otherwise><img src="/img/check-mark-negative.png"></c:otherwise>
-				</c:choose>
-			</td>
+			<td><c:choose>
+					<c:when test="${shownAd.garage}">
+						<img src="/img/check-mark.png">
+					</c:when>
+					<c:otherwise>
+						<img src="/img/check-mark-negative.png">
+					</c:otherwise>
+				</c:choose></td>
 		</tr>
 
 		<tr>
 			<td><h2>Cellar</h2></td>
-			<td>
-				<c:choose>
-					<c:when test="${shownAd.cellar}"><img src="/img/check-mark.png"></c:when>
-					<c:otherwise><img src="/img/check-mark-negative.png"></c:otherwise>
-				</c:choose>
-			</td>
+			<td><c:choose>
+					<c:when test="${shownAd.cellar}">
+						<img src="/img/check-mark.png">
+					</c:when>
+					<c:otherwise>
+						<img src="/img/check-mark-negative.png">
+					</c:otherwise>
+				</c:choose></td>
 		</tr>
 
 		<tr>
 			<td><h2>Balcony</h2></td>
-			<td>
-				<c:choose>
-					<c:when test="${shownAd.balcony}"><img src="/img/check-mark.png"></c:when>
-					<c:otherwise><img src="/img/check-mark-negative.png"></c:otherwise>
-				</c:choose>
-			</td>
+			<td><c:choose>
+					<c:when test="${shownAd.balcony}">
+						<img src="/img/check-mark.png">
+					</c:when>
+					<c:otherwise>
+						<img src="/img/check-mark-negative.png">
+					</c:otherwise>
+				</c:choose></td>
 		</tr>
 
 		<tr>
 			<td><h2>Garden</h2></td>
-			<td>
-				<c:choose>
-					<c:when test="${shownAd.garden}"><img src="/img/check-mark.png"></c:when>
-					<c:otherwise><img src="/img/check-mark-negative.png"></c:otherwise>
-				</c:choose>
-			</td>
+			<td><c:choose>
+					<c:when test="${shownAd.garden}">
+						<img src="/img/check-mark.png">
+					</c:when>
+					<c:otherwise>
+						<img src="/img/check-mark-negative.png">
+					</c:otherwise>
+				</c:choose></td>
 		</tr>
 
 	</table>
@@ -523,39 +600,38 @@ function auctionTimer() {
 
 <div class="clearBoth"></div>
 <br>
-	<div id="visitList" class="adDescDiv">
-			<h2>Visiting times</h2>
-			<table>
-				<c:forEach items="${visits }" var="visit">
-					<tr>
-						<td>
-							<fmt:formatDate value="${visit.startTimestamp}" pattern="dd-MM-yyyy " />
-							&nbsp; from
-							<fmt:formatDate value="${visit.startTimestamp}" pattern=" HH:mm " />
-							until
-							<fmt:formatDate value="${visit.endTimestamp}" pattern=" HH:mm" />
-						</td>
-						<td><c:choose>
-								<c:when test="${loggedIn}">
-									<c:if test="${loggedInUserEmail != shownAd.user.username}">
-										<button class="thinButton" type="button" data-id="${visit.id}">Send
-											enquiry to advertiser</button>
-									</c:if>
-								</c:when>
-								<c:otherwise>
-									<a href="/login"><button class="thinInactiveButton" type="button"
-										data-id="${visit.id}">Login to send enquiries</button></a>
-								</c:otherwise>
-							</c:choose></td>
-					</tr>
-				</c:forEach>
-			</table>
-		</div>
+<div id="visitList" class="adDescDiv">
+	<h2>Visiting times</h2>
+	<table>
+		<c:forEach items="${visits }" var="visit">
+			<tr>
+				<td><fmt:formatDate value="${visit.startTimestamp}"
+						pattern="dd-MM-yyyy " /> &nbsp; from <fmt:formatDate
+						value="${visit.startTimestamp}" pattern=" HH:mm " /> until <fmt:formatDate
+						value="${visit.endTimestamp}" pattern=" HH:mm" /></td>
+				<td><c:choose>
+						<c:when test="${loggedIn}">
+							<c:if test="${loggedInUserEmail != shownAd.user.username}">
+								<button class="thinButton" type="button" data-id="${visit.id}">Send
+									enquiry to advertiser</button>
+							</c:if>
+						</c:when>
+						<c:otherwise>
+							<a href="/login"><button class="thinInactiveButton"
+									type="button" data-id="${visit.id}">Login to send
+									enquiries</button></a>
+						</c:otherwise>
+					</c:choose></td>
+			</tr>
+		</c:forEach>
+	</table>
+</div>
 <br>
 
 <table id="advertiserTable" class="adDescDiv">
 	<tr>
-	<td><h2>Advertiser</h2><br /></td>
+		<td><h2>Advertiser</h2>
+			<br /></td>
 	</tr>
 
 	<tr>
@@ -567,19 +643,19 @@ function auctionTimer() {
 					<img src="/img/avatar.png">
 				</c:otherwise>
 			</c:choose></td>
-		
-		<td>${shownAd.user.username}</td>
-		
-		<td id="advertiserEmail">
-		<c:choose>
-			<c:when test="${loggedIn}">
-				<a href="/user?id=${shownAd.user.id}"><button type="button">Visit profile</button></a>
-			</c:when>
-			<c:otherwise>
-				<a href="/login"><button class="thinInactiveButton" type="button">Login to visit profile</button></a>
-			</c:otherwise>
-		</c:choose>
 
+		<td>${shownAd.user.username}</td>
+
+		<td id="advertiserEmail"><c:choose>
+				<c:when test="${loggedIn}">
+					<a href="/user?id=${shownAd.user.id}"><button type="button">Visit
+							profile</button></a>
+				</c:when>
+				<c:otherwise>
+					<a href="/login"><button class="thinInactiveButton"
+							type="button">Login to visit profile</button></a>
+				</c:otherwise>
+			</c:choose>
 		<td>
 			<form>
 				<c:choose>
@@ -589,7 +665,8 @@ function auctionTimer() {
 						</c:if>
 					</c:when>
 					<c:otherwise>
-						<a href="/login"><button class="thinInactiveButton" type="button">Login to contact advertiser</button></a>
+						<a href="/login"><button class="thinInactiveButton"
+								type="button">Login to contact advertiser</button></a>
 					</c:otherwise>
 				</c:choose>
 			</form>
@@ -598,26 +675,24 @@ function auctionTimer() {
 </table>
 
 <div id="msgDiv">
-<form class="msgForm">
-	<h2>Contact the advertiser</h2>
-	<br>
-	<br>
-	<label>Subject: <span>*</span></label>
-	<input  class="msgInput" type="text" id="msgSubject" placeholder="Subject" />
-	<br><br>
-	<label>Message: </label>
-	<textarea id="msgTextarea" placeholder="Message" ></textarea>
-	<br/>
-	<button type="button" id="messageSend">Send</button>
-	<button type="button" id="messageCancel">Cancel</button>
+	<form class="msgForm">
+		<h2>Contact the advertiser</h2>
+		<br> <br> <label>Subject: <span>*</span></label> <input
+			class="msgInput" type="text" id="msgSubject" placeholder="Subject" />
+		<br>
+		<br> <label>Message: </label>
+		<textarea id="msgTextarea" placeholder="Message"></textarea>
+		<br />
+		<button type="button" id="messageSend">Send</button>
+		<button type="button" id="messageCancel">Cancel</button>
 	</form>
 </div>
 
 <div id="confirmationDialog">
 	<form>
-	<p>Send enquiry to advertiser?</p>
-	<button type="button" id="confirmationDialogSend">Send</button>
-	<button type="button" id="confirmationDialogCancel">Cancel</button>
+		<p>Send enquiry to advertiser?</p>
+		<button type="button" id="confirmationDialogSend">Send</button>
+		<button type="button" id="confirmationDialogCancel">Cancel</button>
 	</form>
 </div>
 

@@ -65,7 +65,7 @@ public class AdTestDataSaver {
 		Date moveOutDate3 = formatter.parse("31.03.2016");
 		Date moveOutDate4 = formatter.parse("01.07.2015");
 		Date moveOutDate5 = formatter.parse("30.09.2016");
-		Date moveOutDate6 = formatter.parse("30.10.2016");
+		Date moveOutDate6 = formatter.parse("10.11.2016");
 		
 		String roomDescription1 = "The room is a part of 3.5 rooms apartment completely renovated"
 				+ "in 2010 at Kramgasse, Bern. The apartment is about 50 m2 on 1st floor."
