@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import ch.unibe.ese.team1.controller.pojos.forms.BidForm;
 import ch.unibe.ese.team1.controller.pojos.forms.MessageForm;
 import ch.unibe.ese.team1.controller.service.AdService;
 import ch.unibe.ese.team1.controller.service.BookmarkService;
@@ -60,6 +61,7 @@ public class AdController {
 
 		model.addObject("visits", visitService.getVisitsByAd(ad));
 
+		model.addObject("bidForm", new BidForm());
 		return model;
 	}
 
@@ -68,13 +70,17 @@ public class AdController {
 	 * validates and persists the message passed as post data.
 	 */
 	@RequestMapping(value = "/ad", method = RequestMethod.POST)
-	public ModelAndView messageSent(@RequestParam("id") long id,
+	public ModelAndView messageSent(@RequestParam("id") long id,@Valid BidForm bidForm,
 			@Valid MessageForm messageForm, BindingResult bindingResult) {
 
 		ModelAndView model = new ModelAndView("adDescription");
 		Ad ad = adService.getAdById(id);
 		model.addObject("shownAd", ad);
 		model.addObject("messageForm", new MessageForm());
+		model.addObject("bidForm", new BidForm());
+		//finest sysout debugging
+		System.out.println(bidForm.getBid());
+		System.out.println(id);
 
 		if (!bindingResult.hasErrors()) {
 			messageService.saveFrom(messageForm);
