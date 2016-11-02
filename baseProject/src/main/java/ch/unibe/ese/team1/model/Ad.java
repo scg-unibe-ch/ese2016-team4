@@ -52,7 +52,7 @@ public class Ad {
 	@Temporal(TemporalType.DATE)
 	private Date creationDate;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	@Temporal(TemporalType.DATE)
 	private Date moveInDate;
 
@@ -60,8 +60,14 @@ public class Ad {
 	@Column(nullable = true)
 	private Date moveOutDate;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private int prizePerMonth;
+	
+	@Column(nullable = true)
+	private int startOffer;
+	
+	@Column(nullable = true)
+	private int prizeOfSale;
 
 	@Column(nullable = false)
 	private int squareFootage;
@@ -367,6 +373,22 @@ public class Ad {
 
 	public void setVisits(List<Visit> visits) {
 		this.visits = visits;
+	}
+	
+	public int getStartOffer() {
+		return startOffer;
+	}
+
+	public void setStartOffer(int startOffer) {
+		this.startOffer = startOffer;
+	}
+	
+	public int getPrizeOfSale() {
+		return prizeOfSale;
+	}
+
+	public void setPrizeOfSale(int prizeOfSale) {
+		this.prizeOfSale = prizeOfSale;
 	}
 
 	@Override

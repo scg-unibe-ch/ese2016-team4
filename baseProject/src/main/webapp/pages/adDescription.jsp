@@ -135,7 +135,7 @@
 
 
 <!-- Handles the auction date infos and the remaining time -->
-
+<%--
 <script>
 
 function getFormattedDate(date){
@@ -160,6 +160,8 @@ function getFormattedDate(date){
 	
 	return d = dd+'.'+mm+'.'+yyyy+' '+hh+':'+min;
 }
+
+
 
 // get start and end date in ms
 var auctionStartMs = ${shownAd.getCreationMs()};
@@ -219,8 +221,9 @@ $(function(){
 	countdown = Math.max(0, countdown);
 	$('.clock-builder-output').FlipClock(countdown, opts);
 });
-</script>
 
+</script>
+--%>
 <%-- The mighty timer script, stolen from http://www.dwuser.com/education/content/easy-javascript-jquery-countdown-clock-builder/ --%>
 <script type="text/javascript">
 
@@ -353,18 +356,48 @@ $(function(){
 		</tr>
 
 		<tr>
-			<td><h2>Available from</h2></td>
-			<td>${formattedMoveInDate}</td>
+			<c:choose>
+				<c:when test="${shownAd.getSellType() == 1}">
+					<td><h2>Available from</h2></td>
+					<td>${formattedMoveInDate}</td>
+				</c:when>
+			</c:choose>
 		</tr>
 
 		<tr>
-			<td><h2>Move-out Date</h2></td>
-			<td>${formattedMoveOutDate}</td>
+			<c:choose>
+				<c:when test="${shownAd.getSellType() == 1}">
+					<td><h2>Move-out Date</h2></td>
+					<td>${formattedMoveOutDate}</td>
+				</c:when>
+			</c:choose>
 		</tr>
 
 		<tr>
-			<td><h2>Monthly Rent</h2></td>
-			<td>${shownAd.prizePerMonth}&#32;CHF</td>
+			<c:choose>
+				<c:when test="${shownAd.getSellType() == 1}">
+					<td><h2>Monthly Rent</h2></td>
+					<td>${shownAd.prizePerMonth}&#32;CHF</td>
+				</c:when>
+			</c:choose>
+		</tr>
+		
+		<tr>
+			<c:choose>
+				<c:when test="${shownAd.getSellType() == 3}">
+					<td><h2>First Offer</h2></td>
+					<td>${shownAd.startOffer}&#32;CHF</td>
+				</c:when>
+			</c:choose>
+		</tr>
+		
+		<tr>
+			<c:choose>
+				<c:when test="${shownAd.getSellType() == 2}">
+					<td><h2>Sale Price</h2></td>
+					<td>${shownAd.prizeOfSale}&#32;CHF</td>
+				</c:when>
+			</c:choose>
 		</tr>
 
 		<tr>

@@ -113,6 +113,11 @@ public class AdService {
 		}
 
 		ad.setPrizePerMonth(placeAdForm.getPrize());
+		
+		// new for buy and auction
+		ad.setPrizeOfSale(placeAdForm.getPrizeOfSale());
+		ad.setStartOffer(placeAdForm.getStartOffer());
+		
 		ad.setSquareFootage(placeAdForm.getSquareFootage());
 
 		ad.setRoomDescription(placeAdForm.getRoomDescription());

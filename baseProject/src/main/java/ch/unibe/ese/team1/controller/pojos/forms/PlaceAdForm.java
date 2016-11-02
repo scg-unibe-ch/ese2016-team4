@@ -18,6 +18,9 @@ public class PlaceAdForm {
 	@Min(value=1, message = "YOU SHALL CHOOSE")
 	private int sellType;
 	
+	// @Min(value=1, message = "YOU SHALL CHOOSE")
+	private int auctionDuration;
+
 	@NotBlank(message = "Required")
 	private String title;
 	
@@ -27,13 +30,19 @@ public class PlaceAdForm {
 	@Pattern(regexp = "^[0-9]{4} - [-\\w\\s\\u00C0-\\u00FF]*", message = "Please pick a city from the list")
 	private String city;
 	
-	@NotBlank(message = "Required")
+	// @NotBlank(message = "Required")
 	private String moveInDate;
 	
 	private String moveOutDate;
 
-	@Min(value = 1, message = "Has to be equal to 1 or more")
+	// @Min(value = 1, message = "Has to be equal to 1 or more")
 	private int prize;
+	
+	// @Min(value = 1, message = "Has to be equal to 1 or more")
+	private int prizeOfSale;
+	
+	// @Min(value = 1, message = "Has to be equal to 1 or more")
+	private int startOffer;
 
 	@Min(value = 1, message = "Has to be equal to 1 or more")
 	private int squareFootage;
@@ -83,6 +92,14 @@ public class PlaceAdForm {
 
 	public void setSellType(int sellType) {
 		this.sellType = sellType;
+	}
+	
+	public int getAuctionDuration() {
+		return auctionDuration;
+	}
+
+	public void setAuctionDuration(int auctionDuration) {
+		this.auctionDuration = auctionDuration;
 	}
 	
 	public String getCity() {
@@ -267,5 +284,21 @@ public class PlaceAdForm {
 
 	public void setVisits(List<String> visits) {
 		this.visits = visits;
+	}
+	
+	public int getStartOffer() {
+		return startOffer;
+	}
+
+	public void setStartOffer(int startOffer) {
+		this.startOffer = startOffer;
+	}
+
+	public int getPrizeOfSale() {
+		return prizeOfSale;
+	}
+
+	public void setPrizeOfSale(int prizeOfSale) {
+		this.prizeOfSale = prizeOfSale;
 	}
 }
