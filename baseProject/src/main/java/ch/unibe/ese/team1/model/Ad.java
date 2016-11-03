@@ -67,6 +67,9 @@ public class Ad {
 	private int startOffer;
 	
 	@Column(nullable = true)
+	private int auctionDuration;
+
+	@Column(nullable = true)
 	private int prizeOfSale;
 
 	@Column(nullable = false)
@@ -369,6 +372,14 @@ public class Ad {
 
 	public void setStartOffer(int startOffer) {
 		this.startOffer = startOffer;
+	}
+	
+	public int getAuctionDuration() {
+		return auctionDuration;
+	}
+
+	public void setAuctionDuration(int auctionDuration) {
+		this.auctionDuration = auctionDuration;
 	}
 	
 	public int getPrizeOfSale() {

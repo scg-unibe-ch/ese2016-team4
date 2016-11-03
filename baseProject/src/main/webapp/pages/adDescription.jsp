@@ -135,7 +135,7 @@
 
 
 <!-- Handles the auction date infos and the remaining time -->
-<%--
+
 <script>
 
 function getFormattedDate(date){
@@ -160,7 +160,7 @@ function getFormattedDate(date){
 	
 	return d = dd+'.'+mm+'.'+yyyy+' '+hh+':'+min;
 }
-
+<%--
 
 
 // get start and end date in ms
@@ -196,6 +196,13 @@ function auctionTimer() {
 	document.getElementById('timeTilEnd').innerHTML = "remaining time: " 
 	+ remaining_days + "d " + remaining_hours + "h " + remaining_minutes + "m " + remaining_seconds + "s";
 }
+--%>
+var creationDateMs = ${shownAd.getCreationMs()};
+var creationDate = new Date(creationDateMs);
+var datestring = getFormattedDate(creationDate).toString();
+var auctionDurationD = ${shownAd.getAuctionDuration()};
+var auctionEndMs = (creationDateMs + (auctionDurationD*24*3600*1000));
+alert(datestring);
 
 //the mighty timer from http://www.dwuser.com/education/content/easy-javascript-jquery-countdown-clock-builder/
 $(function(){
@@ -217,13 +224,13 @@ $(function(){
 		};  
 	
 	//there is a 2 second delay before the timer starts ticking, which gets adjusted here
-	var countdown = ((auctionEndMs-2000)/1000) - ((new Date().getTime())/1000);
+	//var countdown = (((new Date().getTime())+50000)/1000) - ((new Date().getTime())/1000);
+	var countdown = (((auctionEndMs+2000)/1000) - ((new Date().getTime())/1000));
 	countdown = Math.max(0, countdown);
 	$('.clock-builder-output').FlipClock(countdown, opts);
 });
 
 </script>
---%>
 <%-- The mighty timer script, stolen from http://www.dwuser.com/education/content/easy-javascript-jquery-countdown-clock-builder/ --%>
 <script type="text/javascript">
 
@@ -235,12 +242,7 @@ $(function(){
 	type="date" pattern="dd.MM.yyyy" />
 <fmt:formatDate value="${shownAd.creationDate}"
 	var="formattedCreationDate" type="date" pattern="dd.MM.yyyy" />
-<fmt:formatDate value="${allBids[0].bidTime.time}"
-	var="firstTime" type="date" pattern="dd.MM.yyyy, HH:mm:ss" />
-<fmt:formatDate value="${allBids[1].bidTime.time}"
-	var="secondTime" type="date" pattern="dd.MM.yyyy, HH:mm:ss" />
-<fmt:formatDate value="${allBids[2].bidTime.time}"
-	var="thirdTime" type="date" pattern="dd.MM.yyyy, HH:mm:ss" />
+
 	
 <c:choose>
 	<c:when test="${empty shownAd.moveOutDate }">
@@ -266,7 +268,7 @@ $(function(){
 
 
 
-	<form:form method="post" modelAttribute="bidForm" id="bidForm" autocomplete="off">
+	<form:form action="/ad?id=${shownAd.id}" onsubmit="window.location.reload(true);"  method="post" modelAttribute="bidForm" id="bidForm" autocomplete="off">
   <table style="width: 100%; vertical-align: center;">
   <c:choose>
 	<c:when test="${shownAd.getSellType() == 3}">
@@ -274,7 +276,7 @@ $(function(){
       <td style="text-indent:50px;"><img src="/img/test/auct_live.gif"> <%-- <p class="timeTilEnd" id="timeTilEnd"></p> --%>
       </td>
       <td valign="bottom">
-        <h2>Current Price: ${allBids[0].bid} &#32; CHF</h2>
+        <h2>Highest Bid: ${allBids[0].bid} &#32; CHF</h2>
       </td>
       <td>
         <p id="auctionstart"></p>
@@ -510,48 +512,37 @@ $(function(){
 					<br />
 					<table id="bidTable">
 						<tr>
-							<td>Aktueller Preis:</td>
-							<td colspan="2">${allBids[0].bid}</td>
+							<td>Highest Bid:</td>
+							<td colspan="2">${allBids[0].bid} CHF</td>
 						</tr>
 						<tr>
-							<td>Ihr Gebot:</td>
+							<td>Your Bid:</td>
 							<td colspan="2">To Be Done</td>
 						</tr>
 
 					</table>
 
 					<br />
-					<h2>Last 3 Bids</h2>
+					
 					<table id="bidTable">
-						<thead>
-							<tr>
-								<th>Benutzername</th>
-								<th>Gebot</th>
-								<th>Datum</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>${allBids[0].userId}</td>
-								<td>${allBids[0].bid}</td>
-								<td>${firstTime}</td>
-							</tr>
-							<tr>
-								<td>${allBids[1].userId}</td>
-								<td>${allBids[1].bid}</td>
-								<td>${secondTime}</td>
-							</tr>
-							<tr>
-								<td>${allBids[2].userId}</td>
-								<td>${allBids[2].bid}</td>
-								<td>${thirdTime}</td>
-							</tr>
-						</tbody>
+						<tr>
+							<th>Username</th>
+							<th>Bid</th>
+							<th>Date</th>
+							<th>Time</th>
+						</tr>
+						<c:forEach var="bid" items="${allBids}">
+						
+						<tr>
+							<td>${bid.userId}</td>
+							<td>${bid.bid}</td>
+							<td><fmt:formatDate value="${bid.bidTime.time}" type="date" pattern="dd.MM.yyyy" /></td>
+							<td><fmt:formatDate value="${bid.bidTime.time}" type="date" pattern="HH:mm:ss" /></td>
+						</tr>
+						
+						</c:forEach>
 					</table>
 					
-					<%-- <c:forEach var="bid" items="${allBids}">
-						<p>Bid: ${bid.bid} CHF, User: ${bid.userId}, Time: ${bid.bidTime}</p>
-					</c:forEach> --%>
 				</div>
 			</c:when>
 		</c:choose>

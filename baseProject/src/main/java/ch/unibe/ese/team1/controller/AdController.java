@@ -85,6 +85,7 @@ public class AdController {
 		Ad ad = adService.getAdById(id);
 		model.addObject("shownAd", ad);
 		model.addObject("bidForm", new BidForm());
+		model.addObject("allBids", bidHistoryService.allBids(ad.getId()));
 		
 		//principal == null should never happen, because the form only gets displayed when you're logged in
 		if(principal != null){

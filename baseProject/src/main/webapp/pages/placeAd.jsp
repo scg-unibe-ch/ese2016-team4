@@ -142,9 +142,9 @@ $(document).ready( function() {
 				
 				<form:select class="auction" path="auctionDuration" hidden="true">
 				<form:option value="0">Choose the desired duration</form:option>
-				<form:option id="duration1" value="1">1 Hour</form:option>
-				<form:option id="duration2" value="2"> 20 Days</form:option>
-				<form:option id="duration3" value="3">30 Days</form:option>
+				<form:option id="duration1" value="1">1 Day</form:option>
+				<form:option id="duration2" value="7"> 7 Days</form:option>
+				<form:option id="duration3" value="30">30 Days</form:option>
 				</form:select>
 				
 								
@@ -228,7 +228,7 @@ $(document).ready( function() {
 				<td><form:input id="field-city" path="city" placeholder="City" />
 					<form:errors path="city" cssClass="validationErrorText" /></td>
 				<td><form:input id="field-startOffer" type="number" path="startOffer" hidden="true"
-						placeholder="Start offer" step="1000" /> <form:errors
+						placeholder="Start offer" step="50" /> <form:errors
 						path="startOffer" cssClass="validationErrorText" /></td>
 			</tr>
 
