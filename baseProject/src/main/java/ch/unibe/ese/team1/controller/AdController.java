@@ -18,11 +18,13 @@ import org.springframework.web.servlet.ModelAndView;
 import ch.unibe.ese.team1.controller.pojos.forms.BidForm;
 import ch.unibe.ese.team1.controller.pojos.forms.MessageForm;
 import ch.unibe.ese.team1.controller.service.AdService;
+import ch.unibe.ese.team1.controller.service.BidHistoryService;
 import ch.unibe.ese.team1.controller.service.BookmarkService;
 import ch.unibe.ese.team1.controller.service.MessageService;
 import ch.unibe.ese.team1.controller.service.UserService;
 import ch.unibe.ese.team1.controller.service.VisitService;
 import ch.unibe.ese.team1.model.Ad;
+import ch.unibe.ese.team1.model.BidHistory;
 import ch.unibe.ese.team1.model.User;
 
 /**
@@ -46,6 +48,9 @@ public class AdController {
 
 	@Autowired
 	private VisitService visitService;
+	
+	@Autowired
+	private BidHistoryService bidHistoryService;
 
 	/** Gets the ad description page for the ad with the given id. */
 	@RequestMapping(value = "/ad", method = RequestMethod.GET)
@@ -71,16 +76,21 @@ public class AdController {
 	 */
 	@RequestMapping(value = "/ad", method = RequestMethod.POST)
 	public ModelAndView messageSent(@RequestParam("id") long id,@Valid BidForm bidForm,
-			@Valid MessageForm messageForm, BindingResult bindingResult) {
-
+			@Valid MessageForm messageForm, BindingResult bindingResult, Principal principal) {		
+		
 		ModelAndView model = new ModelAndView("adDescription");
 		Ad ad = adService.getAdById(id);
 		model.addObject("shownAd", ad);
 		model.addObject("messageForm", new MessageForm());
 		model.addObject("bidForm", new BidForm());
-		//finest sysout debugging
-		System.out.println(bidForm.getBid());
-		System.out.println(id);
+		
+		//if principal == null should never happen, because the form only gets displayed when you're logged in
+		if(bidForm.getBid()>0 && principal != null){
+			String username = principal.getName();
+			User user = userService.findUserByUsername(username);
+			BidHistory bidhist = new BidHistory (ad.getId(), user.getId(), bidForm.getBid());
+			bidHistoryService.addBid(bidhist);
+		}
 
 		if (!bindingResult.hasErrors()) {
 			messageService.saveFrom(messageForm);
