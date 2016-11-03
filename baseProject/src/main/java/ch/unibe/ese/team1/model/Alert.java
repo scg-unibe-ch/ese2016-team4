@@ -113,4 +113,9 @@ public class Alert {
 	public void setBothRoomAndStudio(boolean bothRoomAndStudio) {
 		this.bothRoomAndStudio = bothRoomAndStudio;
 	}
+
+	public int getPropertyType() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
