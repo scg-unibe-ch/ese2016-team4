@@ -257,11 +257,12 @@ $(function(){
 
 <hr />
 
-<c:choose>
-	<c:when test="${shownAd.getSellType() == 3}">
+
 
 	<form:form method="post" modelAttribute="bidForm" id="bidForm" autocomplete="off">
   <table style="width: 100%; vertical-align: center;">
+  <c:choose>
+	<c:when test="${shownAd.getSellType() == 3}">
     <tr>
       <td style="text-indent:50px;"><img src="/img/test/auct_live.gif"> <%-- <p class="timeTilEnd" id="timeTilEnd"></p> --%>
       </td>
@@ -276,26 +277,44 @@ $(function(){
       <td>
         <div class="clock-builder-output"></div>
       </td>
-
       <td>
-          <label for="bid">Your bid:</label>
-
-          <form:input id="bidInput" type="number" 
-            path="bid" placeholder="e.g. 150" step="1" />
-          
-          <button type="submit">Place bid</button>
-        </td>
-      <td>
-        <p id="auctionend"></p>
+      <p id="auctionend"></p>
       </td>
     </tr>
+      
+	</c:when>
+</c:choose>
+
+ <c:choose>
+  <c:when test="${shownAd.getSellType() == 3 && loggedIn}">
+   <tr>
+   <td></td>
+  	<td>
+          <label for="bid" >Your bid:</label>
+
+          <form:input type="number" 
+            path="bid" placeholder="e.g. 150" step="1" />
+            
+          <button type="submit" >Place bid</button>
+          
+  	</td>  
+   </tr>
+  </c:when>
+  </c:choose>
+  
+ <c:choose>
+  <c:when test="${shownAd.getSellType() == 3 && loggedIn == false}">
+  <tr>
+  <td></td>
+   <td><p><b>You have to be logged in to place a bid</b></p></td>
+  </tr>
+  </c:when>
+ </c:choose>
   </table>
 </form:form>
 
 		<hr />
 
-	</c:when>
-</c:choose>
 
 <section>
 	<c:choose>
