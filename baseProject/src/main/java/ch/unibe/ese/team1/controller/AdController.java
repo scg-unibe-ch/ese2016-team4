@@ -67,6 +67,9 @@ public class AdController {
 		model.addObject("visits", visitService.getVisitsByAd(ad));
 
 		model.addObject("bidForm", new BidForm());
+		
+		model.addObject("allBids", bidHistoryService.allBids(ad.getId()));
+		
 		return model;
 	}
 
@@ -81,16 +84,15 @@ public class AdController {
 		ModelAndView model = new ModelAndView("adDescription");
 		Ad ad = adService.getAdById(id);
 		model.addObject("shownAd", ad);
-		model.addObject("messageForm", new MessageForm());
 		model.addObject("bidForm", new BidForm());
 		
-		//if principal == null should never happen, because the form only gets displayed when you're logged in
-		if(bidForm.getBid()>0 && principal != null){
+		//principal == null should never happen, because the form only gets displayed when you're logged in
+		if(principal != null){
 			String username = principal.getName();
 			User user = userService.findUserByUsername(username);
-			BidHistory bidhist = new BidHistory (ad.getId(), user.getId(), bidForm.getBid());
-			bidHistoryService.addBid(bidhist);
+			bidHistoryService.addBid(ad.getId(), user.getId(), bidForm.getBid());
 		}
+		
 
 		if (!bindingResult.hasErrors()) {
 			messageService.saveFrom(messageForm);

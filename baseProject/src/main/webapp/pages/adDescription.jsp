@@ -235,6 +235,13 @@ $(function(){
 	type="date" pattern="dd.MM.yyyy" />
 <fmt:formatDate value="${shownAd.creationDate}"
 	var="formattedCreationDate" type="date" pattern="dd.MM.yyyy" />
+<fmt:formatDate value="${allBids[0].bidTime.time}"
+	var="firstTime" type="date" pattern="dd.MM.yyyy, HH:mm:ss" />
+<fmt:formatDate value="${allBids[1].bidTime.time}"
+	var="secondTime" type="date" pattern="dd.MM.yyyy, HH:mm:ss" />
+<fmt:formatDate value="${allBids[2].bidTime.time}"
+	var="thirdTime" type="date" pattern="dd.MM.yyyy, HH:mm:ss" />
+	
 <c:choose>
 	<c:when test="${empty shownAd.moveOutDate }">
 		<c:set var="formattedMoveOutDate" value="unlimited" />
@@ -266,7 +273,7 @@ $(function(){
       <td style="text-indent:50px;"><img src="/img/test/auct_live.gif"> <%-- <p class="timeTilEnd" id="timeTilEnd"></p> --%>
       </td>
       <td valign="bottom">
-        <h2>Current Price: ${shownAd.prizePerMonth}&#32; CHF</h2>
+        <h2>Current Price: ${allBids[0].bid} &#32; CHF</h2>
       </td>
       <td>
         <p id="auctionstart"></p>
@@ -479,17 +486,17 @@ $(function(){
 					<table id="bidTable">
 						<tr>
 							<td>Aktueller Preis:</td>
-							<td colspan="2">"Aktueller Preis in CHF"</td>
+							<td colspan="2">${allBids[0].bid}</td>
 						</tr>
 						<tr>
 							<td>Ihr Gebot:</td>
-							<td colspan="2">"Gebot in CHF"</td>
+							<td colspan="2">To Be Done</td>
 						</tr>
 
 					</table>
 
 					<br />
-
+					<h2>Last 3 Bids</h2>
 					<table id="bidTable">
 						<thead>
 							<tr>
@@ -500,17 +507,26 @@ $(function(){
 						</thead>
 						<tbody>
 							<tr>
-								<td>User1</td>
-								<td>Gebot User 1</td>
-								<td>Datum des Gebots</td>
+								<td>${allBids[0].userId}</td>
+								<td>${allBids[0].bid}</td>
+								<td>${firstTime}</td>
 							</tr>
 							<tr>
-								<td>User2</td>
-								<td>Gebot User 2</td>
-								<td>Datum des Gebots</td>
+								<td>${allBids[1].userId}</td>
+								<td>${allBids[1].bid}</td>
+								<td>${secondTime}</td>
+							</tr>
+							<tr>
+								<td>${allBids[2].userId}</td>
+								<td>${allBids[2].bid}</td>
+								<td>${thirdTime}</td>
 							</tr>
 						</tbody>
 					</table>
+					
+					<%-- <c:forEach var="bid" items="${allBids}">
+						<p>Bid: ${bid.bid} CHF, User: ${bid.userId}, Time: ${bid.bidTime}</p>
+					</c:forEach> --%>
 				</div>
 			</c:when>
 		</c:choose>

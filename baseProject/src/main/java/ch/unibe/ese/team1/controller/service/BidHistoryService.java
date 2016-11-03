@@ -1,17 +1,21 @@
 package ch.unibe.ese.team1.controller.service;
 
 import java.util.Queue;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ch.unibe.ese.team1.controller.pojos.forms.SearchForm;
 import ch.unibe.ese.team1.model.Ad;
 import ch.unibe.ese.team1.model.BidHistory;
 import ch.unibe.ese.team1.model.User;
+import ch.unibe.ese.team1.model.dao.AdDao;
 import ch.unibe.ese.team1.model.dao.AlertDao;
 import ch.unibe.ese.team1.model.dao.BidHistoryDao;
 import ch.unibe.ese.team1.model.dao.MessageDao;
@@ -34,8 +38,13 @@ public class BidHistoryService {
 	@Autowired
 	BidHistoryDao bidHistoryDao;
 	
+	@Autowired
+	AdDao adDao;
+	
 	@Transactional
-	public void addBid(BidHistory newBid){
+	public void addBid(long bidAdId, long bidUserId, long bidBid){
+		
+		BidHistory newBid = new BidHistory(bidAdId, bidUserId, bidBid);
 		Ad ad = adService.getAdById(newBid.getAdId());
 		assertTrue("Ad must be of type auction",ad.getSellType()==3);
 		if (ad.isAuctionAvailable() && isHighestBid(newBid)){
@@ -49,6 +58,15 @@ public class BidHistoryService {
 			}
 			bidHistoryDao.save(bidHist);
 		}
+	}
+	
+	@Transactional
+	public Iterable<BidHistory> allBids(long adId) {
+		List<BidHistory> adBids = new ArrayList<>();
+		for (BidHistory bidHist : bidHistoryDao.findByAdIdOrderByBidDesc(adId)){
+			adBids.add(bidHist);
+		}
+		return adBids;
 	}
 	
 	public boolean isHighestBid(BidHistory bidHistory){
