@@ -260,39 +260,37 @@ $(function(){
 <c:choose>
 	<c:when test="${shownAd.getSellType() == 3}">
 
-		<form:form method="post" modelAttribute="bidForm" id="bidForm"
-			autocomplete="off">
-			<table style="width: 100%; vertical-align: center;">
-				<tr>
-					<td style="text-indent:50px;"><img src="/img/test/auct_live.gif"> <%-- <p class="timeTilEnd" id="timeTilEnd"></p> --%>
-					</td>
-					<td valign="bottom">
-						<h2>Current Price: ${shownAd.prizePerMonth}&#32; CHF</h2>
-					</td>
-					<td>
-						<p id="auctionstart"></p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div class="clock-builder-output"></div>
-					</td>
+	<form:form method="post" modelAttribute="bidForm" id="bidForm" autocomplete="off">
+  <table style="width: 100%; vertical-align: center;">
+    <tr>
+      <td style="text-indent:50px;"><img src="/img/test/auct_live.gif"> <%-- <p class="timeTilEnd" id="timeTilEnd"></p> --%>
+      </td>
+      <td valign="bottom">
+        <h2>Current Price: ${shownAd.prizePerMonth}&#32; CHF</h2>
+      </td>
+      <td>
+        <p id="auctionstart"></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="clock-builder-output"></div>
+      </td>
 
-					<td><form:form method="post"
-							modelAttribute="bidForm" id="bidForm" autocomplete="off">
-							<label for="bid">Your bid:</label>
+      <td>
+          <label for="bid">Your bid:</label>
 
-							<%-- <form:input id="bidInput" type="number" 
-								path="bid" placeholder="e.g. 150" step="1" />  --%>
-							<input type="number" id="dummy box" />
-							<button type="submit">Place bid</button>
-						</form:form></td>
-					<td>
-						<p id="auctionend"></p>
-					</td>
-				</tr>
-			</table>
-		</form:form>
+          <form:input id="bidInput" type="number" 
+            path="bid" placeholder="e.g. 150" step="1" />
+          
+          <button type="submit">Place bid</button>
+        </td>
+      <td>
+        <p id="auctionend"></p>
+      </td>
+    </tr>
+  </table>
+</form:form>
 
 		<hr />
 

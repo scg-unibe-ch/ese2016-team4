@@ -50,22 +50,22 @@ public class AdTestDataSaver {
 		Date creationDate8 = formatter.parse("27.11.2014");
 		Date creationDate9 = formatter.parse("15.10.2016");
 		
-		Date moveInDate1 = formatter.parse("15.12.2014");
-		Date moveInDate2 = formatter.parse("21.12.2014");
-		Date moveInDate3 = formatter.parse("01.01.2015");
-		Date moveInDate4 = formatter.parse("15.01.2015");
-		Date moveInDate5 = formatter.parse("01.02.2015");
-		Date moveInDate6 = formatter.parse("01.03.2015");
-		Date moveInDate7 = formatter.parse("15.03.2015");
-		Date moveInDate8 = formatter.parse("16.02.2015");
-		Date moveInDate9 = formatter.parse("18.10.2016");
+		Date moveInDate1 = formatter.parse("15.12.2017");
+		Date moveInDate2 = formatter.parse("21.12.2017");
+		Date moveInDate3 = formatter.parse("01.01.2017");
+		Date moveInDate4 = formatter.parse("15.01.2017");
+		Date moveInDate5 = formatter.parse("01.02.2017");
+		Date moveInDate6 = formatter.parse("01.03.2017");
+		Date moveInDate7 = formatter.parse("15.03.2017");
+		Date moveInDate8 = formatter.parse("16.02.2017");
+		Date moveInDate9 = formatter.parse("18.10.2017");
 		
-		Date moveOutDate1 = formatter.parse("31.03.2015");
-		Date moveOutDate2 = formatter.parse("30.04.2015");
-		Date moveOutDate3 = formatter.parse("31.03.2016");
-		Date moveOutDate4 = formatter.parse("01.07.2015");
-		Date moveOutDate5 = formatter.parse("30.09.2016");
-		Date moveOutDate6 = formatter.parse("10.11.2016");
+		Date moveOutDate1 = formatter.parse("31.03.2018");
+		Date moveOutDate2 = formatter.parse("30.04.2018");
+		Date moveOutDate3 = formatter.parse("31.03.2018");
+		Date moveOutDate4 = formatter.parse("01.07.2018");
+		Date moveOutDate5 = formatter.parse("30.09.2018");
+		Date moveOutDate6 = formatter.parse("10.11.2018");
 		
 		String roomDescription1 = "The room is a part of 3.5 rooms apartment completely renovated"
 				+ "in 2010 at Kramgasse, Bern. The apartment is about 50 m2 on 1st floor."

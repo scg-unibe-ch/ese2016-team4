@@ -45,6 +45,14 @@
 	});
 </script>
 
+<script>
+$(document).ready( function() {
+    var now = new Date();
+    var today = now.getDate() + '-' + (now.getMonth() + 1) + '-' + now.getFullYear();
+    $('#field-earliestMoveInDate').val(today);
+});
+</script>
+
 
 <h1>Search for an ad</h1>
 <hr />
