@@ -97,6 +97,9 @@ public class AdService {
 						.substring(6, 10));
 				calendar.set(yearMoveIn, monthMoveIn - 1, dayMoveIn);
 				ad.setMoveInDate(calendar.getTime());
+				} else {
+					Date date = new Date();
+					ad.setMoveInDate(date);
 			}
 
 			if (placeAdForm.getMoveOutDate().length() >= 1) {
@@ -310,8 +313,8 @@ public class AdService {
 			// parse move-in and move-out dates
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 			try {
-				earliestInDate = formatter.parse(searchForm
-						.getEarliestMoveInDate());
+				earliestInDate = formatter.parse(searchForm.getEarliestMoveInDate());
+						
 			} catch (Exception e) {
 			}
 			try {
@@ -432,14 +435,16 @@ public class AdService {
 
 	private List<Ad> validateDate(List<Ad> ads, boolean inOrOut,
 			Date earliestDate, Date latestDate) {
+		
 		if (ads.size() > 0) {
 			// Move-in dates
 			// Both an earliest AND a latest date to compare to
+			
 			if (earliestDate != null) {
 				if (latestDate != null) {
-					Iterator<Ad> iterator = ads.iterator();
+					Iterator<Ad> iterator = ads.iterator();			
+					Ad ad = iterator.next();
 					while (iterator.hasNext()) {
-						Ad ad = iterator.next();
 						if (ad.getDate(inOrOut).compareTo(earliestDate) < 0
 								|| ad.getDate(inOrOut).compareTo(latestDate) > 0) {
 							iterator.remove();
@@ -448,7 +453,7 @@ public class AdService {
 				}
 				// only an earliest date
 				else {
-					Iterator<Ad> iterator = ads.iterator();
+					Iterator<Ad> iterator = ads.iterator();			
 					while (iterator.hasNext()) {
 						Ad ad = iterator.next();
 						if (ad.getDate(inOrOut).compareTo(earliestDate) < 0)
@@ -456,9 +461,10 @@ public class AdService {
 					}
 				}
 			}
+			
 			// only a latest date
 			else if (latestDate != null && earliestDate == null) {
-				Iterator<Ad> iterator = ads.iterator();
+				Iterator<Ad> iterator = ads.iterator();			
 				while (iterator.hasNext()) {
 					Ad ad = iterator.next();
 					if (ad.getDate(inOrOut).compareTo(latestDate) > 0)
@@ -467,6 +473,7 @@ public class AdService {
 			} else {
 			}
 		}
+			
 		return ads;
 	}
 
