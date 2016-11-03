@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ch.unibe.ese.team1.model.Ad;
 import ch.unibe.ese.team1.model.BidHistory;
@@ -16,6 +17,7 @@ import ch.unibe.ese.team1.model.dao.BidHistoryDao;
 import ch.unibe.ese.team1.model.dao.MessageDao;
 import static org.junit.Assert.assertTrue;
 
+@Service
 public class BidHistoryService {
 	@Autowired
 	private UserService userService;
@@ -51,6 +53,7 @@ public class BidHistoryService {
 	
 	public boolean isHighestBid(BidHistory bidHistory){
 		BidHistory bidH = bidHistoryDao.findTop1ByadIdOrderByBidDesc( bidHistory.getAdId() );
+		if(bidH == null) return true; 
 		return bidHistory.getBid()>bidH.getBid();
 	}
 	
