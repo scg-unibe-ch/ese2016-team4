@@ -40,10 +40,12 @@
 						<p>${ad.street}, ${ad.zipcode} ${ad.city}</p>
 						<br />
 						<p>
-							<i><c:choose>
-									<c:when test="${ad.studio}">Studio</c:when>
-									<c:otherwise>Room</c:otherwise>
-								</c:choose></i>
+						<i><c:choose>
+								<c:when test="${ad.getPropertyType() == 1}">Room</c:when>
+								<c:when test="${ad.getPropertyType() == 2}">Studio</c:when>
+								<c:when test="${ad.getPropertyType() == 3}">Flat</c:when>
+								<c:when test="${ad.getPropertyType() == 4}">House</c:when>
+							</c:choose></i>
 						</p>
 					</div>
 					<div class="resultRight">
@@ -83,9 +85,11 @@
 						<br />
 						<p>
 							<i><c:choose>
-									<c:when test="${ad.studio}">Studio</c:when>
-									<c:otherwise>Room</c:otherwise>
-								</c:choose></i>
+								<c:when test="${ad.getPropertyType() == 1}">Room</c:when>
+								<c:when test="${ad.getPropertyType() == 2}">Studio</c:when>
+								<c:when test="${ad.getPropertyType() == 3}">Flat</c:when>
+								<c:when test="${ad.getPropertyType() == 4}">House</c:when>
+							</c:choose></i>
 						</p>
 					</div>
 					<div class="resultRight">

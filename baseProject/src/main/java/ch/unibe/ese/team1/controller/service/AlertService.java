@@ -142,7 +142,7 @@ public class AlertService {
 	private boolean typeMismatchWith(Ad ad, Alert alert) {
 		boolean mismatch = false;
 		if (!alert.getBothRoomAndStudio()
-				&& ad.getStudio() != alert.getStudio())
+				&& ad.getPropertyType() != alert.getPropertyType())
 			mismatch = true;
 		return mismatch;
 	}

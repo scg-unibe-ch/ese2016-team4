@@ -60,8 +60,6 @@ public class EditAdService {
 
 		ad.setStreet(placeAdForm.getStreet());
 
-		ad.setStudio(placeAdForm.getStudio());
-
 		// take the zipcode - first four digits
 		String zip = placeAdForm.getCity().substring(0, 4);
 		ad.setZipcode(Integer.parseInt(zip));
@@ -210,7 +208,19 @@ public class EditAdService {
 		adForm.setRoomDescription(ad.getRoomDescription());
 		adForm.setPreferences(ad.getPreferences());
 		adForm.setRoommates(ad.getRoommates());
-
+		adForm.setPropertyType(ad.getPropertyType());
+		adForm.setSellType(ad.getSellType());
+		adForm.setCity(ad.getZipcode()+" - "+ad.getCity());
+		adForm.setTitle(ad.getTitle());
+		adForm.setStreet(ad.getStreet());
+		adForm.setSquareFootage(ad.getSquareFootage());		
+		if (ad.getSellType()==Ad.getSellType("Rent")){
+			adForm.setMoveInDate(ad.getMoveInDate());
+			adForm.setMoveOutDate(ad.getMoveOutDate());			
+			adForm.setPrize(ad.getPrizePerMonth());
+		}else if (ad.getSellType()==Ad.getSellType("Auction")){
+		}
+		
 		return adForm;
 	}
 

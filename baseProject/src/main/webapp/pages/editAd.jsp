@@ -136,24 +136,34 @@
 		<table class="placeAdTable">
 			<tr>
 				<td><label for="field-title">Ad Title</label></td>
-				<td><label for="type-room">Type:</label></td>
+				
+				<td>
+				<form:select path="sellType">
+				<form:option value ="0">Select a Sale Type</form:option>
+				<form:option id="type-room" value="1">Rent</form:option>
+				<form:option id="type-room" value="2">Buy</form:option>
+				<form:option id="type-room" value="3">Auction</form:option>				
+				</form:select>
+				</td>
+				<td><form:errors path="sellType" cssClass="validationErrorText" /></td>
+				
+				
 			</tr>
 
 			<tr>
-				<td><form:input id="field-title" path="title" value="${ad.title}" /></td>
+				<td><form:input id="field-title" path="title"
+						placeholder="Ad Title" /></td>
+				
 				<td>
-					<c:choose>
-						<c:when test="${ad.studio == 'true'}">
-							<form:radiobutton id="type-room" path="studio" value="1"
-								checked="checked" />Room <form:radiobutton id="type-studio"
-								path="studio" value="0" />Studio
-						</c:when>
-						<c:otherwise>
-							<form:radiobutton id="type-room" path="studio" value="0"
-								checked="checked" />Room <form:radiobutton id="type-studio"
-								path="studio" value="1" />Studio
-						</c:otherwise>
-					</c:choose>
+				<form:select path="propertyType">
+				<form:option value ="0">Select a Property Type</form:option>
+				<form:option id="type-room" value="1">Room</form:option>
+				<form:option id="type-room" value="2">Studio</form:option>
+				<form:option id="type-room" value="3">Flat</form:option>
+				<form:option id="type-room" value="4">House</form:option>
+				</form:select>
+				</td>
+				<td><form:errors path="propertyType" cssClass="validationErrorText" /></td>
 			</tr>
 
 			<tr>
@@ -163,11 +173,9 @@
 
 			<tr>
 				<td><form:input id="field-street" path="street"
-						value="${ad.street}" /></td>
-				<td>
-					<form:input id="field-city" path="city" value="${ad.zipcode} - ${ad.city}" />
-					<form:errors path="city" cssClass="validationErrorText" />
-				</td>
+						placeholder="Street" /></td>
+				<td><form:input id="field-city" path="city" placeholder="City" />
+					<form:errors path="city" cssClass="validationErrorText" /></td>
 			</tr>
 
 			<tr>
@@ -175,14 +183,10 @@
 				<td><label for="moveOutDate">Move-out date (optional)</label></td>
 			</tr>
 			<tr>
-				<td>
-					<form:input type="text" id="field-moveInDate"
-						path="moveInDate" value="${formattedMoveInDate }"/>
-				</td>
-				<td>
-					<form:input type="text" id="field-moveOutDate"
-						path="moveOutDate" value="${formattedMoveOutDate }"/>
-				</td>
+				<td><form:input type="text" id="field-moveInDate"
+						path="moveInDate" /></td>
+				<td><form:input type="text" id="field-moveOutDate"
+						path="moveOutDate" /></td>
 			</tr>
 
 			<tr>
@@ -190,17 +194,12 @@
 				<td><label for="field-SquareFootage">Square Meters</label></td>
 			</tr>
 			<tr>
-				<td>
-					<form:input id="field-Prize" type="number" path="prize"
-						placeholder="Prize per month" step="50" value="${ad.prizePerMonth }"/> <form:errors
-						path="prize" cssClass="validationErrorText" />
-				</td>
-				<td>
-					<form:input id="field-SquareFootage" type="number"
-						path="squareFootage" placeholder="Prize per month" step="5" 
-						value="${ad.squareFootage }"/> <form:errors
-						path="squareFootage" cssClass="validationErrorText" />
-				</td>
+				<td><form:input id="field-Prize" type="number" path="prize"
+						placeholder="Prize per month" step="50" /> <form:errors
+						path="prize" cssClass="validationErrorText" /></td>
+				<td><form:input id="field-SquareFootage" type="number"
+						path="squareFootage" placeholder="Prize per month" step="5" /> <form:errors
+						path="squareFootage" cssClass="validationErrorText" /></td>
 			</tr>
 		</table>
 	</fieldset>
