@@ -308,12 +308,18 @@ $(function(){
   <td></td>
    <td><p><b>You have to be logged in to place a bid</b></p></td>
   </tr>
+
   </c:when>
  </c:choose>
+ 
   </table>
-</form:form>
 
-		<hr />
+<c:choose>
+	<c:when test="${shownAd.getSellType() == 3}">
+  		<hr />
+	</c:when>
+</c:choose>
+</form:form>
 
 
 <section>
