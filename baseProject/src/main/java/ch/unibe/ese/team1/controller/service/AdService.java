@@ -192,7 +192,7 @@ public class AdService {
 		}
 
 		ad.setUser(user);
-		
+		System.out.println(ad.getCreationDate());
 		adDao.save(ad);
 
 		return ad;

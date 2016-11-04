@@ -160,23 +160,26 @@ function getFormattedDate(date){
 	
 	return d = dd+'.'+mm+'.'+yyyy+' '+hh+':'+min;
 }
-<%--
+
 
 
 // get start and end date in ms
-var auctionStartMs = ${shownAd.getCreationMs()};
-var auctionEndMs = ${shownAd.getMoveOutMs()};
+var creationDateMs = ${shownAd.getCreationMs()};
+var auctionDuration = ${shownAd.getAuctionDuration()};
+var auctionEndMs = (creationDateMs + (auctionDuration*24*60*60*1000));
+var highestBid =  Math.max("${shownAd.startOffer}" ,"${allBids[0].bid}");
 
 // create real dates
-var auctionStart = new Date(auctionStartMs);
+var creationDate = new Date(creationDateMs);
 var auctionEnd = new Date(auctionEndMs);
 var dateNow = new Date();
 
 // load the info into the paragraphs, while formatting the date
 window.onload = function() {
 	document.getElementById('datetoday').innerHTML = "today: " + getFormattedDate(dateNow).toString();
-	document.getElementById('auctionstart').innerHTML = "auction start: " + getFormattedDate(auctionStart).toString();
-	document.getElementById('auctionend').innerHTML = "auction end: " + getFormattedDate(auctionEnd).toString();
+	document.getElementById('auctionstart').innerHTML = getFormattedDate(creationDate).toString();
+	document.getElementById('auctionend').innerHTML = getFormattedDate(auctionEnd).toString();
+	document.getElementById('highestBid').innerHTML = "Highest Bid: " + highestBid.toString() + " CHF";
 }
 
 
@@ -196,13 +199,7 @@ function auctionTimer() {
 	document.getElementById('timeTilEnd').innerHTML = "remaining time: " 
 	+ remaining_days + "d " + remaining_hours + "h " + remaining_minutes + "m " + remaining_seconds + "s";
 }
---%>
-var creationDateMs = ${shownAd.getCreationMs()};
-var creationDate = new Date(creationDateMs);
-var datestring = getFormattedDate(creationDate).toString();
-var auctionDurationD = ${shownAd.getAuctionDuration()};
-var auctionEndMs = (creationDateMs + (auctionDurationD*24*3600*1000));
-alert(datestring);
+
 
 //the mighty timer from http://www.dwuser.com/education/content/easy-javascript-jquery-countdown-clock-builder/
 $(function(){
@@ -224,8 +221,7 @@ $(function(){
 		};  
 	
 	//there is a 2 second delay before the timer starts ticking, which gets adjusted here
-	//var countdown = (((new Date().getTime())+50000)/1000) - ((new Date().getTime())/1000);
-	var countdown = (((auctionEndMs+2000)/1000) - ((new Date().getTime())/1000));
+	var countdown = ((auctionEndMs/1000) - ((new Date().getTime())/1000));
 	countdown = Math.max(0, countdown);
 	$('.clock-builder-output').FlipClock(countdown, opts);
 });
@@ -273,21 +269,15 @@ $(function(){
   <c:choose>
 	<c:when test="${shownAd.getSellType() == 3}">
     <tr>
-      <td style="text-indent:50px;"><img src="/img/test/auct_live.gif"> <%-- <p class="timeTilEnd" id="timeTilEnd"></p> --%>
+      <td style="text-indent:50px;"><img src="/img/test/auct_live.gif">
       </td>
       <td valign="bottom">
-        <h2>Highest Bid: ${allBids[0].bid} &#32; CHF</h2>
-      </td>
-      <td>
-        <p id="auctionstart"></p>
+        <h2 id="highestBid">Highest Bid: 0</h2>
       </td>
     </tr>
     <tr>
       <td>
         <div class="clock-builder-output"></div>
-      </td>
-      <td>
-      <p id="auctionend"></p>
       </td>
     </tr>
       
@@ -362,11 +352,12 @@ $(function(){
 					<c:when test="${shownAd.getSellType() == 3}">Auction</c:when>
 				</c:choose></td>
 		</tr>
-		<%--<c:choose>
+		
+		<c:choose>
 			<c:when test="${shownAd.getSellType() == 3}">
 				<tr>
 					<td><h2>Auction start</h2></td>
-					<td></td>
+					<td><p id="auctionstart"></p></td>
 				</tr>
 			</c:when>
 		</c:choose>
@@ -375,10 +366,10 @@ $(function(){
 			<c:when test="${shownAd.getSellType() == 3}">
 				<tr>
 					<td><h2>Auction end</h2></td>
-					<td></td>
+					<td><p id="auctionend"></p></td>
 				</tr>
 			</c:when>
-		</c:choose>--%>
+		</c:choose>
 
 		<tr>
 			<td><h2>Address</h2></td>
@@ -417,7 +408,7 @@ $(function(){
 		<tr>
 			<c:choose>
 				<c:when test="${shownAd.getSellType() == 3}">
-					<td><h2>First Offer</h2></td>
+					<td><h2>Opening Bid</h2></td>
 					<td>${shownAd.startOffer}&#32;CHF</td>
 				</c:when>
 			</c:choose>

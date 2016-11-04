@@ -58,6 +58,7 @@ public class AdController {
 		ModelAndView model = new ModelAndView("adDescription");
 		Ad ad = adService.getAdById(id);
 		model.addObject("shownAd", ad);
+
 		model.addObject("messageForm", new MessageForm());
 
 		String loggedInUserEmail = (principal == null) ? "" : principal
@@ -84,6 +85,7 @@ public class AdController {
 		ModelAndView model = new ModelAndView("adDescription");
 		Ad ad = adService.getAdById(id);
 		model.addObject("shownAd", ad);
+
 		model.addObject("bidForm", new BidForm());
 		model.addObject("allBids", bidHistoryService.allBids(ad.getId()));
 		

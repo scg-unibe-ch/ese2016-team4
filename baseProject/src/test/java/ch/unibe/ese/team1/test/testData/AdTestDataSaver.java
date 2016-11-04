@@ -39,6 +39,7 @@ public class AdTestDataSaver {
 		regRoommatesAdBern.add(mathilda);
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+		SimpleDateFormat formatterTime = new SimpleDateFormat("dd.MM.yyyy, HH:mm:ss");
 		
 		Date creationDate1 = formatter.parse("03.10.2014");
 		Date creationDate2 = formatter.parse("11.10.2014");
@@ -48,7 +49,7 @@ public class AdTestDataSaver {
 		Date creationDate6 = formatter.parse("01.12.2014");
 		Date creationDate7 = formatter.parse("16.11.2014");
 		Date creationDate8 = formatter.parse("27.11.2014");
-		Date creationDate9 = formatter.parse("15.10.2016");
+		Date creationDate9 = formatterTime.parse("03.11.2016, 10:05:30");
 		
 		Date moveInDate1 = formatter.parse("15.12.2017");
 		Date moveInDate2 = formatter.parse("21.12.2017");
@@ -571,11 +572,11 @@ public class AdTestDataSaver {
 		adLocarno.setPictures(pictures);
 		adDao.save(adLocarno);
 		
-		String HouseDescription13 = "This is a huge house with several kitchens, bathrooms and a large living room."
-				+ "Several 1000 square meters of space should be enough for even the most severe cases of claustrophobia"
-				+ "It's located at Güterstrasse 14, 3550 Langnau, only about 200 meters away from the train station."
-				+ "The only downside is that some of the floor is covered in ice, so it might get a bit frosty sometimes."
-				+ "As you can see in the third picture, it was just newly renovated in 2012.";
+		String HouseDescription13 = "This is a huge house with several kitchens, bathrooms and a large living room. "
+				+ "Several 1000 square meters of space should be enough for even the most severe cases of claustrophobia. "
+				+ "It's located at Güterstrasse 14, 3550 Langnau, only about 200 meters away from the train station. "
+				+ "The only downside is that some of the floor is covered in ice, so it might get a bit frosty sometimes. "
+				+ "As you can see in the third picture, it was just newly renovated in 2012. ";
 		String preferences13 = "I will auction this off to literally anyone";
 
 		Ad adLangnau = new Ad();
@@ -583,6 +584,8 @@ public class AdTestDataSaver {
 		adLangnau.setMoveInDate(moveInDate9);
 		adLangnau.setMoveOutDate(moveOutDate6);
 		adLangnau.setCreationDate(creationDate9);
+		adLangnau.setAuctionDuration(20);
+		adLangnau.setStartOffer(100);
 		adLangnau.setPrizePerMonth(100);
 		adLangnau.setSquareFootage(10000);
 		adLangnau.setPropertyType(4);
