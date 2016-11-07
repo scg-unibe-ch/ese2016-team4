@@ -47,7 +47,10 @@ public class BidHistoryService {
 		BidHistory newBid = new BidHistory(bidAdId, bidUserId, bidBid);
 		Ad ad = adService.getAdById(newBid.getAdId());
 		assertTrue("Ad must be of type auction",ad.getSellType()==3);
-		if (ad.isAuctionAvailable() && isHighestBid(newBid)){
+		if (ad.isAuctionAvailable() &&
+				isHighestBid(newBid) && 
+				!isAlreadyHighestBidder(newBid)&&
+				!isBidCreator(newBid)){
 			User user = userService.findUserById(newBid.getUserId());
 			user.getId();
 			Queue<BidHistory> bidHist = new LinkedList<BidHistory>();
@@ -68,11 +71,71 @@ public class BidHistoryService {
 		}
 		return adBids;
 	}
+	@Transactional
+	public String getUserName(long userId) {
+		if (userService.findUserById(userId)!=null){
+			return userService.findUserById(userId).getUsername();
+		}
+		return "ghost user";
+	}
 	
 	public boolean isHighestBid(BidHistory bidHistory){
 		BidHistory bidH = bidHistoryDao.findTop1ByadIdOrderByBidDesc( bidHistory.getAdId() );
 		if(bidH == null) return true; 
 		return bidHistory.getBid()>bidH.getBid();
+	}
+	
+	public boolean isAlreadyHighestBidder(BidHistory bid){
+		if (bidHistoryDao.findTop1ByadIdOrderByBidDesc(bid.getAdId())!=null){
+			return bidHistoryDao.findTop1ByadIdOrderByBidDesc(bid.getAdId()).getUserId()==bid.getUserId();			
+		}
+		return false;
+	}
+	
+	public boolean isBidCreator(BidHistory bid){
+		if (adService.getAdById(bid.getAdId())!=null){
+			return bid.getUserId() == adService.getAdById(bid.getAdId()).getUser().getId();
+		}	
+		return false;
+	}
+	
+	public long getMyBid(String username, long adId){
+		User user = userService.findUserByUsername(username);
+		Iterable<BidHistory> bids = bidHistoryDao.findByAdIdOrderByBidDesc(adId);
+		if (user!=null && bids!=null){
+			for(BidHistory bid : bids){
+				if (bid.getUserId()==user.getId()){
+					return bid.getBid();
+				}
+			}
+		}
+		return -1;
+	}
+	
+	public long getNextBid(long adId){
+		long increaseStep = 1; //could be set later in the ad
+		Ad ad= adService.getAdById(adId);
+		long currentBid = 0;
+		if (ad==null){
+			return currentBid + increaseStep;
+		}else{
+			currentBid = bidHistoryDao.findTop1ByadIdOrderByBidDesc(ad.getId()).getBid();
+		}
+		long nBid = currentBid + increaseStep;
+		return nBid < ad.getStartOffer() ? ad.getStartOffer() : nBid;
+	}
+	
+	public long getHighestBid(long adId){
+		BidHistory bid = bidHistoryDao.findTop1ByadIdOrderByBidDesc(adId);
+		if (bid==null){
+			return 0;
+		}else{
+			return bid.getBid();			
+		}
+	}
+	
+	public Iterable<BidHistory> getAllBids(long adId){
+		return bidHistoryDao.findByAdIdOrderByBidDesc(adId);
 	}
 	
 	
