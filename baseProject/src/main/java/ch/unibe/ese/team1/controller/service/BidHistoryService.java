@@ -116,12 +116,15 @@ public class BidHistoryService {
 		long increaseStep = 1; //could be set later in the ad
 		Ad ad= adService.getAdById(adId);
 		long currentBid = 0;
-		if (ad==null){
-			return currentBid + increaseStep;
-		}else{
-			currentBid = bidHistoryDao.findTop1ByadIdOrderByBidDesc(ad.getId()).getBid();
-		}
 		long nBid = currentBid + increaseStep;
+		if (ad==null){
+			return nBid;
+		}else if(bidHistoryDao.findTop1ByadIdOrderByBidDesc(adId)==null){
+			return nBid < ad.getStartOffer() ? ad.getStartOffer() : nBid;
+		}else{
+			currentBid = bidHistoryDao.findTop1ByadIdOrderByBidDesc(adId).getBid();
+		}
+		nBid = currentBid + increaseStep;
 		return nBid < ad.getStartOffer() ? ad.getStartOffer() : nBid;
 	}
 	
