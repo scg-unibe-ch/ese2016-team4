@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -64,34 +65,9 @@ public class EditAdService {
 		String zip = placeAdForm.getCity().substring(0, 4);
 		ad.setZipcode(Integer.parseInt(zip));
 		ad.setCity(placeAdForm.getCity().substring(7));
-
-		Calendar calendar = Calendar.getInstance();
-		// java.util.Calendar uses a month range of 0-11 instead of the
-		// XMLGregorianCalendar which uses 1-12
-		try {
-			if (placeAdForm.getMoveInDate().length() >= 1) {
-				int dayMoveIn = Integer.parseInt(placeAdForm.getMoveInDate()
-						.substring(0, 2));
-				int monthMoveIn = Integer.parseInt(placeAdForm.getMoveInDate()
-						.substring(3, 5));
-				int yearMoveIn = Integer.parseInt(placeAdForm.getMoveInDate()
-						.substring(6, 10));
-				calendar.set(yearMoveIn, monthMoveIn - 1, dayMoveIn);
-				ad.setMoveInDate(calendar.getTime());
-			}
-
-			if (placeAdForm.getMoveOutDate().length() >= 1) {
-				int dayMoveOut = Integer.parseInt(placeAdForm.getMoveOutDate()
-						.substring(0, 2));
-				int monthMoveOut = Integer.parseInt(placeAdForm
-						.getMoveOutDate().substring(3, 5));
-				int yearMoveOut = Integer.parseInt(placeAdForm.getMoveOutDate()
-						.substring(6, 10));
-				calendar.set(yearMoveOut, monthMoveOut - 1, dayMoveOut);
-				ad.setMoveOutDate(calendar.getTime());
-			}
-		} catch (NumberFormatException e) {
-		}
+		
+		ad.setMoveInDate(placeAdForm.getMoveInDate());
+		ad.setMoveOutDate(placeAdForm.getMoveOutDate());
 
 		ad.setPrizePerMonth(placeAdForm.getPrize());
 		ad.setSquareFootage(placeAdForm.getSquareFootage());
@@ -214,12 +190,13 @@ public class EditAdService {
 		adForm.setTitle(ad.getTitle());
 		adForm.setStreet(ad.getStreet());
 		adForm.setSquareFootage(ad.getSquareFootage());		
-		if (ad.getSellType()==Ad.getSellType("Rent")){
-			adForm.setMoveInDate(ad.getMoveInDate());
-			adForm.setMoveOutDate(ad.getMoveOutDate());			
+		/*if (ad.getSellType()==Ad.getSellType("Rent")){
+			SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+			adForm.setMoveInDate(""+format.format(ad.getMoveInDate()));
+			adForm.setMoveOutDate(""+format.format(ad.getMoveOutDate()));			
 			adForm.setPrize(ad.getPrizePerMonth());
 		}else if (ad.getSellType()==Ad.getSellType("Auction")){
-		}
+		}*/
 		
 		return adForm;
 	}
