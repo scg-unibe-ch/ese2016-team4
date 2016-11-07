@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -82,15 +83,52 @@ public class AdService {
 		ad.setZipcode(Integer.parseInt(zip));
 		ad.setCity(placeAdForm.getCity().substring(7));
 		
-		ad.setMoveInDate(placeAdForm.getMoveInDate());
-		ad.setMoveOutDate(placeAdForm.getMoveOutDate());
+		if(placeAdForm.getAuctionEndDate() != null){
+			String auctionEndDate = placeAdForm.getAuctionEndDate();
+			SimpleDateFormat formatterTime = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+			Date dateNow = new Date();
+			Calendar calendar = GregorianCalendar.getInstance();
+			calendar.setTime(dateNow);
+			int HH = calendar.get(Calendar.HOUR_OF_DAY);
+			int mm = calendar.get(Calendar.	MINUTE);
+			int ss = calendar.get(Calendar.SECOND);
+			try {
+				Date endDate = formatterTime.parse(auctionEndDate + " "+ HH + ":" + mm + ":" + ss);
+				ad.setAuctionEndDate(endDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		}
+		
+		if(placeAdForm.getMoveInDate() != null){
+			String moveInDate = placeAdForm.getMoveInDate();
+			SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+			try {
+				Date inDate = formatter.parse(moveInDate);
+				ad.setMoveInDate(inDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		}
+		if(placeAdForm.getMoveOutDate() != null){
+			String moveOutDate = placeAdForm.getMoveOutDate();
+			SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+			try {
+				Date outDate = formatter.parse(moveOutDate);
+				ad.setMoveOutDate(outDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		}
 
 		ad.setPrizePerMonth(placeAdForm.getPrize());
 		
 		// new for buy and auction
 		ad.setPrizeOfSale(placeAdForm.getPrizeOfSale());
 		ad.setStartOffer(placeAdForm.getStartOffer());
-		ad.setAuctionEndDate(placeAdForm.getAuctionEndDate());
 		
 		ad.setSquareFootage(placeAdForm.getSquareFootage());
 

@@ -220,16 +220,13 @@ public class PlaceAdForm {
 		return moveInDate;
 	}
 
-	public void setMoveInDate(String moveInDate){
-		if(moveInDate != null){
-			SimpleDateFormat formatterTime = new SimpleDateFormat("dd.MM.yyyy");
-			try {
-				Date inDate = formatterTime.parse(moveInDate);
-				this.moveInDate = inDate;
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}			
+	public void setMoveInDate(String moveInDate) {
+		this.moveInDate = moveInDate;
+	}
+	public void setMoveInDate(Date moveInDate) {
+		if (moveInDate != null){
+			DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+			this.moveInDate = dateFormat.format(moveInDate);
 		}
 	}
 
@@ -237,16 +234,14 @@ public class PlaceAdForm {
 		return moveOutDate;
 	}
 
-	public void setMoveOutDate(String moveOutDate){
-		if(moveOutDate != null){
-			SimpleDateFormat formatterTime = new SimpleDateFormat("dd.MM.yyyy");
-			try {
-				Date outDate = formatterTime.parse(moveOutDate);
-				this.moveOutDate = outDate;
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}			
+	public void setMoveOutDate(String moveOutDate) {
+		this.moveOutDate = moveOutDate;
+	}
+	
+	public void setMoveOutDate(Date moveOutDate) {
+		if (moveOutDate != null){
+			DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+			this.moveOutDate = dateFormat.format(moveOutDate);
 		}
 	}
 	
@@ -254,7 +249,18 @@ public class PlaceAdForm {
 		return auctionEndDate;
 	}
 	
-	public void setAuctionEndDate(String auctionEndDate){
+	public void setAuctionEndDate(String auctionEndDate) {
+		this.auctionEndDate = auctionEndDate;
+	}
+	
+	public void setAuctionEndDate(Date auctionEndDate) {
+		if (auctionEndDate != null){
+			DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+			this.auctionEndDate = dateFormat.format(auctionEndDate);
+		}
+	}
+	
+	/*public void setAuctionEndDate(String auctionEndDate){
 		if(auctionEndDate != null){
 			SimpleDateFormat formatterTime = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 			Date dateNow = new Date();
@@ -271,7 +277,7 @@ public class PlaceAdForm {
 				e.printStackTrace();
 			}			
 		}
-	}
+	}*/
 
 	public String getTitle() {
 		return title;
