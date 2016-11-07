@@ -249,7 +249,7 @@ public class AlertService {
 
 		
 	}
-
+		
 	/**
 	 * Returns the text for an alert message with the properties of the given
 	 * ad.
