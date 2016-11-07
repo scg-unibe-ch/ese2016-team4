@@ -24,7 +24,7 @@ public class PlaceAdForm {
 	@Min(value=1, message = "YOU SHALL CHOOSE")
 	private int sellType;
 	
-	private Date auctionEndDate;
+	private String auctionEndDate;
 
 	@NotBlank(message = "Required")
 	private String title;
@@ -36,9 +36,9 @@ public class PlaceAdForm {
 	private String city;
 	
 	// @NotBlank(message = "Required")
-	private Date moveInDate;
+	private String moveInDate;
 
-	private Date moveOutDate;
+	private String moveOutDate;
 
 	// @Min(value = 1, message = "Has to be equal to 1 or more")
 	private int prize;
@@ -216,7 +216,7 @@ public class PlaceAdForm {
 		this.internet = internet;
 	}
 
-	public Date getMoveInDate() {
+	public String getMoveInDate() {
 		return moveInDate;
 	}
 
@@ -233,7 +233,7 @@ public class PlaceAdForm {
 		}
 	}
 
-	public Date getMoveOutDate() {
+	public String getMoveOutDate() {
 		return moveOutDate;
 	}
 
@@ -250,7 +250,7 @@ public class PlaceAdForm {
 		}
 	}
 	
-	public Date getAuctionEndDate() {
+	public String getAuctionEndDate() {
 		return auctionEndDate;
 	}
 	
