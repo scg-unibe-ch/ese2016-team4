@@ -167,7 +167,8 @@ function getFormattedDate(date){
 var creationDateMs = ${shownAd.getCreationMs()};
 var auctionDuration = ${shownAd.getAuctionDuration()};
 var auctionEndMs = (creationDateMs + (auctionDuration*24*60*60*1000));
-var highestBid =  Math.max("${shownAd.startOffer}" ,"${allBids[0].bid}");
+//var highestBid =  Math.max("${shownAd.startOffer}" ,"${allBids[0].bid}");
+var highestBid = ${bidService.getHighestBid(shownAd.getId())};
 
 // create real dates
 var creationDate = new Date(creationDateMs);
@@ -291,7 +292,7 @@ $(function(){
   	<td>
           <label for="bid" >Your bid:</label>
 
-          <form:input type="number" 
+          <form:input type="number" value="${bidService.getNextBid(shownAd.getId())}"
             path="bid" placeholder="e.g. 150" step="1" />
             
           <button type="submit" >Place bid</button>
@@ -504,11 +505,11 @@ $(function(){
 					<table id="bidTable">
 						<tr>
 							<td>Highest Bid:</td>
-							<td colspan="2">${allBids[0].bid} CHF</td>
+							<td colspan="2">${bidService.getHighestBid(shownAd.getId())} CHF</td>
 						</tr>
 						<tr>
 							<td>Your Bid:</td>
-							<td colspan="2">To Be Done</td>
+							<td colspan="2">${bidService.getMyBid(loggedInUserEmail,shownAd.getId())} CHF</td>
 						</tr>
 
 					</table>
@@ -522,15 +523,13 @@ $(function(){
 							<th>Date</th>
 							<th>Time</th>
 						</tr>
-						<c:forEach var="bid" items="${allBids}">
-						
-						<tr>
-							<td>${bid.userId}</td>
-							<td>${bid.bid}</td>
-							<td><fmt:formatDate value="${bid.bidTime.time}" type="date" pattern="dd.MM.yyyy" /></td>
-							<td><fmt:formatDate value="${bid.bidTime.time}" type="date" pattern="HH:mm:ss" /></td>
-						</tr>
-						
+						<c:forEach var="bid" items="${bidService.getAllBids(shownAd.getId())}">
+							<tr>
+								<td>${bidService.getUserName(bid.userId)}</td>
+								<td>${bid.bid}</td>
+								<td><fmt:formatDate value="${bid.bidTime.time}" type="date" pattern="dd.MM.yyyy" /></td>
+								<td><fmt:formatDate value="${bid.bidTime.time}" type="date" pattern="HH:mm:ss" /></td>
+							</tr>						
 						</c:forEach>
 					</table>
 					

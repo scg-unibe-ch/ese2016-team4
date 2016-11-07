@@ -58,18 +58,17 @@ public class AdController {
 		ModelAndView model = new ModelAndView("adDescription");
 		Ad ad = adService.getAdById(id);
 		model.addObject("shownAd", ad);
-
 		model.addObject("messageForm", new MessageForm());
 
-		String loggedInUserEmail = (principal == null) ? "" : principal
-				.getName();
+		String loggedInUserEmail = (principal == null) ? "" : principal.getName();
 		model.addObject("loggedInUserEmail", loggedInUserEmail);
 
 		model.addObject("visits", visitService.getVisitsByAd(ad));
 
 		model.addObject("bidForm", new BidForm());
-		
-		model.addObject("allBids", bidHistoryService.allBids(ad.getId()));
+
+//		model.addObject("allBids", bidHistoryService.allBids(ad.getId()));
+		model.addObject("bidService", bidHistoryService);
 		
 		return model;
 	}
@@ -79,6 +78,8 @@ public class AdController {
 	 * validates and persists the message passed as post data.
 	 */
 	@RequestMapping(value = "/ad", method = RequestMethod.POST)
+	@Transactional
+	@ResponseBody
 	public ModelAndView messageSent(@RequestParam("id") long id,@Valid BidForm bidForm,
 			@Valid MessageForm messageForm, BindingResult bindingResult, Principal principal) {		
 		
