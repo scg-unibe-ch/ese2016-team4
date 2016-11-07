@@ -14,9 +14,12 @@
 
 <script>
 $(document).ready( function() {
-    var now = new Date();
-    var today = now.getDate() + '-' + (now.getMonth() + 1) + '-' + now.getFullYear();
-    $('#field-moveInDate').val(today);
+    var today = new Date();
+    var tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
+    var todayFormat = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear();
+    var tomorrowFormat = tomorrow.getDate() + '.' + (tomorrow.getMonth() + 1) + '.' + tomorrow.getFullYear();
+    $('#field-moveInDate').val(todayFormat);
+    $('#field-auctionEndDate').val(tomorrowFormat);
 });
 </script>
 
@@ -39,10 +42,10 @@ $(document).ready( function() {
 			autoFocus : true
 		});
 		$("#field-moveInDate").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
 		$("#field-moveOutDate").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
 		$("#field-auctionEndDate").datepicker({
 			dateFormat : 'dd.mm.yy'
@@ -141,14 +144,6 @@ $(document).ready( function() {
 				</form:select>
 				</td>
 				
-				<td>
-				
-				<label for="auctionEndDate"  id="auctionEndDate">Auction End Date</label>
-				<form:input type="text" id="field-auctionEndDate"
-						path="auctionEndDate" />
-				
-								
-				</td>
 				<td><form:errors path="sellType" cssClass="validationErrorText" /></td>
 
 				<script>
@@ -259,14 +254,19 @@ $(document).ready( function() {
 			<tr>
 				<td><label for="field-SquareFootage">Square Meters</label></td>
 				<td><label for="field-PrizeBuy" id="prizeOfSale" hidden="true">Prize of sale</label></td>
+				<td><label for="auctionEndDate"  id="auctionEndDate" hidden="true">Auction End Date</label></td>
 			</tr>
+			<tr>
 				<td><form:input id="field-SquareFootage" type="number"
 						path="squareFootage" placeholder="Prize per month" step="5" /> <form:errors
 						path="squareFootage" cssClass="validationErrorText" /></td>
+						
 				<td><form:input id="field-PrizeOfSale" type="number" path="prizeOfSale" hidden="true"
 						placeholder="Prize of sale" step="1000" /> <form:errors
 						path="prizeOfSale" cssClass="validationErrorText" /></td>
-
+								
+				<td><form:input type="text" id="field-auctionEndDate" hidden="true"
+						path="auctionEndDate" /> </td>									
 			</tr>
 		</table>
 	</fieldset>

@@ -36,9 +36,9 @@ public class PlaceAdForm {
 	private String city;
 	
 	// @NotBlank(message = "Required")
-	private String moveInDate;
+	private Date moveInDate;
 
-	private String moveOutDate;
+	private Date moveOutDate;
 
 	// @Min(value = 1, message = "Has to be equal to 1 or more")
 	private int prize;
@@ -216,32 +216,37 @@ public class PlaceAdForm {
 		this.internet = internet;
 	}
 
-	public String getMoveInDate() {
+	public Date getMoveInDate() {
 		return moveInDate;
 	}
 
-	public void setMoveInDate(String moveInDate) {
-		this.moveInDate = moveInDate;
-	}
-	
-	public void setMoveInDate(Date moveInDate) {
-		if (moveInDate != null){
-			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-			this.moveInDate = dateFormat.format(moveInDate);
+	public void setMoveInDate(String moveInDate){
+		if(moveInDate != null){
+			SimpleDateFormat formatterTime = new SimpleDateFormat("dd.MM.yyyy");
+			try {
+				Date inDate = formatterTime.parse(moveInDate);
+				this.moveInDate = inDate;
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		}
 	}
 
-	public String getMoveOutDate() {
+	public Date getMoveOutDate() {
 		return moveOutDate;
 	}
 
-	public void setMoveOutDate(String moveOutDate) {
-		this.moveOutDate = moveOutDate;
-	}
-	public void setMoveOutDate(Date moveOutDate) {
-		if (moveOutDate != null){
-			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-			this.moveOutDate = dateFormat.format(moveOutDate);
+	public void setMoveOutDate(String moveOutDate){
+		if(moveOutDate != null){
+			SimpleDateFormat formatterTime = new SimpleDateFormat("dd.MM.yyyy");
+			try {
+				Date outDate = formatterTime.parse(moveOutDate);
+				this.moveOutDate = outDate;
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		}
 	}
 	
@@ -258,9 +263,8 @@ public class PlaceAdForm {
 			int HH = calendar.get(Calendar.HOUR_OF_DAY);
 			int mm = calendar.get(Calendar.	MINUTE);
 			int ss = calendar.get(Calendar.SECOND);
-			Date endDate;
 			try {
-				endDate = formatterTime.parse(auctionEndDate + " "+ HH + ":" + mm + ":" + ss);
+				Date endDate = formatterTime.parse(auctionEndDate + " "+ HH + ":" + mm + ":" + ss);
 				this.auctionEndDate = endDate;
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
