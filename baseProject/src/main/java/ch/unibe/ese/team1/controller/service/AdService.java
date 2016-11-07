@@ -77,8 +77,6 @@ public class AdService {
 
 		ad.setStreet(placeAdForm.getStreet());
 
-		ad.setStudio(placeAdForm.getStudio());
-
 		// take the zipcode - first four digits
 		String zip = placeAdForm.getCity().substring(0, 4);
 		ad.setZipcode(Integer.parseInt(zip));
@@ -120,6 +118,7 @@ public class AdService {
 		// new for buy and auction
 		ad.setPrizeOfSale(placeAdForm.getPrizeOfSale());
 		ad.setStartOffer(placeAdForm.getStartOffer());
+		ad.setAuctionDuration(placeAdForm.getAuctionDuration());
 		
 		ad.setSquareFootage(placeAdForm.getSquareFootage());
 
@@ -193,7 +192,7 @@ public class AdService {
 		}
 
 		ad.setUser(user);
-		
+		System.out.println(ad.getCreationDate());
 		adDao.save(ad);
 
 		return ad;

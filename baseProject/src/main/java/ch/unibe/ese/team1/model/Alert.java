@@ -251,4 +251,5 @@ public class Alert {
 	public void setInternet(boolean internet) {
 		this.internet = internet;
 	}
+
 }

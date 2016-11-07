@@ -112,6 +112,7 @@
 									<c:when test="${ad.getSellType() == 2}">Buy</c:when>
 									<c:when test="${ad.getSellType() == 3}">Auction</c:when>
 								</c:choose></i>
+							<br /><br />
 						</p>
 					</div>
 					<div class="resultRight">

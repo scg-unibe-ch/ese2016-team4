@@ -215,6 +215,7 @@ public class EditAdService {
 		adForm.setRoomDescription(ad.getRoomDescription());
 		adForm.setPreferences(ad.getPreferences());
 		adForm.setRoommates(ad.getRoommates());
+
 		
 		adForm.setCity(ad.getCity());
 		adForm.setStreet(ad.getStreet());

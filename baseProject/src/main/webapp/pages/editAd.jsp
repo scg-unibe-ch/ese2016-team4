@@ -216,12 +216,10 @@
 							document.getElementById("field-startOffer").hidden = true;
 						}
 					};
-							
-				</script>
-				
-			</tr>
+				</script>		
+				</tr>
 
-			<tr>
+				<tr>
 				<td><form:input id="field-title" path="title"
 						placeholder="Ad Title" /></td>
 				
@@ -274,7 +272,7 @@
 				<td><form:input id="field-city" path="city" placeholder="${ad.city}" />
 					<form:errors path="city" cssClass="validationErrorText" /></td>
 				<td><form:input id="field-startOffer" type="number" path="startOffer" hidden="true"
-						placeholder="Start offer" step="1000" /> 
+						placeholder="Start offer" step="50" /> 
 					<form:errors path="startOffer" cssClass="validationErrorText" /></td>
 			</tr>
 
