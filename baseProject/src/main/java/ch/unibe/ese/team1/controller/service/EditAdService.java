@@ -66,8 +66,33 @@ public class EditAdService {
 		ad.setZipcode(Integer.parseInt(zip));
 		ad.setCity(placeAdForm.getCity().substring(7));
 		
-		ad.setMoveInDate(placeAdForm.getMoveInDate());
-		ad.setMoveOutDate(placeAdForm.getMoveOutDate());
+		Calendar calendar = Calendar.getInstance();
+		// java.util.Calendar uses a month range of 0-11 instead of the
+		// XMLGregorianCalendar which uses 1-12
+		try {
+			if (placeAdForm.getMoveInDate().length() >= 1) {
+				int dayMoveIn = Integer.parseInt(placeAdForm.getMoveInDate()
+						.substring(0, 2));
+				int monthMoveIn = Integer.parseInt(placeAdForm.getMoveInDate()
+						.substring(3, 5));
+				int yearMoveIn = Integer.parseInt(placeAdForm.getMoveInDate()
+						.substring(6, 10));
+				calendar.set(yearMoveIn, monthMoveIn - 1, dayMoveIn);
+				ad.setMoveInDate(calendar.getTime());
+			}
+
+			if (placeAdForm.getMoveOutDate().length() >= 1) {
+				int dayMoveOut = Integer.parseInt(placeAdForm.getMoveOutDate()
+						.substring(0, 2));
+				int monthMoveOut = Integer.parseInt(placeAdForm
+						.getMoveOutDate().substring(3, 5));
+				int yearMoveOut = Integer.parseInt(placeAdForm.getMoveOutDate()
+						.substring(6, 10));
+				calendar.set(yearMoveOut, monthMoveOut - 1, dayMoveOut);
+				ad.setMoveOutDate(calendar.getTime());
+			}
+		} catch (NumberFormatException e) {
+		}
 
 		ad.setPrizePerMonth(placeAdForm.getPrize());
 		ad.setSquareFootage(placeAdForm.getSquareFootage());

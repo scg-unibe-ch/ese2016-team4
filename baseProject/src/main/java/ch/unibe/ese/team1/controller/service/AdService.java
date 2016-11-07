@@ -84,44 +84,17 @@ public class AdService {
 		ad.setCity(placeAdForm.getCity().substring(7));
 		
 		if(placeAdForm.getAuctionEndDate() != null){
-			String auctionEndDate = placeAdForm.getAuctionEndDate();
-			SimpleDateFormat formatterTime = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-			Date dateNow = new Date();
-			Calendar calendar = GregorianCalendar.getInstance();
-			calendar.setTime(dateNow);
-			int HH = calendar.get(Calendar.HOUR_OF_DAY);
-			int mm = calendar.get(Calendar.	MINUTE);
-			int ss = calendar.get(Calendar.SECOND);
-			try {
-				Date endDate = formatterTime.parse(auctionEndDate + " "+ HH + ":" + mm + ":" + ss);
-				ad.setAuctionEndDate(endDate);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}			
+			Date auctionEndDate = stringToDate(placeAdForm.getAuctionEndDate());
+			ad.setAuctionEndDate(auctionEndDate);
 		}
 		
 		if(placeAdForm.getMoveInDate() != null){
-			String moveInDate = placeAdForm.getMoveInDate();
-			SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-			try {
-				Date inDate = formatter.parse(moveInDate);
-				ad.setMoveInDate(inDate);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
+			Date moveInDate = stringToDate(placeAdForm.getMoveInDate());
+			ad.setMoveInDate(moveInDate);
 		}
 		if(placeAdForm.getMoveOutDate() != null){
-			String moveOutDate = placeAdForm.getMoveOutDate();
-			SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-			try {
-				Date outDate = formatter.parse(moveOutDate);
-				ad.setMoveOutDate(outDate);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
+			Date moveOutDate = stringToDate(placeAdForm.getMoveOutDate());
+			ad.setMoveOutDate(moveOutDate);
 		}
 
 		ad.setPrizePerMonth(placeAdForm.getPrize());
@@ -513,5 +486,25 @@ public class AdService {
 			}
 		}
 		return false;
+	}
+	
+	public Date stringToDate(String stringDate){
+			SimpleDateFormat formatterTime = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+			Date dateNow = new Date();
+			Calendar calendar = GregorianCalendar.getInstance();
+			calendar.setTime(dateNow);
+			int HH = calendar.get(Calendar.HOUR_OF_DAY);
+			int mm = calendar.get(Calendar.	MINUTE);
+			int ss = calendar.get(Calendar.SECOND);
+			Date date;
+			try {
+				date = formatterTime.parse(stringDate + " "+ HH + ":" + mm + ":" + ss);
+				return date;
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//this should never happen
+			return new Date(0);
 	}
 }

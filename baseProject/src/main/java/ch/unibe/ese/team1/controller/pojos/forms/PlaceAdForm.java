@@ -260,25 +260,6 @@ public class PlaceAdForm {
 		}
 	}
 	
-	/*public void setAuctionEndDate(String auctionEndDate){
-		if(auctionEndDate != null){
-			SimpleDateFormat formatterTime = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-			Date dateNow = new Date();
-			Calendar calendar = GregorianCalendar.getInstance();
-			calendar.setTime(dateNow);
-			int HH = calendar.get(Calendar.HOUR_OF_DAY);
-			int mm = calendar.get(Calendar.	MINUTE);
-			int ss = calendar.get(Calendar.SECOND);
-			try {
-				Date endDate = formatterTime.parse(auctionEndDate + " "+ HH + ":" + mm + ":" + ss);
-				this.auctionEndDate = endDate;
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}			
-		}
-	}*/
-
 	public String getTitle() {
 		return title;
 	}
