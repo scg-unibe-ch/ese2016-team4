@@ -66,7 +66,7 @@ public class Ad {
 	@Column(nullable = true)
 	private int startOffer;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date auctionEndDate;
 
@@ -158,6 +158,10 @@ public class Ad {
 
 	public long getMoveOutMs(){
 		return moveOutDate.getTime();
+	}
+	
+	public long getAuctionEndMs(){
+		return auctionEndDate.getTime();
 	}
 
 	public boolean getSmokers() {

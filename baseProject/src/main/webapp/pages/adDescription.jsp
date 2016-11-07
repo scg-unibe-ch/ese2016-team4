@@ -165,8 +165,8 @@ function getFormattedDate(date){
 
 // get start and end date in ms
 var creationDateMs = ${shownAd.getCreationMs()};
-var auctionDuration = ${shownAd.getAuctionDuration()};
-var auctionEndMs = (creationDateMs + (auctionDuration*24*60*60*1000));
+var auctionEndMs = ${shownAd.getAuctionEndMs()};
+var auctionDuration = Math.max(0, (auctionEndMs - creationDateMs));
 //var highestBid =  Math.max("${shownAd.startOffer}" ,"${allBids[0].bid}");
 var highestBid = ${bidService.getHighestBid(shownAd.getId())};
 
@@ -185,8 +185,8 @@ window.onload = function() {
 
 window.ready = function() {
 	creationDateMs = ${shownAd.getCreationMs()};
-	auctionDuration = ${shownAd.getAuctionDuration()};
-	auctionEndMs = (creationDateMs + (auctionDuration*24*60*60*1000));
+	auctionEndMs = ${shownAd.getAuctionEndMs()};
+	auctionDuration = Math.max(0, (auctionEndMs - creationDateMs));
 	//var highestBid =  Math.max("${shownAd.startOffer}" ,"${allBids[0].bid}");
 	highestBid = ${bidService.getHighestBid(shownAd.getId())};
 	document.getElementById('datetoday').innerHTML = "today: " + getFormattedDate(dateNow).toString();

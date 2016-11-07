@@ -3,7 +3,9 @@ package ch.unibe.ese.team1.controller.pojos.forms;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.validation.constraints.Min;
@@ -22,8 +24,7 @@ public class PlaceAdForm {
 	@Min(value=1, message = "YOU SHALL CHOOSE")
 	private int sellType;
 	
-	// @Min(value=1, message = "YOU SHALL CHOOSE")
-	private int auctionDuration;
+	private Date auctionEndDate;
 
 	@NotBlank(message = "Required")
 	private String title;
@@ -93,14 +94,6 @@ public class PlaceAdForm {
 
 	public void setSellType(int sellType) {
 		this.sellType = sellType;
-	}
-	
-	public int getAuctionDuration() {
-		return auctionDuration;
-	}
-
-	public void setAuctionDuration(int auctionDuration) {
-		this.auctionDuration = auctionDuration;
 	}
 	
 	public String getCity() {
@@ -249,6 +242,24 @@ public class PlaceAdForm {
 		if (moveOutDate != null){
 			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 			this.moveOutDate = dateFormat.format(moveOutDate);
+		}
+	}
+	
+	public Date getAuctionEndDate() {
+		return auctionEndDate;
+	}
+	
+	public void setAuctionEndDate(String auctionEndDate) throws ParseException {
+		if(auctionEndDate != null){
+			SimpleDateFormat formatterTime = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+			Date dateNow = new Date();
+			Calendar calendar = GregorianCalendar.getInstance();
+			calendar.setTime(dateNow);
+			int HH = calendar.get(Calendar.HOUR_OF_DAY);
+			int mm = calendar.get(Calendar.	MINUTE);
+			int ss = calendar.get(Calendar.SECOND);
+			Date endDate = formatterTime.parse(auctionEndDate + " "+ HH + ":" + mm + ":" + ss);
+			this.auctionEndDate = endDate;
 		}
 	}
 

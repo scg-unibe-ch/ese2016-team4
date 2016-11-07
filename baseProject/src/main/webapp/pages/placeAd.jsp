@@ -44,6 +44,9 @@ $(document).ready( function() {
 		$("#field-moveOutDate").datepicker({
 			dateFormat : 'dd-mm-yy'
 		});
+		$("#field-auctionEndDate").datepicker({
+			dateFormat : 'dd.mm.yy'
+		});
 		
 		$("#field-visitDay").datepicker({
 			dateFormat : 'dd-mm-yy'
@@ -140,12 +143,9 @@ $(document).ready( function() {
 				
 				<td>
 				
-				<form:select class="auction" path="auctionDuration" hidden="true">
-				<form:option value="0">Choose the desired duration</form:option>
-				<form:option id="duration1" value="1">1 Day</form:option>
-				<form:option id="duration2" value="7"> 7 Days</form:option>
-				<form:option id="duration3" value="30">30 Days</form:option>
-				</form:select>
+				<label for="auctionEndDate"  id="auctionEndDate">Auction End Date</label>
+				<form:input type="text" id="field-auctionEndDate"
+						path="auctionEndDate" />
 				
 								
 				</td>
@@ -154,7 +154,8 @@ $(document).ready( function() {
 				<script>
 					document.getElementById("myselect").onchange = function() {
 						if(document.getElementById("myselect").value == 3) {
-							document.getElementById("auctionDuration").hidden = false;
+							document.getElementById("auctionEndDate").hidden = false;
+							document.getElementById("field-auctionEndDate").hidden = false;
 							document.getElementById("moveInDate").hidden = true;
 							document.getElementById("moveOutDate").hidden = true;							
 							document.getElementById("prize").hidden = true;
@@ -169,7 +170,8 @@ $(document).ready( function() {
 
 
 						} else if(document.getElementById("myselect").value == 2) {	
-							document.getElementById("auctionDuration").hidden = true;
+							document.getElementById("auctionEndDate").hidden = true;
+							document.getElementById("field-auctionEndDate").hidden = true;
 							document.getElementById("moveInDate").hidden = true;
 							document.getElementById("moveOutDate").hidden = true;							
 							document.getElementById("prize").hidden = true;
@@ -182,7 +184,8 @@ $(document).ready( function() {
 							document.getElementById("field-startOffer").hidden = true;
 
 						} else {
-							document.getElementById("auctionDuration").hidden = true;
+							document.getElementById("auctionEndDate").hidden = true;
+							document.getElementById("field-auctionEndDate").hidden = true;
 							document.getElementById("moveInDate").hidden = false;
 							document.getElementById("moveOutDate").hidden = false;							
 							document.getElementById("prize").hidden = false;
