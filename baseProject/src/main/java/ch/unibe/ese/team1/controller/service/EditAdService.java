@@ -57,10 +57,11 @@ public class EditAdService {
 		ad.setCreationDate(now);
 
 		ad.setTitle(placeAdForm.getTitle());
-
 		ad.setStreet(placeAdForm.getStreet());
 
-		ad.setStudio(placeAdForm.getStudio());
+		// new for different property and sell types
+		ad.setSellType(placeAdForm.getSellType());
+		ad.setPropertyType(placeAdForm.getPropertyType());
 
 		// take the zipcode - first four digits
 		String zip = placeAdForm.getCity().substring(0, 4);
@@ -95,7 +96,11 @@ public class EditAdService {
 		} catch (NumberFormatException e) {
 		}
 
+		// new for auction & buy
 		ad.setPrizePerMonth(placeAdForm.getPrize());
+		ad.setStartOffer(placeAdForm.getStartOffer());
+		ad.setPrizeOfSale(placeAdForm.getPrizeOfSale());
+		
 		ad.setSquareFootage(placeAdForm.getSquareFootage());
 
 		ad.setRoomDescription(placeAdForm.getRoomDescription());
@@ -210,6 +215,24 @@ public class EditAdService {
 		adForm.setRoomDescription(ad.getRoomDescription());
 		adForm.setPreferences(ad.getPreferences());
 		adForm.setRoommates(ad.getRoommates());
+		
+		adForm.setCity(ad.getCity());
+		adForm.setStreet(ad.getStreet());
+		adForm.setTitle(ad.getTitle());
+		if (ad.getMoveInDate() != null) {
+			adForm.setMoveInDate(ad.getMoveInDate().toString());
+		}
+		if (ad.getMoveOutDate() != null) {
+			adForm.setMoveOutDate(ad.getMoveOutDate().toString());
+		}
+		adForm.setPrize(ad.getPrizePerMonth());
+		if (ad.getSellType() == 2) {
+			adForm.setPrizeOfSale(ad.getPrizeOfSale());
+		}
+		if (ad.getSellType() == 3) {
+			adForm.setStartOffer(ad.getStartOffer());
+		}
+		adForm.setSquareFootage(ad.getSquareFootage());
 
 		return adForm;
 	}

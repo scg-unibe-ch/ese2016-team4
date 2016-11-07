@@ -262,6 +262,7 @@ public class PlaceAdForm {
 		this.roomFriends = roomFriends;
 	}
 	
+	// ToDo: Aufräumen
 	public boolean getStudio() {
 		return studio;
 	}

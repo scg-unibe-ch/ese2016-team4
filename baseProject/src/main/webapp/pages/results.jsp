@@ -153,7 +153,7 @@ function sort_div_attribute() {
 						<c:choose>
 							<c:when test="${ad.getSellType() == 1}"><p>Move-in date: ${formattedMoveInDate }</p></c:when>
 						</c:choose>					
-						</div>
+					</div>
 				</div>
 			</c:forEach>
 		</div>

@@ -1,6 +1,7 @@
 package ch.unibe.ese.team1.controller.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -55,13 +56,56 @@ public class AlertService {
 		String zip = alertForm.getCity().substring(0, 4);
 		alert.setZipcode(Integer.parseInt(zip));
 		alert.setCity(alertForm.getCity().substring(7));
-
-		alert.setPrice(alertForm.getPrice());
+		alert.setPrice(alertForm.getPrize());
 		alert.setRadius(alertForm.getRadius());
-		alert.setRoom(alertForm.getRoom());
-		alert.setStudio(alertForm.getStudio());
-		alert.setBothRoomAndStudio(alertForm.getBothRoomAndStudio());
+		alert.setSquareFootage(alertForm.getSquareFootage());
 		alert.setUser(user);
+		alert.setPropertyType(alertForm.getPropertyType());
+		alert.setSellType(alertForm.getSellType());
+		
+		// ad description values
+
+		alert.setBalcony(alertForm.getBalcony());
+		alert.setCable(alertForm.getCable());
+		alert.setCellar(alertForm.getCellar());
+		alert.setGarage(alertForm.getGarage());
+		alert.setGarden(alertForm.getGarden());
+		alert.setInternet(alertForm.getInternet());
+		alert.setAnimals(alertForm.getAnimals());
+		alert.setFurnished(alertForm.getFurnished());
+		alert.setSmokers(alertForm.getSmokers());
+		
+		
+		Calendar calendar = Calendar.getInstance();
+		// java.util.Calendar uses a month range of 0-11 instead of the
+		// XMLGregorianCalendar which uses 1-12
+
+		try {
+			if (alertForm.getMoveInDate().length() >= 1) {
+				int dayMoveIn = Integer.parseInt(alertForm.getMoveInDate()
+						.substring(0, 2));
+				int monthMoveIn = Integer.parseInt(alertForm.getMoveInDate()
+						.substring(3, 5));
+				int yearMoveIn = Integer.parseInt(alertForm.getMoveInDate()
+						.substring(6, 10));
+				calendar.set(yearMoveIn, monthMoveIn - 1, dayMoveIn);
+				alert.setMoveInDate(calendar.getTime());
+				} 
+				
+			if (alertForm.getMoveOutDate().length() >= 1) {
+				int dayMoveOut = Integer.parseInt(alertForm.getMoveOutDate()
+						.substring(0, 2));
+				int monthMoveOut = Integer.parseInt(alertForm
+						.getMoveOutDate().substring(3, 5));
+				int yearMoveOut = Integer.parseInt(alertForm.getMoveOutDate()
+						.substring(6, 10));
+				calendar.set(yearMoveOut, monthMoveOut - 1, dayMoveOut);
+				alert.setMoveOutDate(calendar.getTime());
+			}
+		} catch (NumberFormatException e) {
+		}
+
+
 		alertDao.save(alert);
 	}
 
@@ -85,41 +129,125 @@ public class AlertService {
 	 */
 	@Transactional
 	public void triggerAlerts(Ad ad) {
-		int adPrice = ad.getPrizePerMonth();
-		Iterable<Alert> alerts = alertDao.findByPriceGreaterThan(adPrice - 1);
+		
+		if(ad.getSellType() == 1) {
+			int adPrice = ad.getPrizePerMonth();
+			Iterable<Alert> alerts = alertDao.findByPriceGreaterThan(adPrice-1);
 
-		// loop through all ads with matching city and price range, throw out
-		// mismatches
-		Iterator<Alert> alertIterator = alerts.iterator();
-		while (alertIterator.hasNext()) {
-			Alert alert = alertIterator.next();
-			if (typeMismatchWith(ad, alert) || radiusMismatchWith(ad, alert)
-					|| ad.getUser().equals(alert.getUser()))
-				alertIterator.remove();
-		}
+			// loop through all ads with matching city and price range, throw out
+			// mismatches
+			Iterator<Alert> alertIterator = alerts.iterator();
+			while (alertIterator.hasNext()) {
+				Alert alert = alertIterator.next();
+				if (typeMismatchWith(ad, alert) || radiusMismatchWith(ad, alert)
+						|| sizeMismatchWith(ad, alert) || propertyMismatchWith(ad, alert)
+						|| dateMismatchWith(ad, alert)
+						|| ad.getUser().equals(alert.getUser()))
+					alertIterator.remove();
+			}
+			
+			// send only one message per user, no matter how many alerts were
+			// triggered
+			List<User> users = new ArrayList<User>();
+			for (Alert alert : alerts) {
+				User user = alert.getUser();
+				if (!users.contains(user)) {
+					users.add(user);
+				}
+			}
 
-		// send only one message per user, no matter how many alerts were
-		// triggered
-		List<User> users = new ArrayList<User>();
-		for (Alert alert : alerts) {
-			User user = alert.getUser();
-			if (!users.contains(user)) {
-				users.add(user);
+			// send messages to all users with matching alerts
+			for (User user : users) {
+				Date now = new Date();
+				Message message = new Message();
+				message.setSubject("It's a match!");
+				message.setText(getAlertText(ad));
+				message.setSender(userDao.findByUsername("System"));
+				message.setRecipient(user);
+				message.setState(MessageState.UNREAD);
+				message.setDateSent(now);
+				messageDao.save(message);
+			}
+		} else if(ad.getSellType() == 2) {
+			int adPrice = ad.getPrizeOfSale();
+			Iterable<Alert> alerts = alertDao.findByPriceGreaterThan(adPrice-1);
+
+			// loop through all ads with matching city and price range, throw out
+			// mismatches
+			Iterator<Alert> alertIterator = alerts.iterator();
+			while (alertIterator.hasNext()) {
+				Alert alert = alertIterator.next();
+				if (typeMismatchWith(ad, alert) || radiusMismatchWith(ad, alert)
+						|| sizeMismatchWith(ad, alert) || propertyMismatchWith(ad, alert)
+						|| dateMismatchWith(ad, alert)
+						|| ad.getUser().equals(alert.getUser()))
+					alertIterator.remove();
+			}
+			
+			// send only one message per user, no matter how many alerts were
+			// triggered
+			List<User> users = new ArrayList<User>();
+			for (Alert alert : alerts) {
+				User user = alert.getUser();
+				if (!users.contains(user)) {
+					users.add(user);
+				}
+			}
+
+			// send messages to all users with matching alerts
+			for (User user : users) {
+				Date now = new Date();
+				Message message = new Message();
+				message.setSubject("It's a match!");
+				message.setText(getAlertText(ad));
+				message.setSender(userDao.findByUsername("System"));
+				message.setRecipient(user);
+				message.setState(MessageState.UNREAD);
+				message.setDateSent(now);
+				messageDao.save(message);
+			}
+		} 
+		else {
+			int adPrice = ad.getStartOffer();
+			Iterable<Alert> alerts = alertDao.findByPriceGreaterThan(adPrice-1);
+
+			// loop through all ads with matching city and price range, throw out
+			// mismatches
+			Iterator<Alert> alertIterator = alerts.iterator();
+			while (alertIterator.hasNext()) {
+				Alert alert = alertIterator.next();
+				if (typeMismatchWith(ad, alert) || radiusMismatchWith(ad, alert)
+						|| sizeMismatchWith(ad, alert) || propertyMismatchWith(ad, alert)
+						|| dateMismatchWith(ad, alert)
+						|| ad.getUser().equals(alert.getUser()))
+					alertIterator.remove();
+			}
+			
+			// send only one message per user, no matter how many alerts were
+			// triggered
+			List<User> users = new ArrayList<User>();
+			for (Alert alert : alerts) {
+				User user = alert.getUser();
+				if (!users.contains(user)) {
+					users.add(user);
+				}
+			}
+
+			// send messages to all users with matching alerts
+			for (User user : users) {
+				Date now = new Date();
+				Message message = new Message();
+				message.setSubject("It's a match!");
+				message.setText(getAlertText(ad));
+				message.setSender(userDao.findByUsername("System"));
+				message.setRecipient(user);
+				message.setState(MessageState.UNREAD);
+				message.setDateSent(now);
+				messageDao.save(message);
 			}
 		}
 
-		// send messages to all users with matching alerts
-		for (User user : users) {
-			Date now = new Date();
-			Message message = new Message();
-			message.setSubject("It's a match!");
-			message.setText(getAlertText(ad));
-			message.setSender(userDao.findByUsername("System"));
-			message.setRecipient(user);
-			message.setState(MessageState.UNREAD);
-			message.setDateSent(now);
-			messageDao.save(message);
-		}
+		
 	}
 
 	/**
@@ -141,11 +269,12 @@ public class AlertService {
 	/** Checks if an ad is conforming to the criteria in an alert. */
 	private boolean typeMismatchWith(Ad ad, Alert alert) {
 		boolean mismatch = false;
-		if (!alert.getBothRoomAndStudio()
-				&& ad.getStudio() != alert.getStudio())
+		if (ad.getPropertyType() != alert.getPropertyType() || ad.getSellType() != alert.getSellType()) {
 			mismatch = true;
+		}
 		return mismatch;
 	}
+	
 
 	/**
 	 * Checks whether an ad is for a place too far away from the alert.
@@ -177,6 +306,53 @@ public class AlertService {
 		return (distance > alert.getRadius());
 	}
 	
+	private boolean sizeMismatchWith(Ad ad, Alert alert) {
+		boolean mismatch = false;
+		double sizeAd = ad.getSquareFootage();
+		double desiredSize = alert.getSquareFootage();
+		
+		double sizeDifference = Math.abs(sizeAd - desiredSize);
+		if(sizeDifference >= 20) {
+			mismatch = true;
+		}
+		return  mismatch;
+	}
+	
+	private boolean propertyMismatchWith(Ad ad, Alert alert) {
+		boolean mismatch = false;
+		if(ad.getAnimals() != alert.getAnimals() || ad.getBalcony() != alert.getBalcony() 
+				|| ad.getCable() != alert.getCable() || ad.getCellar() != alert.getCellar()
+				|| ad.getFurnished() != alert.getFurnished() || ad.getGarage() != alert.getGarage()
+				|| ad.getGarden() != alert.getGarden() || ad.getInternet() != alert.getInternet()
+				|| ad.getSmokers() != alert.getSmokers()) {
+			mismatch = true;
+		}
+		return mismatch;
+	}
+	
+	private boolean dateMismatchWith(Ad ad, Alert alert) {
+		boolean mismatch = false;
+		
+		if(ad.getMoveInDate() != null & alert.getMoveInDate() != null) {
+			long moveInDateAd = ad.getMoveInDate().getTime();
+			long moveInDateAlert = alert.getMoveInDate().getTime();
+			
+			if (ad.getMoveOutDate() != null & alert.getMoveOutDate() != null ) {
+				long moveOutDateAd = ad.getMoveOutDate().getTime();
+				long moveOutDateAlert = alert.getMoveOutDate().getTime();
+
+				if(moveOutDateAlert < moveOutDateAd && moveInDateAlert > moveInDateAd) {
+					mismatch = true;
+				}
+			}
+			if (moveInDateAlert > moveInDateAd) {
+				mismatch = true;
+			}
+		} 
+		return mismatch;
+	}
+
+	
 	//for testing
 	public boolean radiusMismatch(Ad ad, Alert alert) {
 		return radiusMismatchWith(ad, alert);
@@ -186,4 +362,6 @@ public class AlertService {
 	public boolean typeMismatch(Ad ad, Alert alert) {
 		return typeMismatchWith(ad, alert);
 	}
+	
+	
 }

@@ -1,6 +1,7 @@
 package ch.unibe.ese.team1.controller.pojos.forms;
 
-import javax.validation.constraints.AssertFalse;
+
+import javax.persistence.Column;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -14,8 +15,15 @@ public class AlertForm {
 	
 	private User user;
 
-	private boolean studio;
-	private boolean room;
+	@Min(value=1, message = "YOU SHALL CHOOSE")
+	private int propertyType;
+	
+	@Min(value=1, message = "YOU SHALL CHOOSE")
+	private int sellType;
+	
+	private String moveInDate;
+	
+	private String moveOutDate;
 
 	@NotBlank(message = "Required")
 	@Pattern(regexp = "^[0-9]{4} - [-\\w\\s\\u00C0-\\u00FF]*", message = "Please pick a city from the list")
@@ -27,15 +35,53 @@ public class AlertForm {
 	
 	@NotNull(message = "Requires a number")
 	@Min(value = 0, message = "In your dreams.")
-	private Integer price;
+	private Integer prize;
 	
+	@Min(value = 1, message = "Has to be equal to 1 or more")
+	private int squareFootage;
+
 	private int zipCode;
+	
+	public int getPropertyType() {
+		return propertyType;
+	}
 
-	@AssertFalse(message = "Please select either or both types")
-	private boolean noRoomNoStudio;
+	public void setPropertyType(int propertyType) {
+		this.propertyType = propertyType;
+	}
 
-	private boolean bothRoomAndStudio;
+	public int getSellType() {
+		return sellType;
+	}
 
+	public void setSellType(int sellType) {
+		this.sellType = sellType;
+	}
+	
+	public int getSquareFootage() {
+		return squareFootage;
+	}
+
+	public void setSquareFootage(int squareFootage) {
+		this.squareFootage = squareFootage;
+	}
+	
+	public String getMoveInDate() {
+		return moveInDate;
+	}
+
+	public void setMoveInDate(String moveInDate) {
+		this.moveInDate = moveInDate;
+	}
+
+	public String getMoveOutDate() {
+		return moveOutDate;
+	}
+
+	public void setMoveOutDate(String moveOutDate) {
+		this.moveOutDate = moveOutDate;
+	}
+	
 	public String getCity() {
 		return city;
 	}
@@ -59,44 +105,12 @@ public class AlertForm {
 		this.radius = radius;
 	}
 
-	public Integer getPrice() {
-		return price;
+	public Integer getPrize() {
+		return prize;
 	}
 
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
-
-	public boolean getStudio() {
-		return studio;
-	}
-
-	public void setStudio(boolean studio) {
-		this.studio = studio;
-	}
-
-	public boolean getRoom() {
-		return room;
-	}
-
-	public void setRoom(boolean room) {
-		this.room = room;
-	}
-
-	public boolean getNoRoomNoStudio() {
-		return noRoomNoStudio;
-	}
-
-	public void setNoRoomNoStudio(boolean noRoomNoStudio) {
-		this.noRoomNoStudio = noRoomNoStudio;
-	}
-
-	public boolean getBothRoomAndStudio() {
-		return bothRoomAndStudio;
-	}
-
-	public void setBothRoomAndStudio(boolean bothRoomAndStudio) {
-		this.bothRoomAndStudio = bothRoomAndStudio;
+	public void setPrize(Integer prize) {
+		this.prize = prize;
 	}
 	
 	public User getUser() {
@@ -105,5 +119,91 @@ public class AlertForm {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+
+	private boolean smokers;
+	private boolean animals;
+	private boolean garden;
+	private boolean balcony;
+	private boolean cellar;
+	private boolean furnished;
+	private boolean cable;
+	private boolean garage;
+	private boolean internet;
+
+
+	// the ugly stuff
+
+	public boolean getSmokers() {
+		return smokers;
+	}
+
+	public void setSmokers(boolean smokers) {
+		this.smokers = smokers;
+	}
+
+	public boolean getAnimals() {
+		return animals;
+	}
+
+	public void setAnimals(boolean animals) {
+		this.animals = animals;
+	}
+
+	public boolean getGarden() {
+		return garden;
+	}
+
+	public void setGarden(boolean garden) {
+		this.garden = garden;
+	}
+
+	public boolean getBalcony() {
+		return balcony;
+	}
+
+	public void setBalcony(boolean balcony) {
+		this.balcony = balcony;
+	}
+
+	public boolean getCellar() {
+		return cellar;
+	}
+
+	public void setCellar(boolean cellar) {
+		this.cellar = cellar;
+	}
+
+	public boolean getFurnished() {
+		return furnished;
+	}
+
+	public void setFurnished(boolean furnished) {
+		this.furnished = furnished;
+	}
+
+	public boolean getCable() {
+		return cable;
+	}
+
+	public void setCable(boolean cable) {
+		this.cable = cable;
+	}
+
+	public boolean getGarage() {
+		return garage;
+	}
+
+	public void setGarage(boolean garage) {
+		this.garage = garage;
+	}
+
+	public boolean getInternet() {
+		return internet;
+	}
+
+	public void setInternet(boolean internet) {
+		this.internet = internet;
 	}
 }
