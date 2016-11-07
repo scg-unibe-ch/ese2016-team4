@@ -78,17 +78,17 @@ public class AdController {
 	 * validates and persists the message passed as post data.
 	 */
 	@RequestMapping(value = "/ad", method = RequestMethod.POST)
-	@Transactional
 	@ResponseBody
 	public ModelAndView messageSent(@RequestParam("id") long id,@Valid BidForm bidForm,
 			@Valid MessageForm messageForm, BindingResult bindingResult, Principal principal) {		
 		
-		ModelAndView model = new ModelAndView("adDescription");
+//		ModelAndView model = new ModelAndView("adDescription");
+////		ModelAndView model = new ModelAndView("redirect:/qSearch");
 		Ad ad = adService.getAdById(id);
-		model.addObject("shownAd", ad);
-
-		model.addObject("bidForm", new BidForm());
-		model.addObject("allBids", bidHistoryService.allBids(ad.getId()));
+//		model.addObject("shownAd", ad);
+//
+//		model.addObject("bidForm", new BidForm());
+//		model.addObject("allBids", bidHistoryService.allBids(ad.getId()));
 		
 		//principal == null should never happen, because the form only gets displayed when you're logged in
 		if(principal != null){
@@ -96,12 +96,12 @@ public class AdController {
 			User user = userService.findUserByUsername(username);
 			bidHistoryService.addBid(ad.getId(), user.getId(), bidForm.getBid());
 		}
-		
-
 		if (!bindingResult.hasErrors()) {
 			messageService.saveFrom(messageForm);
 		}
-		return model;
+		ModelAndView redirModel = new ModelAndView("bidRedirect");
+		redirModel.addObject("destination", "/ad?id="+ad.getId());
+		return redirModel;
 	}
 
 	/**

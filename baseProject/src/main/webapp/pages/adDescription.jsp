@@ -183,6 +183,18 @@ window.onload = function() {
 	document.getElementById('highestBid').innerHTML = "Highest Bid: " + highestBid.toString() + " CHF";
 }
 
+window.ready = function() {
+	creationDateMs = ${shownAd.getCreationMs()};
+	auctionDuration = ${shownAd.getAuctionDuration()};
+	auctionEndMs = (creationDateMs + (auctionDuration*24*60*60*1000));
+	//var highestBid =  Math.max("${shownAd.startOffer}" ,"${allBids[0].bid}");
+	highestBid = ${bidService.getHighestBid(shownAd.getId())};
+	document.getElementById('datetoday').innerHTML = "today: " + getFormattedDate(dateNow).toString();
+	document.getElementById('auctionstart').innerHTML = getFormattedDate(creationDate).toString();
+	document.getElementById('auctionend').innerHTML = getFormattedDate(auctionEnd).toString();
+	document.getElementById('highestBid').innerHTML = "Highest Bid: " + highestBid.toString() + " CHF";
+}
+
 
 // set timer to refresh every second
 setInterval(auctionTimer, 1000);
@@ -265,7 +277,9 @@ $(function(){
 
 
 
-	<form:form action="/ad?id=${shownAd.id}" onsubmit="window.location.reload(true);"  method="post" modelAttribute="bidForm" id="bidForm" autocomplete="off">
+	<form:form action="/ad?id=${shownAd.id}"
+			method="post" modelAttribute="bidForm"
+			id="bidForm" autocomplete="off">
   <table style="width: 100%; vertical-align: center;">
   <c:choose>
 	<c:when test="${shownAd.getSellType() == 3}">
