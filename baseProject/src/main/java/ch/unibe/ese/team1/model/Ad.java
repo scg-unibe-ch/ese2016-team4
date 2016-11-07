@@ -157,11 +157,13 @@ public class Ad {
 	}
 
 	public long getMoveOutMs(){
-		return moveOutDate.getTime();
+		if (moveOutDate != null) return moveOutDate.getTime();
+		return 0;
 	}
 	
 	public long getAuctionEndMs(){
-		return auctionEndDate.getTime();
+		if(auctionEndDate != null) return auctionEndDate.getTime();
+		return 0;
 	}
 
 	public boolean getSmokers() {

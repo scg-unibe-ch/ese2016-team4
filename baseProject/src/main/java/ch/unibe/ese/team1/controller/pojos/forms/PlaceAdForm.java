@@ -249,7 +249,7 @@ public class PlaceAdForm {
 		return auctionEndDate;
 	}
 	
-	public void setAuctionEndDate(String auctionEndDate) throws ParseException {
+	public void setAuctionEndDate(String auctionEndDate){
 		if(auctionEndDate != null){
 			SimpleDateFormat formatterTime = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 			Date dateNow = new Date();
@@ -258,8 +258,14 @@ public class PlaceAdForm {
 			int HH = calendar.get(Calendar.HOUR_OF_DAY);
 			int mm = calendar.get(Calendar.	MINUTE);
 			int ss = calendar.get(Calendar.SECOND);
-			Date endDate = formatterTime.parse(auctionEndDate + " "+ HH + ":" + mm + ":" + ss);
-			this.auctionEndDate = endDate;
+			Date endDate;
+			try {
+				endDate = formatterTime.parse(auctionEndDate + " "+ HH + ":" + mm + ":" + ss);
+				this.auctionEndDate = endDate;
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		}
 	}
 
