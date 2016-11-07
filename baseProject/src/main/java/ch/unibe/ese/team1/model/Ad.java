@@ -66,8 +66,9 @@ public class Ad {
 	@Column(nullable = true)
 	private int startOffer;
 	
-	@Column(nullable = true)
-	private int auctionDuration;
+	@Column(nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date auctionEndDate;
 
 	@Column(nullable = true)
 	private int prizeOfSale;
@@ -374,12 +375,12 @@ public class Ad {
 		this.startOffer = startOffer;
 	}
 	
-	public int getAuctionDuration() {
-		return auctionDuration;
+	public Date getAuctionEndDate() {
+		return auctionEndDate;
 	}
 
-	public void setAuctionDuration(int auctionDuration) {
-		this.auctionDuration = auctionDuration;
+	public void setAuctionEndDate(Date auctionEndDate) {
+		this.auctionEndDate = auctionEndDate;
 	}
 	
 	public int getPrizeOfSale() {

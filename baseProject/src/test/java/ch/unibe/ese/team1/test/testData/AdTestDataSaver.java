@@ -68,6 +68,8 @@ public class AdTestDataSaver {
 		Date moveOutDate5 = formatter.parse("30.09.2018");
 		Date moveOutDate6 = formatter.parse("10.11.2018");
 		
+		Date auctionEndDate1 = formatterTime.parse("30.11.2016, 15:21:44");
+		
 		String roomDescription1 = "The room is a part of 3.5 rooms apartment completely renovated"
 				+ "in 2010 at Kramgasse, Bern. The apartment is about 50 m2 on 1st floor."
 				+ "Apt is equipped modern kitchen, hall and balcony. Near to shops and public"
@@ -584,7 +586,7 @@ public class AdTestDataSaver {
 		adLangnau.setMoveInDate(moveInDate9);
 		adLangnau.setMoveOutDate(moveOutDate6);
 		adLangnau.setCreationDate(creationDate9);
-		adLangnau.setAuctionDuration(20);
+		adLangnau.setAuctionEndDate(auctionEndDate1);
 		adLangnau.setStartOffer(100);
 		adLangnau.setPrizePerMonth(100);
 		adLangnau.setSquareFootage(10000);
