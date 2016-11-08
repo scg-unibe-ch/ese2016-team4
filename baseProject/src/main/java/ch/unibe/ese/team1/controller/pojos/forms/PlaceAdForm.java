@@ -24,6 +24,7 @@ public class PlaceAdForm {
 	@Min(value=1, message = "YOU SHALL CHOOSE")
 	private int sellType;
 	
+	@Pattern(regexp="^$|^(((0[1-9]|[12]\\d|3[01])\\.(0[13578]|1[02])\\.((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\.(0[13456789]|1[012])\\.((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\.02\\.((1[6-9]|[2-9]\\d)\\d{2}))|(29\\.02\\.((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$",message = "dd.MM.yyyy")
 	private String auctionEndDate;
 
 	@NotBlank(message = "Required")
@@ -35,9 +36,10 @@ public class PlaceAdForm {
 	@Pattern(regexp = "^[0-9]{4} - [-\\w\\s\\u00C0-\\u00FF]*", message = "Please pick a city from the list")
 	private String city;
 	
-	// @NotBlank(message = "Required")
+	@Pattern(regexp="^$|^(((0[1-9]|[12]\\d|3[01])\\.(0[13578]|1[02])\\.((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\.(0[13456789]|1[012])\\.((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\.02\\.((1[6-9]|[2-9]\\d)\\d{2}))|(29\\.02\\.((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$",message = "dd.MM.yyyy")
 	private String moveInDate;
-
+	
+	@Pattern(regexp="^$|^(((0[1-9]|[12]\\d|3[01])\\.(0[13578]|1[02])\\.((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\.(0[13456789]|1[012])\\.((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\.02\\.((1[6-9]|[2-9]\\d)\\d{2}))|(29\\.02\\.((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$",message = "dd.MM.yyyy")
 	private String moveOutDate;
 
 	// @Min(value = 1, message = "Has to be equal to 1 or more")
@@ -221,7 +223,14 @@ public class PlaceAdForm {
 	}
 
 	public void setMoveInDate(String moveInDate) {
-		this.moveInDate = moveInDate;
+		DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+		format.setLenient(false);
+		try {
+			format.parse(moveInDate);
+			this.moveInDate = moveInDate;
+		} catch (ParseException e) {
+			this.moveInDate = null;
+		}
 	}
 	public void setMoveInDate(Date moveInDate) {
 		if (moveInDate != null){
@@ -235,7 +244,14 @@ public class PlaceAdForm {
 	}
 
 	public void setMoveOutDate(String moveOutDate) {
-		this.moveOutDate = moveOutDate;
+		DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+		format.setLenient(false);
+		try {
+			format.parse(moveOutDate);
+			this.moveOutDate = moveOutDate;
+		} catch (ParseException e) {
+			this.moveOutDate = null;
+		}
 	}
 	
 	public void setMoveOutDate(Date moveOutDate) {
@@ -250,7 +266,15 @@ public class PlaceAdForm {
 	}
 	
 	public void setAuctionEndDate(String auctionEndDate) {
-		this.auctionEndDate = auctionEndDate;
+		
+		DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+		format.setLenient(false);
+		try {
+			format.parse(auctionEndDate);
+			this.auctionEndDate = auctionEndDate;
+		} catch (ParseException e) {
+			this.auctionEndDate = null;
+		}
 	}
 	
 	public void setAuctionEndDate(Date auctionEndDate) {

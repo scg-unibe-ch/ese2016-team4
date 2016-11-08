@@ -83,12 +83,12 @@ public class AdService {
 		ad.setZipcode(Integer.parseInt(zip));
 		ad.setCity(placeAdForm.getCity().substring(7));
 		
-		if(placeAdForm.getAuctionEndDate() != null){
+		if(placeAdForm.getAuctionEndDate().length() >= 1){
 			Date auctionEndDate = stringToDate(placeAdForm.getAuctionEndDate());
 			ad.setAuctionEndDate(auctionEndDate);
 		}
 		
-		if(placeAdForm.getMoveInDate() != null){
+		if(placeAdForm.getMoveInDate().length() >= 1){
 			Date moveInDate = stringToDate(placeAdForm.getMoveInDate());
 			ad.setMoveInDate(moveInDate);
 		}
@@ -494,7 +494,7 @@ public class AdService {
 			Calendar calendar = GregorianCalendar.getInstance();
 			calendar.setTime(dateNow);
 			int HH = calendar.get(Calendar.HOUR_OF_DAY);
-			int mm = calendar.get(Calendar.	MINUTE);
+			int mm = calendar.get(Calendar.MINUTE);
 			int ss = calendar.get(Calendar.SECOND);
 			Date date;
 			try {

@@ -16,10 +16,24 @@
 $(document).ready( function() {
     var today = new Date();
     var tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
-    var todayFormat = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear();
-    var tomorrowFormat = tomorrow.getDate() + '.' + (tomorrow.getMonth() + 1) + '.' + tomorrow.getFullYear();
-    $('#field-moveInDate').val(todayFormat);
-    $('#field-auctionEndDate').val(tomorrowFormat);
+    
+    function getFormattedDate(date){
+    	var dd = date.getDate();
+    	var mm = date.getMonth()+1;
+    	var yyyy = date.getFullYear();
+    	
+    	if(dd<10){
+    	    dd='0'+dd
+    	} 
+    	if(mm<10){
+        	mm='0'+mm
+    	} 
+    	
+    	return d = dd+'.'+mm+'.'+yyyy;
+    }
+    $('#field-moveInDate').val(getFormattedDate(today));
+    $('#field-auctionEndDate').val(getFormattedDate(tomorrow));
+    
 });
 </script>
 
