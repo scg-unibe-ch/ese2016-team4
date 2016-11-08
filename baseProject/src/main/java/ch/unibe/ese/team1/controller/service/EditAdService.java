@@ -17,10 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 import ch.unibe.ese.team1.controller.pojos.forms.PlaceAdForm;
 import ch.unibe.ese.team1.model.Ad;
 import ch.unibe.ese.team1.model.AdPicture;
+import ch.unibe.ese.team1.model.Bid;
 import ch.unibe.ese.team1.model.User;
 import ch.unibe.ese.team1.model.Visit;
 import ch.unibe.ese.team1.model.dao.AdDao;
 import ch.unibe.ese.team1.model.dao.AdPictureDao;
+import ch.unibe.ese.team1.model.dao.BidHistoryDao;
 
 /** Provides services for editing ads in the database. */
 @Service
@@ -237,6 +239,8 @@ public class EditAdService {
 			adForm.setPrizeOfSale(ad.getPrizeOfSale());
 		}if (ad.getSellType()==Ad.getSellType("Auction")){
 			adForm.setStartOffer(ad.getStartOffer());
+			adForm.setAuctionEndDate(ad.getAuctionEndDate());
+
 		}
 		adForm.setSquareFootage(ad.getSquareFootage());
 
