@@ -31,6 +31,7 @@ $(document).ready( function() {
     	
     	return d = dd+'.'+mm+'.'+yyyy;
     }
+    
     $('#field-moveInDate').val(getFormattedDate(today));
     $('#field-auctionEndDate').val(getFormattedDate(tomorrow));
     
@@ -163,6 +164,7 @@ $(document).ready( function() {
 				<script>
 					document.getElementById("myselect").onchange = function() {
 						if(document.getElementById("myselect").value == 3) {
+							$('#field-moveInDate').val(null);
 							document.getElementById("auctionEndDate").hidden = false;
 							document.getElementById("field-auctionEndDate").hidden = false;
 							document.getElementById("moveInDate").hidden = true;
@@ -178,7 +180,9 @@ $(document).ready( function() {
 
 
 
-						} else if(document.getElementById("myselect").value == 2) {	
+						} else if(document.getElementById("myselect").value == 2) {
+							$('#field-moveInDate').val(null);
+							$('#field-auctionEndDate').val(null);
 							document.getElementById("auctionEndDate").hidden = true;
 							document.getElementById("field-auctionEndDate").hidden = true;
 							document.getElementById("moveInDate").hidden = true;
@@ -193,6 +197,7 @@ $(document).ready( function() {
 							document.getElementById("field-startOffer").hidden = true;
 
 						} else {
+							$('#field-auctionEndDate').val(null);
 							document.getElementById("auctionEndDate").hidden = true;
 							document.getElementById("field-auctionEndDate").hidden = true;
 							document.getElementById("moveInDate").hidden = false;
