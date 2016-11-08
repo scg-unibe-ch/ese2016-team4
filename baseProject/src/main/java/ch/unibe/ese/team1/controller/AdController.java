@@ -18,13 +18,13 @@ import org.springframework.web.servlet.ModelAndView;
 import ch.unibe.ese.team1.controller.pojos.forms.BidForm;
 import ch.unibe.ese.team1.controller.pojos.forms.MessageForm;
 import ch.unibe.ese.team1.controller.service.AdService;
-import ch.unibe.ese.team1.controller.service.BidHistoryService;
+import ch.unibe.ese.team1.controller.service.BidService;
 import ch.unibe.ese.team1.controller.service.BookmarkService;
 import ch.unibe.ese.team1.controller.service.MessageService;
 import ch.unibe.ese.team1.controller.service.UserService;
 import ch.unibe.ese.team1.controller.service.VisitService;
 import ch.unibe.ese.team1.model.Ad;
-import ch.unibe.ese.team1.model.BidHistory;
+import ch.unibe.ese.team1.model.Bid;
 import ch.unibe.ese.team1.model.User;
 
 /**
@@ -50,7 +50,7 @@ public class AdController {
 	private VisitService visitService;
 	
 	@Autowired
-	private BidHistoryService bidHistoryService;
+	private BidService bidHistoryService;
 
 	/** Gets the ad description page for the ad with the given id. */
 	@RequestMapping(value = "/ad", method = RequestMethod.GET)
