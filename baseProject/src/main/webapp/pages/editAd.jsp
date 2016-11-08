@@ -212,9 +212,9 @@
 						}
 					};
 				</script>		
-				</tr>
+			</tr>
 
-				<tr>
+			<tr>
 				<td><form:input id="field-title" path="title"
 						placeholder="Ad Title" /></td>
 				
@@ -286,11 +286,11 @@
 			</tr>
 
 			<tr>
-				<td><label for="field-Prize" id="prize">Prize per month</label></td>
+				<td><label for="field-Prize" id="prize" hidden="false">Prize per month</label></td>
 			</tr>
 			<tr>
 				<td><form:input id="field-Prize" type="number" path="prize"
-						placeholder="Prize per Month" step="50" />
+						placeholder="Prize per Month" step="50" hidden="false"/>
 					<form:errors path="prize" cssClass="validationErrorText" /></td>
 			</tr>
 			
