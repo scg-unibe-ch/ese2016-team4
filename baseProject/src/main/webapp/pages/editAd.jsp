@@ -38,6 +38,9 @@
 		$("#field-visitDay").datepicker({
 			dateFormat : 'dd-mm-yy'
 		});
+		$("#field-auctionEndDate").datepicker({
+			dateFormat : 'dd.mm.yy'
+		});
 		
 		$("#addbutton").click(function() {
 			var text = $("#roomFriends").val();
@@ -159,23 +162,13 @@
 				</form:select>
 				</td>
 				
-				<td>
-				
-				<form:select class="auction" path="auctionDuration" hidden="true">
-				<form:option value="0">Choose the desired duration</form:option>
-				<form:option id="duration1" value="1">1 Hour</form:option>
-				<form:option id="duration2" value="2"> 20 Days</form:option>
-				<form:option id="duration3" value="3">30 Days</form:option>
-				</form:select>
-				
-								
-				</td>
 				<td><form:errors path="sellType" cssClass="validationErrorText" /></td>
 
 				<script>
 					document.getElementById("myselect").onchange = function() {
 						if(document.getElementById("myselect").value == 3) {
-							document.getElementById("auctionDuration").hidden = false;
+							document.getElementById("auctionEndDate").hidden = false;
+							document.getElementById("field-auctionEndDate").hidden = false;
 							document.getElementById("moveInDate").hidden = true;
 							document.getElementById("moveOutDate").hidden = true;							
 							document.getElementById("prize").hidden = true;
@@ -190,7 +183,8 @@
 
 
 						} else if(document.getElementById("myselect").value == 2) {	
-							document.getElementById("auctionDuration").hidden = true;
+							document.getElementById("auctionEndDate").hidden = true;
+							document.getElementById("field-auctionEndDate").hidden = true;
 							document.getElementById("moveInDate").hidden = true;
 							document.getElementById("moveOutDate").hidden = true;							
 							document.getElementById("prize").hidden = true;
@@ -202,8 +196,9 @@
 							document.getElementById("field-PrizeOfSale").hidden = false;
 							document.getElementById("field-startOffer").hidden = true;
 
-						} else {
-							document.getElementById("auctionDuration").hidden = true;
+						} else if(document.getElementById("myselect").value == 1){
+							document.getElementById("auctionEndDate").hidden = true;
+							document.getElementById("field-auctionEndDate").hidden = true;
 							document.getElementById("moveInDate").hidden = false;
 							document.getElementById("moveOutDate").hidden = false;							
 							document.getElementById("prize").hidden = false;
@@ -259,8 +254,10 @@
 				<td><form:errors path="propertyType" cssClass="validationErrorText" /></td>
 			</tr>
 
+		<c:choose>
+		<c:when test="${ad.getSellType() == 1}">
 			<tr>
-				<td><label for="field-street">Street</label></td>
+				<td><label for="field-street"s>Street</label></td>
 				<td><label for="field-city">City / Zip code</label></td>
 				<td><label for="field-PrizeBuy" id="startOffer" hidden="true">Start offer</label></td>
 			</tr>
@@ -276,6 +273,7 @@
 					<form:errors path="startOffer" cssClass="validationErrorText" /></td>
 			</tr>
 
+			
 			<tr>
 				<td><label for="moveInDate"  id="moveInDate">Move-in date</label></td>
 				<td><label for="moveOutDate" id="moveOutDate">Move-out date (optional)</label></td>
@@ -284,7 +282,7 @@
 				<td><form:input type="text" id="field-moveInDate"
 						path="moveInDate"/></td>
 				<td><form:input type="text" id="field-moveOutDate"
-						path="moveOutDate" /></td>
+						path="moveOutDate"/></td>
 			</tr>
 
 			<tr>
@@ -294,22 +292,141 @@
 				<td><form:input id="field-Prize" type="number" path="prize"
 						placeholder="Prize per Month" step="50" />
 					<form:errors path="prize" cssClass="validationErrorText" /></td>
-
 			</tr>
 			
 			<tr>
 				<td><label for="field-SquareFootage">Square Meters</label></td>
 				<td><label for="field-PrizeBuy" id="prizeOfSale" hidden="true">Prize of sale</label></td>
+				<td><label for="auctionEndDate"  id="auctionEndDate" hidden="true">Auction End Date</label></td>
 			</tr>
+			<tr>
 				<td><form:input id="field-SquareFootage" type="number"
 						path="squareFootage"/> 
 					<form:errors path="squareFootage" cssClass="validationErrorText" /></td>
 				<td><form:input id="field-PrizeOfSale" type="number" path="prizeOfSale" hidden="true"
 						placeholder="Prize of sale" step="1000" />
 					<form:errors path="prizeOfSale" cssClass="validationErrorText" /></td>
-
+					<td><form:input type="text" id="field-auctionEndDate" hidden="true"
+						path="auctionEndDate" /></td>
+					<td><form:errors path="auctionEndDate" cssClass="validationErrorText" /> </td>		
+			</tr>							
+		</c:when>
+		<c:when test="${ad.getSellType() == 2}">
+			<tr>
+				<td><label for="field-street"s>Street</label></td>
+				<td><label for="field-city">City / Zip code</label></td>
+				<td><label for="field-PrizeBuy" class="startOffer" hidden="true">Start offer</label></td>
 			</tr>
+
+			<tr>
+				<td><form:input id="field-street" path="street"
+						placeholder="${ad.street}" /></td>
+					<form:errors path="street" cssClass="validationErrorText" /></td>
+				<td><form:input id="field-city" path="city" placeholder="${ad.city}" />
+					<form:errors path="city" cssClass="validationErrorText" /></td>
+				<td><form:input id="field-startOffer" type="number" path="startOffer" hidden="true"
+						placeholder="Start offer" step="50" /> 
+					<form:errors path="startOffer" cssClass="validationErrorText" /></td>
+			</tr>
+
+			
+			<tr>
+				<td><label for="moveInDate"  id="moveInDate" hidden="true">Move-in date</label></td>
+				<td><label for="moveOutDate" id="moveOutDate" hidden="true">Move-out date (optional)</label></td>
+			</tr>
+			<tr>
+				<td><form:input type="text" id="field-moveInDate"
+						path="moveInDate" hidden="true"/></td>
+				<td><form:input type="text" id="field-moveOutDate"
+						path="moveOutDate" hidden="true"/></td>
+			</tr>
+
+			<tr>
+				<td><label for="field-Prize" id="prize" hidden="true">Prize per month</label></td>
+			</tr>
+			<tr>
+				<td><form:input id="field-Prize" type="number" path="prize"
+						placeholder="Prize per Month" step="50" hidden="true"/>
+					<form:errors path="prize" cssClass="validationErrorText" /></td>
+			</tr>
+			
+			<tr>
+				<td><label for="field-SquareFootage">Square Meters</label></td>
+				<td><label for="field-PrizeBuy" id="prizeOfSale" hidden="false">Prize of sale</label></td>
+				<td><label for="auctionEndDate"  id="auctionEndDate" hidden="true">Auction End Date</label></td>
+			</tr>
+			<tr>
+				<td><form:input id="field-SquareFootage" type="number"
+						path="squareFootage"/> 
+					<form:errors path="squareFootage" cssClass="validationErrorText" /></td>
+				<td><form:input id="field-PrizeOfSale" type="number" path="prizeOfSale" hidden="false"
+						placeholder="Prize of sale" step="1000" />
+					<form:errors path="prizeOfSale" cssClass="validationErrorText" /></td>
+					<td><form:input type="text" id="field-auctionEndDate" hidden="true"
+						path="auctionEndDate" /></td>
+					<td><form:errors path="auctionEndDate" cssClass="validationErrorText" /> </td>	
+			</tr>
+		</c:when>
+		<c:when test="${ad.getSellType() == 3}">
+			<tr>
+				<td><label for="field-street"s>Street</label></td>
+				<td><label for="field-city">City / Zip code</label></td>
+				<td><label for="field-PrizeBuy" id="startOffer" hidden="false">Start offer</label></td>
+			</tr>
+
+			<tr>
+				<td><form:input id="field-street" path="street"
+						placeholder="${ad.street}" /></td>
+					<form:errors path="street" cssClass="validationErrorText" /></td>
+				<td><form:input id="field-city" path="city" placeholder="${ad.city}" />
+					<form:errors path="city" cssClass="validationErrorText" /></td>
+				<td><form:input id="field-startOffer" type="number" path="startOffer" hidden="false"
+						placeholder="Start offer" step="50" /> 
+					<form:errors path="startOffer" cssClass="validationErrorText" /></td>
+			</tr>
+
+			
+			<tr>
+				<td><label for="moveInDate"  id="moveInDate" hidden="true">Move-in date</label></td>
+				<td><label for="moveOutDate" id="moveOutDate" hidden="true">Move-out date (optional)</label></td>
+			</tr>
+			<tr>
+				<td><form:input type="text" id="field-moveInDate"
+						path="moveInDate" hidden="true"/></td>
+				<td><form:input type="text" id="field-moveOutDate"
+						path="moveOutDate" hidden="true"/></td>
+			</tr>
+
+			<tr>
+				<td><label for="field-Prize" id="prize" hidden="true">Prize per month</label></td>
+			</tr>
+			<tr>
+				<td><form:input id="field-Prize" type="number" path="prize"
+						placeholder="Prize per Month" step="50" hidden="true"/>
+					<form:errors path="prize" cssClass="validationErrorText" /></td>
+			</tr>
+			
+			<tr>
+				<td><label for="field-SquareFootage">Square Meters</label></td>
+				<td><label for="field-PrizeBuy" id="prizeOfSale" hidden="true">Prize of sale</label></td>
+				<td><label for="auctionEndDate"  id="auctionEndDate" hidden="false">Auction End Date</label></td>
+			</tr>
+			<tr>
+				<td><form:input id="field-SquareFootage" type="number"
+						path="squareFootage"/> 
+					<form:errors path="squareFootage" cssClass="validationErrorText" /></td>
+				<td><form:input id="field-PrizeOfSale" type="number" path="prizeOfSale" hidden="true"
+						placeholder="Prize of sale" step="1000" />
+					<form:errors path="prizeOfSale" cssClass="validationErrorText" /></td>
+					<td><form:input type="text" id="field-auctionEndDate" hidden="false"
+						path="auctionEndDate" /></td>
+					<td><form:errors path="auctionEndDate" cssClass="validationErrorText" /> </td>	
+			</tr>
+		
+		</c:when>
+		</c:choose>
 		</table>
+
 	</fieldset>
 
 	<br />

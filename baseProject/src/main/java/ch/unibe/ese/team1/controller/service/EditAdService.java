@@ -222,13 +222,20 @@ public class EditAdService {
 		adForm.setStreet(ad.getStreet());
 
 		adForm.setTitle(ad.getTitle());
-		if (ad.getMoveInDate() != null) {
-			adForm.setMoveInDate(ad.getMoveInDate().toString());
+		adForm.setSellType(ad.getSellType());
+		adForm.setPropertyType(ad.getPropertyType());
+		
+		if (ad.getSellType() == 1) {
+			adForm.setPrize(ad.getPrizePerMonth());
+			
+			if (ad.getSellType() == 1 && ad.getMoveInDate() != null) {
+				adForm.setMoveInDate(ad.getMoveInDate().toString());
+			}
+			if (ad.getMoveOutDate() != null) {
+				adForm.setMoveOutDate(ad.getMoveOutDate().toString());
+			}
 		}
-		if (ad.getMoveOutDate() != null) {
-			adForm.setMoveOutDate(ad.getMoveOutDate().toString());
-		}
-		adForm.setPrize(ad.getPrizePerMonth());
+		
 		if (ad.getSellType() == 2) {
 			adForm.setPrizeOfSale(ad.getPrizeOfSale());
 		}
