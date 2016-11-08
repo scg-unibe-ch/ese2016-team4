@@ -17,10 +17,10 @@ function deleteAlert(button) {
 }
 </script>
 
-	
+
 <script>
 	$(document).ready(function() {
-		
+
 		$("#field-city").autocomplete({
 			minLength : 2
 		});
@@ -32,12 +32,12 @@ function deleteAlert(button) {
 			autoFocus : true
 		});
 		$("#field-moveInDate").datepicker({
-			dateFormat : 'dd-mm-yyyy'
+			dateFormat : 'dd.mm.yyyy'
 		});
 		$("#field-moveOutDate").datepicker({
-			dateFormat : 'dd-mm-yyyy'
+			dateFormat : 'dd.mm.yyyy'
 		});
-		
+
 	});
 </script>
 
@@ -59,21 +59,21 @@ function deleteAlert(button) {
 				<form:option id="type-room" value="4">House</form:option>
 				</form:select>
 				</td>
-				
+
 				<td>
 				<form:select path="sellType">
 				<form:option type="type-room" value="1">Rent</form:option>
 				<form:option type="type-room" value="2">Buy</form:option>
-				<form:option type="type-room" value="3">Auction</form:option>				
+				<form:option type="type-room" value="3">Auction</form:option>
 				</form:select>
 				</td>
-				
-				
+
+
 				<td><form:errors path="propertyType" cssClass="validationErrorText" /></td>
 				<td><form:errors path="sellType" cssClass="validationErrorText" /></td>
-		
+
 			</tr>
-			
+
 			<tr>
 				<td><label for="field-city">City / Zip code</label></td>
 			</tr>
@@ -87,7 +87,7 @@ function deleteAlert(button) {
 				<td><label for="moveInDate"  id="moveInDate">Move-in date</label></td>
 				<td><label for="moveOutDate" id="moveOutDate">Move-out date</label></td>
 			</tr>
-			
+
 			<tr>
 				<td><form:input type="text" id="field-moveInDate"
 						path="moveInDate" /></td>
@@ -100,17 +100,17 @@ function deleteAlert(button) {
 				<td><label for="radius">Within radius of (max.):</label></td>
 
 			</tr>
-			
+
 			<tr>
 				<td><form:input id="field-Prize" type="number" path="prize"
 						placeholder="Prize per month" step="50" /> <form:errors
 						path="prize" cssClass="validationErrorText" /></td>
 				<td><form:input id="radiusInput" type="number" path="radius"
-						placeholder="e.g. 5" step="5" /> <form:errors 
+						placeholder="e.g. 5" step="5" /> <form:errors
 						path="radius" cssClass="validationErrorText" /></td>
 
 			</tr>
-			
+
 			<tr>
 				<td><label for="field-SquareFootage">Size</label></td>
 			</tr>
@@ -118,7 +118,7 @@ function deleteAlert(button) {
 						path="squareFootage" placeholder="Prize per month" step="5" /> <form:errors
 						path="squareFootage" cssClass="validationErrorText" /></td>
 			</tr>
-			
+
 			<tr>
 				<td><form:checkbox id="field-smoker" path="smokers" value="1" /><label>Smoking inside
 						allowed</label></td>
@@ -147,15 +147,15 @@ function deleteAlert(button) {
 				<td><form:checkbox id="field-internet" path="internet" value="1" /><label>WiFi</label></td>
 			</tr>
 		</table>
-		
+
 		<button type="submit" tabindex="7" onClick="validateType(this.form)">Subscribe</button>
 		<button type="reset" tabindex="8">Cancel</button>
-		
+
 	</fieldset>
 </form:form> <br />
 <h2>Your active alerts</h2>
 
-<div id="alertsDiv" class="alertsDiv">	
+<div id="alertsDiv" class="alertsDiv">
 
 
 <c:choose>
@@ -174,7 +174,7 @@ function deleteAlert(button) {
 				<th>Size</th>
 				<th>Move-in date</th>
 				<th>Move-out date</th>
-				<th>Room description</th>				
+				<th>Room description</th>
 				<th>Action</th>
 
 
@@ -196,7 +196,7 @@ function deleteAlert(button) {
 					<c:when test="${alert.getPropertyType() == 4}">
 						House
 					</c:when>
-					
+
 				</c:choose>
 				</td>
 				<td>
@@ -221,10 +221,10 @@ function deleteAlert(button) {
 				<td><c:out value="${alert.moveOutDate}"/></td>
 				<td>
 					<c:if test="${alert.getSmokers()}">
-						Smoking allowed, 
+						Smoking allowed,
 					</c:if>
 					<c:if test="${alert.getAnimals()}">
-						Animals, 
+						Animals,
 					</c:if>
 					<c:if test="${alert.getGarden()}">
 						Garden,

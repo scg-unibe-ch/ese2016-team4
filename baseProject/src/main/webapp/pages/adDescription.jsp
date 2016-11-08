@@ -41,7 +41,7 @@
 
 	function attachBookmarkClickHandler(){
 		$("#bookmarkButton").click(function() {
-			
+
 			$.post("/bookmark", {id: shownAdvertisementID, screening: false, bookmarked: false}, function(data) {
 				$('#bookmarkButton').replaceWith($('<a class="right" id="bookmarkedButton">' + "Bookmarked" + '</a>'));
 				switch(data) {
@@ -56,14 +56,14 @@
 					$('#bookmarkButton').replaceWith($('<a class="right" id="bookmarkedButton">' + "Bookmarked" + '</a>'));
 					break;
 				default:
-					alert("Default error. Please contact the WebAdmin.");	
+					alert("Default error. Please contact the WebAdmin.");
 				}
-				
+
 				attachBookmarkedClickHandler();
 			});
 		});
 	}
-	
+
 	function attachBookmarkedClickHandler(){
 		$("#bookmarkedButton").click(function() {
 			$.post("/bookmark", {id: shownAdvertisementID, screening: false, bookmarked: true}, function(data) {
@@ -81,17 +81,17 @@
 					break;
 				default:
 					alert("Default error. Please contact the WebAdmin.");
-					
-				}			
+
+				}
 				attachBookmarkClickHandler();
 			});
 		});
 	}
-	
+
 	$(document).ready(function() {
 		attachBookmarkClickHandler();
 		attachBookmarkedClickHandler();
-		
+
 		$.post("/bookmark", {id: shownAdvertisementID, screening: true, bookmarked: true}, function(data) {
 			if(data == 3) {
 				$('#bookmarkButton').replaceWith($('<a class="right" id="bookmarkedButton">' + "Bookmarked" + '</a>'));
@@ -101,20 +101,20 @@
 				$('#shownAdTitle').replaceWith($('<h1>' + "${shownAd.title}" + '</h1>'));
 			}
 		});
-		
+
 		$("#newMsg").click(function(){
 			$("#content").children().animate({opacity: 0.4}, 300, function(){
 				$("#msgDiv").css("display", "block");
 				$("#msgDiv").css("opacity", "1");
 			});
 		});
-		
+
 		$("#messageCancel").click(function(){
 			$("#msgDiv").css("display", "none");
 			$("#msgDiv").css("opacity", "0");
 			$("#content").children().animate({opacity: 1}, 300);
 		});
-		
+
 		$("#messageSend").click(function (){
 			if($("#msgSubject").val() != "" && $("#msgTextarea").val() != ""){
 				var subject = $("#msgSubject").val();
@@ -130,7 +130,7 @@
 			}
 		});
 	});
-		
+
 </script>
 
 
@@ -144,20 +144,20 @@ function getFormattedDate(date){
 	var dd = date.getDate();
 	var mm = date.getMonth()+1; //January is 0!
 	var yyyy = date.getFullYear();
-	
+
 	if(dd<10){
 	    dd='0'+dd
-	} 
+	}
 	if(mm<10){
     	mm='0'+mm
-	} 
+	}
 	if(hh<10){
 	    hh='0'+hh
-	} 
+	}
 	if(min<10){
     	min='0'+min
-	} 
-	
+	}
+
 	return d = dd+'.'+mm+'.'+yyyy+' '+hh+':'+min;
 }
 
@@ -200,14 +200,14 @@ setInterval(auctionTimer, 1000);
 // calculate the remaining of the auction. This gets refreshed every second
 function auctionTimer() {
 	var dateNow = new Date();
-	
+
 	var remaining = auctionEnd - dateNow;
 	var remaining_days = Math.floor(remaining / (1000 * 3600 * 24));
 	var remaining_hours = Math.floor((remaining/(1000*3600))%24);
 	var remaining_minutes = Math.floor((remaining/(1000*60))%60);
 	var remaining_seconds = Math.floor((remaining/(1000))%60);
-	
-	document.getElementById('timeTilEnd').innerHTML = "remaining time: " 
+
+	document.getElementById('timeTilEnd').innerHTML = "remaining time: "
 	+ remaining_days + "d " + remaining_hours + "h " + remaining_minutes + "m " + remaining_seconds + "s";
 }
 
@@ -219,7 +219,7 @@ $(function(){
 		clockFace: 'DailyCounter',
 		countdown: true,
 		language: 'Custom'
-	};  
+	};
 	opts.classes = {
 			active: 'flip-clock-active',
 			before: 'flip-clock-before',
@@ -229,8 +229,8 @@ $(function(){
 			flip: 'flip',
 			play: 'play',
 			wrapper: 'flip-clock-small-wrapper'
-		};  
-	
+		};
+
 	//there is a 2 second delay before the timer starts ticking, which gets adjusted here
 	var countdown = (auctionDuration/1000);
 	countdown = Math.max(0, countdown);
@@ -250,7 +250,7 @@ $(function(){
 <fmt:formatDate value="${shownAd.creationDate}"
 	var="formattedCreationDate" type="date" pattern="dd.MM.yyyy" />
 
-	
+
 <c:choose>
 	<c:when test="${empty shownAd.moveOutDate }">
 		<c:set var="formattedMoveOutDate" value="unlimited" />
@@ -293,7 +293,7 @@ $(function(){
         <div class="clock-builder-output"></div>
       </td>
     </tr>
-      
+
 	</c:when>
 </c:choose>
 
@@ -306,14 +306,14 @@ $(function(){
 
           <form:input type="number" min="1" value="${bidService.getNextBid(shownAd.getId())}"
             path="bid" placeholder="e.g. 150" step="1" />
-            
+
           <button type="submit" >Place bid</button>
-          
-  	</td>  
+
+  	</td>
    </tr>
   </c:when>
   </c:choose>
-  
+
  <c:choose>
   <c:when test="${shownAd.getSellType() == 3 && loggedIn == false}">
   <tr>
@@ -323,7 +323,7 @@ $(function(){
 
   </c:when>
  </c:choose>
- 
+
   </table>
 
 <c:choose>
@@ -365,7 +365,7 @@ $(function(){
 					<c:when test="${shownAd.getSellType() == 3}">Auction</c:when>
 				</c:choose></td>
 		</tr>
-		
+
 		<c:choose>
 			<c:when test="${shownAd.getSellType() == 3}">
 				<tr>
@@ -417,7 +417,7 @@ $(function(){
 				</c:when>
 			</c:choose>
 		</tr>
-		
+
 		<tr>
 			<c:choose>
 				<c:when test="${shownAd.getSellType() == 3}">
@@ -426,7 +426,7 @@ $(function(){
 				</c:when>
 			</c:choose>
 		</tr>
-		
+
 		<tr>
 			<c:choose>
 				<c:when test="${shownAd.getSellType() == 2}">
@@ -527,7 +527,7 @@ $(function(){
 					</table>
 
 					<br />
-					
+
 					<table id="bidTable">
 						<tr>
 							<th>Username</th>
@@ -541,10 +541,10 @@ $(function(){
 								<td>${bid.bid}</td>
 								<td><fmt:formatDate value="${bid.bidTime.time}" type="date" pattern="dd.MM.yyyy" /></td>
 								<td><fmt:formatDate value="${bid.bidTime.time}" type="date" pattern="HH:mm:ss" /></td>
-							</tr>						
+							</tr>
 						</c:forEach>
 					</table>
-					
+
 				</div>
 			</c:when>
 		</c:choose>
@@ -671,7 +671,7 @@ $(function(){
 		<c:forEach items="${visits }" var="visit">
 			<tr>
 				<td><fmt:formatDate value="${visit.startTimestamp}"
-						pattern="dd-MM-yyyy " /> &nbsp; from <fmt:formatDate
+						pattern="dd.MM.yyyy " /> &nbsp; from <fmt:formatDate
 						value="${visit.startTimestamp}" pattern=" HH:mm " /> until <fmt:formatDate
 						value="${visit.endTimestamp}" pattern=" HH:mm" /></td>
 				<td><c:choose>

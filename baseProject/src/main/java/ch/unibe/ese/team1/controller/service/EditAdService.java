@@ -40,7 +40,7 @@ public class EditAdService {
 
 	/**
 	 * Handles persisting an edited ad to the database.
-	 * 
+	 *
 	 * @param placeAdForm
 	 *            the form to take the data from
 	 * @param a
@@ -68,7 +68,7 @@ public class EditAdService {
 		String zip = placeAdForm.getCity().substring(0, 4);
 		ad.setZipcode(Integer.parseInt(zip));
 		ad.setCity(placeAdForm.getCity().substring(7));
-		
+
 		Calendar calendar = Calendar.getInstance();
 		// java.util.Calendar uses a month range of 0-11 instead of the
 		// XMLGregorianCalendar which uses 1-12
@@ -101,7 +101,7 @@ public class EditAdService {
 		ad.setPrizePerMonth(placeAdForm.getPrize());
 		ad.setStartOffer(placeAdForm.getStartOffer());
 		ad.setPrizeOfSale(placeAdForm.getPrizeOfSale());
-		
+
 		ad.setSquareFootage(placeAdForm.getSquareFootage());
 
 		ad.setRoomDescription(placeAdForm.getRoomDescription());
@@ -160,7 +160,7 @@ public class EditAdService {
 			for (String visitString : visitStrings) {
 				Visit visit = new Visit();
 				// format is 28-02-2014;10:02;13:14
-				DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+				DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 				String[] parts = visitString.split(";");
 				String startTime = parts[0] + " " + parts[1];
 				String endTime = parts[0] + " " + parts[2];
@@ -217,17 +217,17 @@ public class EditAdService {
 		adForm.setPreferences(ad.getPreferences());
 		adForm.setRoommates(ad.getRoommates());
 
-		
+
 		adForm.setCity(ad.getCity());
 		adForm.setStreet(ad.getStreet());
 
 		adForm.setTitle(ad.getTitle());
 		adForm.setSellType(ad.getSellType());
 		adForm.setPropertyType(ad.getPropertyType());
-		
+
 		if (ad.getSellType() == 1) {
 			adForm.setPrize(ad.getPrizePerMonth());
-			
+
 			if (ad.getSellType() == 1 && ad.getMoveInDate() != null) {
 				adForm.setMoveInDate(ad.getMoveInDate().toString());
 			}
@@ -235,7 +235,7 @@ public class EditAdService {
 				adForm.setMoveOutDate(ad.getMoveOutDate().toString());
 			}
 		}
-		
+
 		if (ad.getSellType() == 2) {
 			adForm.setPrizeOfSale(ad.getPrizeOfSale());
 		}
@@ -249,7 +249,7 @@ public class EditAdService {
 
 	/**
 	 * Deletes the roommate with the given id from the ad with the given id.
-	 * 
+	 *
 	 * @param roommateId
 	 *            the user to delete as roommate
 	 * @param adId

@@ -21,23 +21,23 @@
 			enabled : true,
 			autoFocus : true
 		});
-		
+
 		$("#field-earliestMoveInDate").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
 		$("#field-latestMoveInDate").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
 		$("#field-earliestMoveOutDate").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
 		$("#field-latestMoveOutDate").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
-		
+
 		var price = document.getElementById('prizeInput');
 		var radius = document.getElementById('radiusInput');
-		
+
 		if(price.value == null || price.value == "" || price.value == "0")
 			price.value = "500";
 		if(radius.value == null || radius.value == "" || radius.value == "0")
@@ -79,12 +79,12 @@ $(document).ready( function() {
 		</tr>
 		</table>
 
-	
+
 		<label for="city">City / zip code:</label>
 		<form:input type="text" name="city" id="city" path="city"
 			placeholder="e.g. Bern" tabindex="3" />
 		<form:errors path="city" cssClass="validationErrorText" /><br />
-			
+
 		<label for="radius">Within radius of (max.):</label>
 		<form:input id="radiusInput" type="number" path="radius"
 			placeholder="e.g. 5" step="5" />
@@ -95,9 +95,9 @@ $(document).ready( function() {
 			placeholder="e.g. 5" step="50" />
 		CHF
 		<form:errors path="prize" cssClass="validationErrorText" /><br />
-		
-		<hr class="slim">		
-		
+
+		<hr class="slim">
+
 		<table style="width: 80%">
 			<tr>
 				<td><label for="earliestMoveInDate">Earliest move-in date</label></td>
@@ -147,9 +147,9 @@ $(document).ready( function() {
 				<td><form:checkbox id="field-internet" path="internet" value="1" /><label>WiFi</label></td>
 			</tr>
 		</table>
-			
-		
-		<button type="submit">Search</button>	
+
+
+		<button type="submit">Search</button>
 		<button type="reset">Cancel</button>
 	</div>
 </form:form>
