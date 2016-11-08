@@ -16,20 +16,20 @@
  */
 function sort_div_attribute() {
     //determine sort modus (by which attribute, asc/desc)
-    var sortmode = $('#modus').find(":selected").val();   
-    
+    var sortmode = $('#modus').find(":selected").val();
+
     //only start the process if a modus has been selected
     if(sortmode.length > 0) {
     	var attname;
-		
+
     	//determine which variable we pass to the sort function
 		if(sortmode == "price_asc" || sortmode == "price_desc")
 			attname = 'data-price';
-	    else if(sortmode == "moveIn_asc" || sortmode == "moveIn_desc")	
+	    else if(sortmode == "moveIn_asc" || sortmode == "moveIn_desc")
 			attname = 'data-moveIn';
 	    else
 			attname = 'data-age';
-    	
+
 		//copying divs into an array which we're going to sort
 	    var divsbucket = new Array();
 	    var divslist = $('div.resultAd');
@@ -40,7 +40,7 @@ function sort_div_attribute() {
 			divsbucket[a][1] = divslist[a];
 			divslist[a].remove();
 	    }
-		
+
 	    //sort the array
 		divsbucket.sort(function(a, b) {
 	    if (a[0] == b[0])
@@ -54,7 +54,7 @@ function sort_div_attribute() {
 	    //invert sorted array for certain sort options
 		if(sortmode == "price_desc" || sortmode == "moveIn_asc" || sortmode == "dateAge_asc")
 			divsbucket.reverse();
-        
+
 	    //insert sorted divs into document again
 		for(a = 0; a < divlength; a++)
         	$("#resultsDiv").append($(divsbucket[a][1]));
@@ -74,18 +74,18 @@ function sort_div_attribute() {
 			enabled : true,
 			autoFocus : true
 		});
-		
+
 		$("#field-earliestMoveInDate").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
 		$("#field-latestMoveInDate").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
 		$("#field-earliestMoveOutDate").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
 		$("#field-latestMoveOutDate").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
 	});
 </script>
@@ -106,16 +106,16 @@ function sort_div_attribute() {
     <option value="dateAge_desc">Date created (oldest to youngest)</option>
 </select>
 
-<button onClick="sort_div_attribute()">Sort</button>	
+<button onClick="sort_div_attribute()">Sort</button>
 </div>
 <c:choose>
 	<c:when test="${empty results}">
 		<p>No results found!
 	</c:when>
 	<c:otherwise>
-		<div id="resultsDiv" class="resultsDiv">			
+		<div id="resultsDiv" class="resultsDiv">
 			<c:forEach var="ad" items="${results}">
-				<div class="resultAd" data-price="${ad.prizePerMonth}" 
+				<div class="resultAd" data-price="${ad.prizePerMonth}"
 								data-moveIn="${ad.moveInDate}" data-age="${ad.moveInDate}">
 					<div class="resultLeft">
 						<a href="<c:url value='/ad?id=${ad.id}' />"><img
@@ -132,16 +132,27 @@ function sort_div_attribute() {
 									<c:when test="${ad.getPropertyType() == 3}">Flat</c:when>
 									<c:when test="${ad.getPropertyType() == 4}">House</c:when>
 								</c:choose></i>
+							<br /><br />
+							<i><c:choose>
+									<c:when test="${ad.getSellType() == 1}">Rent</c:when>
+									<c:when test="${ad.getSellType() == 2}">Buy</c:when>
+									<c:when test="${ad.getSellType() == 3}">Auction</c:when>
+								</c:choose></i>
 						</p>
 					</div>
 					<div class="resultRight">
-						<h2>CHF ${ad.prizePerMonth }</h2>
-						<br /> <br />
+						<c:choose>
+							<c:when test="${ad.getSellType() == 1}"><h2>CHF ${ad.prizePerMonth }</h2></c:when>
+							<c:when test="${ad.getSellType() == 2}"><h2>Sale Prize ${ad.prizeOfSale }</h2></c:when>
+							<c:when test="${ad.getSellType() == 3}"><h2>Current Bid ${ad.startOffer }</h2></c:when>
+						</c:choose>						<br /> <br />
 
 						<fmt:formatDate value="${ad.moveInDate}" var="formattedMoveInDate"
 							type="date" pattern="dd.MM.yyyy" />
 
-						<p>Move-in date: ${formattedMoveInDate }</p>
+						<c:choose>
+							<c:when test="${ad.getSellType() == 1}"><p>Move-in date: ${formattedMoveInDate }</p></c:when>
+						</c:choose>
 					</div>
 				</div>
 			</c:forEach>
@@ -154,13 +165,13 @@ function sort_div_attribute() {
 
 	<div id="filterDiv">
 		<h2>Filter results:</h2>
-		
+
 		<table>
 		<tr>
 		<td><form:checkbox name="buy" id="buy" path="buy"/><label>Buy</label></td>
 		<td><form:checkbox name="rent" id="rent" path="rent"/><label>Rent</label></td>
 		<td><form:checkbox name="auction" id="auction" path="auction"/><label>Auction</label></td>
-		
+
 
 		</tr>
 		<tr>
@@ -168,16 +179,16 @@ function sort_div_attribute() {
 		<td><form:checkbox name="studio" id="studio" path="studio" /><label>Studio</label></td>
 		<td><form:checkbox name="flat" id="flat" path="flat" /><label>Flat</label></td>
 		<td><form:checkbox name="house" id="house" path="house" /><label>House</label></td>
-		
+
 
 		</tr>
 		</table>
-		
+
 		<label for="city">City / zip code:</label>
 		<form:input type="text" name="city" id="city" path="city"
 			placeholder="e.g. Bern" tabindex="3" />
 		<form:errors path="city" cssClass="validationErrorText" /><br />
-			
+
 		<label for="radius">Within radius of (max.):</label>
 		<form:input id="radiusInput" type="number" path="radius"
 			placeholder="e.g. 5" step="5" />
@@ -188,9 +199,9 @@ function sort_div_attribute() {
 			placeholder="e.g. 5" step="50" />
 		CHF
 		<form:errors path="prize" cssClass="validationErrorText" /><br />
-		
-		<hr class="slim">		
-		
+
+		<hr class="slim">
+
 		<table style="width: 80%">
 			<tr>
 				<td><label for="earliestMoveInDate">Earliest move-in date</label></td>
@@ -240,9 +251,9 @@ function sort_div_attribute() {
 				<td><form:checkbox id="field-internet" path="internet" value="1" /><label>WiFi</label></td>
 			</tr>
 		</table>
-			
-		
-		<button type="submit">Filter</button>	
+
+
+		<button type="submit">Filter</button>
 		<button type="reset">Cancel</button>
 	</div>
 </form:form>

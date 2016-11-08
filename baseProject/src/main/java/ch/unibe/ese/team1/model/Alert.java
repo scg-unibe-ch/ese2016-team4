@@ -1,10 +1,17 @@
 package ch.unibe.ese.team1.model;
 
+
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+;
 
 /**
  * Describes an alert. An alert can be created by a user. If ads matching the
@@ -21,27 +28,69 @@ public class Alert {
 	@ManyToOne
 	private User user;
 
-	@Column(nullable = false)
-	private int zipcode;
+	@Column(nullable = true)
+	private int sellType;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
+	private int propertyType;
+	
+	@Column(nullable = true)
+	@Temporal(TemporalType.DATE)
+	private Date moveInDate;
+
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = true)
+	private Date moveOutDate;
+
+	@Column(nullable = true)
+	private int zipcode;
+	
+	@Column(nullable = true)
+	private int squareFootage;
+
+	@Column(nullable = true)
 	private String city;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private int price;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private int radius;
+	
+	@Column(nullable = true)
+	private boolean smokers;
 
-	@Column
-	private boolean studio;
+	@Column(nullable = true)
+	private boolean animals;
 
-	@Column
-	private boolean room;
+	@Column(nullable = true)
+	private boolean garden;
 
-	@Column
-	private boolean bothRoomAndStudio;
+	@Column(nullable = true)
+	private boolean balcony;
 
+	@Column(nullable = true)
+	private boolean cellar;
+
+	@Column(nullable = true)
+	private boolean furnished;
+
+	@Column(nullable = true)
+	private boolean cable;
+
+	@Column(nullable = true)
+	private boolean garage;
+
+	@Column(nullable = true)
+	private boolean internet;
+	
+	// noch zu implementieren!!
+	/*
+	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
+	private Date creationDate;
+	*/
+	
 	public long getId() {
 		return id;
 	}
@@ -56,6 +105,39 @@ public class Alert {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public int getSellType() {
+		return sellType;
+	}
+
+	public void setSellType(int sellType) {
+		this.sellType = sellType;
+	}
+
+	public int getPropertyType() {
+		return propertyType;
+	}
+
+	public void setPropertyType(int propertyType) {
+		this.propertyType = propertyType;
+	}
+	
+	public Date getMoveInDate() {
+		return moveInDate;
+	}
+
+	public void setMoveInDate(Date moveInDate) {
+		this.moveInDate = moveInDate;
+	}
+	
+	public Date getMoveOutDate() {
+		return moveOutDate;
+	}
+	
+
+	public void setMoveOutDate(Date moveOutDate) {
+		this.moveOutDate = moveOutDate;
 	}
 
 	public int getZipcode() {
@@ -89,28 +171,85 @@ public class Alert {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-
-	public boolean getStudio() {
-		return studio;
+	
+	public int getSquareFootage() {
+		return squareFootage;
 	}
 
-	public void setStudio(boolean studio) {
-		this.studio = studio;
+	public void setSquareFootage(int squareFootage) {
+		this.squareFootage = squareFootage;
 	}
 
-	public boolean getRoom() {
-		return room;
+	public boolean getSmokers() {
+		return smokers;
 	}
 
-	public void setRoom(boolean room) {
-		this.room = room;
+	public void setSmokers(boolean allowsSmokers) {
+		this.smokers = allowsSmokers;
 	}
 
-	public boolean getBothRoomAndStudio() {
-		return bothRoomAndStudio;
+	public boolean getAnimals() {
+		return animals;
 	}
 
-	public void setBothRoomAndStudio(boolean bothRoomAndStudio) {
-		this.bothRoomAndStudio = bothRoomAndStudio;
+	public void setAnimals(boolean allowsAnimals) {
+		this.animals = allowsAnimals;
 	}
+
+	public boolean getGarden() {
+		return garden;
+	}
+
+	public void setGarden(boolean hasGarden) {
+		this.garden = hasGarden;
+	}
+
+	public boolean getBalcony() {
+		return balcony;
+	}
+
+	public void setBalcony(boolean hasBalcony) {
+		this.balcony = hasBalcony;
+	}
+
+	public boolean getCellar() {
+		return cellar;
+	}
+
+	public void setCellar(boolean hasCellar) {
+		this.cellar = hasCellar;
+	}
+
+	public boolean getFurnished() {
+		return furnished;
+	}
+
+	public void setFurnished(boolean furnished) {
+		this.furnished = furnished;
+	}
+
+	public boolean getCable() {
+		return cable;
+	}
+
+	public void setCable(boolean hasCable) {
+		this.cable = hasCable;
+	}
+
+	public boolean getGarage() {
+		return garage;
+	}
+
+	public void setGarage(boolean garage) {
+		this.garage = garage;
+	}
+
+	public boolean getInternet() {
+		return internet;
+	}
+
+	public void setInternet(boolean internet) {
+		this.internet = internet;
+	}
+
 }

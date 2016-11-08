@@ -27,8 +27,10 @@ import ch.unibe.ese.team1.controller.service.AlertService;
 import ch.unibe.ese.team1.controller.service.EditAdService;
 import ch.unibe.ese.team1.controller.service.UserService;
 import ch.unibe.ese.team1.model.Ad;
+import ch.unibe.ese.team1.model.Bid;
 import ch.unibe.ese.team1.model.PictureMeta;
 import ch.unibe.ese.team1.model.User;
+import ch.unibe.ese.team1.model.dao.BidHistoryDao;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -55,6 +57,8 @@ public class EditAdController {
 
 	@Autowired
 	private AlertService alertService;
+	@Autowired
+	private BidHistoryDao bidHistoryDao;
 
 	private PictureUploader pictureUploader;
 
@@ -72,6 +76,9 @@ public class EditAdController {
 		PlaceAdForm form = editAdService.fillForm(ad);
 
 		model.addObject("placeAdForm", form);
+
+		Bid bid = bidHistoryDao.findTop1ByadIdOrderByBidDesc(ad.getId());
+		model.addObject("hasBid", bid!=null);
 
 		String realPath = servletContext.getRealPath(IMAGE_DIRECTORY);
 		if (pictureUploader == null) {
@@ -109,6 +116,8 @@ public class EditAdController {
 			model = new ModelAndView("redirect:/ad?id=" + ad.getId());
 			redirectAttributes.addFlashAttribute("confirmationMessage",
 					"Ad edited successfully. You can take a look at it below.");
+		}else {
+			model = new ModelAndView("editAd");
 		}
 
 		return model;

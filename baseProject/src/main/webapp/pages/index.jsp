@@ -35,22 +35,39 @@
 						<p>${ad.street}, ${ad.zipcode} ${ad.city}</p>
 						<br />
 						<p>
+							
 							<i><c:choose>
 									<c:when test="${ad.getPropertyType() == 1}">Room</c:when>
 									<c:when test="${ad.getPropertyType() == 2}">Studio</c:when>
 									<c:when test="${ad.getPropertyType() == 3}">Flat</c:when>
 									<c:when test="${ad.getPropertyType() == 4}">House</c:when>
 								</c:choose></i>
+							<br /><br />
+							<i><c:choose>
+									<c:when test="${ad.getSellType() == 1}">Rent</c:when>
+									<c:when test="${ad.getSellType() == 2}">Buy</c:when>
+									<c:when test="${ad.getSellType() == 3}">Auction</c:when>
+								</c:choose></i>
+						
 						</p>
 					</div>
+					
+					
 					<div class="resultRight">
-						<h2>CHF ${ad.prizePerMonth }</h2>
+						<c:choose>
+							<c:when test="${ad.getSellType() == 1}"><h2>${ad.prizePerMonth } CHF</h2></c:when>
+							<c:when test="${ad.getSellType() == 2}"><h2>Sale Prize ${ad.prizeOfSale } CHF</h2></c:when>
+							<c:when test="${ad.getSellType() == 3 && !bidService.isBidden(ad.getId())}"><h2>Opening Bid ${bidService.getNextBid(ad.getId())} CHF</h2></c:when>
+							<c:when test="${ad.getSellType() == 3 && bidService.isBidden(ad.getId())}"><h2>Next Bid ${bidService.getNextBid(ad.getId())} CHF</h2></c:when>
+						</c:choose>
 						<br /> <br />
 
 						<fmt:formatDate value="${ad.moveInDate}" var="formattedMoveInDate"
 							type="date" pattern="dd.MM.yyyy" />
-
-						<p>Move-in date: ${formattedMoveInDate }</p>
+						<c:choose>
+							<c:when test="${ad.getSellType() == 1}"><p>Move-in date: ${formattedMoveInDate }</p></c:when>
+						</c:choose>
+						
 					</div>
 				</div>
 			</c:forEach>

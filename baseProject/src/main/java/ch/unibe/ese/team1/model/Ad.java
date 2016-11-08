@@ -1,5 +1,6 @@
 package ch.unibe.ese.team1.model;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class Ad {
 	@Id
 	@GeneratedValue
 	private long id;
-	
+
 	@Column(nullable = true)
 	private int sellType;
 
@@ -36,7 +37,7 @@ public class Ad {
 
 	@Column(nullable = false)
 	private String title;
-	
+
 
 	@Column(nullable = false)
 	private String street;
@@ -46,12 +47,12 @@ public class Ad {
 
 	@Column(nullable = false)
 	private String city;
-	
-	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date creationDate;
 
 	@Column(nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date creationDate;
+
+	@Column(nullable = true)
 	@Temporal(TemporalType.DATE)
 	private Date moveInDate;
 
@@ -59,8 +60,18 @@ public class Ad {
 	@Column(nullable = true)
 	private Date moveOutDate;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private int prizePerMonth;
+	
+	@Column(nullable = true)
+	private int startOffer;
+	
+	@Column(nullable = true)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date auctionEndDate;
+
+	@Column(nullable = true)
+	private int prizeOfSale;
 
 	@Column(nullable = false)
 	private int squareFootage;
@@ -107,20 +118,16 @@ public class Ad {
 	@Column(nullable = false)
 	private boolean internet;
 
-	// true if studio, false if room
-	@Column(nullable = false)
-	private boolean studio;
-
 	@Fetch(FetchMode.SELECT)
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<AdPicture> pictures;
 
 	@ManyToOne(optional = false)
 	private User user;
-	
+
 	@OneToMany(mappedBy = "ad", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Visit> visits;
-	
+
 	public int getPropertyType() {
 		return propertyType;
 	}
@@ -128,7 +135,7 @@ public class Ad {
 	public void setPropertyType(int propertyType) {
 		this.propertyType = propertyType;
 	}
-	
+
 	public int getSellType() {
 		return sellType;
 	}
@@ -145,12 +152,26 @@ public class Ad {
 		this.creationDate = creationDate;
 	}
 
-	public boolean getStudio() {
-		return studio;
+	public long getCreationMs(){
+		return creationDate.getTime();
 	}
 
-	public void setStudio(boolean studio) {
-		this.studio = studio;
+	public long getMoveOutMs(){
+		if (moveOutDate != null) return moveOutDate.getTime();
+		return 0;
+	}
+	
+	public long getTimeToAuctionEnd(){
+		Date now = new Date();
+		if(auctionEndDate != null)
+			return auctionEndDate.getTime() - now.getTime();
+		return -1;
+	}
+	
+	public long getAuctionEndTime(){
+		if(auctionEndDate != null)
+			return auctionEndDate.getTime();
+		return -1;
 	}
 
 	public boolean getSmokers() {
@@ -359,6 +380,30 @@ public class Ad {
 	public void setVisits(List<Visit> visits) {
 		this.visits = visits;
 	}
+	
+	public int getStartOffer() {
+		return startOffer;
+	}
+
+	public void setStartOffer(int startOffer) {
+		this.startOffer = startOffer;
+	}
+	
+	public Date getAuctionEndDate() {
+		return auctionEndDate;
+	}
+
+	public void setAuctionEndDate(Date auctionEndDate) {
+		this.auctionEndDate = auctionEndDate;
+	}
+	
+	public int getPrizeOfSale() {
+		return prizeOfSale;
+	}
+
+	public void setPrizeOfSale(int prizeOfSale) {
+		this.prizeOfSale = prizeOfSale;
+	}
 
 	@Override
 	public int hashCode() {
@@ -381,5 +426,23 @@ public class Ad {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+
+	public boolean isAuctionAvailable() {
+		return getTimeToAuctionEnd()>0;
+	}
+	
+	public static int getSellType(String sellType){
+		switch ( sellType.toLowerCase()){
+		case "rent":
+			return 1;
+		case "buy":
+			return 2;
+		case "auction":
+			return 3;
+		default:
+			return 0;
+		}
 	}
 }

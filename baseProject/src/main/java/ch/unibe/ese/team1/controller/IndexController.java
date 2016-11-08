@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.unibe.ese.team1.controller.service.AdService;
+import ch.unibe.ese.team1.controller.service.BidService;
 
 /**
  * This controller handles request concerning the home page and several other
@@ -17,11 +18,14 @@ public class IndexController {
 	@Autowired
 	private AdService adService;
 
+	@Autowired
+	private BidService bidHistoryService;
 	/** Displays the home page. */
 	@RequestMapping(value = "/")
 	public ModelAndView index() {
 		ModelAndView model = new ModelAndView("index");
 		model.addObject("newest", adService.getNewestAds(4));
+		model.addObject("bidService", bidHistoryService);
 		return model;
 	}
 

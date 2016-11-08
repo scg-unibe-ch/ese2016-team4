@@ -46,4 +46,12 @@ $(document).ready(function() {
 		reset();
 	}); 
 	
+	$("#messageForm").submit(function (event){
+		if($("#receiverEmail").val() == ""){
+			event.preventDefault();
+		}
+	});
+	$("#bidForm").submit(function (event){
+	});
+	
 });

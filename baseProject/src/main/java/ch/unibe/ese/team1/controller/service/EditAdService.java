@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,10 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 import ch.unibe.ese.team1.controller.pojos.forms.PlaceAdForm;
 import ch.unibe.ese.team1.model.Ad;
 import ch.unibe.ese.team1.model.AdPicture;
+import ch.unibe.ese.team1.model.Bid;
 import ch.unibe.ese.team1.model.User;
 import ch.unibe.ese.team1.model.Visit;
 import ch.unibe.ese.team1.model.dao.AdDao;
 import ch.unibe.ese.team1.model.dao.AdPictureDao;
+import ch.unibe.ese.team1.model.dao.BidHistoryDao;
 
 /** Provides services for editing ads in the database. */
 @Service
@@ -39,7 +42,7 @@ public class EditAdService {
 
 	/**
 	 * Handles persisting an edited ad to the database.
-	 * 
+	 *
 	 * @param placeAdForm
 	 *            the form to take the data from
 	 * @param a
@@ -57,10 +60,11 @@ public class EditAdService {
 		ad.setCreationDate(now);
 
 		ad.setTitle(placeAdForm.getTitle());
-
 		ad.setStreet(placeAdForm.getStreet());
 
-		ad.setStudio(placeAdForm.getStudio());
+		// new for different property and sell types
+		ad.setSellType(placeAdForm.getSellType());
+		ad.setPropertyType(placeAdForm.getPropertyType());
 
 		// take the zipcode - first four digits
 		String zip = placeAdForm.getCity().substring(0, 4);
@@ -95,7 +99,11 @@ public class EditAdService {
 		} catch (NumberFormatException e) {
 		}
 
+		// new for auction & buy
 		ad.setPrizePerMonth(placeAdForm.getPrize());
+		ad.setStartOffer(placeAdForm.getStartOffer());
+		ad.setPrizeOfSale(placeAdForm.getPrizeOfSale());
+
 		ad.setSquareFootage(placeAdForm.getSquareFootage());
 
 		ad.setRoomDescription(placeAdForm.getRoomDescription());
@@ -154,7 +162,7 @@ public class EditAdService {
 			for (String visitString : visitStrings) {
 				Visit visit = new Visit();
 				// format is 28-02-2014;10:02;13:14
-				DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+				DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 				String[] parts = visitString.split(";");
 				String startTime = parts[0] + " " + parts[1];
 				String endTime = parts[0] + " " + parts[2];
@@ -205,18 +213,43 @@ public class EditAdService {
 	 * Fills a Form with the data of an ad.
 	 */
 	public PlaceAdForm fillForm(Ad ad) {
+
 		PlaceAdForm adForm = new PlaceAdForm();
+		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
 		adForm.setRoomDescription(ad.getRoomDescription());
 		adForm.setPreferences(ad.getPreferences());
 		adForm.setRoommates(ad.getRoommates());
+		adForm.setPropertyType(ad.getPropertyType());
+		adForm.setSellType(ad.getSellType());
+		adForm.setCity(ad.getZipcode()+" - "+ad.getCity());
+		adForm.setTitle(ad.getTitle());
+		adForm.setStreet(ad.getStreet());
+		adForm.setSquareFootage(ad.getSquareFootage());		
+		if (ad.getSellType()==Ad.getSellType("Rent")){
+			adForm.setPrize(ad.getPrizePerMonth());
+			if (ad.getMoveInDate() != null) {
+				
+				adForm.setMoveInDate(dateFormat.format(ad.getMoveInDate()));
+			}
+			if (ad.getMoveOutDate() != null) {
+				adForm.setMoveOutDate(dateFormat.format(ad.getMoveOutDate()));
+			}
+		}else if (ad.getSellType()==Ad.getSellType("Buy")){
+			adForm.setPrizeOfSale(ad.getPrizeOfSale());
+		}if (ad.getSellType()==Ad.getSellType("Auction")){
+			adForm.setStartOffer(ad.getStartOffer());
+			adForm.setAuctionEndDate(ad.getAuctionEndDate());
+
+		}
+		adForm.setSquareFootage(ad.getSquareFootage());
 
 		return adForm;
 	}
 
 	/**
 	 * Deletes the roommate with the given id from the ad with the given id.
-	 * 
+	 *
 	 * @param roommateId
 	 *            the user to delete as roommate
 	 * @param adId

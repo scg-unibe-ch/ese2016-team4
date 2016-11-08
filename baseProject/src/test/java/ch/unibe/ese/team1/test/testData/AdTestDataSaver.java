@@ -39,6 +39,7 @@ public class AdTestDataSaver {
 		regRoommatesAdBern.add(mathilda);
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+		SimpleDateFormat formatterTime = new SimpleDateFormat("dd.MM.yyyy, HH:mm:ss");
 		
 		Date creationDate1 = formatter.parse("03.10.2014");
 		Date creationDate2 = formatter.parse("11.10.2014");
@@ -48,23 +49,26 @@ public class AdTestDataSaver {
 		Date creationDate6 = formatter.parse("01.12.2014");
 		Date creationDate7 = formatter.parse("16.11.2014");
 		Date creationDate8 = formatter.parse("27.11.2014");
-		Date creationDate9 = formatter.parse("15.10.2016");
+		Date creationDate9 = formatterTime.parse("03.11.2016, 10:05:30");
 		
-		Date moveInDate1 = formatter.parse("15.12.2014");
-		Date moveInDate2 = formatter.parse("21.12.2014");
-		Date moveInDate3 = formatter.parse("01.01.2015");
-		Date moveInDate4 = formatter.parse("15.01.2015");
-		Date moveInDate5 = formatter.parse("01.02.2015");
-		Date moveInDate6 = formatter.parse("01.03.2015");
-		Date moveInDate7 = formatter.parse("15.03.2015");
-		Date moveInDate8 = formatter.parse("16.02.2015");
-		Date moveInDate9 = formatter.parse("18.10.2016");
+		Date moveInDate1 = formatter.parse("15.12.2017");
+		Date moveInDate2 = formatter.parse("21.12.2017");
+		Date moveInDate3 = formatter.parse("01.01.2017");
+		Date moveInDate4 = formatter.parse("15.01.2017");
+		Date moveInDate5 = formatter.parse("01.02.2017");
+		Date moveInDate6 = formatter.parse("01.03.2017");
+		Date moveInDate7 = formatter.parse("15.03.2017");
+		Date moveInDate8 = formatter.parse("16.02.2017");
+		Date moveInDate9 = formatter.parse("18.10.2017");
 		
-		Date moveOutDate1 = formatter.parse("31.03.2015");
-		Date moveOutDate2 = formatter.parse("30.04.2015");
-		Date moveOutDate3 = formatter.parse("31.03.2016");
-		Date moveOutDate4 = formatter.parse("01.07.2015");
-		Date moveOutDate5 = formatter.parse("30.09.2016");
+		Date moveOutDate1 = formatter.parse("31.03.2018");
+		Date moveOutDate2 = formatter.parse("30.04.2018");
+		Date moveOutDate3 = formatter.parse("31.03.2018");
+		Date moveOutDate4 = formatter.parse("01.07.2018");
+		Date moveOutDate5 = formatter.parse("30.09.2018");
+		Date moveOutDate6 = formatter.parse("10.11.2018");
+		
+		Date auctionEndDate1 = formatterTime.parse("30.11.2016, 15:21:44");
 		
 		String roomDescription1 = "The room is a part of 3.5 rooms apartment completely renovated"
 				+ "in 2010 at Kramgasse, Bern. The apartment is about 50 m2 on 1st floor."
@@ -84,7 +88,6 @@ public class AdTestDataSaver {
 		adBern.setMoveOutDate(moveOutDate1);
 		adBern.setPrizePerMonth(400);
 		adBern.setSquareFootage(50);
-		adBern.setStudio(false);
 		adBern.setPropertyType(1);
 		adBern.setSellType(1);
 		adBern.setSmokers(false);
@@ -132,7 +135,6 @@ public class AdTestDataSaver {
 		adBern2.setMoveOutDate(moveOutDate4);
 		adBern2.setPrizePerMonth(700);
 		adBern2.setSquareFootage(60);
-		adBern2.setStudio(true);
 		adBern2.setPropertyType(2);
 		adBern2.setSellType(1);
 		adBern2.setSmokers(false);
@@ -177,7 +179,6 @@ public class AdTestDataSaver {
 		adBasel.setCreationDate(creationDate3);
 		adBasel.setPrizePerMonth(480);
 		adBasel.setSquareFootage(10);
-		adBasel.setStudio(true);
 		adBasel.setPropertyType(2);
 		adBasel.setSellType(1);
 		adBasel.setSmokers(true);
@@ -218,7 +219,6 @@ public class AdTestDataSaver {
 		adOlten.setCreationDate(creationDate4);
 		adOlten.setPrizePerMonth(430);
 		adOlten.setSquareFootage(60);
-		adOlten.setStudio(false);
 		adOlten.setPropertyType(1);
 		adOlten.setSellType(1);
 		adOlten.setSmokers(true);
@@ -258,7 +258,6 @@ public class AdTestDataSaver {
 		adNeuchâtel.setCreationDate(creationDate5);
 		adNeuchâtel.setPrizePerMonth(410);
 		adNeuchâtel.setSquareFootage(40);
-		adNeuchâtel.setStudio(true);
 		adNeuchâtel.setPropertyType(2);
 		adNeuchâtel.setSellType(1);
 		adNeuchâtel.setSmokers(true);
@@ -296,7 +295,6 @@ public class AdTestDataSaver {
 		adBiel.setCreationDate(creationDate6);
 		adBiel.setPrizePerMonth(480);
 		adBiel.setSquareFootage(10);
-		adBiel.setStudio(true);
 		adBiel.setPropertyType(2);
 		adBiel.setSellType(1);
 		adBiel.setSmokers(true);
@@ -341,7 +339,6 @@ public class AdTestDataSaver {
 		adZurich.setMoveOutDate(moveOutDate5);
 		adZurich.setPrizePerMonth(480);
 		adZurich.setSquareFootage(32);
-		adZurich.setStudio(false);
 		adZurich.setPropertyType(1);
 		adZurich.setSellType(1);
 		adZurich.setSmokers(false);
@@ -388,7 +385,6 @@ public class AdTestDataSaver {
 		adLuzern.setCreationDate(creationDate2);
 		adLuzern.setPrizePerMonth(700);
 		adLuzern.setSquareFootage(60);
-		adLuzern.setStudio(true);
 		adLuzern.setPropertyType(2);
 		adLuzern.setSellType(1);
 		adLuzern.setSmokers(false);
@@ -433,7 +429,6 @@ public class AdTestDataSaver {
 		adAarau.setCreationDate(creationDate8);
 		adAarau.setPrizePerMonth(800);
 		adAarau.setSquareFootage(26);
-		adAarau.setStudio(true);
 		adAarau.setPropertyType(2);
 		adAarau.setSellType(1);
 		adAarau.setSmokers(true);
@@ -477,7 +472,6 @@ public class AdTestDataSaver {
 		adDavos.setCreationDate(creationDate4);
 		adDavos.setPrizePerMonth(1100);
 		adDavos.setSquareFootage(74);
-		adDavos.setStudio(false);
 		adDavos.setPropertyType(1);
 		adDavos.setSellType(1);
 		adDavos.setSmokers(true);
@@ -517,7 +511,6 @@ public class AdTestDataSaver {
 		adLausanne.setCreationDate(creationDate5);
 		adLausanne.setPrizePerMonth(360);
 		adLausanne.setSquareFootage(8);
-		adLausanne.setStudio(false);
 		adLausanne.setPropertyType(1);
 		adLausanne.setSellType(1);
 		adLausanne.setSmokers(true);
@@ -555,7 +548,6 @@ public class AdTestDataSaver {
 		adLocarno.setCreationDate(creationDate6);
 		adLocarno.setPrizePerMonth(960);
 		adLocarno.setSquareFootage(42);
-		adLocarno.setStudio(false);
 		adLocarno.setPropertyType(1);
 		adLocarno.setSellType(1);
 		adLocarno.setSellType(1);
@@ -582,20 +574,22 @@ public class AdTestDataSaver {
 		adLocarno.setPictures(pictures);
 		adDao.save(adLocarno);
 		
-		String HouseDescription13 = "This is a huge house with several kitchens, bathrooms and a large living room."
-				+ "Several 1000 square meters of space should be enough for even the most severe cases of claustrophobia"
-				+ "It's located at Güterstrasse 14, 3550 Langnau, only about 200 meters away from the train station."
-				+ "The only downside is that some of the floor is covered in ice, so it might get a bit frosty sometimes."
-				+ "As you can see in the third picture, it was just newly renovated in 2012.";
+		String HouseDescription13 = "This is a huge house with several kitchens, bathrooms and a large living room. "
+				+ "Several 1000 square meters of space should be enough for even the most severe cases of claustrophobia. "
+				+ "It's located at Güterstrasse 14, 3550 Langnau, only about 200 meters away from the train station. "
+				+ "The only downside is that some of the floor is covered in ice, so it might get a bit frosty sometimes. "
+				+ "As you can see in the third picture, it was just newly renovated in 2012. ";
 		String preferences13 = "I will auction this off to literally anyone";
 
 		Ad adLangnau = new Ad();
 		adLangnau.setZipcode(3550);
 		adLangnau.setMoveInDate(moveInDate9);
+		adLangnau.setMoveOutDate(moveOutDate6);
 		adLangnau.setCreationDate(creationDate9);
+		adLangnau.setAuctionEndDate(auctionEndDate1);
+		adLangnau.setStartOffer(100);
 		adLangnau.setPrizePerMonth(100);
 		adLangnau.setSquareFootage(10000);
-		adLangnau.setStudio(false);
 		adLangnau.setPropertyType(4);
 		adLangnau.setSellType(3);
 		adLangnau.setSmokers(true);

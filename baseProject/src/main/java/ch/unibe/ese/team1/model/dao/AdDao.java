@@ -6,11 +6,11 @@ import ch.unibe.ese.team1.model.Ad;
 import ch.unibe.ese.team1.model.User;
 
 public interface AdDao extends CrudRepository<Ad, Long> {
-	
-	/** this will be used if both rooms AND studios are searched */
+
+	/** this will be used if searched only for price*/
 	public Iterable<Ad> findByPrizePerMonthLessThan (int prize);
 
-	/** this will be used if only rooms or studios are searched */
+	/** this will be used if selected propertyTypes are searched */
 	public Iterable<Ad> findByPropertyTypeAndSellTypeAndPrizePerMonthLessThan(int propertyType, int sellType,
 			int i);
 

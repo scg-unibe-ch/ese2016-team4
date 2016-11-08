@@ -14,9 +14,27 @@
 
 <script>
 $(document).ready( function() {
-    var now = new Date();
-    var today = now.getDate() + '-' + (now.getMonth() + 1) + '-' + now.getFullYear();
-    $('#field-moveInDate').val(today);
+    var today = new Date();
+    var tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
+    
+    function getFormattedDate(date){
+    	var dd = date.getDate();
+    	var mm = date.getMonth()+1;
+    	var yyyy = date.getFullYear();
+    	
+    	if(dd<10){
+    	    dd='0'+dd
+    	} 
+    	if(mm<10){
+        	mm='0'+mm
+    	} 
+    	
+    	return d = dd+'.'+mm+'.'+yyyy;
+    }
+    
+    $('#field-moveInDate').val(getFormattedDate(today));
+    $('#field-auctionEndDate').val(getFormattedDate(tomorrow));
+    
 });
 </script>
 
@@ -39,14 +57,17 @@ $(document).ready( function() {
 			autoFocus : true
 		});
 		$("#field-moveInDate").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
 		$("#field-moveOutDate").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
+		});
+		$("#field-auctionEndDate").datepicker({
+			dateFormat : 'dd.mm.yy'
 		});
 		
 		$("#field-visitDay").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
 		
 
@@ -130,15 +151,69 @@ $(document).ready( function() {
 				<td><label for="field-title">Ad Title</label></td>
 				
 				<td>
-				<form:select path="sellType">
+				<form:select path="sellType" id="myselect">
 				<form:option value ="0">Select a Sale Type</form:option>
 				<form:option id="type-room" value="1">Rent</form:option>
 				<form:option id="type-room" value="2">Buy</form:option>
 				<form:option id="type-room" value="3">Auction</form:option>				
 				</form:select>
 				</td>
-				<td><form:errors path="sellType" cssClass="validationErrorText" /></td>
 				
+				<td><form:errors path="sellType" cssClass="validationErrorText" /></td>
+
+				<script>
+					document.getElementById("myselect").onchange = function() {
+						if(document.getElementById("myselect").value == 3) {
+							$('#field-moveInDate').val(null);
+							document.getElementById("auctionEndDate").hidden = false;
+							document.getElementById("field-auctionEndDate").hidden = false;
+							document.getElementById("moveInDate").hidden = true;
+							document.getElementById("moveOutDate").hidden = true;							
+							document.getElementById("prize").hidden = true;
+							document.getElementById("prizeOfSale").hidden = true;
+							document.getElementById("startOffer").hidden = false;
+							document.getElementById("field-moveInDate").hidden = true;
+							document.getElementById("field-moveOutDate").hidden = true;
+							document.getElementById("field-Prize").hidden = true;
+							document.getElementById("field-PrizeOfSale").hidden = true;
+							document.getElementById("field-startOffer").hidden = false;
+
+
+
+						} else if(document.getElementById("myselect").value == 2) {
+							$('#field-moveInDate').val(null);
+							$('#field-auctionEndDate').val(null);
+							document.getElementById("auctionEndDate").hidden = true;
+							document.getElementById("field-auctionEndDate").hidden = true;
+							document.getElementById("moveInDate").hidden = true;
+							document.getElementById("moveOutDate").hidden = true;							
+							document.getElementById("prize").hidden = true;
+							document.getElementById("prizeOfSale").hidden = false;
+							document.getElementById("startOffer").hidden = true;
+							document.getElementById("field-moveInDate").hidden = true;
+							document.getElementById("field-moveOutDate").hidden = true;
+							document.getElementById("field-Prize").hidden = true;
+							document.getElementById("field-PrizeOfSale").hidden = false;
+							document.getElementById("field-startOffer").hidden = true;
+
+						} else {
+							$('#field-auctionEndDate').val(null);
+							document.getElementById("auctionEndDate").hidden = true;
+							document.getElementById("field-auctionEndDate").hidden = true;
+							document.getElementById("moveInDate").hidden = false;
+							document.getElementById("moveOutDate").hidden = false;							
+							document.getElementById("prize").hidden = false;
+							document.getElementById("prizeOfSale").hidden = true;
+							document.getElementById("startOffer").hidden = true;
+							document.getElementById("field-moveInDate").hidden = false;
+							document.getElementById("field-moveOutDate").hidden = false;
+							document.getElementById("field-Prize").hidden = false;
+							document.getElementById("field-PrizeOfSale").hidden = true;
+							document.getElementById("field-startOffer").hidden = true;
+						}
+					};
+							
+				</script>
 				
 			</tr>
 
@@ -161,37 +236,57 @@ $(document).ready( function() {
 			<tr>
 				<td><label for="field-street">Street</label></td>
 				<td><label for="field-city">City / Zip code</label></td>
+				<td><label for="field-PrizeBuy" id="startOffer" hidden="true">Start offer</label></td>
 			</tr>
 
 			<tr>
 				<td><form:input id="field-street" path="street"
 						placeholder="Street" /></td>
+					<form:errors path="street" cssClass="validationErrorText" /></td>
 				<td><form:input id="field-city" path="city" placeholder="City" />
 					<form:errors path="city" cssClass="validationErrorText" /></td>
+				<td><form:input id="field-startOffer" type="number" path="startOffer" hidden="true"
+						placeholder="Start offer" step="50" />
+					<form:errors path="startOffer" cssClass="validationErrorText" /></td>
 			</tr>
 
 			<tr>
-				<td><label for="moveInDate">Move-in date</label></td>
-				<td><label for="moveOutDate">Move-out date (optional)</label></td>
+				<td><label for="moveInDate"  id="moveInDate">Move-in date</label></td>
+				<td><label for="moveOutDate" id="moveOutDate">Move-out date (optional)</label></td>
 			</tr>
 			<tr>
 				<td><form:input type="text" id="field-moveInDate"
-						path="moveInDate" /></td>
+						path="moveInDate" /><form:errors path="moveInDate" cssClass="validationErrorText" /></td>
 				<td><form:input type="text" id="field-moveOutDate"
-						path="moveOutDate" /></td>
+						path="moveOutDate" /><form:errors path="moveOutDate" cssClass="validationErrorText" /></td>
 			</tr>
 
 			<tr>
-				<td><label for="field-Prize">Prize per month</label></td>
-				<td><label for="field-SquareFootage">Square Meters</label></td>
+				<td><label for="field-Prize" id="prize">Prize per month</label></td>
 			</tr>
 			<tr>
 				<td><form:input id="field-Prize" type="number" path="prize"
 						placeholder="Prize per month" step="50" /> <form:errors
 						path="prize" cssClass="validationErrorText" /></td>
+
+			</tr>
+			
+			<tr>
+				<td><label for="field-SquareFootage">Square Meters</label></td>
+				<td><label for="field-PrizeBuy" id="prizeOfSale" hidden="true">Prize of sale</label></td>
+				<td><label for="auctionEndDate"  id="auctionEndDate" hidden="true">Auction End Date</label></td>
+			</tr>
+			<tr>
 				<td><form:input id="field-SquareFootage" type="number"
-						path="squareFootage" placeholder="Prize per month" step="5" /> <form:errors
+						path="squareFootage"/> <form:errors
 						path="squareFootage" cssClass="validationErrorText" /></td>
+						
+				<td><form:input id="field-PrizeOfSale" type="number" path="prizeOfSale" hidden="true"
+						placeholder="Prize of sale" step="1000" /> <form:errors
+						path="prizeOfSale" cssClass="validationErrorText" /></td>
+								
+				<td><form:input type="text" id="field-auctionEndDate" hidden="true"
+						path="auctionEndDate" /><form:errors path="auctionEndDate" cssClass="validationErrorText" /> </td>									
 			</tr>
 		</table>
 	</fieldset>
@@ -203,9 +298,9 @@ $(document).ready( function() {
 
 		<table class="placeAdTable">
 			<tr>
-				<td><form:checkbox id="field-smoker" path="smokers" value="1" /><label>Animals
-						allowed</label></td>
-				<td><form:checkbox id="field-animals" path="animals" value="1" /><label>Smoking
+				<td><form:checkbox id="field-smoker" path="smokers" value="1" /><label>Smoking
+						inside allowed</label></td>
+				<td><form:checkbox id="field-animals" path="animals" value="1" /><label>Animals
 						inside allowed</label></td>
 			</tr>
 			<tr>
