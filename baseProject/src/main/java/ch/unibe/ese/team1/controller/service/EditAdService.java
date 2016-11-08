@@ -211,35 +211,31 @@ public class EditAdService {
 	 * Fills a Form with the data of an ad.
 	 */
 	public PlaceAdForm fillForm(Ad ad) {
+
 		PlaceAdForm adForm = new PlaceAdForm();
+		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
 		adForm.setRoomDescription(ad.getRoomDescription());
 		adForm.setPreferences(ad.getPreferences());
 		adForm.setRoommates(ad.getRoommates());
-
-
-		adForm.setCity(ad.getCity());
-		adForm.setStreet(ad.getStreet());
-
-		adForm.setTitle(ad.getTitle());
-		adForm.setSellType(ad.getSellType());
 		adForm.setPropertyType(ad.getPropertyType());
-
-		if (ad.getSellType() == 1) {
+		adForm.setSellType(ad.getSellType());
+		adForm.setCity(ad.getZipcode()+" - "+ad.getCity());
+		adForm.setTitle(ad.getTitle());
+		adForm.setStreet(ad.getStreet());
+		adForm.setSquareFootage(ad.getSquareFootage());		
+		if (ad.getSellType()==Ad.getSellType("Rent")){
 			adForm.setPrize(ad.getPrizePerMonth());
-
-			if (ad.getSellType() == 1 && ad.getMoveInDate() != null) {
-				adForm.setMoveInDate(ad.getMoveInDate().toString());
+			if (ad.getMoveInDate() != null) {
+				
+				adForm.setMoveInDate(dateFormat.format(ad.getMoveInDate()));
 			}
 			if (ad.getMoveOutDate() != null) {
-				adForm.setMoveOutDate(ad.getMoveOutDate().toString());
+				adForm.setMoveOutDate(dateFormat.format(ad.getMoveOutDate()));
 			}
-		}
-
-		if (ad.getSellType() == 2) {
+		}else if (ad.getSellType()==Ad.getSellType("Buy")){
 			adForm.setPrizeOfSale(ad.getPrizeOfSale());
-		}
-		if (ad.getSellType() == 3) {
+		}if (ad.getSellType()==Ad.getSellType("Auction")){
 			adForm.setStartOffer(ad.getStartOffer());
 		}
 		adForm.setSquareFootage(ad.getSquareFootage());
