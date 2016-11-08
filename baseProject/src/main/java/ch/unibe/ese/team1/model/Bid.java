@@ -10,12 +10,12 @@ import java.util.Calendar;
 
 /** Describes an advertisement that users can place and search for. */
 @Entity
-public class BidHistory {
+public class Bid {
 	
-	public BidHistory(){
+	public Bid(){
 		
 	}
-	public BidHistory(long adId, long userId, long bid){
+	public Bid(long adId, long userId, long bid){
 		this.adId = adId;
 		this.userId= userId;
 		this.bid = bid;
