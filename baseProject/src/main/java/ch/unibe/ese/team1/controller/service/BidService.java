@@ -188,11 +188,20 @@ public class BidService {
 	
 	public long getHighestBid(long adId){
 		Bid bid = bidHistoryDao.findTop1ByadIdOrderByBidDesc(adId);
-		if (bid==null){
+		Ad ad= adService.getAdById(adId);
+		long currentBid = 0;
+		if (ad==null){
 			return 0;
+		}else if(bid==null){
+			return ad.getStartOffer();
 		}else{
-			return bid.getBid();			
+			currentBid = bid.getBid();
 		}
+		return currentBid;
+	}
+	
+	public boolean isBidden(long adId){
+		return bidHistoryDao.findTop1ByadIdOrderByBidDesc(adId) != null;
 	}
 	
 	public Iterable<Bid> getAllBids(long adId){
