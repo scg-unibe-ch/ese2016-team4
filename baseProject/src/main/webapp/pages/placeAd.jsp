@@ -250,9 +250,9 @@ $(document).ready( function() {
 			</tr>
 			<tr>
 				<td><form:input type="text" id="field-moveInDate"
-						path="moveInDate" /></td>
+						path="moveInDate" /><form:errors path="moveInDate" cssClass="validationErrorText" /></td>
 				<td><form:input type="text" id="field-moveOutDate"
-						path="moveOutDate" /></td>
+						path="moveOutDate" /><form:errors path="moveOutDate" cssClass="validationErrorText" /></td>
 			</tr>
 
 			<tr>
@@ -280,7 +280,7 @@ $(document).ready( function() {
 						path="prizeOfSale" cssClass="validationErrorText" /></td>
 								
 				<td><form:input type="text" id="field-auctionEndDate" hidden="true"
-						path="auctionEndDate" /> </td>									
+						path="auctionEndDate" /><form:errors path="auctionEndDate" cssClass="validationErrorText" /> </td>									
 			</tr>
 		</table>
 	</fieldset>

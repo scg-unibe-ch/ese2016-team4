@@ -24,7 +24,7 @@ public class PlaceAdForm {
 	@Min(value=1, message = "YOU SHALL CHOOSE")
 	private int sellType;
 	
-	@Pattern(regexp="^$|^(((0[1-9]|[12]\\d|3[01])\\.(0[13578]|1[02])\\.((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\.(0[13456789]|1[012])\\.((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\.02\\.((1[6-9]|[2-9]\\d)\\d{2}))|(29\\.02\\.((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$",message = "dd.MM.yyyy")
+	@Pattern(regexp= "^$|^(((0[1-9]|[12]\\d|3[01])\\.(0[13578]|1[02])\\.((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\.(0[13456789]|1[012])\\.((1[6-9]|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\.02\\.((1[6-9]|[2-9]\\d)\\d{2}))|(29\\.02\\.((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$",message = "dd.MM.yyyy")
 	private String auctionEndDate;
 
 	@NotBlank(message = "Required")
@@ -223,14 +223,7 @@ public class PlaceAdForm {
 	}
 
 	public void setMoveInDate(String moveInDate) {
-		DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-		format.setLenient(false);
-		try {
-			format.parse(moveInDate);
-			this.moveInDate = moveInDate;
-		} catch (ParseException e) {
-			this.moveInDate = null;
-		}
+		this.moveInDate = moveInDate;
 	}
 	public void setMoveInDate(Date moveInDate) {
 		if (moveInDate != null){
@@ -244,14 +237,7 @@ public class PlaceAdForm {
 	}
 
 	public void setMoveOutDate(String moveOutDate) {
-		DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-		format.setLenient(false);
-		try {
-			format.parse(moveOutDate);
-			this.moveOutDate = moveOutDate;
-		} catch (ParseException e) {
-			this.moveOutDate = null;
-		}
+		this.moveOutDate = moveOutDate;
 	}
 	
 	public void setMoveOutDate(Date moveOutDate) {
@@ -266,15 +252,7 @@ public class PlaceAdForm {
 	}
 	
 	public void setAuctionEndDate(String auctionEndDate) {
-		
-		DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-		format.setLenient(false);
-		try {
-			format.parse(auctionEndDate);
-			this.auctionEndDate = auctionEndDate;
-		} catch (ParseException e) {
-			this.auctionEndDate = null;
-		}
+		this.auctionEndDate = auctionEndDate;
 	}
 	
 	public void setAuctionEndDate(Date auctionEndDate) {

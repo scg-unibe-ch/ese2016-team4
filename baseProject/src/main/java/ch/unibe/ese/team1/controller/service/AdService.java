@@ -83,16 +83,17 @@ public class AdService {
 		ad.setZipcode(Integer.parseInt(zip));
 		ad.setCity(placeAdForm.getCity().substring(7));
 		
-		if(placeAdForm.getAuctionEndDate().length() >= 1){
+		
+		if(stringToDate(placeAdForm.getAuctionEndDate()) != null){
 			Date auctionEndDate = stringToDate(placeAdForm.getAuctionEndDate());
 			ad.setAuctionEndDate(auctionEndDate);
 		}
 		
-		if(placeAdForm.getMoveInDate().length() >= 1){
+		if(stringToDate(placeAdForm.getMoveInDate()) != null){
 			Date moveInDate = stringToDate(placeAdForm.getMoveInDate());
 			ad.setMoveInDate(moveInDate);
 		}
-		if(placeAdForm.getMoveOutDate() != null){
+		if(stringToDate(placeAdForm.getMoveOutDate()) != null){
 			Date moveOutDate = stringToDate(placeAdForm.getMoveOutDate());
 			ad.setMoveOutDate(moveOutDate);
 		}
@@ -501,10 +502,7 @@ public class AdService {
 				date = formatterTime.parse(stringDate + " "+ HH + ":" + mm + ":" + ss);
 				return date;
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				return null;
 			}
-			//this should never happen
-			return new Date(0);
 	}
 }
