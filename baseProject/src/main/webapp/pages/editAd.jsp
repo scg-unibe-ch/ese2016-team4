@@ -17,7 +17,7 @@
 
 
 <script>
-	$(document).ready(function() {		
+	$(document).ready(function() {
 		$("#field-city").autocomplete({
 			minLength : 2
 		});
@@ -29,19 +29,19 @@
 			autoFocus : true
 		});
 		$("#field-moveInDate").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
 		$("#field-moveOutDate").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
-		
+
 		$("#field-visitDay").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
 		$("#field-auctionEndDate").datepicker({
 			dateFormat : 'dd.mm.yy'
 		});
-		
+
 		$("#addbutton").click(function() {
 			var text = $("#roomFriends").val();
 			var alreadyAdded = $("#addedRoommates").html();
@@ -59,7 +59,7 @@
 			else {
 				alert("Please enter an e-mail adress");
 			}
-			 
+
 			// Validates the input for Email Syntax
 			function validateForm(text) {
 			    var positionAt = text.indexOf("@");
@@ -71,18 +71,18 @@
 			    }
 			}
 		});
-		
+
 		$("#addVisitButton").click(function() {
 			var date = $("#field-visitDay").val();
 			if(date == ""){
 				return;
 			}
-			
+
 			var startHour = $("#startHour").val();
 			var startMinutes = $("#startMinutes").val();
 			var endHour = $("#endHour").val();
 			var endMinutes = $("#endMinutes").val();
-			
+
 			if (startHour > endHour) {
 				alert("Invalid times. The visit can't end before being started.");
 				return;
@@ -90,20 +90,20 @@
 				alert("Invalid times. The visit can't end before being started.");
 				return;
 			}
-			
-			var newVisit = date + ";" + startHour + ":" + startMinutes + 
-				";" + endHour + ":" + endMinutes; 
-			var newVisitLabel = date + " " + startHour + ":" + startMinutes + 
-			" to " + endHour + ":" + endMinutes; 
-			
+
+			var newVisit = date + ";" + startHour + ":" + startMinutes +
+				";" + endHour + ":" + endMinutes;
+			var newVisitLabel = date + " " + startHour + ":" + startMinutes +
+			" to " + endHour + ":" + endMinutes;
+
 			var index = $("#addedVisits input").length;
-			
+
 			var label = "<p>" + newVisitLabel + "</p>";
 			var input = "<input type='hidden' value='" + newVisit + "' name='visits[" + index + "]' />";
-			
+
 			$("#addedVisits").append(label + input);
 		});
-		
+
 		$(".deleteRoommateButton").click(function()  {
 			var userId = $(this).attr("data-user-id");
 			var adId = $(this).attr("data-ad-id");
@@ -111,17 +111,17 @@
 			$.post("/profile/editAd/deleteRoommate", {userId: userId, adId: adId}, function() {
 				$(row).animate({opacity: 0}, 300, function() {$(row).remove(); } );
 			});
-		
+
 		});
 	});
 </script>
 
 <!-- format the dates -->
 <fmt:formatDate value="${ad.moveInDate}" var="formattedMoveInDate"
-	type="date" pattern="dd-MM-yyyy" />
+	type="date" pattern="dd.MM.yyyy" />
 <fmt:formatDate value="${ad.moveOutDate}" var="formattedMoveOutDate"
-	type="date" pattern="dd-MM-yyyy" />
-	
+	type="date" pattern="dd.MM.yyyy" />
+
 <pre><a href="/">Home</a>   &gt;   <a href="/profile/myRooms">My Rooms</a>   &gt;   <a href="/ad?id=${ad.id}">Ad Description</a>   &gt;   Edit Ad</pre>
 
 
@@ -139,14 +139,14 @@
 		<table class="placeAdTable">
 			<tr>
 				<td><label for="field-title">Ad Title</label></td>
-				
+
 				<td>
 				<form:select path="sellType" id="myselect">
 				<c:choose>
 					<c:when test="${ad.getSellType() == 1}">
 						<form:option id="type-room" value="1">Rent</form:option>
 						<form:option id="type-room" value="2">Buy</form:option>
-						<form:option id="type-room" value="3">Auction</form:option>				
+						<form:option id="type-room" value="3">Auction</form:option>
 					</c:when>
 					<c:when test="${ad.getSellType() == 2}">
 						<form:option id="type-room" value="2">Buy</form:option>
@@ -161,7 +161,7 @@
 				</c:choose>
 				</form:select>
 				</td>
-				
+
 				<td><form:errors path="sellType" cssClass="validationErrorText" /></td>
 
 				<script>
@@ -170,7 +170,7 @@
 							document.getElementById("auctionEndDate").hidden = false;
 							document.getElementById("field-auctionEndDate").hidden = false;
 							document.getElementById("moveInDate").hidden = true;
-							document.getElementById("moveOutDate").hidden = true;							
+							document.getElementById("moveOutDate").hidden = true;
 							document.getElementById("prize").hidden = true;
 							document.getElementById("prizeOfSale").hidden = true;
 							document.getElementById("startOffer").hidden = false;
@@ -182,11 +182,11 @@
 
 
 
-						} else if(document.getElementById("myselect").value == 2) {	
+						} else if(document.getElementById("myselect").value == 2) {
 							document.getElementById("auctionEndDate").hidden = true;
 							document.getElementById("field-auctionEndDate").hidden = true;
 							document.getElementById("moveInDate").hidden = true;
-							document.getElementById("moveOutDate").hidden = true;							
+							document.getElementById("moveOutDate").hidden = true;
 							document.getElementById("prize").hidden = true;
 							document.getElementById("prizeOfSale").hidden = false;
 							document.getElementById("startOffer").hidden = true;
@@ -200,7 +200,7 @@
 							document.getElementById("auctionEndDate").hidden = true;
 							document.getElementById("field-auctionEndDate").hidden = true;
 							document.getElementById("moveInDate").hidden = false;
-							document.getElementById("moveOutDate").hidden = false;							
+							document.getElementById("moveOutDate").hidden = false;
 							document.getElementById("prize").hidden = false;
 							document.getElementById("prizeOfSale").hidden = true;
 							document.getElementById("startOffer").hidden = true;
@@ -211,13 +211,13 @@
 							document.getElementById("field-startOffer").hidden = true;
 						}
 					};
-				</script>		
+				</script>
 			</tr>
 
 			<tr>
 				<td><form:input id="field-title" path="title"
 						placeholder="Ad Title" /></td>
-				
+
 				<td>
 				<form:select path="propertyType">
 				<c:choose>
@@ -269,20 +269,20 @@
 				<td><form:input id="field-city" path="city" placeholder="${ad.city}" />
 					<form:errors path="city" cssClass="validationErrorText" /></td>
 				<td><form:input id="field-startOffer" type="number" path="startOffer" hidden="true"
-						placeholder="Start offer" step="50" /> 
+						placeholder="Start offer" step="50" />
 					<form:errors path="startOffer" cssClass="validationErrorText" /></td>
 			</tr>
 
-			
+
 			<tr>
 				<td><label for="moveInDate"  id="moveInDate">Move-in date</label></td>
 				<td><label for="moveOutDate" id="moveOutDate">Move-out date (optional)</label></td>
 			</tr>
 			<tr>
 				<td><form:input type="text" id="field-moveInDate"
-						path="moveInDate"/></td>
+						path="moveInDate" value  = "${formattedMoveInDate}"/></td>
 				<td><form:input type="text" id="field-moveOutDate"
-						path="moveOutDate"/></td>
+						path="moveOutDate" value="${formattedMoveInDate}"/></td>
 			</tr>
 
 			<tr>
@@ -293,7 +293,7 @@
 						placeholder="Prize per Month" step="50" hidden="false"/>
 					<form:errors path="prize" cssClass="validationErrorText" /></td>
 			</tr>
-			
+
 			<tr>
 				<td><label for="field-SquareFootage">Square Meters</label></td>
 				<td><label for="field-PrizeBuy" id="prizeOfSale" hidden="true">Prize of sale</label></td>
@@ -301,15 +301,15 @@
 			</tr>
 			<tr>
 				<td><form:input id="field-SquareFootage" type="number"
-						path="squareFootage"/> 
+						path="squareFootage"/>
 					<form:errors path="squareFootage" cssClass="validationErrorText" /></td>
 				<td><form:input id="field-PrizeOfSale" type="number" path="prizeOfSale" hidden="true"
 						placeholder="Prize of sale" step="1000" />
 					<form:errors path="prizeOfSale" cssClass="validationErrorText" /></td>
 					<td><form:input type="text" id="field-auctionEndDate" hidden="true"
 						path="auctionEndDate" /></td>
-					<td><form:errors path="auctionEndDate" cssClass="validationErrorText" /> </td>		
-			</tr>							
+					<td><form:errors path="auctionEndDate" cssClass="validationErrorText" /> </td>
+			</tr>
 		</c:when>
 		<c:when test="${ad.getSellType() == 2}">
 			<tr>
@@ -325,11 +325,11 @@
 				<td><form:input id="field-city" path="city" placeholder="${ad.city}" />
 					<form:errors path="city" cssClass="validationErrorText" /></td>
 				<td><form:input id="field-startOffer" type="number" path="startOffer" hidden="true"
-						placeholder="Start offer" step="50" /> 
+						placeholder="Start offer" step="50" />
 					<form:errors path="startOffer" cssClass="validationErrorText" /></td>
 			</tr>
 
-			
+
 			<tr>
 				<td><label for="moveInDate"  id="moveInDate" hidden="true">Move-in date</label></td>
 				<td><label for="moveOutDate" id="moveOutDate" hidden="true">Move-out date (optional)</label></td>
@@ -349,7 +349,7 @@
 						placeholder="Prize per Month" step="50" hidden="true"/>
 					<form:errors path="prize" cssClass="validationErrorText" /></td>
 			</tr>
-			
+
 			<tr>
 				<td><label for="field-SquareFootage">Square Meters</label></td>
 				<td><label for="field-PrizeBuy" id="prizeOfSale" hidden="false">Prize of sale</label></td>
@@ -357,14 +357,14 @@
 			</tr>
 			<tr>
 				<td><form:input id="field-SquareFootage" type="number"
-						path="squareFootage"/> 
+						path="squareFootage"/>
 					<form:errors path="squareFootage" cssClass="validationErrorText" /></td>
 				<td><form:input id="field-PrizeOfSale" type="number" path="prizeOfSale" hidden="false"
 						placeholder="Prize of sale" step="1000" />
 					<form:errors path="prizeOfSale" cssClass="validationErrorText" /></td>
 					<td><form:input type="text" id="field-auctionEndDate" hidden="true"
 						path="auctionEndDate" /></td>
-					<td><form:errors path="auctionEndDate" cssClass="validationErrorText" /> </td>	
+					<td><form:errors path="auctionEndDate" cssClass="validationErrorText" /> </td>
 			</tr>
 		</c:when>
 		<c:when test="${ad.getSellType() == 3}">
@@ -381,11 +381,11 @@
 				<td><form:input id="field-city" path="city" placeholder="${ad.city}" />
 					<form:errors path="city" cssClass="validationErrorText" /></td>
 				<td><form:input id="field-startOffer" type="number" path="startOffer" hidden="false"
-						placeholder="Start offer" step="50" /> 
+						placeholder="Start offer" step="50" />
 					<form:errors path="startOffer" cssClass="validationErrorText" /></td>
 			</tr>
 
-			
+
 			<tr>
 				<td><label for="moveInDate"  id="moveInDate" hidden="true">Move-in date</label></td>
 				<td><label for="moveOutDate" id="moveOutDate" hidden="true">Move-out date (optional)</label></td>
@@ -405,7 +405,7 @@
 						placeholder="Prize per Month" step="50" hidden="true"/>
 					<form:errors path="prize" cssClass="validationErrorText" /></td>
 			</tr>
-			
+
 			<tr>
 				<td><label for="field-SquareFootage">Square Meters</label></td>
 				<td><label for="field-PrizeBuy" id="prizeOfSale" hidden="true">Prize of sale</label></td>
@@ -413,16 +413,16 @@
 			</tr>
 			<tr>
 				<td><form:input id="field-SquareFootage" type="number"
-						path="squareFootage"/> 
+						path="squareFootage"/>
 					<form:errors path="squareFootage" cssClass="validationErrorText" /></td>
 				<td><form:input id="field-PrizeOfSale" type="number" path="prizeOfSale" hidden="true"
 						placeholder="Prize of sale" step="1000" />
 					<form:errors path="prizeOfSale" cssClass="validationErrorText" /></td>
 					<td><form:input type="text" id="field-auctionEndDate" hidden="false"
 						path="auctionEndDate" /></td>
-					<td><form:errors path="auctionEndDate" cssClass="validationErrorText" /> </td>	
+					<td><form:errors path="auctionEndDate" cssClass="validationErrorText" /> </td>
 			</tr>
-		
+
 		</c:when>
 		</c:choose>
 		</table>
@@ -447,7 +447,7 @@
 						</c:otherwise>
 					</c:choose>
 				</td>
-				
+
 				<td>
 					<c:choose>
 						<c:when test="${ad.animals}">
@@ -474,7 +474,7 @@
 						</c:otherwise>
 					</c:choose>
 				</td>
-				
+
 				<td>
 					<c:choose>
 						<c:when test="${ad.balcony}">
@@ -501,7 +501,7 @@
 						</c:otherwise>
 					</c:choose>
 				</td>
-				
+
 				<td>
 					<c:choose>
 						<c:when test="${ad.furnished}">
@@ -525,7 +525,7 @@
 						</c:otherwise>
 					</c:choose>
 				</td>
-				
+
 				<td>
 					<c:choose>
 						<c:when test="${ad.garage}">
@@ -562,7 +562,7 @@
 	<br />
 	<fieldset>
 		<legend>Change roommates</legend>
-		
+
 		<h3>Add new roommates</h3>
 		<br />
 		<p>If your roommates have an account, simply add them by email.</p>
@@ -574,11 +574,11 @@
 
 			<tr>
 				<td id="roommateCell"><form:input type="text" id="roomFriends"
-						path="roomFriends" placeholder="email" /> 
+						path="roomFriends" placeholder="email" />
 
 				<div id="addbutton" class="smallPlusButton">+</div></td>
 			</tr>
-			
+
 			<tr>
 				<td><p id="addedRoommates" path="addedRoommates">Newly added roommates: </p></td>
 			</tr>
@@ -598,7 +598,7 @@
 						<th>Username</th>
 						<th>Delete</th>
 					</tr>
-					
+
 					<c:forEach var="user" items="${ad.registeredRoommates}">
 							<tr>
 								<td>${user.username}</td>
@@ -616,61 +616,61 @@
 			value="${ad.preferences}" ></form:textarea>
 	</fieldset>
 
-	
+
 	<fieldset>
 		<legend>Add visiting times</legend>
-		
+
 		<table>
 			<tr>
 				<td>
 					<input type="text" id="field-visitDay" />
-					
+
 					<select id="startHour">
- 					<% 
+ 					<%
  						for(int i = 0; i < 24; i++){
  							String hour = String.format("%02d", i);
 							out.print("<option value=\"" + hour + "\">" + hour + "</option>");
  						}
  					%>
 					</select>
-					
+
 					<select id="startMinutes">
- 					<% 
+ 					<%
  						for(int i = 0; i < 60; i++){
  							String minute = String.format("%02d", i);
 							out.print("<option value=\"" + minute + "\">" + minute + "</option>");
  						}
  					%>
 					</select>
-					
+
 					<span>to&thinsp; </span>
-					
+
 					<select id="endHour">
- 					<% 
+ 					<%
  						for(int i = 0; i < 24; i++){
  							String hour = String.format("%02d", i);
 							out.print("<option value=\"" + hour + "\">" + hour + "</option>");
  						}
  					%>
 					</select>
-					
+
 					<select id="endMinutes">
- 					<% 
+ 					<%
  						for(int i = 0; i < 60; i++){
  							String minute = String.format("%02d", i);
 							out.print("<option value=\"" + minute + "\">" + minute + "</option>");
  						}
  					%>
 					</select>
-			
+
 
 					<div id="addVisitButton" class="smallPlusButton">+</div>
-					
+
 					<div id="addedVisits"></div>
 				</td>
-				
+
 			</tr>
-			
+
 		</table>
 		<br>
 	</fieldset>
@@ -710,7 +710,7 @@
 
 	<div>
 		<button type="submit">Submit</button>
-		<a href="<c:url value='/ad?id=${ad.id}' />"> 
+		<a href="<c:url value='/ad?id=${ad.id}' />">
 			<button type="button">Cancel</button>
 		</a>
 	</div>

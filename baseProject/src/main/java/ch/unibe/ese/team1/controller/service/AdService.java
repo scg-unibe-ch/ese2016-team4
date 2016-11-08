@@ -54,7 +54,7 @@ public class AdService {
 
 	/**
 	 * Handles persisting a new ad to the database.
-	 * 
+	 *
 	 * @param placeAdForm
 	 *            the form to take the data from
 	 * @param a
@@ -65,12 +65,12 @@ public class AdService {
 	@Transactional
 	public Ad saveFrom(PlaceAdForm placeAdForm, List<String> filePaths,
 			User user) {
-		
+
 		Ad ad = new Ad();
 
 		Date now = new Date();
 		ad.setCreationDate(now);
-		
+
 		ad.setSellType(placeAdForm.getSellType());
 		ad.setPropertyType(placeAdForm.getPropertyType());
 
@@ -82,13 +82,13 @@ public class AdService {
 		String zip = placeAdForm.getCity().substring(0, 4);
 		ad.setZipcode(Integer.parseInt(zip));
 		ad.setCity(placeAdForm.getCity().substring(7));
-		
-		
+
+
 		if(stringToDate(placeAdForm.getAuctionEndDate()) != null){
 			Date auctionEndDate = stringToDate(placeAdForm.getAuctionEndDate());
 			ad.setAuctionEndDate(auctionEndDate);
 		}
-		
+
 		if(stringToDate(placeAdForm.getMoveInDate()) != null){
 			Date moveInDate = stringToDate(placeAdForm.getMoveInDate());
 			ad.setMoveInDate(moveInDate);
@@ -99,11 +99,11 @@ public class AdService {
 		}
 
 		ad.setPrizePerMonth(placeAdForm.getPrize());
-		
+
 		// new for buy and auction
 		ad.setPrizeOfSale(placeAdForm.getPrizeOfSale());
 		ad.setStartOffer(placeAdForm.getStartOffer());
-		
+
 		ad.setSquareFootage(placeAdForm.getSquareFootage());
 
 		ad.setRoomDescription(placeAdForm.getRoomDescription());
@@ -120,7 +120,7 @@ public class AdService {
 		ad.setCable(placeAdForm.getCable());
 		ad.setGarage(placeAdForm.getGarage());
 		ad.setInternet(placeAdForm.getInternet());
-		
+
 		/*
 		 * Save the paths to the picture files, the pictures are assumed to be
 		 * uploaded at this point!
@@ -154,7 +154,7 @@ public class AdService {
 			for (String visitString : visitStrings) {
 				Visit visit = new Visit();
 				// format is 28-02-2014;10:02;13:14
-				DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+				DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 				String[] parts = visitString.split(";");
 				String startTime = parts[0] + " " + parts[1];
 				String endTime = parts[0] + " " + parts[2];
@@ -184,7 +184,7 @@ public class AdService {
 
 	/**
 	 * Gets the ad that has the given id.
-	 * 
+	 *
 	 * @param id
 	 *            the id that should be searched for
 	 * @return the found ad or null, if no ad with this id exists
@@ -224,14 +224,14 @@ public class AdService {
 	/**
 	 * Returns all ads that match the parameters given by the form. This list
 	 * can possibly be empty.
-	 * 
+	 *
 	 * @param searchForm
 	 *            the form to take the search parameters from
 	 * @return an Iterable of all search results
 	 */
 	@Transactional
 	public Iterable<Ad> queryResults(SearchForm searchForm) {
-		
+
 
 		// filter out zipcode
 		String city = searchForm.getCity().substring(7);
@@ -243,7 +243,7 @@ public class AdService {
 
 		// create a list of the results and of their locations. Adds together the lists of the different properties
 		List<Ad> locatedResults = new ArrayList<>();
-		
+
 		//loop through every propertytype/selltype combination, add the matching ads to the list
 		for (int property : searchForm.getPropertyType()){
 			for (int sell : searchForm.getSellType()){
@@ -251,9 +251,9 @@ public class AdService {
 					locatedResults.add(ad);
 				}
 			}
-			
+
 		}
-		
+
 
 		final int earthRadiusKm = 6380;
 		List<Location> locations = geoDataService.getAllLocations();
@@ -294,10 +294,10 @@ public class AdService {
 			Date latestOutDate = null;
 
 			// parse move-in and move-out dates
-			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 			try {
 				earliestInDate = formatter.parse(searchForm.getEarliestMoveInDate());
-						
+
 			} catch (Exception e) {
 			}
 			try {
@@ -418,14 +418,14 @@ public class AdService {
 
 	private List<Ad> validateDate(List<Ad> ads, boolean inOrOut,
 			Date earliestDate, Date latestDate) {
-		
+
 		if (ads.size() > 0) {
 			// Move-in dates
 			// Both an earliest AND a latest date to compare to
-			
+
 			if (earliestDate != null) {
 				if (latestDate != null) {
-					Iterator<Ad> iterator = ads.iterator();			
+					Iterator<Ad> iterator = ads.iterator();
 					Ad ad = iterator.next();
 					while (iterator.hasNext()) {
 						if (ad.getDate(inOrOut).compareTo(earliestDate) < 0
@@ -436,7 +436,7 @@ public class AdService {
 				}
 				// only an earliest date
 				else {
-					Iterator<Ad> iterator = ads.iterator();			
+					Iterator<Ad> iterator = ads.iterator();
 					while (iterator.hasNext()) {
 						Ad ad = iterator.next();
 						if (ad.getDate(inOrOut).compareTo(earliestDate) < 0)
@@ -444,10 +444,10 @@ public class AdService {
 					}
 				}
 			}
-			
+
 			// only a latest date
 			else if (latestDate != null && earliestDate == null) {
-				Iterator<Ad> iterator = ads.iterator();			
+				Iterator<Ad> iterator = ads.iterator();
 				while (iterator.hasNext()) {
 					Ad ad = iterator.next();
 					if (ad.getDate(inOrOut).compareTo(latestDate) > 0)
@@ -456,7 +456,7 @@ public class AdService {
 			} else {
 			}
 		}
-			
+
 		return ads;
 	}
 
@@ -467,13 +467,13 @@ public class AdService {
 
 	/**
 	 * Checks if the email of a user is already contained in the given string.
-	 * 
+	 *
 	 * @param email
 	 *            the email string to search for
 	 * @param alreadyAdded
 	 *            the string of already added emails, which should be searched
 	 *            in
-	 * 
+	 *
 	 * @return true if the email has been added already, false otherwise
 	 */
 	public Boolean checkIfAlreadyAdded(String email, String alreadyAdded) {
@@ -488,7 +488,7 @@ public class AdService {
 		}
 		return false;
 	}
-	
+
 	public Date stringToDate(String stringDate){
 			SimpleDateFormat formatterTime = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 			Date dateNow = new Date();
