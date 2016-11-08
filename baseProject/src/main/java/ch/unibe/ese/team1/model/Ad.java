@@ -161,9 +161,17 @@ public class Ad {
 		return 0;
 	}
 	
-	public long getAuctionEndMs(){
-		if(auctionEndDate != null) return auctionEndDate.getTime();
-		return 0;
+	public long getTimeToAuctionEnd(){
+		Date now = new Date();
+		if(auctionEndDate != null)
+			return auctionEndDate.getTime() - now.getTime();
+		return -1;
+	}
+	
+	public long getAuctionEndTime(){
+		if(auctionEndDate != null)
+			return auctionEndDate.getTime();
+		return -1;
 	}
 
 	public boolean getSmokers() {
@@ -420,16 +428,9 @@ public class Ad {
 		return true;
 	}
 
-	public Calendar getAuctionEndTime() {
-		// TODO Auto-generated method stub
-		Calendar now = Calendar.getInstance();
-		now.setTimeInMillis(now.getTimeInMillis()+9999);
-		return now;
-	}
 
 	public boolean isAuctionAvailable() {
-		Calendar now = Calendar.getInstance();
-		return now.compareTo(getAuctionEndTime())<0;
+		return getTimeToAuctionEnd()>0;
 	}
 	
 	public static int getSellType(String sellType){

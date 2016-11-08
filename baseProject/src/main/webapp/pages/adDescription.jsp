@@ -164,15 +164,14 @@ function getFormattedDate(date){
 
 
 // get start and end date in ms
-var creationDateMs = ${shownAd.getCreationMs()};
-var auctionEndMs = ${shownAd.getAuctionEndMs()};
-var auctionDuration = Math.max(0, (auctionEndMs - creationDateMs));
+var auctionEndMs = ${shownAd.getTimeToAuctionEnd()};
+var auctionDuration = Math.max(0, auctionEndMs);
 //var highestBid =  Math.max("${shownAd.startOffer}" ,"${allBids[0].bid}");
 var highestBid = ${bidService.getHighestBid(shownAd.getId())};
 
 // create real dates
-var creationDate = new Date(creationDateMs);
-var auctionEnd = new Date(auctionEndMs);
+var creationDate = new Date(${shownAd.getCreationMs()});
+var auctionEnd = new Date(${shownAd.getAuctionEndTime()});
 var dateNow = new Date();
 
 // load the info into the paragraphs, while formatting the date
@@ -184,9 +183,8 @@ window.onload = function() {
 }
 
 window.ready = function() {
-	creationDateMs = ${shownAd.getCreationMs()};
-	auctionEndMs = ${shownAd.getAuctionEndMs()};
-	auctionDuration = Math.max(0, (auctionEndMs - creationDateMs));
+	auctionEndMs = ${shownAd.getTimeToAuctionEnd()};
+	auctionDuration = Math.max(0, auctionEndMs);
 	//var highestBid =  Math.max("${shownAd.startOffer}" ,"${allBids[0].bid}");
 	highestBid = ${bidService.getHighestBid(shownAd.getId())};
 	document.getElementById('datetoday').innerHTML = "today: " + getFormattedDate(dateNow).toString();
@@ -234,7 +232,7 @@ $(function(){
 		};  
 	
 	//there is a 2 second delay before the timer starts ticking, which gets adjusted here
-	var countdown = ((auctionEndMs/1000) - ((new Date().getTime())/1000));
+	var countdown = (auctionDuration/1000);
 	countdown = Math.max(0, countdown);
 	$('.clock-builder-output').FlipClock(countdown, opts);
 });
@@ -306,7 +304,7 @@ $(function(){
   	<td>
           <label for="bid" >Your bid:</label>
 
-          <form:input type="number" value="${bidService.getNextBid(shownAd.getId())}"
+          <form:input type="number" min="1" value="${bidService.getNextBid(shownAd.getId())}"
             path="bid" placeholder="e.g. 150" step="1" />
             
           <button type="submit" >Place bid</button>

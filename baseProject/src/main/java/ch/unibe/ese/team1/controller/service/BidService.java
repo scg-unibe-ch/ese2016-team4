@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import ch.unibe.ese.team1.controller.pojos.forms.SearchForm;
 import ch.unibe.ese.team1.model.Ad;
 import ch.unibe.ese.team1.model.Alert;
-import ch.unibe.ese.team1.model.BidHistory;
+import ch.unibe.ese.team1.model.Bid;
 import ch.unibe.ese.team1.model.Message;
 import ch.unibe.ese.team1.model.MessageState;
 import ch.unibe.ese.team1.model.User;
@@ -30,7 +30,7 @@ import ch.unibe.ese.team1.model.dao.UserDao;
 import static org.junit.Assert.assertTrue;
 
 @Service
-public class BidHistoryService {
+public class BidService {
 	@Autowired
 	private UserService userService;
 
@@ -55,7 +55,7 @@ public class BidHistoryService {
 	@Transactional
 	public void addBid(long bidAdId, long bidUserId, long bidBid){
 		
-		BidHistory newBid = new BidHistory(bidAdId, bidUserId, bidBid);
+		Bid newBid = new Bid(bidAdId, bidUserId, bidBid);
 		Ad ad = adService.getAdById(newBid.getAdId());
 		assertTrue("Ad must be of type auction",ad.getSellType()==3);
 		if (ad.isAuctionAvailable() &&
@@ -64,9 +64,9 @@ public class BidHistoryService {
 				!isBidCreator(newBid)){
 			User user = userService.findUserById(newBid.getUserId());
 			user.getId();
-			Queue<BidHistory> bidHist = new LinkedList<BidHistory>();
+			Queue<Bid> bidHist = new LinkedList<Bid>();
 			bidHist.add(newBid);
-			Iterator<BidHistory> bidHistIter = bidHistoryDao.findByAdIdOrderByBidDesc(newBid.getAdId()).iterator();
+			Iterator<Bid> bidHistIter = bidHistoryDao.findByAdIdOrderByBidDesc(newBid.getAdId()).iterator();
 			while(bidHistIter.hasNext()){
 				bidHist.add(bidHistIter.next());
 			}
@@ -79,9 +79,9 @@ public class BidHistoryService {
 	}
 	
 	@Transactional
-	public Iterable<BidHistory> allBids(long adId) {
-		List<BidHistory> adBids = new ArrayList<>();
-		for (BidHistory bidHist : bidHistoryDao.findByAdIdOrderByBidDesc(adId)){
+	public Iterable<Bid> allBids(long adId) {
+		List<Bid> adBids = new ArrayList<>();
+		for (Bid bidHist : bidHistoryDao.findByAdIdOrderByBidDesc(adId)){
 			adBids.add(bidHist);
 		}
 		return adBids;
@@ -94,20 +94,20 @@ public class BidHistoryService {
 		return "ghost user";
 	}
 	
-	public boolean isHighestBid(BidHistory bidHistory){
-		BidHistory bidH = bidHistoryDao.findTop1ByadIdOrderByBidDesc( bidHistory.getAdId() );
+	public boolean isHighestBid(Bid bidHistory){
+		Bid bidH = bidHistoryDao.findTop1ByadIdOrderByBidDesc( bidHistory.getAdId() );
 		if(bidH == null) return true; 
 		return bidHistory.getBid()>bidH.getBid();
 	}
 	
 
 	public void triggerBidAlerts(Ad ad) {
-		Iterable<BidHistory> bids = bidHistoryDao.findByAdIdOrderByBidDesc(ad.getId());
+		Iterable<Bid> bids = bidHistoryDao.findByAdIdOrderByBidDesc(ad.getId());
 		
 		// send only one message per user, no matter how many alerts were
 		// triggered
 		List<User> users = new ArrayList<User>();
-		for (BidHistory bid : bids) {
+		for (Bid bid : bids) {
 			User user = userService.findUserById(bid.getUserId());
 			if(users.isEmpty() ) {
 				users.add(user);
@@ -143,14 +143,14 @@ public class BidHistoryService {
 				+ "Your FlatFindr crew";
 	}
 
-	public boolean isAlreadyHighestBidder(BidHistory bid){
+	public boolean isAlreadyHighestBidder(Bid bid){
 		if (bidHistoryDao.findTop1ByadIdOrderByBidDesc(bid.getAdId())!=null){
 			return bidHistoryDao.findTop1ByadIdOrderByBidDesc(bid.getAdId()).getUserId()==bid.getUserId();			
 		}
 		return false;
 	}
 	
-	public boolean isBidCreator(BidHistory bid){
+	public boolean isBidCreator(Bid bid){
 		if (adService.getAdById(bid.getAdId())!=null){
 			return bid.getUserId() == adService.getAdById(bid.getAdId()).getUser().getId();
 		}	
@@ -159,9 +159,9 @@ public class BidHistoryService {
 	
 	public long getMyBid(String username, long adId){
 		User user = userService.findUserByUsername(username);
-		Iterable<BidHistory> bids = bidHistoryDao.findByAdIdOrderByBidDesc(adId);
+		Iterable<Bid> bids = bidHistoryDao.findByAdIdOrderByBidDesc(adId);
 		if (user!=null && bids!=null){
-			for(BidHistory bid : bids){
+			for(Bid bid : bids){
 				if (bid.getUserId()==user.getId()){
 					return bid.getBid();
 				}
@@ -187,15 +187,24 @@ public class BidHistoryService {
 	}
 	
 	public long getHighestBid(long adId){
-		BidHistory bid = bidHistoryDao.findTop1ByadIdOrderByBidDesc(adId);
-		if (bid==null){
+		Bid bid = bidHistoryDao.findTop1ByadIdOrderByBidDesc(adId);
+		Ad ad= adService.getAdById(adId);
+		long currentBid = 0;
+		if (ad==null){
 			return 0;
+		}else if(bid==null){
+			return ad.getStartOffer();
 		}else{
-			return bid.getBid();			
+			currentBid = bid.getBid();
 		}
+		return currentBid;
 	}
 	
-	public Iterable<BidHistory> getAllBids(long adId){
+	public boolean isBidden(long adId){
+		return bidHistoryDao.findTop1ByadIdOrderByBidDesc(adId) != null;
+	}
+	
+	public Iterable<Bid> getAllBids(long adId){
 		return bidHistoryDao.findByAdIdOrderByBidDesc(adId);
 	}
 	

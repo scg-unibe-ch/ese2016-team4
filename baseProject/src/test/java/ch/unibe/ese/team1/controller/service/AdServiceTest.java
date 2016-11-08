@@ -61,8 +61,8 @@ public class AdServiceTest {
 		placeAdForm.setSquareFootage(50);
 		placeAdForm.setTitle("title");
 		placeAdForm.setStreet("Hauptstrasse 13");
-		placeAdForm.setMoveInDate("27-02-2015");
-		placeAdForm.setMoveOutDate("27-04-2015");
+		placeAdForm.setMoveInDate("27.02.2015");
+		placeAdForm.setMoveOutDate("27.04.2015");
 		
 		placeAdForm.setSmokers(true);
 		placeAdForm.setAnimals(false);
@@ -105,8 +105,8 @@ public class AdServiceTest {
 		assertEquals("title", ad.getTitle());
 		assertEquals("Hauptstrasse 13", ad.getStreet());
 		
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	    Date result =  df.parse("2015-02-27");
+		DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+	    Date result =  df.parse("27.02.2015");
 		
 		assertEquals(0, result.compareTo(ad.getMoveInDate()));
 	}
