@@ -267,7 +267,7 @@
 						placeholder="${ad.street}" /></td>
 					<!--<form:errors path="street" cssClass="validationErrorText" /></td>-->
 				<td><form:input id="field-city" path="city" placeholder="${ad.city}" />
-					<!--<form:errors path="city" cssClass="validationErrorText" /></td>-->
+					<form:errors path="city" cssClass="validationErrorText" /></td>
 				<td><form:input id="field-startOffer" type="number" path="startOffer"
 						placeholder="Start offer" step="50" hidden="true" /> 
 					<!--<form:errors path="startOffer" cssClass="validationErrorText" /></td>-->
