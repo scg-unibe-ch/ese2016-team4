@@ -109,11 +109,14 @@ public class BidHistoryService {
 		List<User> users = new ArrayList<User>();
 		for (BidHistory bid : bids) {
 			User user = userService.findUserById(bid.getUserId());
-			if(user.getId() != bid.getUserId()) {
+			if(users.isEmpty() ) {
+				users.add(user);
+			}else if (user.getId() != users.get(0).getId()){
 				users.add(user);
 			}
 		}
-				
+		users.remove(0);
+		
 		for (User allUsers : users) {
 			Date now = new Date();
 			Message message = new Message();
