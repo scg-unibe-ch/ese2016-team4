@@ -29,14 +29,14 @@
 			autoFocus : true
 		});
 		$("#field-moveInDate").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
 		$("#field-moveOutDate").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
 		
 		$("#field-visitDay").datepicker({
-			dateFormat : 'dd-mm-yy'
+			dateFormat : 'dd.mm.yy'
 		});
 		$("#field-auctionEndDate").datepicker({
 			dateFormat : 'dd.mm.yy'
@@ -118,9 +118,9 @@
 
 <!-- format the dates -->
 <fmt:formatDate value="${ad.moveInDate}" var="formattedMoveInDate"
-	type="date" pattern="dd-MM-yyyy" />
+	type="date" pattern="dd.MM.yyyy" />
 <fmt:formatDate value="${ad.moveOutDate}" var="formattedMoveOutDate"
-	type="date" pattern="dd-MM-yyyy" />
+	type="date" pattern="dd.MM.yyyy" />
 	
 <pre><a href="/">Home</a>   &gt;   <a href="/profile/myRooms">My Rooms</a>   &gt;   <a href="/ad?id=${ad.id}">Ad Description</a>   &gt;   Edit Ad</pre>
 
@@ -265,12 +265,12 @@
 			<tr>
 				<td><form:input id="field-street" path="street"
 						placeholder="${ad.street}" /></td>
-					<form:errors path="street" cssClass="validationErrorText" /></td>
+					<!--<form:errors path="street" cssClass="validationErrorText" /></td>-->
 				<td><form:input id="field-city" path="city" placeholder="${ad.city}" />
-					<form:errors path="city" cssClass="validationErrorText" /></td>
-				<td><form:input id="field-startOffer" type="number" path="startOffer" hidden="true"
-						placeholder="Start offer" step="50" /> 
-					<form:errors path="startOffer" cssClass="validationErrorText" /></td>
+					<!--<form:errors path="city" cssClass="validationErrorText" /></td>-->
+				<td><form:input id="field-startOffer" type="number" path="startOffer"
+						placeholder="Start offer" step="50" hidden="true" /> 
+					<!--<form:errors path="startOffer" cssClass="validationErrorText" /></td>-->
 			</tr>
 
 			
@@ -286,12 +286,12 @@
 			</tr>
 
 			<tr>
-				<td><label for="field-Prize" id="prize" hidden="false">Prize per month</label></td>
+				<td><label for="field-Prize" id="prize">Prize per month</label></td>
 			</tr>
 			<tr>
 				<td><form:input id="field-Prize" type="number" path="prize"
-						placeholder="Prize per Month" step="50" hidden="false"/>
-					<form:errors path="prize" cssClass="validationErrorText" /></td>
+						placeholder="Prize per Month" step="50"/>
+					<!--<form:errors path="prize" cssClass="validationErrorText" /></td>-->
 			</tr>
 			
 			<tr>
@@ -302,13 +302,13 @@
 			<tr>
 				<td><form:input id="field-SquareFootage" type="number"
 						path="squareFootage"/> 
-					<form:errors path="squareFootage" cssClass="validationErrorText" /></td>
-				<td><form:input id="field-PrizeOfSale" type="number" path="prizeOfSale" hidden="true"
-						placeholder="Prize of sale" step="1000" />
-					<form:errors path="prizeOfSale" cssClass="validationErrorText" /></td>
-					<td><form:input type="text" id="field-auctionEndDate" hidden="true"
-						path="auctionEndDate" /></td>
-					<td><form:errors path="auctionEndDate" cssClass="validationErrorText" /> </td>		
+					<!--<form:errors path="squareFootage" cssClass="validationErrorText" /></td>-->
+				<td><form:input id="field-PrizeOfSale" type="number" path="prizeOfSale" 
+						placeholder="Prize of sale" step="50" hidden="true" />
+					<!--<form:errors path="prizeOfSale" cssClass="validationErrorText" /></td>-->
+					<td><form:input type="text" id="field-auctionEndDate" 
+						path="auctionEndDate" hidden="true"/></td>
+					<!--<td><form:errors path="auctionEndDate" cssClass="validationErrorText" /> </td>-->		
 			</tr>							
 		</c:when>
 		<c:when test="${ad.getSellType() == 2}">
@@ -321,12 +321,12 @@
 			<tr>
 				<td><form:input id="field-street" path="street"
 						placeholder="${ad.street}" /></td>
-					<form:errors path="street" cssClass="validationErrorText" /></td>
+					<!--<form:errors path="street" cssClass="validationErrorText" /></td>-->
 				<td><form:input id="field-city" path="city" placeholder="${ad.city}" />
 					<form:errors path="city" cssClass="validationErrorText" /></td>
-				<td><form:input id="field-startOffer" type="number" path="startOffer" hidden="true"
-						placeholder="Start offer" step="50" /> 
-					<form:errors path="startOffer" cssClass="validationErrorText" /></td>
+				<td><form:input id="field-startOffer" type="number" path="startOffer"
+						placeholder="Start offer" step="50" hidden="true"/> 
+					<!--<form:errors path="startOffer" cssClass="validationErrorText" /></td>-->
 			</tr>
 
 			
@@ -347,42 +347,42 @@
 			<tr>
 				<td><form:input id="field-Prize" type="number" path="prize"
 						placeholder="Prize per Month" step="50" hidden="true"/>
-					<form:errors path="prize" cssClass="validationErrorText" /></td>
+					<!--<form:errors path="prize" cssClass="validationErrorText" /></td>-->
 			</tr>
 			
 			<tr>
 				<td><label for="field-SquareFootage">Square Meters</label></td>
-				<td><label for="field-PrizeBuy" id="prizeOfSale" hidden="false">Prize of sale</label></td>
+				<td><label for="field-PrizeBuy" id="prizeOfSale">Prize of sale</label></td>
 				<td><label for="auctionEndDate"  id="auctionEndDate" hidden="true">Auction End Date</label></td>
 			</tr>
 			<tr>
 				<td><form:input id="field-SquareFootage" type="number"
 						path="squareFootage"/> 
-					<form:errors path="squareFootage" cssClass="validationErrorText" /></td>
-				<td><form:input id="field-PrizeOfSale" type="number" path="prizeOfSale" hidden="false"
-						placeholder="Prize of sale" step="1000" />
-					<form:errors path="prizeOfSale" cssClass="validationErrorText" /></td>
-					<td><form:input type="text" id="field-auctionEndDate" hidden="true"
-						path="auctionEndDate" /></td>
-					<td><form:errors path="auctionEndDate" cssClass="validationErrorText" /> </td>	
+					<!--<form:errors path="squareFootage" cssClass="validationErrorText" /></td>-->
+				<td><form:input id="field-PrizeOfSale" type="number" path="prizeOfSale"
+						placeholder="Prize of sale" step="50" />
+					<!--<form:errors path="prizeOfSale" cssClass="validationErrorText" /></td>-->
+					<td><form:input type="text" id="field-auctionEndDate"
+						path="auctionEndDate" hidden="true"/></td>
+					<!--<td><form:errors path="auctionEndDate" cssClass="validationErrorText" /> </td>-->	
 			</tr>
 		</c:when>
 		<c:when test="${ad.getSellType() == 3}">
 			<tr>
 				<td><label for="field-street"s>Street</label></td>
 				<td><label for="field-city">City / Zip code</label></td>
-				<td><label for="field-PrizeBuy" id="startOffer" hidden="false">Start offer</label></td>
+				<td><label for="field-PrizeBuy" id="startOffer">Start offer</label></td>
 			</tr>
 
 			<tr>
 				<td><form:input id="field-street" path="street"
 						placeholder="${ad.street}" /></td>
-					<form:errors path="street" cssClass="validationErrorText" /></td>
+					<!--<form:errors path="street" cssClass="validationErrorText" /></td>-->
 				<td><form:input id="field-city" path="city" placeholder="${ad.city}" />
 					<form:errors path="city" cssClass="validationErrorText" /></td>
-				<td><form:input id="field-startOffer" type="number" path="startOffer" hidden="false"
+				<td><form:input id="field-startOffer" type="number" path="startOffer"
 						placeholder="Start offer" step="50" /> 
-					<form:errors path="startOffer" cssClass="validationErrorText" /></td>
+					<!--form:errors path="startOffer" cssClass="validationErrorText" /></td>-->
 			</tr>
 
 			
@@ -403,24 +403,24 @@
 			<tr>
 				<td><form:input id="field-Prize" type="number" path="prize"
 						placeholder="Prize per Month" step="50" hidden="true"/>
-					<form:errors path="prize" cssClass="validationErrorText" /></td>
+					<!--<form:errors path="prize" cssClass="validationErrorText" /></td>-->
 			</tr>
 			
 			<tr>
 				<td><label for="field-SquareFootage">Square Meters</label></td>
 				<td><label for="field-PrizeBuy" id="prizeOfSale" hidden="true">Prize of sale</label></td>
-				<td><label for="auctionEndDate"  id="auctionEndDate" hidden="false">Auction End Date</label></td>
+				<td><label for="auctionEndDate"  id="auctionEndDate">Auction End Date</label></td>
 			</tr>
 			<tr>
 				<td><form:input id="field-SquareFootage" type="number"
 						path="squareFootage"/> 
-					<form:errors path="squareFootage" cssClass="validationErrorText" /></td>
-				<td><form:input id="field-PrizeOfSale" type="number" path="prizeOfSale" hidden="true"
-						placeholder="Prize of sale" step="1000" />
-					<form:errors path="prizeOfSale" cssClass="validationErrorText" /></td>
-					<td><form:input type="text" id="field-auctionEndDate" hidden="false"
+					<!--<form:errors path="squareFootage" cssClass="validationErrorText" /></td>-->
+				<td><form:input id="field-PrizeOfSale" type="number" path="prizeOfSale"
+						placeholder="Prize of sale" step="50" hidden="true"/>
+					<!--<form:errors path="prizeOfSale" cssClass="validationErrorText" /></td>-->
+					<td><form:input type="text" id="field-auctionEndDate"
 						path="auctionEndDate" /></td>
-					<td><form:errors path="auctionEndDate" cssClass="validationErrorText" /> </td>	
+					<!--<td><form:errors path="auctionEndDate" cssClass="validationErrorText" /> </td>-->	
 			</tr>
 		
 		</c:when>

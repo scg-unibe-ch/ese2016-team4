@@ -109,6 +109,8 @@ public class EditAdController {
 			model = new ModelAndView("redirect:/ad?id=" + ad.getId());
 			redirectAttributes.addFlashAttribute("confirmationMessage",
 					"Ad edited successfully. You can take a look at it below.");
+		}else {
+			model = new ModelAndView("editAd");
 		}
 
 		return model;
