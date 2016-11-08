@@ -2,6 +2,9 @@ package ch.unibe.ese.team1.controller.service;
 
 import java.util.Queue;
 import java.util.ArrayList;
+
+import java.util.Date;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,12 +16,17 @@ import org.springframework.stereotype.Service;
 
 import ch.unibe.ese.team1.controller.pojos.forms.SearchForm;
 import ch.unibe.ese.team1.model.Ad;
+import ch.unibe.ese.team1.model.Alert;
 import ch.unibe.ese.team1.model.BidHistory;
+import ch.unibe.ese.team1.model.Message;
+import ch.unibe.ese.team1.model.MessageState;
 import ch.unibe.ese.team1.model.User;
 import ch.unibe.ese.team1.model.dao.AdDao;
 import ch.unibe.ese.team1.model.dao.AlertDao;
 import ch.unibe.ese.team1.model.dao.BidHistoryDao;
 import ch.unibe.ese.team1.model.dao.MessageDao;
+import ch.unibe.ese.team1.model.dao.UserDao;
+
 import static org.junit.Assert.assertTrue;
 
 @Service
@@ -31,6 +39,9 @@ public class BidHistoryService {
 	
 	@Autowired
 	AlertDao alertDao;
+	
+	@Autowired
+	UserDao userDao;
 
 	@Autowired
 	MessageDao messageDao;
@@ -60,7 +71,11 @@ public class BidHistoryService {
 				bidHist.add(bidHistIter.next());
 			}
 			bidHistoryDao.save(bidHist);
+			
+			// new: test for alert
+			triggerBidAlerts(ad);
 		}
+		
 	}
 	
 	@Transactional
@@ -85,6 +100,49 @@ public class BidHistoryService {
 		return bidHistory.getBid()>bidH.getBid();
 	}
 	
+
+	public void triggerBidAlerts(Ad ad) {
+		Iterable<BidHistory> bids = bidHistoryDao.findByAdIdOrderByBidDesc(ad.getId());
+		
+		// send only one message per user, no matter how many alerts were
+		// triggered
+		List<User> users = new ArrayList<User>();
+		for (BidHistory bid : bids) {
+			User user = userService.findUserById(bid.getUserId());
+			if(users.isEmpty() ) {
+				users.add(user);
+			}else if (user.getId() != users.get(0).getId()){
+				users.add(user);
+			}
+		}
+		users.remove(0);
+		
+		for (User allUsers : users) {
+			Date now = new Date();
+			Message message = new Message();
+			message.setSubject("Someone placed a bid!");
+			message.setText(getBidText(ad));
+			message.setSender(userDao.findByUsername("System"));
+			message.setRecipient(allUsers);
+			message.setState(MessageState.UNREAD);
+			message.setDateSent(now);
+			messageDao.save(message);
+			}
+		}
+
+		
+		
+	private String getBidText(Ad ad) {
+		return "Dear user,<br>Another user placed a bid. "
+				+ "You can visit it here:<br><br>"
+				+ "<a class=\"link\" href=/ad?id="
+				+ ad.getId()
+				+ ">"
+				+ ad.getTitle()
+				+ "</a><br><br>"
+				+ "Your FlatFindr crew";
+	}
+
 	public boolean isAlreadyHighestBidder(BidHistory bid){
 		if (bidHistoryDao.findTop1ByadIdOrderByBidDesc(bid.getAdId())!=null){
 			return bidHistoryDao.findTop1ByadIdOrderByBidDesc(bid.getAdId()).getUserId()==bid.getUserId();			
@@ -140,6 +198,5 @@ public class BidHistoryService {
 	public Iterable<BidHistory> getAllBids(long adId){
 		return bidHistoryDao.findByAdIdOrderByBidDesc(adId);
 	}
-	
 	
 }

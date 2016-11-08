@@ -138,29 +138,122 @@
 				<td><label for="field-title">Ad Title</label></td>
 				
 				<td>
-				<form:select path="sellType">
-				<form:option value ="0">Select a Sale Type</form:option>
-				<form:option id="type-room" value="1">Rent</form:option>
-				<form:option id="type-room" value="2">Buy</form:option>
-				<form:option id="type-room" value="3">Auction</form:option>				
+				<form:select path="sellType" id="myselect">
+				<c:choose>
+					<c:when test="${ad.getSellType() == 1}">
+						<form:option id="type-room" value="1">Rent</form:option>
+						<form:option id="type-room" value="2">Buy</form:option>
+						<form:option id="type-room" value="3">Auction</form:option>				
+					</c:when>
+					<c:when test="${ad.getSellType() == 2}">
+						<form:option id="type-room" value="2">Buy</form:option>
+						<form:option id="type-room" value="1">Rent</form:option>
+						<form:option id="type-room" value="3">Auction</form:option>
+					</c:when>
+					<c:when test="${ad.getSellType() == 3}">
+						<form:option id="type-room" value="3">Auction</form:option>
+						<form:option id="type-room" value="1">Rent</form:option>
+						<form:option id="type-room" value="2">Buy</form:option>
+					</c:when>
+				</c:choose>
 				</form:select>
 				</td>
+				
+				<td>
+				
+				<form:select class="auction" path="auctionDuration" hidden="true">
+				<form:option value="0">Choose the desired duration</form:option>
+				<form:option id="duration1" value="1">1 Hour</form:option>
+				<form:option id="duration2" value="2"> 20 Days</form:option>
+				<form:option id="duration3" value="3">30 Days</form:option>
+				</form:select>
+				
+								
+				</td>
 				<td><form:errors path="sellType" cssClass="validationErrorText" /></td>
-				
-				
-			</tr>
 
-			<tr>
+				<script>
+					document.getElementById("myselect").onchange = function() {
+						if(document.getElementById("myselect").value == 3) {
+							document.getElementById("auctionDuration").hidden = false;
+							document.getElementById("moveInDate").hidden = true;
+							document.getElementById("moveOutDate").hidden = true;							
+							document.getElementById("prize").hidden = true;
+							document.getElementById("prizeOfSale").hidden = true;
+							document.getElementById("startOffer").hidden = false;
+							document.getElementById("field-moveInDate").hidden = true;
+							document.getElementById("field-moveOutDate").hidden = true;
+							document.getElementById("field-Prize").hidden = true;
+							document.getElementById("field-PrizeOfSale").hidden = true;
+							document.getElementById("field-startOffer").hidden = false;
+
+
+
+						} else if(document.getElementById("myselect").value == 2) {	
+							document.getElementById("auctionDuration").hidden = true;
+							document.getElementById("moveInDate").hidden = true;
+							document.getElementById("moveOutDate").hidden = true;							
+							document.getElementById("prize").hidden = true;
+							document.getElementById("prizeOfSale").hidden = false;
+							document.getElementById("startOffer").hidden = true;
+							document.getElementById("field-moveInDate").hidden = true;
+							document.getElementById("field-moveOutDate").hidden = true;
+							document.getElementById("field-Prize").hidden = true;
+							document.getElementById("field-PrizeOfSale").hidden = false;
+							document.getElementById("field-startOffer").hidden = true;
+
+						} else {
+							document.getElementById("auctionDuration").hidden = true;
+							document.getElementById("moveInDate").hidden = false;
+							document.getElementById("moveOutDate").hidden = false;							
+							document.getElementById("prize").hidden = false;
+							document.getElementById("prizeOfSale").hidden = true;
+							document.getElementById("startOffer").hidden = true;
+							document.getElementById("field-moveInDate").hidden = false;
+							document.getElementById("field-moveOutDate").hidden = false;
+							document.getElementById("field-Prize").hidden = false;
+							document.getElementById("field-PrizeOfSale").hidden = true;
+							document.getElementById("field-startOffer").hidden = true;
+						}
+					};
+				</script>		
+				</tr>
+
+				<tr>
 				<td><form:input id="field-title" path="title"
 						placeholder="Ad Title" /></td>
 				
 				<td>
 				<form:select path="propertyType">
-				<form:option value ="0">Select a Property Type</form:option>
-				<form:option id="type-room" value="1">Room</form:option>
-				<form:option id="type-room" value="2">Studio</form:option>
-				<form:option id="type-room" value="3">Flat</form:option>
-				<form:option id="type-room" value="4">House</form:option>
+				<c:choose>
+					<c:when test="${ad.getPropertyType() == 1}">
+						<form:option id="type-room" value="1">Room</form:option>
+						<form:option id="type-room" value="2">Studio</form:option>
+						<form:option id="type-room" value="3">Flat</form:option>
+						<form:option id="type-room" value="4">House</form:option>
+
+					</c:when>
+					<c:when test="${ad.getPropertyType() == 2}">
+						<form:option id="type-room" value="2">Studio</form:option>
+						<form:option id="type-room" value="1">Room</form:option>
+						<form:option id="type-room" value="3">Flat</form:option>
+						<form:option id="type-room" value="4">House</form:option>
+					</c:when>
+
+					<c:when test="${ad.getPropertyType() == 3}">
+						<form:option id="type-room" value="3">Flat</form:option>
+						<form:option id="type-room" value="1">Room</form:option>
+						<form:option id="type-room" value="2">Studio</form:option>
+						<form:option id="type-room" value="4">House</form:option>
+
+					</c:when>
+					<c:when test="${ad.getPropertyType() == 4}">
+						<form:option id="type-room" value="4">House</form:option>
+						<form:option id="type-room" value="1">Room</form:option>
+						<form:option id="type-room" value="2">Studio</form:option>
+						<form:option id="type-room" value="3">Flat</form:option>
+					</c:when>
+				</c:choose>
 				</form:select>
 				</td>
 				<td><form:errors path="propertyType" cssClass="validationErrorText" /></td>
@@ -169,41 +262,55 @@
 			<tr>
 				<td><label for="field-street">Street</label></td>
 				<td><label for="field-city">City / Zip code</label></td>
+				<td><label for="field-PrizeBuy" id="startOffer" hidden="true">Start offer</label></td>
 			</tr>
 
 			<tr>
 				<td><form:input id="field-street" path="street"
-						placeholder="Street" /></td>
-				<td><form:input id="field-city" path="city" placeholder="City" />
+						placeholder="${ad.street}" /></td>
+					<form:errors path="street" cssClass="validationErrorText" /></td>
+				<td><form:input id="field-city" path="city" placeholder="${ad.city}" />
 					<form:errors path="city" cssClass="validationErrorText" /></td>
+				<td><form:input id="field-startOffer" type="number" path="startOffer" hidden="true"
+						placeholder="Start offer" step="50" /> 
+					<form:errors path="startOffer" cssClass="validationErrorText" /></td>
 			</tr>
 
 			<tr>
-				<td><label for="moveInDate">Move-in date</label></td>
-				<td><label for="moveOutDate">Move-out date (optional)</label></td>
+				<td><label for="moveInDate"  id="moveInDate">Move-in date</label></td>
+				<td><label for="moveOutDate" id="moveOutDate">Move-out date (optional)</label></td>
 			</tr>
 			<tr>
 				<td><form:input type="text" id="field-moveInDate"
-						path="moveInDate" /></td>
+						path="moveInDate"/></td>
 				<td><form:input type="text" id="field-moveOutDate"
 						path="moveOutDate" /></td>
 			</tr>
 
 			<tr>
-				<td><label for="field-Prize">Prize per month</label></td>
-				<td><label for="field-SquareFootage">Square Meters</label></td>
+				<td><label for="field-Prize" id="prize">Prize per month</label></td>
 			</tr>
 			<tr>
 				<td><form:input id="field-Prize" type="number" path="prize"
-						placeholder="Prize per month" step="50" /> <form:errors
-						path="prize" cssClass="validationErrorText" /></td>
+						placeholder="Prize per Month" step="50" />
+					<form:errors path="prize" cssClass="validationErrorText" /></td>
+
+			</tr>
+			
+			<tr>
+				<td><label for="field-SquareFootage">Square Meters</label></td>
+				<td><label for="field-PrizeBuy" id="prizeOfSale" hidden="true">Prize of sale</label></td>
+			</tr>
 				<td><form:input id="field-SquareFootage" type="number"
-						path="squareFootage" placeholder="Prize per month" step="5" /> <form:errors
-						path="squareFootage" cssClass="validationErrorText" /></td>
+						path="squareFootage"/> 
+					<form:errors path="squareFootage" cssClass="validationErrorText" /></td>
+				<td><form:input id="field-PrizeOfSale" type="number" path="prizeOfSale" hidden="true"
+						placeholder="Prize of sale" step="1000" />
+					<form:errors path="prizeOfSale" cssClass="validationErrorText" /></td>
+
 			</tr>
 		</table>
 	</fieldset>
-
 
 	<br />
 	<fieldset>

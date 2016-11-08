@@ -58,8 +58,11 @@ public class EditAdService {
 		ad.setCreationDate(now);
 
 		ad.setTitle(placeAdForm.getTitle());
-
 		ad.setStreet(placeAdForm.getStreet());
+
+		// new for different property and sell types
+		ad.setSellType(placeAdForm.getSellType());
+		ad.setPropertyType(placeAdForm.getPropertyType());
 
 		// take the zipcode - first four digits
 		String zip = placeAdForm.getCity().substring(0, 4);
@@ -94,7 +97,11 @@ public class EditAdService {
 		} catch (NumberFormatException e) {
 		}
 
+		// new for auction & buy
 		ad.setPrizePerMonth(placeAdForm.getPrize());
+		ad.setStartOffer(placeAdForm.getStartOffer());
+		ad.setPrizeOfSale(placeAdForm.getPrizeOfSale());
+		
 		ad.setSquareFootage(placeAdForm.getSquareFootage());
 
 		ad.setRoomDescription(placeAdForm.getRoomDescription());
@@ -209,20 +216,27 @@ public class EditAdService {
 		adForm.setRoomDescription(ad.getRoomDescription());
 		adForm.setPreferences(ad.getPreferences());
 		adForm.setRoommates(ad.getRoommates());
-		adForm.setPropertyType(ad.getPropertyType());
-		adForm.setSellType(ad.getSellType());
-		adForm.setCity(ad.getZipcode()+" - "+ad.getCity());
-		adForm.setTitle(ad.getTitle());
-		adForm.setStreet(ad.getStreet());
-		adForm.setSquareFootage(ad.getSquareFootage());		
-		/*if (ad.getSellType()==Ad.getSellType("Rent")){
-			SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-			adForm.setMoveInDate(""+format.format(ad.getMoveInDate()));
-			adForm.setMoveOutDate(""+format.format(ad.getMoveOutDate()));			
-			adForm.setPrize(ad.getPrizePerMonth());
-		}else if (ad.getSellType()==Ad.getSellType("Auction")){
-		}*/
+
 		
+		adForm.setCity(ad.getCity());
+		adForm.setStreet(ad.getStreet());
+
+		adForm.setTitle(ad.getTitle());
+		if (ad.getMoveInDate() != null) {
+			adForm.setMoveInDate(ad.getMoveInDate().toString());
+		}
+		if (ad.getMoveOutDate() != null) {
+			adForm.setMoveOutDate(ad.getMoveOutDate().toString());
+		}
+		adForm.setPrize(ad.getPrizePerMonth());
+		if (ad.getSellType() == 2) {
+			adForm.setPrizeOfSale(ad.getPrizeOfSale());
+		}
+		if (ad.getSellType() == 3) {
+			adForm.setStartOffer(ad.getStartOffer());
+		}
+		adForm.setSquareFootage(ad.getSquareFootage());
+
 		return adForm;
 	}
 
