@@ -306,7 +306,7 @@ $(function(){
   	<td>
           <label for="bid" >Your bid:</label>
 
-          <form:input type="number" value="${bidService.getNextBid(shownAd.getId())}"
+          <form:input type="number" min="1" value="${bidService.getNextBid(shownAd.getId())}"
             path="bid" placeholder="e.g. 150" step="1" />
             
           <button type="submit" >Place bid</button>
