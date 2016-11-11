@@ -479,7 +479,9 @@ footer nav ul li {
 /* -------------------------------------------------------------------- */
 /* signup.jsp */
 #signupForm {
-	width: 350px;
+	margin-left:auto;
+ 	margin-right:auto;
+	width: 500px;
 }
 
 .signupDescription{
@@ -647,6 +649,14 @@ footer nav ul li {
 	padding: 15px;
 	
 }
+
+#accordionSignUp {
+	width: 500px;
+	float: left;
+	padding: 15px;
+	
+}
+
 
 
 

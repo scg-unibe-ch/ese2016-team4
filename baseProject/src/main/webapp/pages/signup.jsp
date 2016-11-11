@@ -19,6 +19,15 @@
 			});
 		});
 	});
+	
+	  $( function() {
+		    $( "#accordionSignUp" ).accordion({
+		      collapsible: true,
+		      active: false,
+		      heightStyle: "content"
+		    });
+	});
+    
 </script>
 
 <pre>
@@ -65,7 +74,37 @@
 					</form:select></td>
 			</tr>
 		</table>
-		<br />
+		<table>
+			<tr>
+			 <td>
+				<div id="accordionSignUp">
+					<h2 class="panel">Premium user?</h2>
+						<p><b>What is a premium User?</b><br>
+						As a premium User you benefit from multiple things. First your ad's are shown 
+						higher on the homepage and are one of the first result when a user search for them.
+						Second, as a premium user you can place a bid before any normal user and you get earlier 
+						alerted when there is a new ad you probably are searching for.
+						<b>How to get a premium user?</b><br>
+						To access this feature, you only have to fill in the boxes below. In the first one, you 
+						have to add the validation date of your credit card that means how long your credit card
+						is valid (date). In the second one you just have to type in your last 5 digits of your 
+						IBAN-Number.<br>
+						
+						<label><b>Validation-Date:</b></label>
+						<form:input maxlength="2" typ="number" style="width: 60px;" value="eg. 02" path=""/><label> / 
+						</label> <form:input maxlength="4" typ="number" style="width: 80px;" value= "eg. 2018" path=""/> 
+						<br>
+						<label><b>Last 5 digits of credit card:</b></label>
+						<form:input maxlength="5" typ="number" style="width: 50px;" value="12345" path=""/><label>											
+												
+						</p>
+				</div>
+			 </td>
+			</tr>
+		</table>
+		
+
+		
 		<button type="submit">Sign up</button>
 	</fieldset>
 </form:form>
