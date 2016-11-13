@@ -46,6 +46,18 @@ public class User {
 
 	@Column(nullable = false)
 	private boolean enabled;
+	
+	@Column(nullable = true)
+	private int ccMonth;
+	
+	@Column(nullable = true)
+	private int ccYear;
+	
+	@Column(nullable = true)
+	private String ccNumber;
+	
+	@Column(nullable = false)
+	private boolean premium;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -158,6 +170,39 @@ public class User {
 	public void setBookmarkedAds(List<Ad> bookmarkedAds) {
 		this.bookmarkedAds = bookmarkedAds;
 	}
+	
+	public int getCcMonth() {
+		return ccMonth;
+	}
+
+	public void setCcMonth(int ccMonth) {
+		this.ccMonth = ccMonth;
+	}
+
+	public int getCcYear() {
+		return ccYear;
+	}
+
+	public void setCcYear(int ccYear) {
+		this.ccYear = ccYear;
+	}
+
+	public String getCcNumber() {
+		return ccNumber;
+	}
+
+	public void setCcNumber(String ccNumber) {
+		this.ccNumber = ccNumber;
+	}
+
+	public boolean isPremium() {
+		return premium;
+	}
+
+	public void setPremium(boolean premium) {
+		this.premium = premium;
+	}
+
 
 	@Override
 	public int hashCode() {

@@ -15,9 +15,9 @@ import ch.unibe.ese.team1.model.dao.UserDao;
 /** Handles the persisting of new users */
 @Service
 public class SignupService {
-	
+
 	private static final String DEFAULT_ROLE = "ROLE_USER";
-	
+
 	@Autowired
 	private UserDao userDao;
 
@@ -32,25 +32,34 @@ public class SignupService {
 		user.setPassword(signupForm.getPassword());
 		user.setEnabled(true);
 		user.setGender(signupForm.getGender());
-		
+
+		if (signupForm.isPremiumUser() && signupForm.getCcMonth()!=0 && signupForm.getCcYear()!=0 && signupForm.getCcNumber()!=null) {
+			user.setCcMonth(signupForm.getCcMonth());
+			user.setCcYear(signupForm.getCcYear());
+			user.setCcNumber(signupForm.getCcNumber());
+			user.setPremium(true);
+		} else
+			user.setPremium(false);
+
 		Set<UserRole> userRoles = new HashSet<>();
 		UserRole role = new UserRole();
 		role.setRole(DEFAULT_ROLE);
 		role.setUser(user);
 		userRoles.add(role);
-		
 		user.setUserRoles(userRoles);
-		
+
 		userDao.save(user);
 	}
-	
+
 	/**
 	 * Returns whether a user with the given username already exists.
-	 * @param username the username to check for
+	 * 
+	 * @param username
+	 *            the username to check for
 	 * @return true if the user already exists, false otherwise
 	 */
 	@Transactional
-	public boolean doesUserWithUsernameExist(String username){
+	public boolean doesUserWithUsernameExist(String username) {
 		return userDao.findByUsername(username) != null;
 	}
 }
