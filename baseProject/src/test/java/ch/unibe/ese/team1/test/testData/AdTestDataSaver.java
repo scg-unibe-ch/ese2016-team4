@@ -598,7 +598,7 @@ public class AdTestDataSaver {
 		adLangnau.setPreferences(preferences13);
 		adLangnau.setRoommates("Sometimes up to 6000");
 		adLangnau.setUser(bernerBaer);
-		adLangnau.setTitle("Huge mansion to sell by auction in Langnau");
+		adLangnau.setTitle("Huge mansion to sell by auction");
 		adLangnau.setStreet("Güterstrasse 14");
 		adLangnau.setCity("Langnau");
 		adLangnau.setGarden(false);

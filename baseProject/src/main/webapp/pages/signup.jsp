@@ -96,13 +96,20 @@
 				<div id="accordionSignUp">
 					<h2 class="panel">Premium user</h2>
 						<p><b>What are the advantages of a premium User?</b><br>
-						As a premium User you benefit from multiple things. First your ads are shown 
-						higher on the homepage and are one of the first results when a user searches for them.
-						Second, as a premium user you can place a bid before any normal user and you get alerted earlier 
-						when there is a new ad you probably are searching for.
+						As a premium User you benefit from multiple things:
+						<br>- Your ads are shown on the front page
+						<br>- In the search results, premium user ads get placed before the ones of cheapskate users
+						<br>- You can place a bid before any penny-pincher user
+						<br>- You get notified immediately (as opposed to 1 hour later like a skinflint user) if a new ad gets placed that 
+						matches your search alerts
 						<br><b>How to become a premium user?</b><br>
 						To access this feature, you only have to tick the premium user box and fill in your credit card info below. 
 						If you're unsure whether or not you want to become a premium user, you can always upgrade your normal account to premium later.
+						<br><b>How much does a premium account cost?</b><br>
+						A premium membership costs only 235.60* CHF per month.
+						We automatically attempt to charge your credit card on the 1st of each month.
+						Users who can not pay their premium membership will be prosecuted.<br>
+						<sub><i>*plus taxes</i></sub>
 						<br>
 						<br>
 						

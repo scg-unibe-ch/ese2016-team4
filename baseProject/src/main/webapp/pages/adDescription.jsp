@@ -179,7 +179,7 @@ window.onload = function() {
 	document.getElementById('datetoday').innerHTML = "today: " + getFormattedDate(dateNow).toString();
 	document.getElementById('auctionstart').innerHTML = getFormattedDate(creationDate).toString();
 	document.getElementById('auctionend').innerHTML = getFormattedDate(auctionEnd).toString();
-	document.getElementById('highestBid').innerHTML = "Highest Bid: " + highestBid.toString() + " CHF";
+	document.getElementById('highestBid').innerHTML = "Price: " + highestBid.toString() + " CHF";
 }
 
 window.ready = function() {
@@ -421,7 +421,7 @@ $(function(){
 		<tr>
 			<c:choose>
 				<c:when test="${shownAd.getSellType() == 3}">
-					<td><h2>Opening Bid</h2></td>
+					<td><h2>Starting Price</h2></td>
 					<td>${shownAd.startOffer}&#32;CHF</td>
 				</c:when>
 			</c:choose>
@@ -517,11 +517,22 @@ $(function(){
 					<table id="bidTable">
 						<tr>
 							<td>Highest Bid:</td>
-							<td colspan="2">${bidService.getHighestBid(shownAd.getId())} CHF</td>
+							<td colspan="2">
+								${bidService.getHighestBid(shownAd.getId())} CHF
+							</td>
 						</tr>
 						<tr>
 							<td>Your Bid:</td>
-							<td colspan="2">${bidService.getMyBid(loggedInUserEmail,shownAd.getId())} CHF</td>
+							<td colspan="2">
+								<c:choose> 
+									<c:when test="${bidService.getMyBid(loggedInUserEmail,shownAd.getId())==-1}">
+										You haven't made a bid yet
+									</c:when>
+									<c:otherwise>
+										${bidService.getMyBid(loggedInUserEmail,shownAd.getId())} CHF
+									</c:otherwise>
+								</c:choose>
+							</td>
 						</tr>
 
 					</table>

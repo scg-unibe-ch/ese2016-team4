@@ -36,8 +36,8 @@
 		<h2>Test users</h2>
 
 		<ul class="test-users">
-			<li>Email: <i>ese@unibe.ch</i>, password: <i>ese</i></li>
-			<li>Email: <i>jane@doe.com</i>, password: <i>password</i></li>
+			<li>Email: <i>ese@unibe.ch</i>, password: <i>ese</i>, <b>✪premium</b></li>
+			<li>Email: <i>jane@doe.com</i>, password: <i>password</i>, <b>✪premium</b></li>
 			<li>Email: <i>user@bern.com</i>, password: <i>password</i></li>
 			<li>Email: <i>oprah@winfrey.com</i>, password: <i>password</i></li>
 		</ul>

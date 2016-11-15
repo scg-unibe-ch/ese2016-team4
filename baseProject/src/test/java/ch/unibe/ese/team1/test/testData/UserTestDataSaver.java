@@ -26,25 +26,25 @@ public class UserTestDataSaver {
 	public void saveTestData() throws Exception {
 		// system account
 		User system = createUser("System", "1234", "FlatFindr", "Admin",
-				"/img/test/system.jpg", Gender.ADMIN);
+				"/img/test/system.jpg", Gender.ADMIN, true);
 		system.setAboutMe("We keep you off the streets.");
 		userDao.save(system);
 
 		// Main test-user for the assistants (advertiser)
 		User ese = createUser("ese@unibe.ch", "ese", "John", "Wayne",
-				"/img/test/portrait.jpg", Gender.MALE);
+				"/img/test/portrait.jpg", Gender.MALE, true);
 		ese.setAboutMe(getDummyText());
 		userDao.save(ese);
 		
 		// Searcher
 		User janeDoe = createUser("jane@doe.com", "password", "Jane", "Doe",
-				Gender.FEMALE);
+				Gender.FEMALE, true);
 		janeDoe.setAboutMe(getDummyText());
 		userDao.save(janeDoe);
 
 		// Another advertiser & searcher
 		User bernerBaer = createUser("user@bern.com", "password",
-				"Berner", "Bär", Gender.MALE);
+				"Berner", "Bär", Gender.MALE, false);
 		UserPicture picture = new UserPicture();
 		picture.setFilePath("/img/test/berner_baer.png");
 		picture.setUser(bernerBaer);
@@ -59,26 +59,26 @@ public class UserTestDataSaver {
 		
 		// Another advertiser & searcher
 		User oprah = createUser("oprah@winfrey.com", "password", "Oprah", "Winfrey",
-				"/img/test/oprah.jpg", Gender.FEMALE);
+				"/img/test/oprah.jpg", Gender.FEMALE, false);
 		oprah.setAboutMe(getDummyText());
 		userDao.save(oprah);
 		
 		// Dummy users to be added for Roommates
 		User hans = createUser("hans@unibe.ch", "password", "Hans", "DummyOne",
-				Gender.MALE);
+				Gender.MALE, false);
 		hans.setAboutMe("Hello, I am the dummy user Hans for the AdBern. I am living" +
 				"at Kramgasse 22 and I am very very happy there.");
 		userDao.save(hans);
 		
 		User mathilda = createUser("mathilda@unibe.ch", "password", "Mathilda",
-				"DummyTwo", Gender.FEMALE);
+				"DummyTwo", Gender.FEMALE, false);
 		mathilda.setAboutMe("Hello, I am the dummy user Mathilda for the AdBern. I am living" +
 				"at Kramgasse 22 and I am very very happy there.");
 		userDao.save(mathilda);
 	}
 
 	public User createUser(String email, String password, String firstName,
-			String lastName, Gender gender) {
+			String lastName, Gender gender, boolean premium) {
 		User user = new User();
 		user.setUsername(email);
 		user.setPassword(password);
@@ -87,6 +87,12 @@ public class UserTestDataSaver {
 		user.setLastName(lastName);
 		user.setEnabled(true);
 		user.setGender(gender);
+		user.setPremium(premium);
+		if(premium){ 
+			user.setCcNumber("1111222233334444");
+			user.setCcMonth(5);
+			user.setCcYear(2020);
+		}
 		Set<UserRole> userRoles = new HashSet<>();
 		UserRole role = new UserRole();
 		role.setRole("ROLE_USER");
@@ -97,7 +103,7 @@ public class UserTestDataSaver {
 	}
 
 	public User createUser(String email, String password, String firstName,
-			String lastName, String picPath, Gender gender) {
+			String lastName, String picPath, Gender gender, boolean premium) {
 		User user = new User();
 		user.setUsername(email);
 		user.setPassword(password);
@@ -106,6 +112,12 @@ public class UserTestDataSaver {
 		user.setLastName(lastName);
 		user.setEnabled(true);
 		user.setGender(gender);
+		user.setPremium(premium);
+		if(premium){ 
+			user.setCcNumber("1111222233334444");
+			user.setCcMonth(5);
+			user.setCcYear(2020);
+		}
 		Set<UserRole> userRoles = new HashSet<>();
 		UserRole role = new UserRole();
 		UserPicture picture = new UserPicture();

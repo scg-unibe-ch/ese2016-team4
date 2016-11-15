@@ -55,10 +55,10 @@
 					
 					<div class="resultRight">
 						<c:choose>
-							<c:when test="${ad.getSellType() == 1}"><h2>${ad.prizePerMonth } CHF</h2></c:when>
-							<c:when test="${ad.getSellType() == 2}"><h2>Sale Prize ${ad.prizeOfSale } CHF</h2></c:when>
-							<c:when test="${ad.getSellType() == 3 && !bidService.isBidden(ad.getId())}"><h2>Opening Bid ${bidService.getNextBid(ad.getId())} CHF</h2></c:when>
-							<c:when test="${ad.getSellType() == 3 && bidService.isBidden(ad.getId())}"><h2>Next Bid ${bidService.getNextBid(ad.getId())} CHF</h2></c:when>
+							<c:when test="${ad.getSellType() == 1}"><h2>Monthly Rent ${ad.prizePerMonth } CHF</h2></c:when>
+							<c:when test="${ad.getSellType() == 2}"><h2>Sale Price ${ad.prizeOfSale } CHF</h2></c:when>
+							<c:when test="${ad.getSellType() == 3 && !bidService.isBidden(ad.getId())}"><h2>Auction Price ${ad.startOffer} CHF</h2></c:when>
+							<c:when test="${ad.getSellType() == 3 && bidService.isBidden(ad.getId())}"><h2>Auction Price ${bidService.getHighestBid(ad.getId())} CHF</h2></c:when>
 						</c:choose>
 						<br /> <br />
 
