@@ -38,7 +38,7 @@ public class AlertController {
 	}
 
 	/**
-	 * Serves the page that allow the user to view their alerts afert validating
+	 * Serves the page that allow the user to view their alerts after validating
 	 * and persisting the new alert through the alert form.
 	 */
 	@RequestMapping(value = "/profile/alerts", method = RequestMethod.POST)
