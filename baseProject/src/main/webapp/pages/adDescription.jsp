@@ -14,7 +14,7 @@
 <c:import url="template/header.jsp" />
 
 <pre>
-	<a href="/">Home</a>   &gt;   <a href="/profile/myRooms">My Properties</a>   &gt;   Ad Description</pre>
+	<a href="/">Home</a>   &gt;  <c:choose><c:when test="${loggedIn}"><a href="/profile/myRooms">My Properties</a>   &gt;	</c:when></c:choose>Ad Description</pre>
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
