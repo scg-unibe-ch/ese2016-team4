@@ -3,9 +3,12 @@ package ch.unibe.ese.team1.controller.service;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.lang.Math;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -158,15 +161,41 @@ public class AlertService {
 
 			// send messages to all users with matching alerts
 			for (User user : users) {
-				Date now = new Date();
-				Message message = new Message();
-				message.setSubject("It's a match!");
-				message.setText(getAlertText(ad));
-				message.setSender(userDao.findByUsername("System"));
-				message.setRecipient(user);
-				message.setState(MessageState.UNREAD);
-				message.setDateSent(now);
-				messageDao.save(message);
+					Date now = new Date();
+					Message message = new Message();
+					message.setSubject("It's a match!");
+					message.setText(getAlertText(ad));
+					message.setSender(userDao.findByUsername("System"));
+					message.setRecipient(user);
+					message.setState(MessageState.UNREAD);
+					message.setDateSent(now);
+					if(user.isPremium()){
+						messageDao.save(message);
+					}
+					else{
+						SimpleDateFormat formatterTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						Date dateNow = new Date();
+						Calendar calendar = GregorianCalendar.getInstance();
+						calendar.setTime(dateNow);
+						int HH = calendar.get(Calendar.HOUR_OF_DAY);
+						int mm = calendar.get(Calendar.MINUTE);
+						int ss = calendar.get(Calendar.SECOND);
+						int yyyy = calendar.get(Calendar.YEAR);
+						int mM = calendar.get(Calendar.MONTH);
+						int dd = calendar.get(Calendar.DAY_OF_MONTH);
+						//adding the nonPremium delay
+						HH = HH + 1;
+						Date date;
+						try {
+							date = formatterTime.parse(yyyy +"-"+ mM +"-"+ dd + " "+ HH + ":" + mm + ":" + ss);
+							message.setDateSent(date);
+						} catch (ParseException e) {
+							message.setDateSent(null);
+						}
+						
+						PremiumService.setMessage(message);
+					}
+
 			}
 		} else if(ad.getSellType() == 2) {
 			int adPrice = ad.getPrizeOfSale();
@@ -204,7 +233,32 @@ public class AlertService {
 				message.setRecipient(user);
 				message.setState(MessageState.UNREAD);
 				message.setDateSent(now);
-				messageDao.save(message);
+				if(user.isPremium()){
+					messageDao.save(message);
+				}
+				else{
+					SimpleDateFormat formatterTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					Date dateNow = new Date();
+					Calendar calendar = GregorianCalendar.getInstance();
+					calendar.setTime(dateNow);
+					int HH = calendar.get(Calendar.HOUR_OF_DAY);
+					int mm = calendar.get(Calendar.MINUTE);
+					int ss = calendar.get(Calendar.SECOND);
+					int yyyy = calendar.get(Calendar.YEAR);
+					int mM = calendar.get(Calendar.MONTH);
+					int dd = calendar.get(Calendar.DAY_OF_MONTH);
+					//adding the nonPremium delay
+					HH = HH + 1;
+					Date date;
+					try {
+						date = formatterTime.parse(yyyy +"-"+ mM +"-"+ dd + " "+ HH + ":" + mm + ":" + ss);
+						message.setDateSent(date);
+					} catch (ParseException e) {
+						message.setDateSent(null);
+					}
+					
+					PremiumService.setMessage(message);
+				}
 			}
 		} 
 		else {
@@ -243,7 +297,32 @@ public class AlertService {
 				message.setRecipient(user);
 				message.setState(MessageState.UNREAD);
 				message.setDateSent(now);
-				messageDao.save(message);
+				if(user.isPremium()){
+					messageDao.save(message);
+				}
+				else{
+					SimpleDateFormat formatterTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					Date dateNow = new Date();
+					Calendar calendar = GregorianCalendar.getInstance();
+					calendar.setTime(dateNow);
+					int HH = calendar.get(Calendar.HOUR_OF_DAY);
+					int mm = calendar.get(Calendar.MINUTE);
+					int ss = calendar.get(Calendar.SECOND);
+					int yyyy = calendar.get(Calendar.YEAR);
+					int mM = calendar.get(Calendar.MONTH);
+					int dd = calendar.get(Calendar.DAY_OF_MONTH);
+					//adding the nonPremium delay
+					HH = HH + 1;
+					Date date;
+					try {
+						date = formatterTime.parse(yyyy +"-"+ mM +"-"+ dd + " "+ HH + ":" + mm + ":" + ss);
+						message.setDateSent(date);
+					} catch (ParseException e) {
+						message.setDateSent(null);
+					}
+					
+					PremiumService.setMessage(message);
+				}
 			}
 		}
 
