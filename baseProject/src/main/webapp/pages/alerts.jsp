@@ -32,10 +32,10 @@ function deleteAlert(button) {
 			autoFocus : true
 		});
 		$("#field-moveInDate").datepicker({
-			dateFormat : 'dd.mm.yyyy'
+			dateFormat : 'dd.mm.yy'
 		});
 		$("#field-moveOutDate").datepicker({
-			dateFormat : 'dd.mm.yyyy'
+			dateFormat : 'dd.mm.yy'
 		});
 
 	});
