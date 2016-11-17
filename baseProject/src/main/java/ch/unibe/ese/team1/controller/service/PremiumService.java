@@ -26,10 +26,10 @@ public class PremiumService {
 	static List<Message> messagesToSend = new ArrayList<Message>();
 	
 	//Scheduled method for premium support, by handling all delayed task for nonPremium User's in a certain interval
-	@Scheduled(cron="*/10 * * * * *")
-	public void premiumTest(){
+	@Scheduled(cron="*/60 * * * * *")
+	public void nonPremiumHandler(){
 		List<Message> messagesToDelete = new ArrayList<Message>();
-		saveLoop:
+		delayedAlertLoop:
 		for(Message message : messagesToSend ){
 			Date now = new Date();
 			//Date is null if there was a parse problem in AlertService.triggerAlerts() and will *to be changed* be sent directly
@@ -42,7 +42,7 @@ public class PremiumService {
 				messageDao.save(message);
 				messagesToDelete.add(message);
 			}
-			else break saveLoop;
+			else break delayedAlertLoop;
 		}
 
 		for(Message msgTD : messagesToDelete){
