@@ -61,7 +61,8 @@ public class BidService {
 		if (ad.isAuctionAvailable() &&
 				isHighestBid(newBid) && 
 				!isAlreadyHighestBidder(newBid)&&
-				!isBidCreator(newBid)){
+				!isBidCreator(newBid)&&
+				ad.getStartOffer()<(int)bidBid){
 			User user = userService.findUserById(newBid.getUserId());
 			user.getId();
 			Queue<Bid> bidHist = new LinkedList<Bid>();

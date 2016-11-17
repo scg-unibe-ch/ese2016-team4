@@ -48,7 +48,6 @@ public class PremiumService {
 		for(Message msgTD : messagesToDelete){
 			messagesToSend.remove(msgTD);
 		}
-		System.out.println("Holz anfassen");
 	}
 	
 
