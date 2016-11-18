@@ -358,13 +358,6 @@ public class Ad {
 		this.city = city;
 	}
 
-	public Date getDate(boolean date) {
-		if (date)
-			return moveInDate;
-		else
-			return moveOutDate;
-	}
-
 	public List<User> getRegisteredRoommates() {
 		return registeredRoommates;
 	}
