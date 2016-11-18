@@ -48,7 +48,7 @@
 <script>
 $(document).ready( function() {
     var now = new Date();
-    var today = now.getDate() + '-' + (now.getMonth() + 1) + '-' + now.getFullYear();
+    var today = now.getDate() + '.' + (now.getMonth() + 1) + '.' + now.getFullYear();
     $('#field-earliestMoveInDate').val(today);
 });
 </script>
@@ -58,7 +58,7 @@ $(document).ready( function() {
 <hr />
 
 
-<form:form method="post" modelAttribute="searchForm" action="/results"
+<form:form method="get" modelAttribute="searchForm" action="/results"
 	id="filterForm" autocomplete="off">
 
 	<div id="searchDiv">

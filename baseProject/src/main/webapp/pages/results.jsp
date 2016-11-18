@@ -143,8 +143,8 @@ function sort_div_attribute() {
 					<div class="resultRight">
 						<c:choose>
 							<c:when test="${ad.getSellType() == 1}"><h2>CHF ${ad.prizePerMonth }</h2></c:when>
-							<c:when test="${ad.getSellType() == 2}"><h2>Sale Prize ${ad.prizeOfSale }</h2></c:when>
-							<c:when test="${ad.getSellType() == 3}"><h2>Current Bid ${ad.startOffer }</h2></c:when>
+							<c:when test="${ad.getSellType() == 2}"><h2>Sale Price ${ad.prizeOfSale } CHF</h2></c:when>
+							<c:when test="${ad.getSellType() == 3}"><h2>Auction Price ${bidService.getHighestBid(ad.id)} CHF</h2></c:when>
 						</c:choose>						<br /> <br />
 
 						<fmt:formatDate value="${ad.moveInDate}" var="formattedMoveInDate"
@@ -160,7 +160,7 @@ function sort_div_attribute() {
 	</c:otherwise>
 </c:choose>
 
-<form:form method="post" modelAttribute="searchForm" action="/results"
+<form:form method="get" modelAttribute="searchForm" action="/results"
 	id="filterForm" autocomplete="off">
 
 	<div id="filterDiv">

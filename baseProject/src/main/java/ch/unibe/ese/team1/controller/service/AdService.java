@@ -438,18 +438,27 @@ public class AdService {
 				Ad ad = adIterator.next();
 				if(ad.getMoveInDate() != null){
 					if(earliestIn != null){
-						if(ad.getMoveInDate().compareTo(earliestIn) < 0) adIterator.remove();
+						if(ad.getMoveInDate().compareTo(earliestIn) < 0){ 
+							adIterator.remove(); 
+							//jump to the next iterator, since this one has already been removed
+							continue;
+						}
 					}
-					//last element could've been removed, so we have to check adIterator.hasNext again
-					if(latestIn != null && adIterator.hasNext()){
-						if(ad.getMoveInDate().compareTo(latestIn) > 0) adIterator.remove();
+					if(latestIn != null){
+						if(ad.getMoveInDate().compareTo(latestIn) > 0) {
+							adIterator.remove(); 
+							continue;
+						}
 					}
 				}
 				if(ad.getMoveOutDate() != null){
-					if(earliestOut != null && adIterator.hasNext()){
-						if(ad.getMoveOutDate().compareTo(earliestOut) < 0) adIterator.remove();
+					if(earliestOut != null){
+						if(ad.getMoveOutDate().compareTo(earliestOut) < 0){ 
+							adIterator.remove(); 
+							continue;
+						}
 					}
-					if(latestOut != null && adIterator.hasNext()){
+					if(latestOut != null){
 						if(ad.getMoveOutDate().compareTo(latestOut) > 0) adIterator.remove();
 					}	
 				}
