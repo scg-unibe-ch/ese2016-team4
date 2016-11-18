@@ -31,6 +31,14 @@ import ch.unibe.ese.team1.model.dao.MessageDao;
 import ch.unibe.ese.team1.model.dao.UserDao;
 
 /** Handles all persistence operations concerning ad placement and retrieval. */
+/**
+ * @author enicath
+ *
+ */
+/**
+ * @author enicath
+ *
+ */
 @Service
 public class AdService {
 
@@ -316,11 +324,8 @@ public class AdService {
 			} catch (Exception e) {
 			}
 
-			// filtering by dates
-			locatedResults = validateDate(locatedResults, true, earliestInDate,
-					latestInDate);
-			locatedResults = validateDate(locatedResults, false,
-					earliestOutDate, latestOutDate);
+			// filtering by dates, this removes the ads that don't match the searchdates
+			locatedResults = validateDate(locatedResults, earliestInDate, latestInDate, earliestOutDate, latestOutDate);
 
 			// filtering for the rest
 			// smokers
@@ -415,48 +420,41 @@ public class AdService {
 		searchForm.deleteLists();
 		return locatedResults;
 	}
-
-	private List<Ad> validateDate(List<Ad> ads, boolean inOrOut,
-			Date earliestDate, Date latestDate) {
+	
+	/**
+	 * @param ads - list with all the ads currently matching the search
+	 * @param earliestIn - earliest move-in-date
+	 * @param latestIn - lastest move-in-date
+	 * @param earliestOut - earliest move-out-date
+	 * @param latestOut - lastest move-out-date
+	 * @return ads - list with all the ads removed, that don't match the search dates
+	 */
+	private List<Ad> validateDate(List<Ad> ads, Date earliestIn, Date latestIn, Date earliestOut, Date latestOut) {
 
 		if (ads.size() > 0) {
-			// Move-in dates
-			// Both an earliest AND a latest date to compare to
-
-			if (earliestDate != null) {
-				if (latestDate != null) {
-					Iterator<Ad> iterator = ads.iterator();
-					Ad ad = iterator.next();
-					while (iterator.hasNext()) {
-						if (ad.getDate(inOrOut).compareTo(earliestDate) < 0
-								|| ad.getDate(inOrOut).compareTo(latestDate) > 0) {
-							iterator.remove();
-						}
+			Iterator<Ad> adIterator = ads.iterator();
+			//iterate through all the ads in the list
+			while (adIterator.hasNext()) {
+				Ad ad = adIterator.next();
+				if(ad.getMoveInDate() != null){
+					if(earliestIn != null){
+						if(ad.getMoveInDate().compareTo(earliestIn) < 0) adIterator.remove();
+					}
+					//last element could've been removed, so we have to check adIterator.hasNext again
+					if(latestIn != null && adIterator.hasNext()){
+						if(ad.getMoveInDate().compareTo(latestIn) > 0) adIterator.remove();
 					}
 				}
-				// only an earliest date
-				else {
-					Iterator<Ad> iterator = ads.iterator();
-					while (iterator.hasNext()) {
-						Ad ad = iterator.next();
-						if (ad.getDate(inOrOut).compareTo(earliestDate) < 0)
-							iterator.remove();
+				if(ad.getMoveOutDate() != null){
+					if(earliestOut != null && adIterator.hasNext()){
+						if(ad.getMoveOutDate().compareTo(earliestOut) < 0) adIterator.remove();
 					}
+					if(latestOut != null && adIterator.hasNext()){
+						if(ad.getMoveOutDate().compareTo(latestOut) > 0) adIterator.remove();
+					}	
 				}
-			}
-
-			// only a latest date
-			else if (latestDate != null && earliestDate == null) {
-				Iterator<Ad> iterator = ads.iterator();
-				while (iterator.hasNext()) {
-					Ad ad = iterator.next();
-					if (ad.getDate(inOrOut).compareTo(latestDate) > 0)
-						iterator.remove();
-				}
-			} else {
 			}
 		}
-
 		return ads;
 	}
 
