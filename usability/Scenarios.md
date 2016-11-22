@@ -12,39 +12,3 @@ You send her the link of the results in a message on flatfindr.
 
 ##Scenario 3
 Your best friend John Wayne told you he sent you the link of interesting ad's in a message on your favorite page flatfindr. Log in (jane@doe.com | password) and check your message inbox. Open the message from John Wayne and open the link in a new tab.
-
-###Steps - Scenario 1
-
-You want to buy a Property in Bern for maximum 1 mio CHF. Also you want to be a premium user.
-
-Steps| |
---------|-------
-1.	| login as a new premium user
-2. |
-3. |
-4. |
-5. |
-6. |
-7. |
-
-###Steps - Scenario 2
-Steps| |
---------|-------|
-1. |
-2. |
-3. |
-4. |
-5. |
-6. |
-7. |
-
-###Steps - Scenario 3
-Steps| |
---------|-------|
-1. |
-2. |
-3. |
-4. |
-5. |
-6. |
-7. |
