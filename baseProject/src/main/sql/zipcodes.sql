@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `zipcodes` (
   CONSTRAINT pk_zipcodes PRIMARY KEY (`loc_id`,`zip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+
 --
 -- Daten für Tabelle `zipcodes`
 --
