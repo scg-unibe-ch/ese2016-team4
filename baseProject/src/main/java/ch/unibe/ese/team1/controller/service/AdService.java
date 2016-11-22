@@ -56,6 +56,9 @@ public class AdService {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private BidService bidService;
 
 	@Autowired
 	private GeoDataService geoDataService;
@@ -255,13 +258,31 @@ public class AdService {
 		//loop through every propertytype/selltype combination, add the matching ads to the list
 		for (int property : searchForm.getPropertyType()){
 			for (int sell : searchForm.getSellType()){
-				for (Ad ad : adDao.findByPropertyTypeAndSellTypeAndPrizePerMonthLessThan(property, sell, searchForm.getPrize() + 1)){
-					locatedResults.add(ad);
+				for (Ad ad : adDao.findByPropertyTypeAndSellType(property, sell)){
+					int price = -1;
+					switch(ad.getSellType()){
+						case Ad.RENT:
+							if (ad.getPrizePerMonth()<searchForm.getPrize()+1){
+								price = ad.getPrizePerMonth();
+							}
+							break;
+						case Ad.BUY:
+							if (ad.getPrizePerMonth()<searchForm.getPrize()+1){
+								price = ad.getPrizePerMonth();
+							}
+							break;
+						case Ad.AUCTION:
+							if (bidService.getHighestBid(ad.getId())<searchForm.getPrize()+1){
+								price = (int) bidService.getHighestBid(ad.getId());
+							}
+							break;
+					}
+					if (price >= 0)
+						locatedResults.add(ad);
 				}
 			}
 
 		}
-
 
 		final int earthRadiusKm = 6380;
 		List<Location> locations = geoDataService.getAllLocations();

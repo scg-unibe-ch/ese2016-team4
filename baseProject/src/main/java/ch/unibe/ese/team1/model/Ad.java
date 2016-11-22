@@ -23,7 +23,9 @@ import org.hibernate.annotations.FetchMode;
 /** Describes an advertisement that users can place and search for. */
 @Entity
 public class Ad {
-
+	public static final int RENT = 1;
+	public static final int BUY = 2;
+	public static final int AUCTION = 3;
 	@Id
 	@GeneratedValue
 	private long id;
@@ -429,11 +431,11 @@ public class Ad {
 	public static int getSellType(String sellType){
 		switch ( sellType.toLowerCase()){
 		case "rent":
-			return 1;
+			return RENT;
 		case "buy":
-			return 2;
+			return BUY;
 		case "auction":
-			return 3;
+			return AUCTION;
 		default:
 			return 0;
 		}
