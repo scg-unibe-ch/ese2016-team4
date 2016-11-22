@@ -96,6 +96,18 @@ public class EditAdService {
 				calendar.set(yearMoveOut, monthMoveOut - 1, dayMoveOut);
 				ad.setMoveOutDate(calendar.getTime());
 			}
+			
+			if (placeAdForm.getAuctionEndDate().length() >= 1) {
+				int dayAuctionEnd = Integer.parseInt(placeAdForm.getAuctionEndDate()
+						.substring(0, 2));
+				int monthAuctionEnd = Integer.parseInt(placeAdForm
+						.getAuctionEndDate().substring(3, 5));
+				int yearAuctionEndt = Integer.parseInt(placeAdForm.getAuctionEndDate()
+						.substring(6, 10));
+				calendar.set(yearAuctionEndt, monthAuctionEnd - 1, dayAuctionEnd);
+				ad.setAuctionEndDate(calendar.getTime());
+			}
+			
 		} catch (NumberFormatException e) {
 		}
 
