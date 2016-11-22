@@ -18,6 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.model.GeocodingResult;
+
 import ch.unibe.ese.team1.controller.pojos.forms.PlaceAdForm;
 import ch.unibe.ese.team1.controller.pojos.forms.SearchForm;
 import ch.unibe.ese.team1.model.Ad;
@@ -56,6 +60,9 @@ public class AdService {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private BidService bidService;
 
 	@Autowired
 	private GeoDataService geoDataService;
@@ -255,13 +262,31 @@ public class AdService {
 		//loop through every propertytype/selltype combination, add the matching ads to the list
 		for (int property : searchForm.getPropertyType()){
 			for (int sell : searchForm.getSellType()){
-				for (Ad ad : adDao.findByPropertyTypeAndSellTypeAndPrizePerMonthLessThan(property, sell, searchForm.getPrize() + 1)){
-					locatedResults.add(ad);
+				for (Ad ad : adDao.findByPropertyTypeAndSellType(property, sell)){
+					int price = -1;
+					switch(ad.getSellType()){
+						case Ad.RENT:
+							if (ad.getPrizePerMonth()<searchForm.getPrize()+1){
+								price = ad.getPrizePerMonth();
+							}
+							break;
+						case Ad.BUY:
+							if (ad.getPrizePerMonth()<searchForm.getPrize()+1){
+								price = ad.getPrizePerMonth();
+							}
+							break;
+						case Ad.AUCTION:
+							if (bidService.getHighestBid(ad.getId())<searchForm.getPrize()+1){
+								price = (int) bidService.getHighestBid(ad.getId());
+							}
+							break;
+					}
+					if (price >= 0)
+						locatedResults.add(ad);
 				}
 			}
 
 		}
-
 
 		final int earthRadiusKm = 6380;
 		List<Location> locations = geoDataService.getAllLocations();
@@ -494,6 +519,41 @@ public class AdService {
 			}
 		}
 		return false;
+	}
+	/**
+	 * makes a Google GeoCode API request to find coordinates of certain addresses
+	 * @param List of Ad's to get coordinates for
+	 * @return List of coordinates
+	 */
+	public Iterable<String> findCoords(Iterable<Ad> ads){
+		List<String> addresses = new ArrayList<>();
+		List<String> coords = new ArrayList<>();
+		for(Ad currAd : ads){
+			String adAddress = currAd.getStreet() +" "+ currAd.getZipcode() + " CH";
+			addresses.add(adAddress);	
+		}
+		GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyD_MphjKA6L3_kzkMc_t2RGOnJbLXA5vZM");
+		for(String currAddress : addresses){
+			GeocodingResult[] result = null;
+			double latitude;
+			double longitude;
+			
+			try {
+				result =   GeocodingApi.geocode(context,
+					    currAddress).await();
+			} catch (Exception e) {
+				//to be done
+			}
+			
+			if(result.length > 0 && result[0] != null && !result[0].partialMatch){
+				latitude = result[0].geometry.location.lat;
+				longitude = result[0].geometry.location.lng;
+				String coordString = latitude + " " + longitude;
+				System.out.println(coordString);
+				coords.add(coordString);
+			}
+		}
+		return coords;
 	}
 
 	public Date stringToDate(String stringDate){

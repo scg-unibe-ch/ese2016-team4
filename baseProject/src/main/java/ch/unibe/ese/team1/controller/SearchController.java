@@ -1,5 +1,6 @@
 package ch.unibe.ese.team1.controller;
 
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import ch.unibe.ese.team1.controller.pojos.forms.SearchForm;
 import ch.unibe.ese.team1.controller.service.AdService;
 import ch.unibe.ese.team1.controller.service.BidService;
 import ch.unibe.ese.team1.controller.service.UserService;
+import ch.unibe.ese.team1.model.Ad;
 
 /** Handles all requests concerning the search for ads. */
 @Controller
@@ -50,7 +52,10 @@ public class SearchController {
 			BindingResult result) {
 		if (!result.hasErrors()) {
 			ModelAndView model = new ModelAndView("results");
-			model.addObject("results", adService.queryResults(searchForm));
+			Iterable<Ad> searchFormResults = adService.queryResults(searchForm);
+			Iterable<String> googleMapCoords = adService.findCoords(searchFormResults);
+			model.addObject("results", searchFormResults);
+			model.addObject("coords", googleMapCoords);
 			//bad, only temporary fix
 			model.addObject("bidService", bidService);
 			return model;

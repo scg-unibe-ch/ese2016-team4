@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+
 import ch.unibe.ese.team1.model.Message;
 import ch.unibe.ese.team1.model.dao.MessageDao;
 
@@ -59,14 +60,6 @@ public class PremiumService {
 	public static void setMessage(Message msg) {
 		PremiumService.messagesToSend.add(msg);
 		}
-	
-	
 
-		
-		
-		
-	
-
-	
 
 }
