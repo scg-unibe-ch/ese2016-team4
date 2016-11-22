@@ -25,6 +25,9 @@ import ch.unibe.ese.team1.controller.service.VisitService;
 import ch.unibe.ese.team1.model.Ad;
 import ch.unibe.ese.team1.model.User;
 import ch.unibe.ese.team1.model.Visit;
+import ch.unibe.ese.team1.model.dao.UserDao;
+
+
 
 /**
  * Handles all requests concerning user accounts and profiles.
@@ -46,6 +49,9 @@ public class ProfileController {
 
 	@Autowired
 	private AdService adService;
+	
+	@Autowired
+	private UserDao userDao;
 
 	/** Returns the login page. */
 	@RequestMapping(value = "/login")
@@ -71,6 +77,9 @@ public class ProfileController {
 			signupService.saveFrom(signupForm);
 			model = new ModelAndView("login");
 			model.addObject("confirmationMessage", "Signup complete!");
+
+			User user = userDao.findByUsername(signupForm.getEmail());
+			signupService.sendWelcomeMessage(user);
 		} else {
 			model = new ModelAndView("signup");
 			model.addObject("signupForm", signupForm);

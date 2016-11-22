@@ -1,5 +1,6 @@
 package ch.unibe.ese.team1.controller.service;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,8 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ch.unibe.ese.team1.controller.pojos.forms.SignupForm;
+import ch.unibe.ese.team1.model.Ad;
+import ch.unibe.ese.team1.model.Message;
+import ch.unibe.ese.team1.model.MessageState;
 import ch.unibe.ese.team1.model.User;
 import ch.unibe.ese.team1.model.UserRole;
+import ch.unibe.ese.team1.model.dao.MessageDao;
 import ch.unibe.ese.team1.model.dao.UserDao;
 
 /** Handles the persisting of new users */
@@ -20,6 +25,9 @@ public class SignupService {
 
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	MessageDao messageDao;
 
 	/** Handles persisting a new user to the database. */
 	@Transactional
@@ -47,7 +55,7 @@ public class SignupService {
 		role.setUser(user);
 		userRoles.add(role);
 		user.setUserRoles(userRoles);
-
+		
 		userDao.save(user);
 	}
 
@@ -62,4 +70,27 @@ public class SignupService {
 	public boolean doesUserWithUsernameExist(String username) {
 		return userDao.findByUsername(username) != null;
 	}
+	@Transactional
+	public void sendWelcomeMessage(User user) {
+		Date now = new Date();
+		Message message = new Message();
+		message.setSubject("Welcome");
+		message.setText(getAlertText());
+		message.setSender(userDao.findByUsername("System"));
+		message.setRecipient(user);
+		message.setState(MessageState.UNREAD);
+		message.setDateSent(now);
+		messageDao.save(message);
+		
+	}
+	
+	private String getAlertText() {
+		return "Welcome to FlatFindr!"
+				+ "<br><br>Thank you for using our Website"
+				+ "<br>Have fun looking around and do not hesitate to contact us "
+				+ "when you have question!"
+				+ "<br><br>Have a nice day"
+				+ "<br><br>Your FlatFindr crew";
+	}
+	
 }

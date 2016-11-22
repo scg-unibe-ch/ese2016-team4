@@ -96,7 +96,9 @@ public class EditAdController {
 			BindingResult result, Principal principal,
 			RedirectAttributes redirectAttributes, @RequestParam long adId) {
 		ModelAndView model = new ModelAndView("placeAd");
+
 		if (!result.hasErrors()) {
+			
 			String username = principal.getName();
 			User user = userService.findUserByUsername(username);
 
@@ -116,8 +118,20 @@ public class EditAdController {
 			model = new ModelAndView("redirect:/ad?id=" + ad.getId());
 			redirectAttributes.addFlashAttribute("confirmationMessage",
 					"Ad edited successfully. You can take a look at it below.");
-		}else {
-			model = new ModelAndView("editAd");
+		}
+		
+		else {
+			String username = principal.getName();
+			User user = userService.findUserByUsername(username);
+
+			String realPath = servletContext.getRealPath(IMAGE_DIRECTORY);
+			if (pictureUploader == null) {
+				pictureUploader = new PictureUploader(realPath, IMAGE_DIRECTORY);
+			}
+			List<String> fileNames = pictureUploader.getFileNames();
+			Ad ad = editAdService.saveFrom(placeAdForm, fileNames, user, adId);
+			model = new ModelAndView("redirect:/profile/editAd?id=" + ad.getId());
+			//model = new ModelAndView("editAd");
 		}
 
 		return model;

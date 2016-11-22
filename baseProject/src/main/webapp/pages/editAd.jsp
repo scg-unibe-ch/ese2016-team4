@@ -314,9 +314,9 @@
 		</c:when>
 		<c:when test="${ad.getSellType() == 2}">
 			<tr>
-				<td><label for="field-street"s>Street</label></td>
+				<td><label for="field-street">Street</label></td>
 				<td><label for="field-city">City / Zip code</label></td>
-				<td><label for="field-PrizeBuy" class="startOffer" hidden="true">Start offer</label></td>
+				<td><label for="field-PrizeBuy" id="startOffer" hidden="true">Start offer</label></td>
 			</tr>
 
 			<tr>
@@ -370,14 +370,17 @@
 		</c:when>
 		<c:when test="${ad.getSellType() == 3}">
 			<tr>
-				<td><label for="field-street"s>Street</label></td>
+				<td><label for="field-street">Street</label></td>
 				<td><label for="field-city">City / Zip code</label></td>
+				<td><label for="field-startOffer" id="startOffer">Start offer</label></td>
+				<!--
 				<c:if test="${!hasBid}">
-					<td><label for="field-PrizeBuy" style="display:true" id="startOffer">Start offer</label></td>
+					<td><label for="field-startOffer" hidden="false" id="startOffer">Start offer</label></td>
 				</c:if>
 				<c:if test="${hasBid}">
-					<td><label for="field-PrizeBuy" style="display:none" id="startOffer">Start offer</label></td>
+					<td><label for="field-startOffer" hidden="true" id="startOffer">Start offer</label></td>
 				</c:if>
+				-->
 			</tr>
 
 			<tr>
@@ -386,15 +389,26 @@
 					<form:errors path="street" cssClass="validationErrorText" /></td>
 				<td><form:input id="field-city" path="city" placeholder="${ad.city}" />
 					<form:errors path="city" cssClass="validationErrorText" /></td>
+					<c:choose>
+					<c:when test="${!hasBid}">
+						<td><form:input id="field-startOffer" type="number" path="startOffer"
+								placeholder="Start Offer" step="50" />
+					</c:when>
+					<c:otherwise>
+						<td><label for="field-startOffer" id="field-startOffer">Someone already placed a bid!</label><td>
+					</c:otherwise>
+					</c:choose>
+					<!--
 					<c:if test="${!hasBid}">
-						<td><form:input id="field-startOffer" type="number" style="display:true" path="startOffer"
+						<td><form:input id="field-startOffer" type="number" hidden="false" path="startOffer"
 								placeholder="Start offer" step="50" /> 
 							<form:errors path="startOffer" cssClass="validationErrorText" /></td>
 					</c:if>
 					<c:if test="${hasBid}">
-						<td><form:input id="field-startOffer" type="number" style="display:none" path="startOffer"
+						<td><form:input id="field-startOffer" type="number" hidden="true" path="startOffer"
 							placeholder="Start offer" step="50" /> </td>
 					</c:if>
+					-->
 
 			</tr>
 
