@@ -134,6 +134,60 @@ $(document).ready( function() {
 	});
 </script>
 
+<script>
+function updateType() {
+		if(document.getElementById("myselect").value == 3) {
+			$('#field-moveInDate').val(null);
+			document.getElementById("auctionEndDate").hidden = false;
+			document.getElementById("field-auctionEndDate").hidden = false;
+			document.getElementById("moveInDate").hidden = true;
+			document.getElementById("moveOutDate").hidden = true;							
+			document.getElementById("prize").hidden = true;
+			document.getElementById("prizeOfSale").hidden = true;
+			document.getElementById("startOffer").hidden = false;
+			document.getElementById("field-moveInDate").hidden = true;
+			document.getElementById("field-moveOutDate").hidden = true;
+			document.getElementById("field-Prize").hidden = true;
+			document.getElementById("field-PrizeOfSale").hidden = true;
+			document.getElementById("field-startOffer").hidden = false;
+		} else if(document.getElementById("myselect").value == 2) {
+			$('#field-moveInDate').val(null);
+			$('#field-auctionEndDate').val(null);
+			document.getElementById("auctionEndDate").hidden = true;
+			document.getElementById("field-auctionEndDate").hidden = true;
+			document.getElementById("moveInDate").hidden = true;
+			document.getElementById("moveOutDate").hidden = true;							
+			document.getElementById("prize").hidden = true;
+			document.getElementById("prizeOfSale").hidden = false;
+			document.getElementById("startOffer").hidden = true;
+			document.getElementById("field-moveInDate").hidden = true;
+			document.getElementById("field-moveOutDate").hidden = true;
+			document.getElementById("field-Prize").hidden = true;
+			document.getElementById("field-PrizeOfSale").hidden = false;
+			document.getElementById("field-startOffer").hidden = true;
+		} else {
+			$('#field-auctionEndDate').val(null);
+			document.getElementById("auctionEndDate").hidden = true;
+			document.getElementById("field-auctionEndDate").hidden = true;
+			document.getElementById("moveInDate").hidden = false;
+			document.getElementById("moveOutDate").hidden = false;							
+			document.getElementById("prize").hidden = false;
+			document.getElementById("prizeOfSale").hidden = true;
+			document.getElementById("startOffer").hidden = true;
+			document.getElementById("field-moveInDate").hidden = false;
+			document.getElementById("field-moveOutDate").hidden = false;
+			document.getElementById("field-Prize").hidden = false;
+			document.getElementById("field-PrizeOfSale").hidden = true;
+			document.getElementById("field-startOffer").hidden = true;
+		}
+}
+
+$('document').ready(function(){
+	document.getElementById('myselect').onchange = updateType;
+});
+window.onload = updateType;
+</script>
+
 <pre>
 	<a href="/">Home</a>   &gt;   Place ad</pre>
 
@@ -161,59 +215,7 @@ $(document).ready( function() {
 				
 				<td><form:errors path="sellType" cssClass="validationErrorText" /></td>
 
-				<script>
-					document.getElementById("myselect").onchange = function() {
-						if(document.getElementById("myselect").value == 3) {
-							$('#field-moveInDate').val(null);
-							document.getElementById("auctionEndDate").hidden = false;
-							document.getElementById("field-auctionEndDate").hidden = false;
-							document.getElementById("moveInDate").hidden = true;
-							document.getElementById("moveOutDate").hidden = true;							
-							document.getElementById("prize").hidden = true;
-							document.getElementById("prizeOfSale").hidden = true;
-							document.getElementById("startOffer").hidden = false;
-							document.getElementById("field-moveInDate").hidden = true;
-							document.getElementById("field-moveOutDate").hidden = true;
-							document.getElementById("field-Prize").hidden = true;
-							document.getElementById("field-PrizeOfSale").hidden = true;
-							document.getElementById("field-startOffer").hidden = false;
-
-
-
-						} else if(document.getElementById("myselect").value == 2) {
-							$('#field-moveInDate').val(null);
-							$('#field-auctionEndDate').val(null);
-							document.getElementById("auctionEndDate").hidden = true;
-							document.getElementById("field-auctionEndDate").hidden = true;
-							document.getElementById("moveInDate").hidden = true;
-							document.getElementById("moveOutDate").hidden = true;							
-							document.getElementById("prize").hidden = true;
-							document.getElementById("prizeOfSale").hidden = false;
-							document.getElementById("startOffer").hidden = true;
-							document.getElementById("field-moveInDate").hidden = true;
-							document.getElementById("field-moveOutDate").hidden = true;
-							document.getElementById("field-Prize").hidden = true;
-							document.getElementById("field-PrizeOfSale").hidden = false;
-							document.getElementById("field-startOffer").hidden = true;
-
-						} else {
-							$('#field-auctionEndDate').val(null);
-							document.getElementById("auctionEndDate").hidden = true;
-							document.getElementById("field-auctionEndDate").hidden = true;
-							document.getElementById("moveInDate").hidden = false;
-							document.getElementById("moveOutDate").hidden = false;							
-							document.getElementById("prize").hidden = false;
-							document.getElementById("prizeOfSale").hidden = true;
-							document.getElementById("startOffer").hidden = true;
-							document.getElementById("field-moveInDate").hidden = false;
-							document.getElementById("field-moveOutDate").hidden = false;
-							document.getElementById("field-Prize").hidden = false;
-							document.getElementById("field-PrizeOfSale").hidden = true;
-							document.getElementById("field-startOffer").hidden = true;
-						}
-					};
-							
-				</script>
+				
 				
 			</tr>
 
