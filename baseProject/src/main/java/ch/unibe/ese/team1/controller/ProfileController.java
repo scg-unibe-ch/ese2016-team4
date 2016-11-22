@@ -104,7 +104,7 @@ public class ProfileController {
 		String username = principal.getName();
 		User user = userService.findUserByUsername(username);
 		if (!bindingResult.hasErrors()) {
-			userUpdateService.updateFrom(editProfileForm);
+			userUpdateService.updateFrom(editProfileForm, username);
 			model = new ModelAndView("updatedProfile");
 			model.addObject("message", "Your Profile has been updated!");
 			model.addObject("currentUser", user);
