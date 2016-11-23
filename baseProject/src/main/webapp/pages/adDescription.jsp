@@ -522,17 +522,23 @@ $(function(){
 							</td>
 						</tr>
 						<tr>
-							<td>Your Bid:</td>
-							<td colspan="2">
-								<c:choose> 
-									<c:when test="${bidService.getMyBid(loggedInUserEmail,shownAd.getId())==-1}">
-										You haven't made a bid yet
+							<c:choose> 
+									<c:when test="${loggedInUserEmail == shownAd.user.username }">
 									</c:when>
+									<c:when test="${bidService.getMyBid(loggedInUserEmail,shownAd.getId())==-1}">
+										<td>Your Bid:</td>
+											<td colspan="2">
+												You haven't made a bid yet
+											</td>
+									</c:when>
+									
 									<c:otherwise>
-										${bidService.getMyBid(loggedInUserEmail,shownAd.getId())} CHF
+										<td>Your Bid:</td>
+											<td colspan="2">
+												${bidService.getMyBid(loggedInUserEmail,shownAd.getId())} CHF
+											</td>
 									</c:otherwise>
-								</c:choose>
-							</td>
+							</c:choose>
 						</tr>
 
 					</table>
