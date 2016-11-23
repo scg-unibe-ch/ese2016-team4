@@ -1,6 +1,6 @@
 #Usability Testing Tasks
 
-The customer has to think aloud i.d. he has to say what he is doing.
+The customer has to think aloud i.e. he has to say what he is doing.
 
 ##Scenario 1
 You will work in switzerland for the next years. Not long ago you received an heritage. Therefore you search for a house. A friend proposed you the page localhost:8080 :). You load that page and you search for an auction of a house because you like the auction thrill and you place the lowest possible bid.

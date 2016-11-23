@@ -4,7 +4,7 @@
 
 Steps| |
 --------|-------
-1.	| search if a house exists with bidding
+1.	| search if a house exists where you can place a bid
 2. | create a new user because only users can place a bid
 3. | go to the ad you want
 4. | try to place a bid with the lowest possible digit
