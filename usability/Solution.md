@@ -30,3 +30,12 @@ Steps| |
 2. | go to messages
 3. | open the message from john wayne
 4. | copy the link and put it in a new tab
+
+###Steps - Scenario 4
+Steps| |
+--------|-------|
+1. | login as ese@unibe.ch with password ese
+2. | go to place an ad
+3. | fill in the form and click on submit
+4. | click on edit ad
+5. | fill in the form correctly and click on submit
