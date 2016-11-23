@@ -1,3 +1,4 @@
+
 #Usability Testing Tasks
 
 The customer has to think aloud i.e. he has to say what he is doing.
@@ -12,3 +13,7 @@ You send her the link of the results in a message on flatfindr.
 
 ##Scenario 3
 Your best friend John Wayne told you he sent you the link of interesting ads in a message on your most beloved page flatfindr. Log in (jane@doe.com | password) and check your message inbox. Open the message from John Wayne and open the link in a new tab.
+
+##Scenario 4
+You live in an apartment in Berne - 3000 at Sidlerstrasse 5 with 3 friends and you are the main tenant. Hans was always unreliable. Now Hans wants to move out in three days to live in the forest. You need to find a new roomer now. Therefore you go on the page where you found your current apartment to offer Hans's room. The page is localhost:8080 and you remember your login (ese@unibe.ch | ese). The Move-in-Date is tomorrow, the sqm are 12 and the price is 560. Smoking is allowed but you don't like animals (not at all).
+You create the ad and remember that you forgot about your Balcony. So you edit the ad by adding the balcony.
