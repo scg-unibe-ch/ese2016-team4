@@ -16,4 +16,4 @@ Your best friend John Wayne told you he sent you the link of interesting ads in 
 
 ##Scenario 4
 You live in an apartment in Berne - 3000 at Sidlerstrasse 5 with 3 friends and you are the main tenant. Hans was always unreliable. Now Hans wants to move out in three days to live in the forest. You need to find a new roomer now. Therefore you go on the page where you found your current apartment to offer Hans's room. The page is localhost:8080 and you remember your login (ese@unibe.ch | ese). The Move-in-Date is tomorrow, the sqm are 12 and the price is 560. Smoking is allowed but you don't like animals (not at all).
-You create the ad and remember that you forgot about your Balcony. So you edit the ad by adding the balcony.
+While reviewing your new ad you see that you forgot about your Balcony. So you edit the ad by adding the balcony.
