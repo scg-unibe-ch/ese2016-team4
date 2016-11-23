@@ -90,6 +90,9 @@ function sort_div_attribute() {
 	});
 </script>
 
+<script>
+document.getElementById('enableMaps').checked;
+</script>
 
 <h1>Search results:</h1>
 
@@ -107,6 +110,27 @@ function sort_div_attribute() {
 </select>
 
 <button onClick="sort_div_attribute()">Sort</button>
+
+	<!-- Rounded switch -->
+	<label class="switch">
+  	<input type="checkbox" id="enableMaps">
+  	<div class="slider round"></div>
+	</label>
+	<c:choose>
+	<c:when test="true">
+	<table>
+	<tr>
+		<th>Coordinates of valid results:</th>
+	</tr>
+	<c:forEach var="coord" items="${coords}">
+	<tr>
+		<td>${coord}</td>
+		<td>${bid.bid}</td>
+	</tr>
+	</c:forEach>
+	</table>
+	</c:when>
+	</c:choose>
 </div>
 <c:choose>
 	<c:when test="${empty results}">
@@ -164,6 +188,7 @@ function sort_div_attribute() {
 	id="filterForm" autocomplete="off">
 
 	<div id="filterDiv">
+	
 		<h2>Filter results:</h2>
 
 		<table>
