@@ -19,7 +19,7 @@ Steps| |
 3. | search for studio and rooms with saletype rent and maxprize 700 and radius 500000
 4. | copy the link of the result page
 5. | go to your messages
-6. | create a new on
+6. | create a new one
 7. | send a message to jane@doe.com with the link
 
 
