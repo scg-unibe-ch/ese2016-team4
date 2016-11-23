@@ -594,7 +594,7 @@
 
 		</table>
 		<br />
-		<form:textarea path="roomDescription" rows="10" cols="100" value="${ad.roomDescription}" />
+		<form:textarea path="roomDescription" rows="10" cols="100" required="required" value="${ad.roomDescription}" />
 		<form:errors path="roomDescription" cssClass="validationErrorText" />
 	</fieldset>
 
@@ -627,7 +627,7 @@
 
 		<p>Edit the description of the roommates:</p>
 		<br />
-		<form:textarea path="roommates" rows="10" cols="100"
+		<form:textarea path="roommates" rows="10" cols="100" 
 			placeholder="Roommates" />
 		<form:errors path="roommates" cssClass="validationErrorText" />
 		<hr />
