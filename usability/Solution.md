@@ -21,19 +21,12 @@ Steps| |
 5. | go to your messages
 6. | create a new on
 7. | send a message to jane@doe.com with the link
-8. | logout
-9. | login as jane@doe.com with password password
-10. | go to messages
-11. | open the message from john wayne
-12. | copy the link and put it in a new tab
+
 
 ###Steps - Scenario 3
 Steps| |
 --------|-------|
-1. |
-2. |
-3. |
-4. |
-5. |
-6. |
-7. |
+1. | login as jane@doe.com with password password
+2. | go to messages
+3. | open the message from john wayne
+4. | copy the link and put it in a new tab
