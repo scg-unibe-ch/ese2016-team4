@@ -536,7 +536,7 @@ public class AdService {
 			String adAddress = id + " " + currAd.getStreet() +" "+ currAd.getZipcode() + " CH";
 			addresses.add(adAddress);	
 		}
-		GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyD_MphjKA6L3_kzkMc_t2RGOnJbLXA5vZM");
+		GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyCdNwB8auysJ8k7gqiKOpLwFyV2L7iBneo");
 		for(String currAddress : addresses){
 			GeocodingResult[] result = null;
 			double latitude;

@@ -68,7 +68,7 @@ public class AdTestDataSaver {
 		Date moveOutDate5 = formatter.parse("30.09.2018");
 		Date moveOutDate6 = formatter.parse("10.11.2018");
 		
-		Date auctionEndDate1 = formatterTime.parse("30.11.2016, 15:21:44");
+		Date auctionEndDate1 = formatterTime.parse("30.12.2016, 15:21:44");
 		
 		String roomDescription1 = "The room is a part of 3.5 rooms apartment completely renovated"
 				+ "in 2010 at Kramgasse, Bern. The apartment is about 50 m2 on 1st floor."
@@ -144,7 +144,7 @@ public class AdTestDataSaver {
 		adBern2.setRoommates("None");
 		adBern2.setUser(ese);
 		adBern2.setTitle("Cheap studio in Bern!");
-		adBern2.setStreet("Längassstr. 40");
+		adBern2.setStreet("Länggassstrasse 40");
 		adBern2.setCity("Bern");
 		adBern2.setGarden(false);
 		adBern2.setBalcony(false);
@@ -173,7 +173,7 @@ public class AdTestDataSaver {
 		String roomPreferences3 = "smoking female flatmate";
 		
 		Ad adBasel = new Ad();
-		adBasel.setZipcode(4051);
+		adBasel.setZipcode(4053);
 		adBasel.setMoveInDate(moveInDate3);
 		adBasel.setMoveOutDate(moveOutDate2);
 		adBasel.setCreationDate(creationDate3);
@@ -333,7 +333,7 @@ public class AdTestDataSaver {
 				+ "eat and cook together and go out in the evenings.";
 
 		Ad adZurich = new Ad();
-		adZurich.setZipcode(8000);
+		adZurich.setZipcode(8001);
 		adZurich.setMoveInDate(moveInDate7);
 		adZurich.setCreationDate(creationDate7);
 		adZurich.setMoveOutDate(moveOutDate5);
@@ -348,7 +348,7 @@ public class AdTestDataSaver {
 		adZurich.setRoommates("One roommate");
 		adZurich.setUser(oprah);
 		adZurich.setTitle("Roommate wanted in Zürich");
-		adZurich.setStreet("Hauptstrasse 61");
+		adZurich.setStreet("Lintheschergasse 21");
 		adZurich.setCity("Zürich");
 		adZurich.setGarden(false);
 		adZurich.setBalcony(true);
@@ -380,7 +380,7 @@ public class AdTestDataSaver {
 				+ "Non smoker preferred.";
 		
 		Ad adLuzern = new Ad();
-		adLuzern.setZipcode(6000);
+		adLuzern.setZipcode(6004);
 		adLuzern.setMoveInDate(moveInDate8);
 		adLuzern.setCreationDate(creationDate2);
 		adLuzern.setPrizePerMonth(700);
@@ -394,7 +394,7 @@ public class AdTestDataSaver {
 		adLuzern.setRoommates("None");
 		adLuzern.setUser(oprah);
 		adLuzern.setTitle("Elegant Studio in Lucerne");
-		adLuzern.setStreet("Schwanenplatz 61");
+		adLuzern.setStreet("Schweizerhofquai 1");
 		adLuzern.setCity("Luzern");
 		adLuzern.setGarden(false);
 		adLuzern.setBalcony(false);
@@ -438,7 +438,7 @@ public class AdTestDataSaver {
 		adAarau.setRoommates("None");
 		adAarau.setUser(oprah);
 		adAarau.setTitle("Beautiful studio in Aarau");
-		adAarau.setStreet("Bruderholzstrasse 32");
+		adAarau.setStreet("Jurastrasse 9");
 		adAarau.setCity("Aarau");
 		adAarau.setGarden(false);
 		adAarau.setBalcony(true);
@@ -467,7 +467,7 @@ public class AdTestDataSaver {
 		String roomPreferences10 = "an easy going flatmate man or woman between 20 and 30";
 		
 		Ad adDavos = new Ad();
-		adDavos.setZipcode(7260);
+		adDavos.setZipcode(7270);
 		adDavos.setMoveInDate(moveInDate2);
 		adDavos.setCreationDate(creationDate4);
 		adDavos.setPrizePerMonth(1100);
@@ -481,7 +481,7 @@ public class AdTestDataSaver {
 		adDavos.setRoommates("One roommate");
 		adDavos.setUser(oprah);
 		adDavos.setTitle("Free room in Davos City");
-		adDavos.setStreet("Kathrinerweg 5");
+		adDavos.setStreet("Scalettastrasse 8");
 		adDavos.setCity("Davos");
 		adDavos.setGarden(false);
 		adDavos.setBalcony(true);
@@ -505,7 +505,7 @@ public class AdTestDataSaver {
 		String roomPreferences11 = "tout le monde est bienvenu";
 		
 		Ad adLausanne = new Ad();
-		adLausanne.setZipcode(1000);
+		adLausanne.setZipcode(1004);
 		adLausanne.setMoveInDate(moveInDate5);
 		adLausanne.setMoveOutDate(moveOutDate3);
 		adLausanne.setCreationDate(creationDate5);
@@ -520,7 +520,7 @@ public class AdTestDataSaver {
 		adLausanne.setRoommates("None");
 		adLausanne.setUser(oprah);
 		adLausanne.setTitle("Studio extrèmement bon marché à Lausanne");
-		adLausanne.setStreet("Rue de l'Eglise 26");
+		adLausanne.setStreet("Avenue Recordon 46");
 		adLausanne.setCity("Lausanne");
 		adLausanne.setGarden(true);
 		adLausanne.setBalcony(false);
@@ -558,7 +558,7 @@ public class AdTestDataSaver {
 		adLocarno.setRoommates("None");
 		adLocarno.setUser(jane);
 		adLocarno.setTitle("Malibu-style Beachhouse");
-		adLocarno.setStreet("Kirchweg 12");
+		adLocarno.setStreet("Via Giovanni Antonio Orelli 14");
 		adLocarno.setCity("Locarno");
 		adLocarno.setGarden(false);
 		adLocarno.setBalcony(false);

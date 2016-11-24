@@ -106,32 +106,20 @@ $('document').ready(function(){
 window.onload = updateType;
 </script>
 
+<%-- Script for the API key --%>
 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_MphjKA6L3_kzkMc_t2RGOnJbLXA5vZM&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdNwB8auysJ8k7gqiKOpLwFyV2L7iBneo&callback=initMap">
 </script>
 
+<%-- Main script for the google map --%>
 <script>
 var coordinates = new Array();
+
 <c:forEach var="coord" items="${coords}">
 	coordinates.push("${coord}");
 </c:forEach>
 
 var arrayLength = coordinates.length;
-var id;
-var latitude;
-var longitude;
-
-for (var i = 0; i < arrayLength; i++) {
-    //document.write(coordinates[i]+"| ");
-    var splitCoords = coordinates[i].split(" ");
-    document.write(splitCoords[0] + splitCoords[1] + splitCoords[2] + "_____");
-}
-
-
-/*for (var i = 0; i < arrayLength; i++) {
-    id = coordinates[i].substring(3, 5);
-    latitude = coordinates[i].substring(3, 5);
-}*/
 
 var infowindow = null;
 function initMap() {
@@ -140,6 +128,7 @@ function initMap() {
 		//this is the center of switzerland (älgialp, 6072 sachseln)
 		center: {lat: 46.801111, lng: 8.226667}
 	});
+    //content gets overwritten for each new marker later
     infowindow = new google.maps.InfoWindow({
 	    content: "couldnt load info"
 	});
@@ -147,7 +136,7 @@ function initMap() {
     for (var i = 0; i < arrayLength; i++) {
     	var splitCoords = coordinates[i].split(" ");
     	
-    	var content = splitCoords[0];
+    	var content = "<a href='ad?id="+splitCoords[0]+"'>"+splitCoords[0]+"</a>";
     	var latitude = parseFloat(splitCoords[1]);
     	var longitude = parseFloat(splitCoords[2]);
     	
@@ -156,14 +145,16 @@ function initMap() {
 			map: map
 		});
 		
+		//eventlistener for the marker, so the infowindow gets openend when clicked on
 		google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
 		    return function() {
 		        infowindow.setContent(content);
 		        infowindow.open(map,marker);
 		    };
-		})(marker,content,infowindow));  
+		})(marker,content,infowindow));
 	}
 }
+
 </script>
 
 <h1>Search results:</h1>
@@ -239,16 +230,6 @@ function initMap() {
 			</c:forEach>
 		</div>
 		<div id="resultsDivMaps">
-			<table>
-				<tr>
-					<th>Coordinates of valid results:</th>
-				</tr>
-				<c:forEach var="coord" items="${coords}">
-				<tr>
-					<td>${coord}</td>
-				</tr>
-				</c:forEach>
-			</table>
     		<div id="map"></div>		 
 		</div>
 	</c:otherwise>
