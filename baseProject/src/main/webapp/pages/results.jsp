@@ -122,12 +122,11 @@ window.onload = updateType;
 </select>
 
 <button onClick="sort_div_attribute()">Sort</button>
-
-	<!-- Rounded switch -->
-	<label class="switch">
-  	<input type="checkbox" id="enableMaps">
-  	<div class="slider round"></div>
-	</label>
+	
+<label class="switch">
+  <input type="checkbox" id="enableMaps">
+  <div class="slider round"></div>
+</label>
 	
 </div>
 <c:choose>
