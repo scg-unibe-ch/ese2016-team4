@@ -5,7 +5,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
 <c:import url="template/header.jsp" />
 <pre><a href="/">Home</a>   &gt;   <a href="/searchAd/">Search</a>   &gt;   Results</pre>
 
@@ -91,7 +90,20 @@ function sort_div_attribute() {
 </script>
 
 <script>
-document.getElementById('enableMaps').checked;
+function updateType() {
+	if(document.getElementById("enableMaps").checked){
+		document.getElementById("resultsDiv").hidden = true;
+		document.getElementById("resultsDivMaps").hidden = false;
+	}else{
+		document.getElementById("resultsDiv").hidden = false;
+		document.getElementById("resultsDivMaps").hidden = true;
+	}
+}
+
+$('document').ready(function(){
+	document.getElementById('enableMaps').onchange = updateType;
+});
+window.onload = updateType;
 </script>
 
 <h1>Search results:</h1>
@@ -116,21 +128,7 @@ document.getElementById('enableMaps').checked;
   	<input type="checkbox" id="enableMaps">
   	<div class="slider round"></div>
 	</label>
-	<c:choose>
-	<c:when test="true">
-	<table>
-	<tr>
-		<th>Coordinates of valid results:</th>
-	</tr>
-	<c:forEach var="coord" items="${coords}">
-	<tr>
-		<td>${coord}</td>
-		<td>${bid.bid}</td>
-	</tr>
-	</c:forEach>
-	</table>
-	</c:when>
-	</c:choose>
+	
 </div>
 <c:choose>
 	<c:when test="${empty results}">
@@ -180,6 +178,38 @@ document.getElementById('enableMaps').checked;
 					</div>
 				</div>
 			</c:forEach>
+		</div>
+		<div id="resultsDivMaps">
+			<table>
+				<tr>
+					<th>Coordinates of valid results:</th>
+				</tr>
+				<c:forEach var="coord" items="${coords}">
+				<tr>
+					<td>${coord}</td>
+					<td>${bid.bid}</td>
+				</tr>
+				</c:forEach>
+			</table>
+			
+			
+			<div id="map"></div>
+    		<script type="text/javascript">
+
+			var map;
+			function initMap() {
+  			map = new google.maps.Map(document.getElementById('map'), {
+    		center: {lat: -34.397, lng: 150.644},
+    		zoom: 8
+  			});
+			}
+
+    		</script>
+    		<script async defer
+    		  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_MphjKA6L3_kzkMc_t2RGOnJbLXA5vZM&callback=initMap">
+   			 </script>
+   			 
+   			 
 		</div>
 	</c:otherwise>
 </c:choose>

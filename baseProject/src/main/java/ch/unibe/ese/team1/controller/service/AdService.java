@@ -528,8 +528,12 @@ public class AdService {
 	public Iterable<String> findCoords(Iterable<Ad> ads){
 		List<String> addresses = new ArrayList<>();
 		List<String> coords = new ArrayList<>();
+		//List<String> ids = new ArrayList<>();
 		for(Ad currAd : ads){
-			String adAddress = currAd.getStreet() +" "+ currAd.getZipcode() + " CH";
+			String id = Long.toString(currAd.getId());
+			//ids.add(id);
+			if(currAd.getId() < 10) id = "0" + id; 
+			String adAddress = "id:" + id + " " + currAd.getStreet() +" "+ currAd.getZipcode() + " CH";
 			addresses.add(adAddress);	
 		}
 		GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyD_MphjKA6L3_kzkMc_t2RGOnJbLXA5vZM");
@@ -537,10 +541,10 @@ public class AdService {
 			GeocodingResult[] result = null;
 			double latitude;
 			double longitude;
-			
+			String currAddressNoId = currAddress.substring(6);
 			try {
 				result =   GeocodingApi.geocode(context,
-					    currAddress).await();
+					    currAddressNoId).await();
 			} catch (Exception e) {
 				//to be done
 			}
@@ -548,7 +552,7 @@ public class AdService {
 			if(result.length > 0 && result[0] != null && !result[0].partialMatch){
 				latitude = result[0].geometry.location.lat;
 				longitude = result[0].geometry.location.lng;
-				String coordString = latitude + " " + longitude;
+				String coordString = currAddress.substring(0, 6) + "coords:" +latitude + " " + longitude;
 				System.out.println(coordString);
 				coords.add(coordString);
 			}
