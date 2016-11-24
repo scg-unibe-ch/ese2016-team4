@@ -495,7 +495,7 @@ footer nav ul li {
 
 #searchDiv {
 	margin-left: auto;
-        margin-right: auto;
+    margin-right: auto;
 	width: 35%;
 	margin-top: 30px;
 	padding: 10px;
@@ -504,6 +504,59 @@ footer nav ul li {
 	border-color: #2dc16d;
 	border-width: 3px;
 	border-radius: 10px;
+}
+
+/* -------------------------------------------------------------------- */
+/* index.jsp */
+#indexDiv {
+	margin-left: auto;
+    margin-right: auto;
+	width: 30%;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	padding: 20px;
+	border-color: #2dc16d;
+	border-width: 5px;
+	border-radius: 10px;
+	background-color: #F3FAF7;
+	border-style: outset;
+}
+
+
+.buttonDiv{
+	margin-top:10px;
+	margin-left:70px;
+
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #ffffff;
+	padding: 8px 15px;
+	background: -moz-linear-gradient(
+		top,
+		#bfffce 0%,
+		#0d782a 25%,
+		#4ffa46);
+	background: -webkit-gradient(
+		linear, left top, left bottom,
+		from(#bfffce),
+		color-stop(0.25, #0d782a),
+		to(#4ffa46));
+	-moz-border-radius: 30px;
+	-webkit-border-radius: 30px;
+	border-radius: 30px;
+	border: 3px solid #93a7bf;
+	-moz-box-shadow:
+		0px 3px 11px rgba(000,000,000,0.5),
+		inset 0px 0px 1px rgba(115,255,0,1);
+	-webkit-box-shadow:
+		0px 3px 11px rgba(000,000,000,0.5),
+		inset 0px 0px 1px rgba(115,255,0,1);
+	box-shadow:
+		0px 3px 11px rgba(000,000,000,0.5),
+		inset 0px 0px 1px rgba(115,255,0,1);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,0.3),
+		0px 1px 0px rgba(255,255,255,0.3);
 }
 
 
