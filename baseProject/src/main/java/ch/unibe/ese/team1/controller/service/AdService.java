@@ -533,7 +533,7 @@ public class AdService {
 			String id = Long.toString(currAd.getId());
 			//ids.add(id);
 			if(currAd.getId() < 10) id = "0" + id; 
-			String adAddress = "id:" + id + " " + currAd.getStreet() +" "+ currAd.getZipcode() + " CH";
+			String adAddress = id + " " + currAd.getStreet() +" "+ currAd.getZipcode() + " CH";
 			addresses.add(adAddress);	
 		}
 		GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyD_MphjKA6L3_kzkMc_t2RGOnJbLXA5vZM");
@@ -541,7 +541,7 @@ public class AdService {
 			GeocodingResult[] result = null;
 			double latitude;
 			double longitude;
-			String currAddressNoId = currAddress.substring(6);
+			String currAddressNoId = currAddress.substring(3);
 			try {
 				result =   GeocodingApi.geocode(context,
 					    currAddressNoId).await();
@@ -552,7 +552,7 @@ public class AdService {
 			if(result.length > 0 && result[0] != null && !result[0].partialMatch){
 				latitude = result[0].geometry.location.lat;
 				longitude = result[0].geometry.location.lng;
-				String coordString = currAddress.substring(0, 6) + "coords:" +latitude + " " + longitude;
+				String coordString = currAddress.substring(0, 2) + " " +latitude + " " + longitude;
 				System.out.println(coordString);
 				coords.add(coordString);
 			}
