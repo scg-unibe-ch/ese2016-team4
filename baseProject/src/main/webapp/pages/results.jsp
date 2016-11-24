@@ -106,6 +106,24 @@ $('document').ready(function(){
 window.onload = updateType;
 </script>
 
+<script>
+function initMap() {
+    var uluru = {lat: 46.936166, lng: 7.7860928};
+    var map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 8,
+		center: uluru
+	});
+	var marker = new google.maps.Marker({
+	position: uluru,
+		map: map
+	});
+}
+</script>
+    
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_MphjKA6L3_kzkMc_t2RGOnJbLXA5vZM&callback=initMap">
+</script>
+
 <h1>Search results:</h1>
 
 <hr />
@@ -190,7 +208,7 @@ window.onload = updateType;
 				</tr>
 				</c:forEach>
 			</table>
-   			 
+    		<div id="map"></div>		 
 		</div>
 	</c:otherwise>
 </c:choose>

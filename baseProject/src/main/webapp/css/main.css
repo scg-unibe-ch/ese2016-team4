@@ -609,6 +609,12 @@ footer nav ul li {
 
 /* -------------------------------------------------------------------- */
 /* results.jsp */
+#map {
+        width: 100%;
+        height: 400px;
+        background-color: grey;
+}
+      
 #resultTable {
 	border-radius: 5px;
 	background-color: #2dc16d;
@@ -669,6 +675,12 @@ footer nav ul li {
 	border-color: #2dc16d;
 	border-width: 3px;
 	border-radius: 10px;
+}
+
+#resultsDivMaps {
+	width: 65%;
+	margin-top: 10px;
+	float: left;
 }
 
 #resultsDiv div:first-child {
