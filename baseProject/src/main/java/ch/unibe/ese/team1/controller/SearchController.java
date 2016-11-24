@@ -85,7 +85,7 @@ public class SearchController {
 	 * Gets the results when filtering the ads in the database by the parameters
 	 * in the search form.
 	 */
-	@RequestMapping(value = "/results", method = {RequestMethod.POST})
+	@RequestMapping(value = "/results", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView results(@Valid SearchForm searchForm,
 			BindingResult result) {
 		if (!result.hasErrors()) {
