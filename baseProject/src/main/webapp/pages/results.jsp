@@ -173,7 +173,7 @@ function initMap() {
 </select>
 
 <button onClick="sort_div_attribute()">Sort</button>
-	
+
 <label class="switch">
   <input type="checkbox" id="enableMaps">
   <div class="slider round"></div>
