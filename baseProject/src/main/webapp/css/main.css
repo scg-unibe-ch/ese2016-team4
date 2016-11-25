@@ -173,7 +173,8 @@ button {
 
 /* The switch - the box around the slider */
 .switch {
-  margin-left: 36%;
+  float: right;
+  margin-right: 35%;
   position: relative;
   display: inline-block;
   width: 65px;
@@ -206,7 +207,7 @@ button {
   width: 20px;
   left: 4px;
   bottom: 4px;
-  background-color: #E84242;
+  background-color: #ccc;
   border-color: white;
   -webkit-transition: .4s;
   transition: .4s;
