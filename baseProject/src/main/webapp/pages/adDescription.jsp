@@ -32,6 +32,9 @@
     });
 	});
 
+  function clicked() {
+     confirm('Check under "Bidding (Auction)" on this page if your bid is placed!')
+  }
 </script>
 
 <script>
@@ -307,7 +310,7 @@ $(function(){
           <form:input type="number" min="1" value="${bidService.getNextBid(shownAd.getId())}"
             path="bid" placeholder="e.g. 150" step="1" />
 
-          <button type="submit" >Place bid</button>
+          <button type="submit" onclick="clicked();">Place bid</button>
 
   	</td>
    </tr>
