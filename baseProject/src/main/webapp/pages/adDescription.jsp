@@ -32,9 +32,6 @@
     });
 	});
 
-  function clicked() {
-     confirm('Check under "Bidding (Auction)" on this page if your bid is placed!')
-  }
 </script>
 
 <script>
@@ -210,7 +207,7 @@ function auctionTimer() {
 	var remaining_minutes = Math.floor((remaining/(1000*60))%60);
 	var remaining_seconds = Math.floor((remaining/(1000))%60);
 
-	if(document.getElementById('timeTilEnd') != null) {
+	if(remaining > 0) {
 		document.getElementById('timeTilEnd').innerHTML = "Remaining time: "
 		+ remaining_days + "d " + remaining_hours + "h " + remaining_minutes + "m " + remaining_seconds + "s";
 	} else {
@@ -287,7 +284,7 @@ $(function(){
 			id="bidForm" autocomplete="off">
   <table style="width: 100%; vertical-align: center;">
   <c:choose>
-	<c:when test="${shownAd.getSellType() == 3}">
+	<c:when test="${shownAd.getSellType() == 3 && shownAd.getFinished() == false}">
     <tr>
       <td style="text-indent:50px;"><img src="/img/test/auct_live.gif">
       </td>
@@ -303,9 +300,8 @@ $(function(){
 
 	</c:when>
 </c:choose>
-
  <c:choose>
-  <c:when test="${shownAd.getSellType() == 3 && loggedIn}">
+  <c:when test="${shownAd.getSellType() == 3 && loggedIn && shownAd.getFinished() == false}">
    <tr>
    <td></td>
   	<td>
@@ -314,15 +310,38 @@ $(function(){
           <form:input type="number" min="1" value="${bidService.getNextBid(shownAd.getId())}"
             path="bid" placeholder="e.g. 150" step="1" />
 
-          <button type="submit" onclick="clicked();">Place bid</button>
+          <button type="submit" >Place bid</button>
 
   	</td>
    </tr>
   </c:when>
   </c:choose>
+  <c:choose>
+  	<c:when test="${shownAd.getSellType() == 3 && shownAd.getFinished() == true}">
+		<td>
+		<script type='text/javascript'>
 
+(function()
+{
+  if( window.localStorage )
+  {
+    if( !localStorage.getItem('firstLoad') )
+    {
+      localStorage['firstLoad'] = true;
+      window.location.reload();
+    }  
+    else
+      localStorage.removeItem('firstLoad');
+  }
+})();
+
+</script>
+        	<h1>Auction expired!</h1>        	
+      	</td>
+	</c:when>
+ </c:choose>
  <c:choose>
-  <c:when test="${shownAd.getSellType() == 3 && loggedIn == false}">
+  <c:when test="${shownAd.getSellType() == 3 && loggedIn == false && shownAd.getFinished() == false}">
   <tr>
   <td></td>
    <td><p><b>You have to be logged in to place a bid</b></p></td>
@@ -330,16 +349,8 @@ $(function(){
 
   </c:when>
  </c:choose>
-
   </table>
-
-<c:choose>
-	<c:when test="${shownAd.getSellType() == 3}">
-  		<hr />
-	</c:when>
-</c:choose>
 </form:form>
-
 
 <section>
 	<c:choose>
@@ -536,11 +547,10 @@ $(function(){
 							</td>
 						</tr>
 						<tr>
-							<c:choose> 
-									<c:when test="${loggedInUserEmail == shownAd.user.username }">
-									</c:when>
+							<td>Your Bid:</td>
+							<td colspan="2">
+								<c:choose> 
 									<c:when test="${bidService.getMyBid(loggedInUserEmail,shownAd.getId())==-1}">
-<<<<<<< HEAD
 										<c:choose>
 											<c:when test="${loggedInUserEmail == shownAd.user.username }">
 												<p>You are the owner of the auction and
@@ -550,21 +560,12 @@ $(function(){
 												<p>You haven't made a bid yet</p>
 											</c:otherwise>
 										</c:choose>
-=======
-										<td>Your Bid:</td>
-											<td colspan="2">
-												You haven't made a bid yet
-											</td>
->>>>>>> 6875a295542ea2b11b777d1928188a08b717d0a4
 									</c:when>
-									
 									<c:otherwise>
-										<td>Your Bid:</td>
-											<td colspan="2">
-												${bidService.getMyBid(loggedInUserEmail,shownAd.getId())} CHF
-											</td>
+										${bidService.getMyBid(loggedInUserEmail,shownAd.getId())} CHF
 									</c:otherwise>
-							</c:choose>
+								</c:choose>
+							</td>
 						</tr>
 
 					</table>

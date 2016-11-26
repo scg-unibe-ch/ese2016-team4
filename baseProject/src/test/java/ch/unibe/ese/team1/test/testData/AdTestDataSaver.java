@@ -71,8 +71,8 @@ public class AdTestDataSaver {
 		Date moveOutDate6 = formatter.parse("10.11.2018");
 		
 		Date auctionEndDate1 = formatterTime.parse("30.11.2016, 14:00:00");
-		Date auctionEndDate2 = formatterTime.parse("30.11.2016, 14:30:00");
-		Date auctionEndDate3 = formatterTime.parse("30.11.2016, 14:30:00");
+		Date auctionEndDate2 = formatterTime.parse("26.11.2016, 19:40:00");
+		Date auctionEndDate3 = formatterTime.parse("26.11.2016, 19:40:00");
 
 		
 		String roomDescription1 = "The room is a part of 3.5 rooms apartment completely renovated"
