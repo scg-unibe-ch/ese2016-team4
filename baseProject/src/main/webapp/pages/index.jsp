@@ -11,11 +11,56 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Welcome to FlatFindr</title>
 </head>
+
 <body>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#city").autocomplete({
+			minLength : 2
+		});
+		$("#city").autocomplete({
+			source : <c:import url="getzipcodes.jsp" />
+		});
+		$("#city").autocomplete("option", {
+			enabled : true,
+			autoFocus : true
+		});
+	});
+	
+</script>
 
 <pre>Home</pre>
 
 <h1>Welcome to FlatFindr!</h1>
+
+<form method="post" action="/indexSearch"
+	id="filterForm" autocomplete="off" >
+	<div id="indexDiv">
+	<h1>Fast Search:</h1> <br>
+		
+		
+		<font size="5"><b>What?</b></font>
+		<table>
+		<tr>
+		<td><input type="checkbox" name="room" id="room"  /><label><b>Room</b></label></td>
+		<td><input type="checkbox" name="studio" id="studio"  /><label><b>Studio</b></label></td>
+		<td><input type="checkbox" name="flat" id="flat" /><label><b>Flat</b></label></td>
+		<td><input type="checkbox" name="house" id="house"  /><label><b>House</b></label></td>
+
+		</tr>
+		</table>
+
+		<label for="city"><font size="5"><b>Where?</b></font></label>
+		<input type="text" name="city" id="city" required="required"
+			placeholder="e.g. Bern" tabindex="3" />
+		<form:errors path="city" cssClass="validationErrorText" />
+	
+		<br /> 
+
+		<button type="submit" class="buttonDiv" >Go!</button>
+		<button type="reset" class="buttonDiv" >Reset</button>
+	</div>
+</form>
 
 <c:choose>
 	<c:when test="${empty newest}">

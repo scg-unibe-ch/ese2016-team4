@@ -32,6 +32,9 @@
     });
 	});
 
+  function clicked() {
+     confirm('Check under "Bidding (Auction)" on this page if your bid is placed!')
+  }
 </script>
 
 <script>
@@ -311,7 +314,7 @@ $(function(){
           <form:input type="number" min="1" value="${bidService.getNextBid(shownAd.getId())}"
             path="bid" placeholder="e.g. 150" step="1" />
 
-          <button type="submit" >Place bid</button>
+          <button type="submit" onclick="clicked();">Place bid</button>
 
   	</td>
    </tr>
@@ -533,10 +536,11 @@ $(function(){
 							</td>
 						</tr>
 						<tr>
-							<td>Your Bid:</td>
-							<td colspan="2">
-								<c:choose> 
+							<c:choose> 
+									<c:when test="${loggedInUserEmail == shownAd.user.username }">
+									</c:when>
 									<c:when test="${bidService.getMyBid(loggedInUserEmail,shownAd.getId())==-1}">
+<<<<<<< HEAD
 										<c:choose>
 											<c:when test="${loggedInUserEmail == shownAd.user.username }">
 												<p>You are the owner of the auction and
@@ -546,12 +550,21 @@ $(function(){
 												<p>You haven't made a bid yet</p>
 											</c:otherwise>
 										</c:choose>
+=======
+										<td>Your Bid:</td>
+											<td colspan="2">
+												You haven't made a bid yet
+											</td>
+>>>>>>> 6875a295542ea2b11b777d1928188a08b717d0a4
 									</c:when>
+									
 									<c:otherwise>
-										${bidService.getMyBid(loggedInUserEmail,shownAd.getId())} CHF
+										<td>Your Bid:</td>
+											<td colspan="2">
+												${bidService.getMyBid(loggedInUserEmail,shownAd.getId())} CHF
+											</td>
 									</c:otherwise>
-								</c:choose>
-							</td>
+							</c:choose>
 						</tr>
 
 					</table>
