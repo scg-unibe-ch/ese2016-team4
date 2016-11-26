@@ -176,7 +176,7 @@ var dateNow = new Date();
 
 // load the info into the paragraphs, while formatting the date
 window.onload = function() {
-	document.getElementById('datetoday').innerHTML = "today: " + getFormattedDate(dateNow).toString();
+	document.getElementById('datetoday').innerHTML = "Today: " + getFormattedDate(dateNow).toString();
 	document.getElementById('auctionstart').innerHTML = getFormattedDate(creationDate).toString();
 	document.getElementById('auctionend').innerHTML = getFormattedDate(auctionEnd).toString();
 	document.getElementById('highestBid').innerHTML = "Price: " + highestBid.toString() + " CHF";
@@ -187,7 +187,7 @@ window.ready = function() {
 	auctionDuration = Math.max(0, auctionEndMs);
 	//var highestBid =  Math.max("${shownAd.startOffer}" ,"${allBids[0].bid}");
 	highestBid = ${bidService.getHighestBid(shownAd.getId())};
-	document.getElementById('datetoday').innerHTML = "today: " + getFormattedDate(dateNow).toString();
+	document.getElementById('datetoday').innerHTML = "Today: " + getFormattedDate(dateNow).toString();
 	document.getElementById('auctionstart').innerHTML = getFormattedDate(creationDate).toString();
 	document.getElementById('auctionend').innerHTML = getFormattedDate(auctionEnd).toString();
 	document.getElementById('highestBid').innerHTML = "Highest Bid: " + highestBid.toString() + " CHF";
@@ -207,8 +207,12 @@ function auctionTimer() {
 	var remaining_minutes = Math.floor((remaining/(1000*60))%60);
 	var remaining_seconds = Math.floor((remaining/(1000))%60);
 
-	document.getElementById('timeTilEnd').innerHTML = "remaining time: "
-	+ remaining_days + "d " + remaining_hours + "h " + remaining_minutes + "m " + remaining_seconds + "s";
+	if(document.getElementById('timeTilEnd') != null) {
+		document.getElementById('timeTilEnd').innerHTML = "Remaining time: "
+		+ remaining_days + "d " + remaining_hours + "h " + remaining_minutes + "m " + remaining_seconds + "s";
+	} else {
+		document.getElementById('timeTilEnd').innerHTML = "Auction expired!"
+	}
 }
 
 
@@ -516,7 +520,14 @@ $(function(){
 					<br />
 					<table id="bidTable">
 						<tr>
-							<td>Highest Bid:</td>
+							<c:choose>
+								<c:when test="${!bidService.isBidden(shownAd.getId())}">
+									<td>Start Offer:</td>
+								</c:when>
+								<c:otherwise>
+									<td>Highest Bid:</td>
+								</c:otherwise>
+							</c:choose>
 							<td colspan="2">
 								${bidService.getHighestBid(shownAd.getId())} CHF
 							</td>
@@ -526,7 +537,15 @@ $(function(){
 							<td colspan="2">
 								<c:choose> 
 									<c:when test="${bidService.getMyBid(loggedInUserEmail,shownAd.getId())==-1}">
-										You haven't made a bid yet
+										<c:choose>
+											<c:when test="${loggedInUserEmail == shownAd.user.username }">
+												<p>You are the owner of the auction and
+													therefore cannot place a bid!</p>
+											</c:when>
+											<c:otherwise>
+												<p>You haven't made a bid yet</p>
+											</c:otherwise>
+										</c:choose>
 									</c:when>
 									<c:otherwise>
 										${bidService.getMyBid(loggedInUserEmail,shownAd.getId())} CHF

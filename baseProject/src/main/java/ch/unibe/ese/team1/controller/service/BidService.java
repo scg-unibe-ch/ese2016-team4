@@ -38,6 +38,9 @@ public class BidService {
 	private AdService adService;
 	
 	@Autowired
+	private AuctionService auctionService;
+	
+	@Autowired
 	AlertDao alertDao;
 	
 	@Autowired
@@ -73,8 +76,7 @@ public class BidService {
 			}
 			bidHistoryDao.save(bidHist);
 			
-			// new: test for alert
-			triggerBidAlerts(ad);
+			auctionService.triggerBids(ad);
 		}
 		
 	}
@@ -102,47 +104,7 @@ public class BidService {
 	}
 	
 
-	public void triggerBidAlerts(Ad ad) {
-		Iterable<Bid> bids = bidHistoryDao.findByAdIdOrderByBidDesc(ad.getId());
-		
-		// send only one message per user, no matter how many alerts were
-		// triggered
-		List<User> users = new ArrayList<User>();
-		for (Bid bid : bids) {
-			User user = userService.findUserById(bid.getUserId());
-			if(users.isEmpty() ) {
-				users.add(user);
-			}else if (user.getId() != users.get(0).getId()){
-				users.add(user);
-			}
-		}
-		users.remove(0);
-		
-		for (User allUsers : users) {
-			Date now = new Date();
-			Message message = new Message();
-			message.setSubject("Someone placed a bid!");
-			message.setText(getBidText(ad));
-			message.setSender(userDao.findByUsername("System"));
-			message.setRecipient(allUsers);
-			message.setState(MessageState.UNREAD);
-			message.setDateSent(now);
-			messageDao.save(message);
-			}
-		}
-
-		
-		
-	private String getBidText(Ad ad) {
-		return "Dear user,<br>Another user placed a bid. "
-				+ "You can visit it here:<br><br>"
-				+ "<a class=\"link\" href=/ad?id="
-				+ ad.getId()
-				+ ">"
-				+ ad.getTitle()
-				+ "</a><br><br>"
-				+ "Your FlatFindr crew";
-	}
+	
 
 	public boolean isAlreadyHighestBidder(Bid bid){
 		if (bidHistoryDao.findTop1ByadIdOrderByBidDesc(bid.getAdId())!=null){

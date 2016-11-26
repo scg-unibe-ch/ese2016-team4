@@ -129,6 +129,9 @@ public class Ad {
 
 	@OneToMany(mappedBy = "ad", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Visit> visits;
+	
+	@Column(nullable = false)
+	private boolean auctionFinished = false;
 
 	public int getPropertyType() {
 		return propertyType;
@@ -390,6 +393,14 @@ public class Ad {
 
 	public void setAuctionEndDate(Date auctionEndDate) {
 		this.auctionEndDate = auctionEndDate;
+	}
+	
+	public boolean getFinished() {
+		return auctionFinished;
+	}
+
+	public void setFinished(boolean auctionFinished) {
+		this.auctionFinished = auctionFinished;
 	}
 	
 	public int getPrizeOfSale() {

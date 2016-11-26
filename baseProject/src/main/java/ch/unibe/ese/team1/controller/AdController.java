@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ch.unibe.ese.team1.controller.pojos.forms.BidForm;
 import ch.unibe.ese.team1.controller.pojos.forms.MessageForm;
@@ -80,7 +81,7 @@ public class AdController {
 	@RequestMapping(value = "/ad", method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView messageSent(@RequestParam("id") long id,@Valid BidForm bidForm,
-			@Valid MessageForm messageForm, BindingResult bindingResult, Principal principal) {		
+			@Valid MessageForm messageForm, BindingResult bindingResult, Principal principal, RedirectAttributes redirectAttributes) {		
 		
 //		ModelAndView model = new ModelAndView("adDescription");
 ////		ModelAndView model = new ModelAndView("redirect:/qSearch");
@@ -99,8 +100,14 @@ public class AdController {
 		if (!bindingResult.hasErrors()) {
 			messageService.saveFrom(messageForm);
 		}
-		ModelAndView redirModel = new ModelAndView("bidRedirect");
+		ModelAndView redirModel = new ModelAndView("redirect:/ad?id=" + ad.getId());
+		redirectAttributes.addFlashAttribute("confirmationMessage",
+				"Bid placed successfully. You can take a look at it below.");
+		/*
 		redirModel.addObject("destination", "/ad?id="+ad.getId());
+		
+		
+		*/
 		return redirModel;
 	}
 

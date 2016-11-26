@@ -50,6 +50,8 @@ public class AdTestDataSaver {
 		Date creationDate7 = formatter.parse("16.11.2014");
 		Date creationDate8 = formatter.parse("27.11.2014");
 		Date creationDate9 = formatterTime.parse("03.11.2016, 10:05:30");
+		Date creationDate10 = formatter.parse("26.11.2016");
+
 		
 		Date moveInDate1 = formatter.parse("15.12.2017");
 		Date moveInDate2 = formatter.parse("21.12.2017");
@@ -68,7 +70,10 @@ public class AdTestDataSaver {
 		Date moveOutDate5 = formatter.parse("30.09.2018");
 		Date moveOutDate6 = formatter.parse("10.11.2018");
 		
-		Date auctionEndDate1 = formatterTime.parse("30.11.2016, 15:21:44");
+		Date auctionEndDate1 = formatterTime.parse("30.11.2016, 14:00:00");
+		Date auctionEndDate2 = formatterTime.parse("30.11.2016, 14:30:00");
+		Date auctionEndDate3 = formatterTime.parse("30.11.2016, 14:30:00");
+
 		
 		String roomDescription1 = "The room is a part of 3.5 rooms apartment completely renovated"
 				+ "in 2010 at Kramgasse, Bern. The apartment is about 50 m2 on 1st floor."
@@ -171,6 +176,66 @@ public class AdTestDataSaver {
 				+ " (29, Graphic designer) and Linda (31, curator) are looking for a"
 				+ "new female flatmate from December on.";
 		String roomPreferences3 = "smoking female flatmate";
+		
+		Ad adLuzern1 = new Ad();
+		adLuzern1.setZipcode(6000);
+		adLuzern1.setCreationDate(creationDate10);
+		adLuzern1.setStartOffer(500);
+		adLuzern1.setSquareFootage(100);
+		adLuzern1.setPropertyType(2);
+		adLuzern1.setSellType(3);
+		adLuzern1.setAuctionEndDate(auctionEndDate2);
+		adLuzern1.setRoomDescription("TEST");
+		adLuzern1.setPreferences(preferences1);
+		adLuzern1.setRoommates("None");
+		adLuzern1.setUser(ese);
+		adLuzern1.setTitle("Studio in Luzern!");
+		adLuzern1.setStreet("Bahnhofstr. 40");
+		adLuzern1.setCity("Luzern");
+		adLuzern1.setAnimals(true);
+		adLuzern1.setGarden(true);
+		adLuzern1.setBalcony(false);
+		adLuzern1.setCellar(false);
+		adLuzern1.setFurnished(false);
+		adLuzern1.setCable(false);
+		adLuzern1.setGarage(false);
+		adLuzern1.setInternet(true);
+		pictures = new ArrayList<>();
+		pictures.add(createPicture(adLuzern1, "/img/test/ad2_1.jpg"));
+		pictures.add(createPicture(adLuzern1, "/img/test/ad2_2.jpg"));
+		pictures.add(createPicture(adLuzern1, "/img/test/ad2_3.jpg"));
+		adLuzern1.setPictures(pictures);
+		adDao.save(adLuzern1);
+		
+		Ad adLuzern2 = new Ad();
+		adLuzern2.setZipcode(6000);
+		adLuzern2.setCreationDate(creationDate10);
+		adLuzern2.setStartOffer(500);
+		adLuzern2.setSquareFootage(100);
+		adLuzern2.setPropertyType(3);
+		adLuzern2.setSellType(3);
+		adLuzern2.setAuctionEndDate(auctionEndDate3);
+		adLuzern2.setRoomDescription("TEST");
+		adLuzern2.setPreferences(preferences1);
+		adLuzern2.setRoommates("None");
+		adLuzern2.setUser(ese);
+		adLuzern2.setTitle("Flat in Luzern!");
+		adLuzern2.setStreet("Bahnhofstr. 42");
+		adLuzern2.setCity("Luzern");
+		adLuzern2.setAnimals(true);
+		adLuzern2.setGarden(true);
+		adLuzern2.setBalcony(false);
+		adLuzern2.setCellar(false);
+		adLuzern2.setFurnished(false);
+		adLuzern2.setCable(false);
+		adLuzern2.setGarage(false);
+		adLuzern2.setInternet(true);
+		pictures= new ArrayList<>();
+		pictures.add(createPicture(adLuzern2, "/img/test/ad2_1.jpg"));
+		pictures.add(createPicture(adLuzern2, "/img/test/ad2_2.jpg"));
+		pictures.add(createPicture(adLuzern2, "/img/test/ad2_3.jpg"));
+		adLuzern2.setPictures(pictures);
+		adDao.save(adLuzern2);
 		
 		Ad adBasel = new Ad();
 		adBasel.setZipcode(4051);

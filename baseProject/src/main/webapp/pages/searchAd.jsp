@@ -76,6 +76,7 @@ $(document).ready( function() {
 		<td><form:checkbox name="flat" id="flat" path="flat" /><label>Flat</label></td>
 		<td><form:checkbox name="house" id="house" path="house" /><label>House</label></td>
 
+
 		</tr>
 		</table>
 
