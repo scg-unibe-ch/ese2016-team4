@@ -121,6 +121,10 @@ public class EditAdService {
 		ad.setRoomDescription(placeAdForm.getRoomDescription());
 		ad.setPreferences(placeAdForm.getPreferences());
 		ad.setRoommates(placeAdForm.getRoommates());
+		
+		// ad coordinates
+		ad.setLatitude(adService.findCoords(ad)[0]);
+		ad.setLongitude(adService.findCoords(ad)[1]);
 
 		// ad description values
 		ad.setSmokers(placeAdForm.isSmokers());

@@ -124,7 +124,13 @@ public class AdService {
 		ad.setRoomDescription(placeAdForm.getRoomDescription());
 		ad.setPreferences(placeAdForm.getPreferences());
 		ad.setRoommates(placeAdForm.getRoommates());
-
+		
+		// ad coordinates
+		ad.setLatitude(findCoords(ad)[0]);
+		ad.setLongitude(findCoords(ad)[1]);
+		
+		
+		
 		// ad description values
 		ad.setSmokers(placeAdForm.isSmokers());
 		ad.setAnimals(placeAdForm.isAnimals());
@@ -557,6 +563,38 @@ public class AdService {
 				coords.add(coordString);
 			}
 		}
+		return coords;
+	}
+	
+	public double[] findCoords(Ad ad){
+		double coords[] = new double[2];
+		
+		String id = Long.toString(ad.getId());
+		if(ad.getId() < 10) id = "0" + id; 
+		String adAddress = id + " " + ad.getStreet() +" "+ ad.getZipcode() + " CH";
+
+	
+		GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyCdNwB8auysJ8k7gqiKOpLwFyV2L7iBneo");
+		GeocodingResult[] result = null;
+		double latitude;
+		double longitude;
+		try {
+			result =  GeocodingApi.geocode(context,
+				    adAddress).await();
+		} catch (Exception e) {
+			//to be done
+		}
+			
+			latitude = result[0].geometry.location.lat;
+			longitude = result[0].geometry.location.lng;
+			
+			
+			ad.setLatitude(latitude);
+			ad.setLongitude(longitude);
+			
+			coords[0] = latitude; 
+			coords[1] = longitude;
+	
 		return coords;
 	}
 

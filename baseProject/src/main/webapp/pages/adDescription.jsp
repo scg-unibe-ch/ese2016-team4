@@ -207,11 +207,14 @@ function auctionTimer() {
 	var remaining_minutes = Math.floor((remaining/(1000*60))%60);
 	var remaining_seconds = Math.floor((remaining/(1000))%60);
 
-	if(remaining > 0) {
-		document.getElementById('timeTilEnd').innerHTML = "Remaining time: "
-		+ remaining_days + "d " + remaining_hours + "h " + remaining_minutes + "m " + remaining_seconds + "s";
-	} else {
-		document.getElementById('timeTilEnd').innerHTML = "Auction expired!"
+	if(${shownAd.getSellType()} == 3) {
+
+		if(remaining > 0) {
+			document.getElementById('timeTilEnd').innerHTML = "Remaining time: "
+			+ remaining_days + "d " + remaining_hours + "h " + remaining_minutes + "m " + remaining_seconds + "s";
+		} else {
+			document.getElementById('timeTilEnd').innerHTML = "Auction expired!"
+		}
 	}
 }
 
@@ -319,23 +322,6 @@ $(function(){
   <c:choose>
   	<c:when test="${shownAd.getSellType() == 3 && shownAd.getFinished() == true}">
 		<td>
-		<script type='text/javascript'>
-
-(function()
-{
-  if( window.localStorage )
-  {
-    if( !localStorage.getItem('firstLoad') )
-    {
-      localStorage['firstLoad'] = true;
-      window.location.reload();
-    }  
-    else
-      localStorage.removeItem('firstLoad');
-  }
-})();
-
-</script>
         	<h1>Auction expired!</h1>        	
       	</td>
 	</c:when>
@@ -463,8 +449,7 @@ $(function(){
 			<td>${formattedCreationDate}</td>
 		</tr>
 	</table>
-</section>
-
+    
 <div id="image-slider">
 	<div id="left-arrow">
 		<img src="/img/left-arrow.png" />
@@ -479,7 +464,44 @@ $(function(){
 	</div>
 </div>
 
+	<div id="map" style="height:295px;width:545px;position: relative;
+	border-color: #2dc16d; border-radius: 5px; border-width: 3px; border-style: solid;"></div>
+
+    <script type="text/javascript">
+	var map;
+	function initMap() {
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: {lat: ${shownAd.getLatitude()}, lng: ${shownAd.getLongitude()}},
+			zoom: 11
+		});
+
+		var latLng = new google.maps.LatLng(${shownAd.getLatitude()},${shownAd.getLongitude()});
+          var marker = new google.maps.Marker({
+            position: latLng,
+            map: map
+          });  
+          
+        window.eqfeed_callback = function(results) {
+        for (var i = 0; i < results.features.length; i++) {
+          var coords = results.features[i].geometry.coordinates;
+          var latLng = new google.maps.LatLng(coords[1],coords[0]);
+          var marker = new google.maps.Marker({
+            position: latLng,
+            map: map
+          });
+        }
+      }
+	}
+	</script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdNwB8auysJ8k7gqiKOpLwFyV2L7iBneo&callback=initMap">
+    </script>
+
+</section>
+
 <hr class="clearBoth" />
+
+
 
 <section>
 	<div id="accordion">

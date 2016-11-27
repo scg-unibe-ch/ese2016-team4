@@ -132,6 +132,12 @@ public class Ad {
 	
 	@Column(nullable = false)
 	private boolean auctionFinished = false;
+	
+	@Column(nullable = true)
+	private double latitude;
+
+	@Column(nullable = true)
+	private double longitude;
 
 	public int getPropertyType() {
 		return propertyType;
@@ -409,6 +415,22 @@ public class Ad {
 
 	public void setPrizeOfSale(int prizeOfSale) {
 		this.prizeOfSale = prizeOfSale;
+	}
+	
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
 
 	@Override

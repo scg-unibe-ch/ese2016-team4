@@ -169,6 +169,7 @@ button {
 	font-size: 1.5em;
 }
 
+
 /* -----------toggle switch css----------- */
 
 /* The switch - the box around the slider */
@@ -627,6 +628,9 @@ footer nav ul li {
 		0px 1px 0px rgba(255,255,255,0.3);
 }
 
+#map {
+	height: 50%;
+}
 
 /* -------------------------------------------------------------------- */
 /* alerts.jsp */
