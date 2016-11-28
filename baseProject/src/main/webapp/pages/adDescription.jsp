@@ -578,6 +578,9 @@ $(function(){
 												<p>You are the owner of the auction and
 													therefore cannot place a bid!</p>
 											</c:when>
+											<c:when test="${!loggedInUserEmail}">
+												<p>You have to be logged in to place a bid!</p>
+											</c:when>
 											<c:otherwise>
 												<p>You haven't made a bid yet</p>
 											</c:otherwise>
