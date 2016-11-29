@@ -308,13 +308,17 @@ $(function(){
    <tr>
    <td></td>
   	<td>
+  	<c:choose>
+  	<c:when test="${bidService.getMyBid(loggedInUserEmail,shownAd.getId()) != bidService.getHighestBid(shownAd.getId()) 
+  				&& loggedInUserEmail != shownAd.user.username}">
           <label for="bid" >Your bid:</label>
 
-          <form:input type="number" min="1" value="${bidService.getNextBid(shownAd.getId())}"
-            path="bid" placeholder="e.g. 150" step="1" />
+          <form:input type="number" value="${bidService.getNextBid(shownAd.getId())}"
+            path="bid" placeholder="e.g. 150" step="1" min="${bidService.getNextBid(shownAd.getId())}" />
 
           <button type="submit" >Place bid</button>
-
+	</c:when>
+	</c:choose>
   	</td>
    </tr>
   </c:when>
@@ -578,7 +582,7 @@ $(function(){
 												<p>You are the owner of the auction and
 													therefore cannot place a bid!</p>
 											</c:when>
-											<c:when test="${!loggedInUserEmail}">
+											<c:when test="${loggedIn == false}">
 												<p>You have to be logged in to place a bid!</p>
 											</c:when>
 											<c:otherwise>
