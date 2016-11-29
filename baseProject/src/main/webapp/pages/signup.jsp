@@ -5,8 +5,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <c:import url="template/header.jsp" />
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name="google-signin-client_id" content="1001465174850-12k4bmfds5no3qp9hebmch197rdls106.apps.googleusercontent.com">
 
 <script>
 	// Validate the email field
@@ -39,14 +37,6 @@
 			});
 		}	
 	});
-	
-	function onSignIn(googleUser) {
-		  var profile = googleUser.getBasicProfile();
-		  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-		  console.log('Name: ' + profile.getName());
-		  console.log('Image URL: ' + profile.getImageUrl());
-		  console.log('Email: ' + profile.getEmail());
-		}
 
 </script>
 
@@ -143,7 +133,7 @@
 
 		
 		<button type="submit">Sign up</button>
-			<div class="g-signin2" data-onsuccess="onSignIn"></div>
+		
 	</fieldset>
 </form:form>
 

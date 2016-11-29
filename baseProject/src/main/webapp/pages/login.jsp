@@ -10,11 +10,26 @@
 <security:authorize var="loggedIn" url="/profile" />
 
 <c:import url="template/header.jsp" />
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="google-signin-client_id" content="1001465174850-12k4bmfds5no3qp9hebmch197rdls106.apps.googleusercontent.com">
+<script>
+
+
+	function onSignIn(googleUser) {
+	  var profile = googleUser.getBasicProfile();
+	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+	  console.log('Name: ' + profile.getName());
+	  console.log('Given Name: ' + profile.getGivenName());
+	  console.log('Family Name: ' + profile.getFamilyName());
+	  console.log('Image URL: ' + profile.getImageUrl());
+	  console.log('Email: ' + profile.getEmail());
+	}
+</script>
 
 <pre>
 	<a href="/">Home</a>   &gt;   Login</pre>
 
-<h1>Login</h1>
+<h1>Login</h1>	
 
 <c:choose>
 	<c:when test="${loggedIn}">
@@ -31,6 +46,8 @@
 				id="field-email" /> <label for="field-password">Password:</label> <input
 				name="j_password" id="field-password" type="password" />
 			<button type="submit">Login</button>
+			<div class="g-signin2" data-onsuccess="onSignIn"></div>
+			
 		</form>
 		<br />
 		<h2>Test users</h2>
@@ -54,5 +71,6 @@
 		
 	</c:otherwise>
 </c:choose>
+
 
 <c:import url="template/footer.jsp" />
