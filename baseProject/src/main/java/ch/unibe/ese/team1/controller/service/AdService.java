@@ -128,7 +128,8 @@ public class AdService {
 		// ad coordinates
 		ad.setLatitude(findCoords(ad)[0]);
 		ad.setLongitude(findCoords(ad)[1]);
-		
+		System.out.println(ad.getLatitude());
+		System.out.println(ad.getLongitude());
 		
 		
 		// ad description values
@@ -531,7 +532,7 @@ public class AdService {
 	 * @param List of Ad's to get coordinates for
 	 * @return List of coordinates
 	 */
-	public Iterable<String> findCoords(Iterable<Ad> ads){
+	/*public Iterable<String> findCoords(Iterable<Ad> ads){
 		List<String> addresses = new ArrayList<>();
 		List<String> coords = new ArrayList<>();
 		//List<String> ids = new ArrayList<>();
@@ -564,7 +565,7 @@ public class AdService {
 			}
 		}
 		return coords;
-	}
+	}*/
 	
 	public double[] findCoords(Ad ad){
 		double coords[] = new double[2];
@@ -596,6 +597,16 @@ public class AdService {
 			coords[1] = longitude;
 	
 		return coords;
+	}
+	
+	public Iterable<String> getGoogleCoords(Iterable<Ad> adList){
+		List<String> googleMapCoords = new ArrayList<>();
+		for(Ad adForCoords : adList){ 
+			String adCoord = "0"+adForCoords.getId()+" "+ adForCoords.getLatitude()+" "+adForCoords.getLongitude();
+			if(adForCoords.getId() > 10) adCoord = adCoord.substring(1);
+			googleMapCoords.add(adCoord);
+			}
+		return googleMapCoords;
 	}
 
 	public Date stringToDate(String stringDate){

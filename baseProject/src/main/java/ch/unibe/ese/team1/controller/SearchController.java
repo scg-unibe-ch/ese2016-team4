@@ -65,7 +65,7 @@ public class SearchController {
 		if (!result.hasErrors()) {
 			ModelAndView model = new ModelAndView("results");
 			Iterable<Ad> searchFormResults = adService.queryResults(searchForm);
-			Iterable<String> googleMapCoords = adService.findCoords(searchFormResults);
+			Iterable<String> googleMapCoords = adService.getGoogleCoords(searchFormResults);
 			model.addObject("results", searchFormResults);
 			model.addObject("coords", googleMapCoords);
 			//bad, only temporary fix
@@ -91,7 +91,7 @@ public class SearchController {
 		if (!result.hasErrors()) {
 			ModelAndView model = new ModelAndView("results");
 			Iterable<Ad> searchFormResults = adService.queryResults(searchForm);
-			Iterable<String> googleMapCoords = adService.findCoords(searchFormResults);
+			Iterable<String> googleMapCoords = adService.getGoogleCoords(searchFormResults);
 			model.addObject("results", searchFormResults);
 			model.addObject("coords", googleMapCoords);
 			//bad, only temporary fix
