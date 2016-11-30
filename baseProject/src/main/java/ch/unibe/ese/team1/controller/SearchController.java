@@ -60,7 +60,7 @@ public class SearchController {
 		searchForm.setRent(true);
 		searchForm.setAuction(true);
 		searchForm.setBuy(true);
-		searchForm.setRadius(2000);
+		searchForm.setRadius(10);
 		
 		if (!result.hasErrors()) {
 			ModelAndView model = new ModelAndView("results");

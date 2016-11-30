@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <head>
   
+<!-- html meta uft-8 -->
 <link rel="stylesheet" type="text/css" media="screen"
 	href="/css/main.css">
 <link rel="stylesheet" type="text/css"
