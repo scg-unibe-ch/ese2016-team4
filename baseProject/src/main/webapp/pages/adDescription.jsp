@@ -688,7 +688,7 @@ document.getElementById("SendEmail").onclick = function() {
 						</tr>
 						<c:forEach var="bid" items="${bidService.getAllBids(shownAd.getId())}">
 							<tr>
-								<td>${bidService.getUserName(bid.userId)}</td>
+								<td><a href="/user?id=${bid.userId}"><font color="blue"><u>${bidService.getUserName(bid.userId)}</u></font></a></td>
 								<td>${bid.bid}</td>
 								<td><fmt:formatDate value="${bid.bidTime.time}" type="date" pattern="dd.MM.yyyy" /></td>
 								<td><fmt:formatDate value="${bid.bidTime.time}" type="date" pattern="HH:mm:ss" /></td>
