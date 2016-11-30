@@ -2,6 +2,7 @@
 /temp/
 .metadata/
 .project
+.settings/
 
 #maven
 target/
@@ -55,7 +56,7 @@ buildSrc/build
 /src/asciidoc/build
 target/
 
-# Eclipse artifacts, including WTP generated manifests
+# Eclipse
 .classpath
 .project
 .settings/
