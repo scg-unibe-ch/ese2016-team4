@@ -335,6 +335,12 @@ function initMap() {
 			<tr>
 				<td><form:checkbox id="field-internet" path="internet" value="1" /><label>WiFi</label></td>
 			</tr>
+			<tr>
+				<td><form:checkbox id="field-dishwasher" path="dishwasher" value="1" /><label>Dishwasher</label></td>
+			</tr>
+			<tr>
+				<td><form:checkbox id="field-washingMachine" path="washingMachine" value="1" /><label>Washing machine</label></td>
+			</tr>
 		</table>
 
 

@@ -77,6 +77,8 @@ public class AlertService {
 		alert.setAnimals(alertForm.getAnimals());
 		alert.setFurnished(alertForm.getFurnished());
 		alert.setSmokers(alertForm.getSmokers());
+		alert.setDishwasher(alertForm.getDishwasher());
+		alert.setWashingMachine(alertForm.getWashingMachine());
 		
 		
 		Calendar calendar = Calendar.getInstance();
@@ -403,7 +405,8 @@ public class AlertService {
 				|| ad.getCable() != alert.getCable() || ad.getCellar() != alert.getCellar()
 				|| ad.getFurnished() != alert.getFurnished() || ad.getGarage() != alert.getGarage()
 				|| ad.getGarden() != alert.getGarden() || ad.getInternet() != alert.getInternet()
-				|| ad.getSmokers() != alert.getSmokers()) {
+				|| ad.getSmokers() != alert.getSmokers() || ad.getDishwasher() != alert.getDishwasher()
+				|| ad.getWashingMachine() != alert.getWashingMachine()) {
 			mismatch = true;
 		}
 		return mismatch;

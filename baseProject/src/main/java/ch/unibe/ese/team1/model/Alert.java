@@ -84,13 +84,12 @@ public class Alert {
 	@Column(nullable = true)
 	private boolean internet;
 	
-	// noch zu implementieren!!
-	/*
 	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date creationDate;
-	*/
+	private boolean dishwasher;
 	
+	@Column(nullable = false)
+	private boolean washingMachine;
+
 	public long getId() {
 		return id;
 	}
@@ -250,6 +249,22 @@ public class Alert {
 
 	public void setInternet(boolean internet) {
 		this.internet = internet;
+	}
+	
+	public boolean getDishwasher() {
+		return dishwasher;
+	}
+	
+	public void setDishwasher(boolean dishwasher) {
+		this.dishwasher = dishwasher;
+	}
+	
+	public boolean getWashingMachine() {
+		return washingMachine;
+	}
+	
+	public void setWashingMachine(boolean washingMachine) {
+		this.washingMachine = washingMachine;
 	}
 
 }

@@ -131,6 +131,8 @@ public class AlertForm {
 	private boolean cable;
 	private boolean garage;
 	private boolean internet;
+	private boolean dishwasher;
+	private boolean washingMachine;
 
 
 	// the ugly stuff
@@ -205,5 +207,21 @@ public class AlertForm {
 
 	public void setInternet(boolean internet) {
 		this.internet = internet;
+	}
+	
+	public boolean getDishwasher() {
+		return dishwasher;
+	}
+	
+	public void setDishwasher(boolean dishwasher) {
+		this.dishwasher = dishwasher;
+	}
+	
+	public boolean getWashingMachine() {
+		return washingMachine;
+	}
+	
+	public void setWashingMachine(boolean washingMachine) {
+		this.washingMachine = washingMachine;
 	}
 }

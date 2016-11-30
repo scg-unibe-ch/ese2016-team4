@@ -590,6 +590,30 @@
 						</c:otherwise>
 					</c:choose>
 				</td>
+				<td>
+					<c:choose>
+						<c:when test="${ad.dishwasher}">
+							<form:checkbox id="field-dishwasher" path="dishwasher"  checked="checked" /><label>Dishwasher
+							</label>
+						</c:when>
+						<c:otherwise>
+							<form:checkbox id="field-dishwasher" path="dishwasher" /><label>Dishwasher</label>
+						</c:otherwise>
+					</c:choose>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<c:choose>
+						<c:when test="${ad.washingMachine}">
+							<form:checkbox id="field-washingMachine" path="washingMachine"  checked="checked" /><label>Washing machine
+							</label>
+						</c:when>
+						<c:otherwise>
+							<form:checkbox id="field-washingMachine" path="washingMachine" /><label>Washing machine</label>
+						</c:otherwise>
+					</c:choose>
+				</td>
 			</tr>
 
 		</table>

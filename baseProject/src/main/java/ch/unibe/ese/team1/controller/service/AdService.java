@@ -127,10 +127,7 @@ public class AdService {
 		
 		// ad coordinates
 		ad.setLatitude(findCoords(ad)[0]);
-		ad.setLongitude(findCoords(ad)[1]);
-		System.out.println(ad.getLatitude());
-		System.out.println(ad.getLongitude());
-		
+		ad.setLongitude(findCoords(ad)[1]);		
 		
 		// ad description values
 		ad.setSmokers(placeAdForm.isSmokers());
@@ -142,6 +139,8 @@ public class AdService {
 		ad.setCable(placeAdForm.getCable());
 		ad.setGarage(placeAdForm.getGarage());
 		ad.setInternet(placeAdForm.getInternet());
+		ad.setDishwasher(placeAdForm.getDishwasher());
+		ad.setWashingMachine(placeAdForm.getWashingMachine());
 
 		/*
 		 * Save the paths to the picture files, the pictures are assumed to be
@@ -442,6 +441,26 @@ public class AdService {
 
 			// internet
 			if (searchForm.getInternet()) {
+				Iterator<Ad> iterator = locatedResults.iterator();
+				while (iterator.hasNext()) {
+					Ad ad = iterator.next();
+					if (!ad.getInternet())
+						iterator.remove();
+				}
+			}
+			
+			// dishwasher
+			if (searchForm.getDishwasher()) {
+				Iterator<Ad> iterator = locatedResults.iterator();
+				while (iterator.hasNext()) {
+					Ad ad = iterator.next();
+					if (!ad.getInternet())
+						iterator.remove();
+				}
+			}
+			
+			// washing machine
+			if (searchForm.getWashingMachine()) {
 				Iterator<Ad> iterator = locatedResults.iterator();
 				while (iterator.hasNext()) {
 					Ad ad = iterator.next();

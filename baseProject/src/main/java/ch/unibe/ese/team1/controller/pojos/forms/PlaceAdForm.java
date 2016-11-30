@@ -78,6 +78,8 @@ public class PlaceAdForm {
 	private boolean cable;
 	private boolean garage;
 	private boolean internet;
+	private boolean dishwasher;
+	private boolean washingMachine;
 
 	private List<String> visits;
 
@@ -216,6 +218,22 @@ public class PlaceAdForm {
 
 	public void setInternet(boolean internet) {
 		this.internet = internet;
+	}
+	
+	public boolean getDishwasher() {
+		return dishwasher;
+	}
+	
+	public void setDishwasher(boolean dishwasher) {
+		this.dishwasher = dishwasher;
+	}
+	
+	public boolean getWashingMachine() {
+		return washingMachine;
+	}
+	
+	public void setWashingMachine(boolean washingMachine) {
+		this.washingMachine = washingMachine;
 	}
 
 	public String getMoveInDate() {

@@ -810,6 +810,28 @@ document.getElementById("SendEmail").onclick = function() {
 					</c:otherwise>
 				</c:choose></td>
 		</tr>
+		<tr>
+			<td><h2>Dishwasher</h2></td>
+			<td><c:choose>
+					<c:when test="${shownAd.dishwasher}">
+						<img src="/img/check-mark.png">
+					</c:when>
+					<c:otherwise>
+						<img src="/img/check-mark-negative.png">
+					</c:otherwise>
+				</c:choose></td>
+		</tr>
+		<tr>
+			<td><h2>Washing machine</h2></td>
+			<td><c:choose>
+					<c:when test="${shownAd.washingMachine}">
+						<img src="/img/check-mark.png">
+					</c:when>
+					<c:otherwise>
+						<img src="/img/check-mark-negative.png">
+					</c:otherwise>
+				</c:choose></td>
+		</tr>
 
 	</table>
 </section>

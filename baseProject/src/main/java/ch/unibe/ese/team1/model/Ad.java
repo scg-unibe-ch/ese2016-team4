@@ -119,6 +119,12 @@ public class Ad {
 
 	@Column(nullable = false)
 	private boolean internet;
+	
+	@Column(nullable = false)
+	private boolean dishwasher;
+	
+	@Column(nullable = false)
+	private boolean washingMachine;
 
 	@Fetch(FetchMode.SELECT)
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -256,6 +262,23 @@ public class Ad {
 	public void setInternet(boolean internet) {
 		this.internet = internet;
 	}
+	
+	public boolean getDishwasher() {
+		return dishwasher;
+	}
+	
+	public void setDishwasher(boolean dishwasher) {
+		this.dishwasher = dishwasher;
+	}
+	
+	public boolean getWashingMachine() {
+		return washingMachine;
+	}
+	
+	public void setWashingMachine(boolean washingMachine) {
+		this.washingMachine = washingMachine;
+	}
+	
 
 	public long getId() {
 		return id;

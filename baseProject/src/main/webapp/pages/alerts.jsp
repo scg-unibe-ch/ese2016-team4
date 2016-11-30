@@ -145,6 +145,10 @@ function deleteAlert(button) {
 			</tr>
 			<tr>
 				<td><form:checkbox id="field-internet" path="internet" value="1" /><label>WiFi</label></td>
+				<td><form:checkbox id="field-diswasher" path="dishwasher" value="1" /><label>Dishwasher</label></td>
+			</tr>
+			<tr>
+				<td><form:checkbox id="field-washingMachine" path="washingMachine" value="1" /><label>Washing machine</label></td>
 			</tr>
 		</table>
 
@@ -245,7 +249,13 @@ function deleteAlert(button) {
 						Garage,
 					</c:if>
 					<c:if test="${alert.getInternet()}">
-						WiFi
+						WiFi,
+					</c:if>
+					<c:if test="${alert.getDishwasher()}">
+						Dishwasher,
+					</c:if>
+					<c:if test="${alert.getWashingMachine()}">
+						Washing machine
 					</c:if>
 				</td>
 				<td><button class="deleteButton" data-id="${alert.id}" onClick="deleteAlert(this)">Delete</button></td>
