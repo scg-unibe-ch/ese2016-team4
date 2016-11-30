@@ -676,6 +676,11 @@ footer nav ul li {
         height: 550px;
         background-color: grey;
 }
+
+#switchButtonDesc{
+	margin-left: auto;
+    margin-right: auto;
+}
       
 #resultTable {
 	border-radius: 5px;

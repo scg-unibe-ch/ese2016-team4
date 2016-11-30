@@ -161,25 +161,34 @@ function initMap() {
 
 <hr />
 
-<div>
-<select id="modus">
-    <option value="">Sort by:</option>
-    <option value="price_asc">Price (ascending)</option>
-    <option value="price_desc">Price (descending)</option>
-    <option value="moveIn_desc">Move-in date (earliest to latest)</option>
-    <option value="moveIn_asc">Move-in date (latest to earliest)</option>
-    <option value="dateAge_asc">Date created (youngest to oldest)</option>
-    <option value="dateAge_desc">Date created (oldest to youngest)</option>
-</select>
+<table>
+  <tr>
+  	<td style="width:600px;">
+	<select id="modus">
+    	<option value="">Sort by:</option>
+    	<option value="price_asc">Price (ascending)</option>
+    	<option value="price_desc">Price (descending)</option>
+    	<option value="moveIn_desc">Move-in date (earliest to latest)</option>
+    	<option value="moveIn_asc">Move-in date (latest to earliest)</option>
+    	<option value="dateAge_asc">Date created (youngest to oldest)</option>
+    	<option value="dateAge_desc">Date created (oldest to youngest)</option>
+	</select>
+  	</td>
+    <td><b>Switch between list and google maps</b></td>
+  </tr>
+  <tr>
+    <td>
+		<button onClick="sort_div_attribute()">Sort</button>
+    </td>
+    <td>
+		<label class="switch">
+  		<input type="checkbox" id="enableMaps">
+  		<div class="slider round"></div>
+		</label>
+	</td>
+  </tr>
+</table>
 
-<button onClick="sort_div_attribute()">Sort</button>
-
-<label class="switch">
-  <input type="checkbox" id="enableMaps">
-  <div class="slider round"></div>
-</label>
-	
-</div>
 <c:choose>
 	<c:when test="${empty results}">
 		<p>No results found!
