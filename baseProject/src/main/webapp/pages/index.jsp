@@ -105,13 +105,17 @@
 							<c:when test="${ad.getSellType() == 3 && !bidService.isBidden(ad.getId())}"><h2>Auction Price ${ad.startOffer} CHF</h2></c:when>
 							<c:when test="${ad.getSellType() == 3 && bidService.isBidden(ad.getId())}"><h2>Auction Price ${bidService.getHighestBid(ad.getId())} CHF</h2></c:when>
 						</c:choose>
-						<br /> <br />
+						<br /> 
 
 						<fmt:formatDate value="${ad.moveInDate}" var="formattedMoveInDate"
 							type="date" pattern="dd.MM.yyyy" />
 						<c:choose>
 							<c:when test="${ad.getSellType() == 1}"><p>Move-in date: ${formattedMoveInDate }</p></c:when>
 						</c:choose>
+						<c:choose>
+							<c:when test="${ad.getUser().isPremium()==true}"><p>>>>Premium<<<</p></c:when>
+						</c:choose>
+
 						
 					</div>
 				</div>

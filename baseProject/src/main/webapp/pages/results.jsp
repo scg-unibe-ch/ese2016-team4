@@ -234,6 +234,9 @@ function initMap() {
 						<c:choose>
 							<c:when test="${ad.getSellType() == 1}"><p>Move-in date: ${formattedMoveInDate }</p></c:when>
 						</c:choose>
+						<c:choose>
+							<c:when test="${ad.getUser().isPremium()==true}"><p>>>>Premium<<<</p></c:when>
+						</c:choose>
 					</div>
 				</div>
 			</c:forEach>
