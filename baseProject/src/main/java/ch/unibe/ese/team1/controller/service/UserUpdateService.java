@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ch.unibe.ese.team1.controller.pojos.forms.EditProfileForm;
+import ch.unibe.ese.team1.controller.pojos.forms.GetPremiumForm;
+import ch.unibe.ese.team1.controller.pojos.forms.UnsubscribePremiumForm;
 import ch.unibe.ese.team1.model.User;
 import ch.unibe.ese.team1.model.dao.UserDao;
 
@@ -36,6 +38,26 @@ public class UserUpdateService {
 		currentUser.setAboutMe(editProfileForm.getAboutMe());
 		currentUser.setEmail(editProfileForm.getUsername());
 
+		userDao.save(currentUser);
+	}
+	
+	/** Handles updating an existing user in the database. */
+	@Transactional
+	public void updateFrom(GetPremiumForm getPremiumForm, String username) {
+		
+		User currentUser = userService.findUserByUsername(username);
+
+		currentUser.setPremium(true);
+		userDao.save(currentUser);
+	}
+	
+	/** Handles updating an existing user in the database. */
+	@Transactional
+	public void updateFrom(UnsubscribePremiumForm unsubscribePremiumForm, String username) {
+		
+		User currentUser = userService.findUserByUsername(username);
+
+		currentUser.setPremium(false);
 		userDao.save(currentUser);
 	}
 

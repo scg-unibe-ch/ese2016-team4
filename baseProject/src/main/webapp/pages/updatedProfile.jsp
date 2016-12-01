@@ -15,4 +15,7 @@
 <h1>${message}</h1>
 <hr />
 
+<a href="/"><button type="button">Go to Home</button></a>
+
+
 <c:import url="template/footer.jsp" />

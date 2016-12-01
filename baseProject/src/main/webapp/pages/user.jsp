@@ -81,7 +81,14 @@
 					<c:when test="${principalID eq user.id}">
 						<a class="button" href="/profile/editProfile">Edit Profile</a>
 					</c:when>
-					<c:otherwise></c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${principalID eq user.id && user.premium == false}">
+						<a class="button" href="/profile/getPremium">Get Premium!</a>
+					</c:when>
+					<c:when test="${principalID eq user.id && user.premium == true}">
+						<a class="button" href="/profile/unsubscribePremium">Unsubscribe Premium</a>
+					</c:when>
 				</c:choose>
 
 			</c:when>

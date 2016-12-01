@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.unibe.ese.team1.controller.pojos.forms.EditProfileForm;
+import ch.unibe.ese.team1.controller.pojos.forms.GetPremiumForm;
 import ch.unibe.ese.team1.controller.pojos.forms.MessageForm;
 import ch.unibe.ese.team1.controller.pojos.forms.SignupForm;
+import ch.unibe.ese.team1.controller.pojos.forms.UnsubscribePremiumForm;
 import ch.unibe.ese.team1.controller.service.AdService;
 import ch.unibe.ese.team1.controller.service.SignupService;
 import ch.unibe.ese.team1.controller.service.UserService;
@@ -103,6 +105,28 @@ public class ProfileController {
 		model.addObject("currentUser", user);
 		return model;
 	}
+	
+	/** Shows the get premium page. */
+	@RequestMapping(value = "/profile/getPremium", method = RequestMethod.GET)
+	public ModelAndView getPremium(Principal principal) {
+		ModelAndView model = new ModelAndView("getPremium");
+		String username = principal.getName();
+		User user = userService.findUserByUsername(username);
+		model.addObject("getPremiumForm", new GetPremiumForm());
+		model.addObject("currentUser", user);
+		return model;
+	}
+	
+	/** Shows the unsubscribe premium page. */
+	@RequestMapping(value = "/profile/unsubscribePremium", method = RequestMethod.GET)
+	public ModelAndView unsubscribePremium(Principal principal) {
+		ModelAndView model = new ModelAndView("unsubscribePremium");
+		String username = principal.getName();
+		User user = userService.findUserByUsername(username);
+		model.addObject("unsubscribePremiumForm", new UnsubscribePremiumForm());
+		model.addObject("currentUser", user);
+		return model;
+	}
 
 	/** Handles the request for editing the user profile. */
 	@RequestMapping(value = "/profile/editProfile", method = RequestMethod.POST)
@@ -116,6 +140,50 @@ public class ProfileController {
 			userUpdateService.updateFrom(editProfileForm, username);
 			model = new ModelAndView("updatedProfile");
 			model.addObject("message", "Your Profile has been updated!");
+			model.addObject("currentUser", user);
+			return model;
+		} else {
+			model = new ModelAndView("updatedProfile");
+			model.addObject("message",
+					"Something went wrong, please contact the WebAdmin if the problem persists!");
+			return model;
+		}
+	}
+	
+	/** Handles the request for get premium. */
+	@RequestMapping(value = "/profile/getPremium", method = RequestMethod.POST)
+	public ModelAndView getPremiumResultPage(
+			@Valid GetPremiumForm getPremiumForm,
+			BindingResult bindingResult, Principal principal) {
+		ModelAndView model;
+		String username = principal.getName();
+		User user = userService.findUserByUsername(username);
+		if (!bindingResult.hasErrors()) {
+			userUpdateService.updateFrom(getPremiumForm, username);
+			model = new ModelAndView("updatedProfile");
+			model.addObject("message", "Congrats! You are Premium user now.");
+			model.addObject("currentUser", user);
+			return model;
+		} else {
+			model = new ModelAndView("updatedProfile");
+			model.addObject("message",
+					"Something went wrong, please contact the WebAdmin if the problem persists!");
+			return model;
+		}
+	}
+	
+	/** Handles the request for unsubscribe premium. */
+	@RequestMapping(value = "/profile/unsubscribePremium", method = RequestMethod.POST)
+	public ModelAndView unsubscribePremiumResultPage(
+			@Valid UnsubscribePremiumForm unsubscribePremiumForm,
+			BindingResult bindingResult, Principal principal) {
+		ModelAndView model;
+		String username = principal.getName();
+		User user = userService.findUserByUsername(username);
+		if (!bindingResult.hasErrors()) {
+			userUpdateService.updateFrom(unsubscribePremiumForm, username);
+			model = new ModelAndView("updatedProfile");
+			model.addObject("message", "You unsubscribed successfully.");
 			model.addObject("currentUser", user);
 			return model;
 		} else {
