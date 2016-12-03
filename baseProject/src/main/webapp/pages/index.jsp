@@ -33,34 +33,110 @@
 
 <h1>Welcome to FlatFindr!</h1>
 
-<form method="post" action="/indexSearch"
-	id="filterForm" autocomplete="off" >
-	<div id="indexDiv">
-	<h1>Fast Search:</h1> <br>
-		
-		
-		<font size="5"><b>What?</b></font>
+<form:form method="get" modelAttribute="searchForm" action="/results"
+	id="filterForm" autocomplete="off">
+
+	<div id="filterDiv">
+	
+		<h2>Filter results:</h2>
+
 		<table>
 		<tr>
-		<td><input type="checkbox" name="room" id="room"  /><label><b>Room</b></label></td>
-		<td><input type="checkbox" name="studio" id="studio"  /><label><b>Studio</b></label></td>
-		<td><input type="checkbox" name="flat" id="flat" /><label><b>Flat</b></label></td>
-		<td><input type="checkbox" name="house" id="house"  /><label><b>House</b></label></td>
+		<td><form:checkbox name="buy" id="buy" path="buy"/><label>Buy</label></td>
+		<td><form:checkbox name="rent" id="rent" path="rent"/><label>Rent</label></td>
+		<td><form:checkbox name="auction" id="auction" path="auction"/><label>Auction</label></td>
+
+
+		</tr>
+		<tr>
+		<td><form:checkbox name="room" id="room" path="room" /><label>Room</label></td>
+		<td><form:checkbox name="studio" id="studio" path="studio" /><label>Studio</label></td>
+		<td><form:checkbox name="flat" id="flat" path="flat" /><label>Flat</label></td>
+		<td><form:checkbox name="house" id="house" path="house" /><label>House</label></td>
+
 
 		</tr>
 		</table>
 
-		<label for="city"><font size="5"><b>Where?</b></font></label>
-		<input type="text" name="city" id="city" required="required"
+		<label for="city">City / zip code:</label>
+		<form:input type="text" name="city" id="city" path="city"
 			placeholder="e.g. Bern" tabindex="3" />
-		<form:errors path="city" cssClass="validationErrorText" />
-	
-		<br /> 
+		<form:errors path="city" cssClass="validationErrorText" /><br />
 
-		<button type="submit" class="buttonDiv" >Go!</button>
-		<button type="reset" class="buttonDiv" >Reset</button>
+		<label for="radius">Within radius of (max.):</label>
+		<form:input id="radiusInput" type="number" path="radius"
+			placeholder="e.g. 5" step="5" />
+		km
+		<form:errors path="radius" cssClass="validationErrorText" />
+		<br /> <label for="prize">Price (max.):</label>
+		<form:input id="prizeInput" type="number" path="prize"
+			placeholder="e.g. 5" step="50" />
+		CHF
+		<form:errors path="prize" cssClass="validationErrorText" /><br />
+
+		<hr class="slim">
+
+		<table style="width: 80%">
+			<tr>
+				<td><label for="earliestMoveInDate">Earliest move-in date</label></td>
+				<td><label for="earliestMoveOutDate">Earliest move-out date (optional)</label></td>
+			</tr>
+			<tr>
+				<td><form:input type="text" id="field-earliestMoveInDate"
+						path="earliestMoveInDate" /></td>
+				<td><form:input type="text" id="field-earliestMoveOutDate"
+						path="earliestMoveOutDate" /></td>
+			</tr>
+			<tr>
+				<td><label for="latestMoveInDate">Latest move-in date</label></td>
+				<td><label for="latestMoveOutDate">Latest move-out date (optional)</label></td>
+			</tr>
+			<tr>
+				<td><form:input type="text" id="field-latestMoveInDate"
+						path="latestMoveInDate" /></td>
+				<td><form:input type="text" id="field-latestMoveOutDate"
+						path="latestMoveOutDate" /></td>
+			</tr>
+			<tr>
+				<td><form:checkbox id="field-smoker" path="smokers" value="1" /><label>Smoking inside
+						allowed</label></td>
+				<td><form:checkbox id="field-animals" path="animals" value="1" /><label>Animals
+						inside allowed</label></td>
+			</tr>
+			<tr>
+				<td><form:checkbox id="field-garden" path="garden" value="1" /><label>Garden
+						(co-use)</label></td>
+				<td><form:checkbox id="field-balcony" path="balcony" value="1" /><label>Balcony
+						or Patio</label></td>
+			</tr>
+			<tr>
+				<td><form:checkbox id="field-cellar" path="cellar" value="1" /><label>Cellar
+						or Attic</label></td>
+				<td><form:checkbox id="field-furnished" path="furnished"
+						value="1" /><label>Furnished</label></td>
+			</tr>
+			<tr>
+				<td><form:checkbox id="field-cable" path="cable" value="1" /><label>Cable
+						TV</label></td>
+				<td><form:checkbox id="field-garage" path="garage" value="1" /><label>Garage</label>
+				</td>
+			</tr>
+			<tr>
+				<td><form:checkbox id="field-internet" path="internet" value="1" /><label>WiFi</label></td>
+			</tr>
+			<tr>
+				<td><form:checkbox id="field-dishwasher" path="dishwasher" value="1" /><label>Dishwasher</label></td>
+			</tr>
+			<tr>
+				<td><form:checkbox id="field-washingMachine" path="washingMachine" value="1" /><label>Washing machine</label></td>
+			</tr>
+		</table>
+
+
+		<button type="submit">Filter</button>
+		<button type="reset">Cancel</button>
 	</div>
-</form>
+</form:form>
 
 <c:choose>
 	<c:when test="${empty newest}">

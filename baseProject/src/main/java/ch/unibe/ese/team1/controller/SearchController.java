@@ -43,6 +43,14 @@ public class SearchController {
 		ModelAndView model = new ModelAndView("searchAd");
 		return model;
 	}
+	
+	@RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView index() {
+		ModelAndView model = new ModelAndView("index");
+		model.addObject("newest", adService.getNewestAds(4));
+		model.addObject("bidService", bidService);
+		return model;
+	}
 
 	
 	@RequestMapping(value="/indexSearch", method = {RequestMethod.POST})
