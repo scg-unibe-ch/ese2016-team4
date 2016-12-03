@@ -152,7 +152,6 @@ public class PlaceAdController {
 
 			// triggers all alerts that match the placed ad
 			alertService.triggerAlerts(ad);
-			adService.findCoords(ad);
 
 			// reset the place ad form
 			this.placeAdForm = null;
