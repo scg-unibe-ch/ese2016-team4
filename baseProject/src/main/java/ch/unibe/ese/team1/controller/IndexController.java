@@ -18,16 +18,10 @@ public class IndexController {
 	@Autowired
 	private AdService adService;
 
-	@Autowired
-	private BidService bidHistoryService;
-	/** Displays the home page. */
-	@RequestMapping(value = "/")
-	public ModelAndView index() {
-		ModelAndView model = new ModelAndView("index");
-		model.addObject("newest", adService.getNewestAds(4));
-		model.addObject("bidService", bidHistoryService);
-		return model;
-	}
+	/** Homepage gets displayed in SearchController.java, 
+	 * 	So we avoid unnecessary duplicated code.
+	 * 	Else the bean mapping wouldn't work for the index search.
+	 * */
 
 	/** Displays the about us page. */
 	@RequestMapping(value = "/about")

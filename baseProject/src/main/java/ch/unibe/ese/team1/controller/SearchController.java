@@ -37,13 +37,7 @@ public class SearchController {
 	 */
 	private SearchForm searchForm;
 
-	/** Shows the search ad page. */
-	@RequestMapping(value = "/searchAd", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView searchAd() {
-		ModelAndView model = new ModelAndView("searchAd");
-		return model;
-	}
-	
+	/** Displays the homepage */
 	@RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView index() {
 		ModelAndView model = new ModelAndView("index");
@@ -51,42 +45,12 @@ public class SearchController {
 		model.addObject("bidService", bidService);
 		return model;
 	}
-
 	
-	@RequestMapping(value="/indexSearch", method = {RequestMethod.POST})
-	public ModelAndView indexSearch(@RequestParam("city") String city,
-			@Valid SearchForm searchForm,
-			BindingResult result){
-		searchForm.deleteLists();
-		searchForm.setCity(city);
-		searchForm.setPrize(1000000);
-		
-		searchForm.setFlat(searchForm.getFlat());
-		searchForm.setHouse(searchForm.getHouse());
-		searchForm.setStudio(searchForm.getStudio());
-		searchForm.setRoom(searchForm.getRoom());
-		searchForm.setRent(true);
-		searchForm.setAuction(true);
-		searchForm.setBuy(true);
-		searchForm.setRadius(10);
-		
-		if (!result.hasErrors()) {
-			ModelAndView model = new ModelAndView("results");
-			Iterable<Ad> searchFormResults = adService.queryResults(searchForm);
-			Iterable<String> googleMapCoords = adService.getGoogleCoords(searchFormResults);
-			model.addObject("results", searchFormResults);
-			model.addObject("coords", googleMapCoords);
-			//bad, only temporary fix
-			model.addObject("bidService", bidService);
-			searchForm.deleteLists();
-			return model;
-		} else {
-			// go back
-			ModelAndView model = new ModelAndView("index");
-			model.addObject("newest", adService.getNewestAds(4));
-			model.addObject("bidService", bidService);
-			return model;
-		}
+	/** Shows the search ad page. */
+	@RequestMapping(value = "/searchAd", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView searchAd() {
+		ModelAndView model = new ModelAndView("searchAd");
+		return model;
 	}
 
 	/**
