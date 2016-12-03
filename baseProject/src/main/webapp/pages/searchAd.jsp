@@ -45,6 +45,20 @@
 	});
 </script>
 
+<%-- Need to choose at least 1 propertyType and 1 sellType --%>
+<script>
+function typesNotEmpty() {
+	if(!(document.getElementById('room').checked || document.getElementById('studio').checked 
+	|| document.getElementById('flat').checked || document.getElementById('house').checked)){
+		document.getElementById('noPropertyType').checked = true;
+	}else{document.getElementById('noPropertyType').checked = false;}
+	if(!(document.getElementById('buy').checked || document.getElementById('rent').checked 
+	|| document.getElementById('auction').checked)){
+				document.getElementById('noSellType').checked = true;
+	}else{document.getElementById('noSellType').checked = false;}
+}
+</script>
+
 <script>
 $(document).ready( function() {
     var now = new Date();
@@ -59,7 +73,7 @@ $(document).ready( function() {
 
 
 <form:form method="get" modelAttribute="searchForm" action="/results"
-	id="filterForm" autocomplete="off">
+	id="filterForm" autocomplete="off" onsubmit="typesNotEmpty()">
 
 	<div id="searchDiv">
 		<h2>Search:</h2>
@@ -68,15 +82,17 @@ $(document).ready( function() {
 		<td><form:checkbox name="buy" id="buy" path="buy"/><label>Buy</label></td>
 		<td><form:checkbox name="rent" id="rent" path="rent"/><label>Rent</label></td>
 		<td><form:checkbox name="auction" id="auction" path="auction"/><label>Auction</label></td>
-
+		<form:checkbox name="noSellType" id="noSellType" path="noSellType" hidden="true"/>
+		<form:errors path="noSellType" cssClass="validationErrorText" />
 		</tr>
+		
 		<tr>
 		<td><form:checkbox name="room" id="room" path="room" /><label>Room</label></td>
 		<td><form:checkbox name="studio" id="studio" path="studio" /><label>Studio</label></td>
 		<td><form:checkbox name="flat" id="flat" path="flat" /><label>Flat</label></td>
 		<td><form:checkbox name="house" id="house" path="house" /><label>House</label></td>
-
-
+		<form:checkbox name="noPropertyType" id="noPropertyType" path="noPropertyType" hidden="true"/>
+		<form:errors path="noPropertyType" cssClass="validationErrorText" />
 		</tr>
 		</table>
 
@@ -88,12 +104,12 @@ $(document).ready( function() {
 
 		<label for="radius">Within radius of (max.):</label>
 		<form:input id="radiusInput" type="number" path="radius"
-			placeholder="e.g. 5" step="5" />
+			placeholder="e.g. 5" step="1" />
 		km
 		<form:errors path="radius" cssClass="validationErrorText" />
 		<br /> <label for="prize">Price (max.):</label>
 		<form:input id="prizeInput" type="number" path="prize"
-			placeholder="e.g. 5" step="50" />
+			placeholder="e.g. 5" step="1" />
 		CHF
 		<form:errors path="prize" cssClass="validationErrorText" /><br />
 
@@ -152,7 +168,8 @@ $(document).ready( function() {
 				<td><form:checkbox id="field-washingMachine" path="washingMachine" value="1" /><label>Washing machine</label></td>
 			</tr>
 		</table>
-
+		<%-- used to redirect to the previous page if form input was erroneous --%>
+		<form:input type="hidden" name="page" value="searchAd" path=""/>
 
 		<button type="submit">Search</button>
 		<button type="reset">Cancel</button>

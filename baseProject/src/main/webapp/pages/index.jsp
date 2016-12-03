@@ -29,6 +29,16 @@
 	
 </script>
 
+<%-- Need to chose at least 1 propertyType --%>
+<script>
+function typesNotEmpty() {
+	if(!(document.getElementById('room').checked || document.getElementById('studio').checked 
+	|| document.getElementById('flat').checked || document.getElementById('house').checked)){
+		document.getElementById('noPropertyType').checked = true;
+	}else{document.getElementById('noPropertyType').checked = false;}
+}
+</script>
+
 <%-- We don't want to cache this forminput --%>
 <script>
 $(document).ready(function() {
@@ -45,7 +55,7 @@ $(document).ready(function() {
 <h1>Welcome to FlatFindr!</h1>
 
 <form:form method="get" modelAttribute="searchForm" action="/results"
-	id="filterForm" autocomplete="off">
+	id="filterForm" autocomplete="off" onsubmit="typesNotEmpty()">
 
 	    <div id="indexDiv">
     <h1>Fast Search:</h1> <br>
@@ -59,7 +69,8 @@ $(document).ready(function() {
 		<td><form:checkbox name="studio" id="studio" path="studio" /><label><b>Studio</b></label></td>
 		<td><form:checkbox name="flat" id="flat" path="flat" /><label><b>Flat</b></label></td>
 		<td><form:checkbox name="house" id="house" path="house" /><label><b>House</b></label></td>
-
+		<form:checkbox name="noPropertyType" id="noPropertyType" path="noPropertyType" hidden="true"/>
+		<form:errors path="noPropertyType" cssClass="validationErrorText" />
         </tr>
         </table>
 
@@ -78,7 +89,9 @@ $(document).ready(function() {
 		<form:checkbox name="auction" id="auction" path="auction" checked="true" hidden="true"/>
 		
         <br />
-
+        <%-- used to redirect to the previous page if form input was erroneous --%>
+		<form:input type="hidden" name="page" value="index" path=""/>
+	
         <button type="submit" class="buttonDiv" >Go!</button>
         <button type="reset" class="buttonDiv" >Reset</button>
     </div>

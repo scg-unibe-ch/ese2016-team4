@@ -1,6 +1,8 @@
 package ch.unibe.ese.team1.controller;
 
 
+import java.net.URL;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +61,7 @@ public class SearchController {
 	 */
 	@RequestMapping(value = "/results", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView results(@Valid SearchForm searchForm,
-			BindingResult result) {
+			BindingResult result, @RequestParam(value="page", required=false) String page) {
 		if (!result.hasErrors()) {
 			ModelAndView model = new ModelAndView("results");
 			Iterable<Ad> searchFormResults = adService.queryResults(searchForm);
@@ -71,7 +73,11 @@ public class SearchController {
 			return model;
 		} else {
 			// go backs
-			return searchAd();
+			if(page != null && page.equalsIgnoreCase("index")) {
+				return index();
+			}else {
+				return searchAd();
+			}
 		}
 	}
 

@@ -116,7 +116,7 @@ public class SearchForm {
 	private String city;
 	
 	@NotNull(message = "Requires a number")
-	@Min(value = 0, message = "Please enter a positive distance")
+	@Min(value = 1, message = "Please enter a positive distance")
 	private Integer radius;
 	
 	@NotNull(message = "Requires a number")
@@ -124,10 +124,27 @@ public class SearchForm {
 	private Integer prize;
 
 	
-	@AssertFalse(message = "Please select either or both types")
-	private boolean noRoomNoStudio;
+	@AssertFalse(message = "Please select at least 1 property type")
+	private boolean noPropertyType;
 
 
+	@AssertFalse(message = "Please select at least 1 sell type")
+	private boolean noSellType;
+
+	
+	public boolean isNoPropertyType() {
+		return noPropertyType;
+	}
+	public void setNoPropertyType(boolean noPropertyType) {
+		this.noPropertyType = noPropertyType;
+	}
+	public boolean isNoSellType() {
+		return noSellType;
+	}
+	public void setNoSellType(boolean noSellType) {
+		this.noSellType = noSellType;
+	}
+	
 	public String getCity() {
 		return city;
 	}
