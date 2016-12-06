@@ -16,17 +16,17 @@ import org.springframework.web.servlet.ModelAndView;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
+
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
 		"file:src/main/webapp/WEB-INF/config/springMVC.xml",
 		"file:src/main/webapp/WEB-INF/config/springData.xml",
 		"file:src/main/webapp/WEB-INF/config/springSecurity.xml"})
 @WebAppConfiguration
-public class SearchControllerTest {
-	
-	@Autowired
-	private SearchController searchController;
-	
+public class AdControllerTest {
 	
 	@Autowired
     private WebApplicationContext wac;
@@ -35,36 +35,17 @@ public class SearchControllerTest {
  
     @Before
     public void setup() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).apply(springSecurity()).build();
     }
-	  
-	@Test
-	public void indexTest() throws Exception{
-		this.mockMvc.perform(get("/"))
-        			.andExpect(status().isOk())
-        			.andExpect(view().name("index"));
-	}
 	
 	@Test
-	public void searchAdTest(){
-		searchController = new SearchController();
-		ModelAndView model = searchController.searchAd();
-		
-		assertEquals("searchAd", model.getViewName());
-	}
-	
-	@Test
-	public void testResults() throws Exception{
-		this.mockMvc.perform(post("/results")
-					.param("buy", "true")
-					.param("house", "true")
-					.param("city", "3018 - Bern")
-					.param("radius", "100")
-					.param("prize", "1000"))
+	public void testMyRooms() throws Exception{
+		this.mockMvc.perform(get("/profile/myRooms")
+					.with(user("ese@unibe.ch").password("ese").roles("USER")))
 					.andExpect(model().hasNoErrors())
 					.andExpect(status().isOk())
-					.andExpect(forwardedUrl("/pages/results.jsp"))
-					.andExpect(view().name("results"));
+					.andExpect(forwardedUrl("/pages/myRooms.jsp"))
+					.andExpect(view().name("myRooms"));
 	}
 
 }
