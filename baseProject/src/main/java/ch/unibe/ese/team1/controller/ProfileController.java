@@ -4,12 +4,14 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,11 @@ import ch.unibe.ese.team1.model.dao.UserDao;
  */
 @Controller
 public class ProfileController {
+
+	public static final String IMAGE_DIRECTORY = "/img/ads/";
+	
+	@Autowired
+	private ServletContext servletContext;
 
 	@Autowired
 	private SignupService signupService;
@@ -288,14 +295,15 @@ public class ProfileController {
 			}
 			System.out.println("Loaded User");
 		}else{
-			String picPath = "/img/test/"+ email.replace('@', '_').replace('.','_') + ".jpg";
+			String realPath = servletContext.getRealPath(IMAGE_DIRECTORY);
+			String picName = email.replace('@', '_').replace('.','_') + ".jpg";
 			try(InputStream in = new URL(imageURL).openStream()){
-			    Files.copy(in, Paths.get(picPath));
+			    Files.copy(in, Paths.get(realPath,picName),StandardCopyOption.REPLACE_EXISTING);
 			}catch(Exception e){
 				System.out.println(e.getMessage());
-				picPath = null;
+				picName = null;
 			}
-			user = createUser(email, getRandomString(24), firstName, lastName, picPath, Gender.FEMALE, false, googleId);
+			user = createUser(email, getRandomString(24), firstName, lastName, IMAGE_DIRECTORY+picName, Gender.FEMALE, false, googleId);
 		}
 		userDao.save(user);
 		System.out.println("Saved User: pw="+user.getPassword());
@@ -330,16 +338,16 @@ public class ProfileController {
 		}
 		Set<UserRole> userRoles = new HashSet<>();
 		UserRole role = new UserRole();
+		role.setRole("ROLE_USER");
+		role.setUser(user);
+		userRoles.add(role);
+		user.setUserRoles(userRoles);
 		if (picPath != null){
 			UserPicture picture = new UserPicture();
 			picture.setUser(user);
 			picture.setFilePath(picPath);
 			user.setPicture(picture);
 		}
-		role.setRole("ROLE_USER");
-		role.setUser(user);
-		userRoles.add(role);
-		user.setUserRoles(userRoles);
 		return user;
 	}
 }
