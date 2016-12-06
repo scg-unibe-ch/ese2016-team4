@@ -1,12 +1,28 @@
+/**
+* @Author: Balthasar Hofer <bauz>
+* @Date:   2016-12-04T22:31:28+01:00
+* @Email:  bauz@gmx.net
+* @Last modified by:   bauz
+* @Last modified time: 2016-12-06T18:16:00+01:00
+*/
+
+
+
 package ch.unibe.ese.team1.controller.service;
 
 import java.util.Date;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson.JacksonFactory;
 
 import ch.unibe.ese.team1.controller.pojos.forms.SignupForm;
 import ch.unibe.ese.team1.model.Ad;
@@ -21,7 +37,7 @@ import ch.unibe.ese.team1.model.dao.UserDao;
 @Service
 public class SignupService {
 
-	private static final String DEFAULT_ROLE = "ROLE_USER";
+	public static final String DEFAULT_ROLE = "ROLE_USER";
 
 	@Autowired
 	private UserDao userDao;
@@ -61,7 +77,7 @@ public class SignupService {
 
 	/**
 	 * Returns whether a user with the given username already exists.
-	 * 
+	 *
 	 * @param username
 	 *            the username to check for
 	 * @return true if the user already exists, false otherwise
@@ -92,5 +108,11 @@ public class SignupService {
 				+ "<br><br>Have a nice day"
 				+ "<br><br>Your FlatFindr crew";
 	}
-	
+
+	@Transactional
+	public boolean doesGoogleUserWithUsernameExist(String username) {
+		return true;
+	}
+
+
 }

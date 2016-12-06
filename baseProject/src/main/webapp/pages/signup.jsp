@@ -37,7 +37,6 @@
 			});
 		}	
 	});
-	
 
 </script>
 
@@ -134,6 +133,7 @@
 
 		
 		<button type="submit">Sign up</button>
+		
 	</fieldset>
 </form:form>
 

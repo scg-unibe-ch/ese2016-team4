@@ -28,4 +28,8 @@ public class UserService {
 		return userDao.findUserById(id);
 	}
 
+	public User findUserByGoogleId(String googleId) {
+		return userDao.findByGoogleid(googleId);
+	}
+
 }

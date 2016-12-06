@@ -117,9 +117,40 @@
     		<version>1.9.5</version>
     		<scope>test</scope>
 		</dependency>	
+		<dependency>
+			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client</artifactId>
+			<version>1.13.1-beta</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client-jackson</artifactId>
+			<version>1.13.1-beta</version>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>6.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+             <groupId>com.google.apis</groupId>
+             <artifactId>google-api-services-oauth2</artifactId>
+             <version>v2-rev124-1.22.0</version>
+         </dependency>
+         <!-- https://mvnrepository.com/artifact/com.google.api-client/google-api-client-appengine -->
+         <dependency>
+             <groupId>com.google.api-client</groupId>
+             <artifactId>google-api-client-appengine</artifactId>
+             <version>1.22.0</version>
+         </dependency>
 	</dependencies>
-	
-
+	<repositories>
+		<repository>
+			<id>google-api-services</id>
+			<url>http://google-api-client-libraries.appspot.com/mavenrepo</url>
+		</repository>
+	</repositories> 
 	<profiles>
 		<profile>
 			<id>jetty</id>

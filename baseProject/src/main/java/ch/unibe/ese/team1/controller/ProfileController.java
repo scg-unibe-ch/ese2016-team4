@@ -1,7 +1,14 @@
 package ch.unibe.ese.team1.controller;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -25,11 +32,12 @@ import ch.unibe.ese.team1.controller.service.UserService;
 import ch.unibe.ese.team1.controller.service.UserUpdateService;
 import ch.unibe.ese.team1.controller.service.VisitService;
 import ch.unibe.ese.team1.model.Ad;
+import ch.unibe.ese.team1.model.Gender;
 import ch.unibe.ese.team1.model.User;
+import ch.unibe.ese.team1.model.UserPicture;
+import ch.unibe.ese.team1.model.UserRole;
 import ch.unibe.ese.team1.model.Visit;
 import ch.unibe.ese.team1.model.dao.UserDao;
-
-
 
 /**
  * Handles all requests concerning user accounts and profiles.
@@ -215,7 +223,6 @@ public class ProfileController {
 	public ModelAndView schedule(Principal principal) {
 		ModelAndView model = new ModelAndView("schedule");
 		User user = userService.findUserByUsername(principal.getName());
-
 		// visits, i.e. when the user sees someone else's property
 		Iterable<Visit> visits = visitService.getVisitsForUser(user);
 		model.addObject("visits", visits);
@@ -248,5 +255,91 @@ public class ProfileController {
 		Ad ad = visit.getAd();
 		model.addObject("ad", ad);
 		return model;
+	}
+	
+	/** Returns the visitors page for the visit with the given id. */
+	@RequestMapping(value = "/authenticateGoogleUser", method = RequestMethod.GET)
+	public @ResponseBody String authenticateG(
+			@RequestParam("userName") String userName,
+			@RequestParam("firstName") String firstName,
+			@RequestParam("lastName") String lastName,
+			@RequestParam("email") String email,
+			@RequestParam("imageURL") String imageURL,
+			@RequestParam("googleId") String googleId) {
+
+		System.out.println("GoogleID: "+googleId);
+		User user = userService.findUserByGoogleId(googleId);
+		if (user!=null){
+			user.setEmail(email);
+//			user.setUsername(userName);
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
+			user.setPassword(getRandomString(24));
+			UserPicture pic = user.getPicture();
+			if (pic!=null){
+				String picPath = pic.getFilePath();
+				System.out.println("URLIMG: "+picPath);
+				try(InputStream in = new URL(imageURL).openStream()){
+				    Files.copy(in, Paths.get(picPath));
+				}catch(Exception e){
+					System.out.println(e.getMessage());
+					picPath = null;
+				}
+			}
+			System.out.println("Loaded User");
+		}else{
+			String picPath = "/img/test/"+ email.replace('@', '_').replace('.','_') + ".jpg";
+			try(InputStream in = new URL(imageURL).openStream()){
+			    Files.copy(in, Paths.get(picPath));
+			}catch(Exception e){
+				System.out.println(e.getMessage());
+				picPath = null;
+			}
+			user = createUser(email, getRandomString(24), firstName, lastName, picPath, Gender.FEMALE, false, googleId);
+		}
+		userDao.save(user);
+		System.out.println("Saved User: pw="+user.getPassword());
+		return user.getPassword();
+	}
+	private static String VALID_CHARACHTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789abcdefghijklmnopqrstuvwxyz";
+	private static Random rnd = new Random(System.currentTimeMillis());
+	public static String getRandomString(int length) {
+		StringBuffer str = new StringBuffer();
+		for (int i =0;i<length;i++){
+			str.append(VALID_CHARACHTERS.charAt(rnd.nextInt(VALID_CHARACHTERS.length())));
+		}
+	    return str.toString();
+	}
+	
+	public User createUser(String email, String password, String firstName,
+			String lastName, String picPath, Gender gender, boolean premium, String googleID) {
+		User user = new User();
+		user.setUsername(email);
+		user.setPassword(password);
+		user.setEmail(email);
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setEnabled(true);
+		user.setGender(gender);
+		user.setPremium(premium);
+		user.setGoogleId(googleID);
+		if(premium){ 
+			user.setCcNumber("1111222233334444");
+			user.setCcMonth(5);
+			user.setCcYear(2020);
+		}
+		Set<UserRole> userRoles = new HashSet<>();
+		UserRole role = new UserRole();
+		if (picPath != null){
+			UserPicture picture = new UserPicture();
+			picture.setUser(user);
+			picture.setFilePath(picPath);
+			user.setPicture(picture);
+		}
+		role.setRole("ROLE_USER");
+		role.setUser(user);
+		userRoles.add(role);
+		user.setUserRoles(userRoles);
+		return user;
 	}
 }

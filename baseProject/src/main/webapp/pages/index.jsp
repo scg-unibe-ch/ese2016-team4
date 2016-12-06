@@ -4,7 +4,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <c:import url="template/header.jsp" />
 
 <head>
@@ -158,5 +157,8 @@ $(document).ready(function() {
 		</div>
 	</c:otherwise>
 </c:choose>
-
 <c:import url="template/footer.jsp" /><br />
+</body>
+
+
+

@@ -7,8 +7,7 @@ import javax.persistence.OneToOne;
  * Represents a picture that is linked to a user
  */
 @Entity
-public class UserPicture extends Picture {
-
+public class UserPicture extends Picture {	
 	@OneToOne
 	private User user;
 
