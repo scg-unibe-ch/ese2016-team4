@@ -21,12 +21,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "users")
 public class User {
-	
+
 	@Id
 	@GeneratedValue
 	private long id;
+	
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = true, unique = true)
+	private String googleid;
+
+	public String getGoogleId() {
+		return googleid;
+	}
+
+	public void setGoogleId(String googleId) {
+		this.googleid = googleId;
+	}
+
+	@Column(nullable = true, unique = true)
 	private String username;
 
 	@Column(nullable = false)

@@ -12,24 +12,167 @@
 <c:import url="template/header.jsp" />
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta name="google-signin-client_id" content="1001465174850-12k4bmfds5no3qp9hebmch197rdls106.apps.googleusercontent.com">
+
 <script>
-
-
+	var logged = ("${loggedIn}"=='true');
 	function onSignIn(googleUser) {
-	  var profile = googleUser.getBasicProfile();
-	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-	  console.log('Name: ' + profile.getName());
-	  console.log('Given Name: ' + profile.getGivenName());
-	  console.log('Family Name: ' + profile.getFamilyName());
-	  console.log('Image URL: ' + profile.getImageUrl());
-	  console.log('Email: ' + profile.getEmail());
+		console.log("signed in: " + logged);
+		console.log(!logged);
+		if (!logged){
+			console.log("im here!");
+			googleUser.reloadAuthResponse()
+			var id_token = googleUser.getAuthResponse().id_token;
+			var profile = googleUser.getBasicProfile();
+			console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+			console.log('Name: ' + profile.getName());
+			console.log('Given Name: ' + profile.getGivenName());
+			console.log('Family Name: ' + profile.getFamilyName());
+			console.log('Image URL: ' + profile.getImageUrl());
+			console.log('Email: ' + profile.getEmail());
+			var email = profile.getEmail()?profile.getEmail():"Undefined";
+			if (email == 'Undefined'){
+				return;
+			}
+			var values = {
+				userName : profile.getName() ? profile.getName() : "Glögglifrösch",
+				firstName : profile.getGivenName() ? profile.getGivenName() : "Blöd",
+				lastName : profile.getFamilyName() ? profile.getFamilyName() : "Gange",
+				email : email,
+				imageURL : profile.getImageUrl()?profile.getImageUrl():"https://thumbs.dreamstime.com/z/indian-head-profile-vector-image-traditional-headdress-feathers-caricature-symbol-sign-logo-element-68779563.jpg",
+				googleId: profile.getId(),
+			};
+			var get = $.get("/authenticateGoogleUser", values);
+
+			console.log("startaAuth");
+			get.done(function(pw) {
+				console.log("pw: "+pw);
+				var form = createElement("form",{action:"/j_spring_security_check", 
+												 method: "post",
+												 id:"login-form",
+												 autocomplete:"off"});		
+				form.appendChild(createElement("input",{name:"j_username",id:"field-email", value:email,autocomplete:"off"}));
+				form.appendChild(createElement("input",{name:"j_password",id:"field-password", value:pw, type:"password",autocomplete:"off"}));
+				logged = true;
+				document.body.appendChild(form);
+				form.submit();
+				document.body.removeChild(form);
+			});
+		}
+	}
+	var createElement = (function()
+			{
+			    // Detect IE using conditional compilation
+			    if (/*@cc_on @*//*@if (@_win32)!/*@end @*/false)
+			    {
+			        // Translations for attribute names which IE would otherwise choke on
+			        var attrTranslations =
+			        {
+			            "class": "className",
+			            "for": "htmlFor"
+			        };
+
+			        var setAttribute = function(element, attr, value)
+			        {
+			            if (attrTranslations.hasOwnProperty(attr))
+			            {
+			                element[attrTranslations[attr]] = value;
+			            }
+			            else if (attr == "style")
+			            {
+			                element.style.cssText = value;
+			            }
+			            else
+			            {
+			                element.setAttribute(attr, value);
+			            }
+			        };
+
+			        return function(tagName, attributes)
+			        {
+			            attributes = attributes || {};
+
+			            // See http://channel9.msdn.com/Wiki/InternetExplorerProgrammingBugs
+			            if (attributes.hasOwnProperty("name") ||
+			                attributes.hasOwnProperty("checked") ||
+			                attributes.hasOwnProperty("multiple"))
+			            {
+			                var tagParts = ["<" + tagName];
+			                if (attributes.hasOwnProperty("name"))
+			                {
+			                    tagParts[tagParts.length] =
+			                        ' name="' + attributes.name + '"';
+			                    delete attributes.name;
+			                }
+			                if (attributes.hasOwnProperty("checked") &&
+			                    "" + attributes.checked == "true")
+			                {
+			                    tagParts[tagParts.length] = " checked";
+			                    delete attributes.checked;
+			                }
+			                if (attributes.hasOwnProperty("multiple") &&
+			                    "" + attributes.multiple == "true")
+			                {
+			                    tagParts[tagParts.length] = " multiple";
+			                    delete attributes.multiple;
+			                }
+			                tagParts[tagParts.length] = ">";
+
+			                var element =
+			                    document.createElement(tagParts.join(""));
+			            }
+			            else
+			            {
+			                var element = document.createElement(tagName);
+			            }
+
+			            for (var attr in attributes)
+			            {
+			                if (attributes.hasOwnProperty(attr))
+			                {
+			                    setAttribute(element, attr, attributes[attr]);
+			                }
+			            }
+
+			            return element;
+			        };
+			    }
+			    // All other browsers
+			    else
+			    {
+			        return function(tagName, attributes)
+			        {
+			            attributes = attributes || {};
+			            var element = document.createElement(tagName);
+			            for (var attr in attributes)
+			            {
+			                if (attributes.hasOwnProperty(attr))
+			                {
+			                    element.setAttribute(attr, attributes[attr]);
+			                }
+			            }
+			            return element;
+			        };
+			    }
+			})();
+</script>
+
+<script>
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+
+		/*auth2.disconnect().then(function(){
+		    console.log('Access revoked.');        	
+		});*/
+		auth2.signOut().then(function() {
+			console.log('User signed out.');
+		});
 	}
 </script>
 
 <pre>
 	<a href="/">Home</a>   &gt;   Login</pre>
 
-<h1>Login</h1>	
+<h1>Login</h1>
 
 <c:choose>
 	<c:when test="${loggedIn}">
@@ -42,12 +185,13 @@
 			<br />
 		</c:if>
 		<form id="login-form" method="post" action="/j_spring_security_check">
-			<label for="field-email">Email:</label> <input name="j_username"
-				id="field-email" /> <label for="field-password">Password:</label> <input
-				name="j_password" id="field-password" type="password" />
+			<label for="field-email">Email:</label>
+				<input name="j_username" id="field-email" />
+			<label for="field-password">Password:</label>
+				<input name="j_password" id="field-password" type="password" />
 			<button type="submit">Login</button>
 			<div class="g-signin2" data-onsuccess="onSignIn"></div>
-			
+			<a href="#" onclick="signOut();">Sign out</a>
 		</form>
 		<br />
 		<h2>Test users</h2>

@@ -1,3 +1,13 @@
+<!--
+@Author: Balthasar Hofer <bauz>
+@Date:   2016-11-22T15:05:05+01:00
+@Email:  bauz@gmx.net
+@Last modified by:   bauz
+@Last modified time: 2016-11-29T15:21:33+01:00
+-->
+
+
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -111,8 +121,41 @@
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.7.21</version>
 	   	</dependency>
+		<dependency>
+			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client</artifactId>
+			<version>1.13.1-beta</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client-jackson</artifactId>
+			<version>1.13.1-beta</version>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>6.0</version>
+			<scope>provided</scope>
+		</dependency>
+                <!-- https://mvnrepository.com/artifact/com.google.apis/google-api-services-oauth2 -->
+                <dependency>
+                    <groupId>com.google.apis</groupId>
+                    <artifactId>google-api-services-oauth2</artifactId>
+                    <version>v2-rev124-1.22.0</version>
+                </dependency>
+                <!-- https://mvnrepository.com/artifact/com.google.api-client/google-api-client-appengine -->
+                <dependency>
+                    <groupId>com.google.api-client</groupId>
+                    <artifactId>google-api-client-appengine</artifactId>
+                    <version>1.22.0</version>
+                </dependency>
 	</dependencies>
-
+	<repositories>
+		<repository>
+			<id>google-api-services</id>
+			<url>http://google-api-client-libraries.appspot.com/mavenrepo</url>
+		</repository>
+	</repositories> 
 	<profiles>
 		<profile>
 			<id>jetty</id>
