@@ -49,7 +49,6 @@ function sort_div_attribute() {
 				divsbucket[a][0] = divslist[a].getAttribute(attname2);
 			else
 				divsbucket[a][0] = divslist[a].getAttribute(attname3);
-			//divsbucket[a][0] = divslist[a].getAttribute(attname1);
 			divsbucket[a][1] = divslist[a];
 			divslist[a].remove();
 	    }
@@ -231,7 +230,7 @@ function initMap() {
 		<div id="resultsDiv" class="resultsDiv">
 			<c:forEach var="ad" items="${results}">
 				<div class="resultAd" data-rentPrice="${ad.prizePerMonth}"
-								data-moveIn="${ad.moveInDate}" data-age="${ad.moveInDate}"
+								data-moveIn="${ad.moveInDate}" data-age="${ad.creationDate}"
 								data-auctionPrice="${bidService.getHighestBid(ad.id)}"
 								data-buyPrice="${ad.prizeOfSale}"
 								data-sellType="${ad.sellType}">
