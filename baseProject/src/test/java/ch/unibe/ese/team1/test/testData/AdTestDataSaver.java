@@ -681,7 +681,7 @@ public class AdTestDataSaver {
 		adLangnau.setCreationDate(creationDate9);
 		adLangnau.setAuctionEndDate(auctionEndDate1);
 		adLangnau.setStartOffer(100);
-		adLangnau.setPrizePerMonth(100);
+		adLangnau.setPrizePerMonth(0);
 		adLangnau.setSquareFootage(10000);
 		adLangnau.setPropertyType(4);
 		adLangnau.setSellType(3);
