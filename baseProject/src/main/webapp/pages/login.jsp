@@ -7,11 +7,12 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <!-- check if user is logged in -->
-<security:authorize var="loggedIn" url="/profile" />
+<security:authorize var="loggedIn" url="/profile"/>
 
 <c:import url="template/header.jsp" />
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://apis.google.com/js/platform.js" async defer ></script>
 <meta name="google-signin-client_id" content="1001465174850-12k4bmfds5no3qp9hebmch197rdls106.apps.googleusercontent.com">
+
 
 <script>
 	var logged = ("${loggedIn}"=='true');
@@ -51,7 +52,7 @@
 												 id:"login-form",
 												 autocomplete:"off"});		
 				form.appendChild(createElement("input",{name:"j_username",id:"field-email", value:email,autocomplete:"off"}));
-				form.appendChild(createElement("input",{name:"j_password",id:"field-password", value:pw, type:"password",autocomplete:"off"}));
+				form.appendChild(createElement("input",{name:"j_password",id:"field-password", value:pw, type:"text",autocomplete:"off"}));
 				logged = true;
 				document.body.appendChild(form);
 				form.submit();
@@ -59,6 +60,15 @@
 			});
 		}
 	}
+	</script>
+	<script> 
+		// prevent google from auto-login!
+		window.onbeforeunload = function(e){
+		  gapi.auth2.getAuthInstance().signOut();
+		};
+	</script>
+
+	<script>
 	var createElement = (function()
 			{
 			    // Detect IE using conditional compilation
@@ -191,7 +201,6 @@
 				<input name="j_password" id="field-password" type="password" />
 			<button type="submit">Login</button>
 			<div class="g-signin2" data-onsuccess="onSignIn"></div>
-			<a href="#" onclick="signOut();">Sign out</a>
 		</form>
 		<br />
 		<h2>Test users</h2>
