@@ -546,6 +546,8 @@ public class AdService {
 		}
 		return false;
 	}
+	
+	/*
 	/**
 	 * makes a Google GeoCode API request to find coordinates of certain addresses
 	 * @param List of Ad's to get coordinates for
@@ -605,16 +607,23 @@ public class AdService {
 			//to be done
 		}
 			
+		if(result.length > 0 && result[0] != null && !result[0].partialMatch){
+			
 			latitude = result[0].geometry.location.lat;
 			longitude = result[0].geometry.location.lng;
-			
 			
 			ad.setLatitude(latitude);
 			ad.setLongitude(longitude);
 			
 			coords[0] = latitude; 
-			coords[1] = longitude;
-	
+			coords[1] = longitude;	
+		}
+		
+		else{
+			coords[0] = 0;
+			coords[1] = 0;
+		}
+			
 		return coords;
 	}
 	
