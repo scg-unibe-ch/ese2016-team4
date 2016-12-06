@@ -33,13 +33,17 @@ function sort_div_attribute() {
 	    var divsbucket = new Array();
 	    var divslist = $('div.resultAd');
 	    var divlength = divslist.length;
+	    
 	    for (a = 0; a < divlength; a++) {
 			divsbucket[a] = new Array();
 			divsbucket[a][0] = divslist[a].getAttribute(attname);
 			divsbucket[a][1] = divslist[a];
+			divsbucket[a][2] = divslist[a].getAttribute('data-premium');
 			divslist[a].remove();
 	    }
+	   
 
+	    
 	    //sort the array
 		divsbucket.sort(function(a, b) {
 	    if (a[0] == b[0])
@@ -53,10 +57,27 @@ function sort_div_attribute() {
 	    //invert sorted array for certain sort options
 		if(sortmode == "price_desc" || sortmode == "moveIn_asc" || sortmode == "dateAge_asc")
 			divsbucket.reverse();
+	    
 
+		var premiumsort = [];
+		
+		for(a=0; a < divlength; a++){
+			if(divsbucket[a][2] == 'true'){
+				premiumsort.push(divsbucket[a][1]);
+			}
+		}
+		
+		for(a=0; a < divlength; a++){
+			if(divsbucket[a][2] == 'false'){
+				premiumsort.push(divsbucket[a][1]);
+			}
+		}
+		
+		var premiumLength = premiumsort.length;
+		
 	    //insert sorted divs into document again
 		for(a = 0; a < divlength; a++)
-        	$("#resultsDiv").append($(divsbucket[a][1]));
+        	$("#resultsDiv").append($(premiumsort[a]));
 	}
 }
 </script>
@@ -211,7 +232,8 @@ function initMap() {
 		<div id="resultsDiv" class="resultsDiv">
 			<c:forEach var="ad" items="${results}">
 				<div class="resultAd" data-price="${ad.prizePerMonth}"
-								data-moveIn="${ad.moveInDate}" data-age="${ad.moveInDate}">
+								data-moveIn="${ad.moveInDate}" data-age="${ad.moveInDate}" 
+								data-premium="${ad.getUser().isPremium()}">
 					<div class="resultLeft">
 						<a href="<c:url value='/ad?id=${ad.id}' />"><img
 							src="${ad.pictures[0].filePath}" /></a>
