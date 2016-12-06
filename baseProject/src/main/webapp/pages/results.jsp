@@ -23,32 +23,52 @@ function sort_div_attribute() {
     	var attname;
 
     	//determine which variable we pass to the sort function
-		if(sortmode == "price_asc" || sortmode == "price_desc")
-			attname = 'data-price';
-	    else if(sortmode == "moveIn_asc" || sortmode == "moveIn_desc")
-			attname = 'data-moveIn';
-	    else
-			attname = 'data-age';
-
+		if(sortmode == "price_asc" || sortmode == "price_desc"){
+			attname1 = 'data-rentPrice';
+    		attname2 = 'data-buyPrice';
+    		attname3 = 'data-auctionPrice';
+		}
+	    else if(sortmode == "moveIn_asc" || sortmode == "moveIn_desc"){
+			attname1 = 'data-moveIn';
+			attname2 = 'data-moveIn';
+			attname3 = 'data-moveIn';
+	    }
+	    else{
+			attname1 = 'data-age';
+    		attname2 = 'data-age';
+    		attname3 = 'data-age';
+	    }
 		//copying divs into an array which we're going to sort
 	    var divsbucket = new Array();
 	    var divslist = $('div.resultAd');
 	    var divlength = divslist.length;
 	    for (a = 0; a < divlength; a++) {
 			divsbucket[a] = new Array();
-			divsbucket[a][0] = divslist[a].getAttribute(attname);
+			if(parseInt(divslist[a].getAttribute('data-sellType'))==1)
+				divsbucket[a][0] = divslist[a].getAttribute(attname1);
+			else if(parseInt(divslist[a].getAttribute('data-sellType'))==2)
+				divsbucket[a][0] = divslist[a].getAttribute(attname2);
+			else
+				divsbucket[a][0] = divslist[a].getAttribute(attname3);
+			//divsbucket[a][0] = divslist[a].getAttribute(attname1);
 			divsbucket[a][1] = divslist[a];
 			divslist[a].remove();
 	    }
 
 	    //sort the array
 		divsbucket.sort(function(a, b) {
-	    if (a[0] == b[0])
+	    if (parseInt(a[0]) == parseInt(b[0])){
+	    	//document.write("Equals: a[0]: "+a[0]+", b[0]: "+b[0]+"<br>");
 			return 0;
-	    else if (a[0] > b[0])
+	    }
+	    else if (parseInt(a[0]) > parseInt(b[0])){
+	    	//document.write("A bigger: a[0]: "+a[0]+", b[0]: "+b[0]+"<br>");
 			return 1;
-        else
+	    }
+        else{
+        	//document.write("B bigger: a[0]: "+a[0]+", b[0]: "+b[0]+"<br>");
 			return -1;
+        }
 		});
 
 	    //invert sorted array for certain sort options
@@ -115,8 +135,11 @@ function sort_div_attribute() {
 	<c:otherwise>
 		<div id="resultsDiv" class="resultsDiv">
 			<c:forEach var="ad" items="${results}">
-				<div class="resultAd" data-price="${ad.prizePerMonth}"
-								data-moveIn="${ad.moveInDate}" data-age="${ad.moveInDate}">
+				<div class="resultAd" data-rentPrice="${ad.prizePerMonth}"
+								data-moveIn="${ad.moveInDate}" data-age="${ad.moveInDate}"
+								data-auctionPrice="${bidService.getHighestBid(ad.id)}"
+								data-buyPrice="${ad.prizeOfSale}"
+								data-sellType="${ad.sellType}">
 					<div class="resultLeft">
 						<a href="<c:url value='/ad?id=${ad.id}' />"><img
 							src="${ad.pictures[0].filePath}" /></a>
