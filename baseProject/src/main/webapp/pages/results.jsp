@@ -29,8 +29,8 @@ function sort_div_attribute() {
 		}
 	    else if(sortmode == "moveIn_asc" || sortmode == "moveIn_desc"){
 			attname1 = 'data-moveIn';
-			attname2 = 'data-moveIn';
-			attname3 = 'data-moveIn';
+			attname2 = 'data-age';
+			attname3 = 'data-auctionEndDate';
 	    }
 	    else{
 			attname1 = 'data-age';
@@ -52,6 +52,8 @@ function sort_div_attribute() {
 				divsbucket[a][0] = divslist[a].getAttribute(attname3);
 			divsbucket[a][1] = divslist[a];
 			divsbucket[a][2] = divslist[a].getAttribute('data-premium');
+			if(attname1=='data-rentPrice') divsbucket[a][3] = 'int';
+			else divsbucket[a][3] = 'date';
 			divslist[a].remove();
 	    }
 	   
@@ -59,11 +61,20 @@ function sort_div_attribute() {
 	    
 	    //sort the array
 		divsbucket.sort(function(a, b) {
-	    if (parseInt(a[0]) == parseInt(b[0])){
+		var aParsed;
+		var bParsed;
+		if(a[3]=='int'){
+			aParsed = parseInt(a[0]);
+			bParsed = parseInt(b[0]);
+		}else{
+			aParsed = Date.parse(a[0]);
+			bParsed = Date.parse(b[0]);
+		}
+	    if (aParsed == bParsed){
 	    	//document.write("Equals: a[0]: "+a[0]+", b[0]: "+b[0]+"<br>");
 			return 0;
 	    }
-	    else if (parseInt(a[0]) > parseInt(b[0])){
+	    else if (aParsed > bParsed){
 	    	//document.write("A bigger: a[0]: "+a[0]+", b[0]: "+b[0]+"<br>");
 			return 1;
 	    }
@@ -255,7 +266,8 @@ function initMap() {
 								data-auctionPrice="${bidService.getHighestBid(ad.id)}"
 								data-buyPrice="${ad.prizeOfSale}"
 								data-sellType="${ad.sellType}"
-								data-premium="${ad.getUser().isPremium()}">
+								data-premium="${ad.getUser().isPremium()}"
+								data-auctionEndDate="${ad.auctionEndDate}" >
 					<div class="resultLeft">
 						<a href="<c:url value='/ad?id=${ad.id}' />"><img
 							src="${ad.pictures[0].filePath}" /></a>
