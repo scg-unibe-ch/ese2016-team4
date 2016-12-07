@@ -588,6 +588,11 @@ public class AdService {
 		return coords;
 	}*/
 	
+	/**
+	 * gets the coordinations of an Ad by a google geocode api request
+	 * @param ad The Ad to get the coords from
+	 * @return size 2 double array with longitude and latitude of the Ad
+	 */
 	public double[] findCoords(Ad ad){
 		double coords[] = new double[2];
 		
@@ -602,11 +607,12 @@ public class AdService {
 		double longitude;
 		try {
 			result =  GeocodingApi.geocode(context,
-				    adAddress).await();
+				    adAddress.substring(3)).await();
 		} catch (Exception e) {
 			//to be done
 		}
 			
+		System.out.println(result.toString());
 		if(result.length > 0 && result[0] != null && !result[0].partialMatch){
 			
 			latitude = result[0].geometry.location.lat;
@@ -627,6 +633,12 @@ public class AdService {
 		return coords;
 	}
 	
+	/**
+	 * makes an Iterable of Strings based on Ads to represent them on a google map
+	 * @param adList An Iterable<Ad> with Ad's to be represented on a google map 
+	 * @return Iterable of Strings in the form 0 + Ad.Id + Ad.Latitude + Ad.Longitude to be represented as markers on a google map
+	 * 
+	 */
 	public Iterable<String> getGoogleCoords(Iterable<Ad> adList){
 		List<String> googleMapCoords = new ArrayList<>();
 		for(Ad adForCoords : adList){ 
@@ -637,6 +649,7 @@ public class AdService {
 		return googleMapCoords;
 	}
 
+	/** converts a String to a dd.MM.yyyy HH:mm:ss Date*/
 	public Date stringToDate(String stringDate){
 			SimpleDateFormat formatterTime = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 			Date dateNow = new Date();
@@ -654,10 +667,13 @@ public class AdService {
 			}
 	}
 	
+	/**
+	 * 
+	 * @param addressesToSort an Iterable<Ad> to get sorted by placing premium Ads in the first place
+	 * @return sorted Iterable<Ad> with Premium Ads in the first place
+	 */
 	public Iterable<Ad> sortByPremiumFirst(Iterable<Ad> addressesToSort){
-		
 		ArrayList<Ad> premiumFirst = new ArrayList<>();
-		
 		for(Ad adToSort : addressesToSort){
 			if (adToSort.getUser().isPremium()){
 				premiumFirst.add(adToSort);
@@ -668,7 +684,6 @@ public class AdService {
 				premiumFirst.add(adToSort);
 			}
 		}
-		
 		return premiumFirst;
 	}
 }
