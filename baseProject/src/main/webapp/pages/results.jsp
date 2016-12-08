@@ -178,11 +178,6 @@ window.onload = updateType;
 
 <%-- Main script for the google map --%>
 <script>
-var coordinates = new Array();
-
-<c:forEach var="coord" items="${coords}">
-	coordinates.push("${coord}");
-</c:forEach>
 
 var latitudes = new Array();
 var longitudes = new Array();
@@ -222,8 +217,6 @@ var ids = new Array();
 
 var markercontentlength = longitudes.length;
 
-var arrayLength = coordinates.length;
-
 var infowindow = null;
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -237,18 +230,12 @@ function initMap() {
 	});
 
     for (var i = 0; i < markercontentlength; i++) {
-    	var splitCoords = coordinates[i].split(" ");
     	
     	var content = "<p><b><u><a href='ad?id="+ids[i]+"'>"+titles[i]+"</a></u></b></p>" +
     			"<p>"+"Purpose: "+selltypes[i]+"</p>" +
     			"<p>"+"Type: "+propertytypes[i]+"</p>" +
     			"<p>"+prices[i]+"</p>"
     			;
-    	var latitude = parseFloat(splitCoords[1]);
-    	var longitude = parseFloat(splitCoords[2]);
-    	
-    	
-    	
     	
 		var marker = new google.maps.Marker({
 			position: {lat: latitudes[i], lng: longitudes[i]},
