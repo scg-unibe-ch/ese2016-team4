@@ -14,6 +14,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import ch.unibe.ese.team1.model.Message;
 import ch.unibe.ese.team1.model.dao.MessageDao;
 
+/**
+ * handles all schedules for nonPremium delays
+*/
 @Configuration
 @EnableScheduling
 public class PremiumService {
@@ -22,11 +25,10 @@ public class PremiumService {
 	MessageDao messageDao;
 	
 	
-	
-	//static List<Message> messagesToSend = new ArrayLisit<Message>();
+	//messages to be sent after the added delay in AlertService.triggerAlerts
 	static List<Message> messagesToSend = new ArrayList<Message>();
 	
-	//Handles delayed messages for nonPremium User's in a certain interval
+	//handles delayed messages for nonPremium User's in a certain interval
 	@Scheduled(cron="*/60 * * * * *")
 	public void nonPremiumHandler(){
 		List<Message> messagesToDelete = new ArrayList<Message>();
@@ -52,8 +54,7 @@ public class PremiumService {
 	}
 
 	/**
-	 *
-	 * @param Message which will be saved with a nonPremium delay
+	 * @param msg Message which will be sent with a nonPremium delay
 	 */
 	public static void setMessage(Message msg) {
 		PremiumService.messagesToSend.add(msg);

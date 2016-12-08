@@ -547,51 +547,11 @@ public class AdService {
 		return false;
 	}
 	
-	/*
-	/**
-	 * makes a Google GeoCode API request to find coordinates of certain addresses
-	 * @param List of Ad's to get coordinates for
-	 * @return List of coordinates
-	 */
-	/*public Iterable<String> findCoords(Iterable<Ad> ads){
-		List<String> addresses = new ArrayList<>();
-		List<String> coords = new ArrayList<>();
-		//List<String> ids = new ArrayList<>();
-		for(Ad currAd : ads){
-			String id = Long.toString(currAd.getId());
-			//ids.add(id);
-			if(currAd.getId() < 10) id = "0" + id; 
-			String adAddress = id + " " + currAd.getStreet() +" "+ currAd.getZipcode() + " CH";
-			addresses.add(adAddress);	
-		}
-		GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyCdNwB8auysJ8k7gqiKOpLwFyV2L7iBneo");
-		for(String currAddress : addresses){
-			GeocodingResult[] result = null;
-			double latitude;
-			double longitude;
-			String currAddressNoId = currAddress.substring(3);
-			try {
-				result =   GeocodingApi.geocode(context,
-					    currAddressNoId).await();
-			} catch (Exception e) {
-				//to be done
-			}
-			
-			if(result.length > 0 && result[0] != null && !result[0].partialMatch){
-				latitude = result[0].geometry.location.lat;
-				longitude = result[0].geometry.location.lng;
-				String coordString = currAddress.substring(0, 2) + " " +latitude + " " + longitude;
-				System.out.println(coordString);
-				coords.add(coordString);
-			}
-		}
-		return coords;
-	}*/
 	
 	/**
 	 * gets the coordinations of an Ad by a google geocode api request
 	 * @param ad The Ad to get the coords from
-	 * @return size 2 double array with longitude and latitude of the Ad
+	 * @return size 2 double array with longitude [0] and latitude [1] of the Ad
 	 */
 	public double[] findCoords(Ad ad){
 		double coords[] = new double[2];
@@ -609,7 +569,9 @@ public class AdService {
 			result =  GeocodingApi.geocode(context,
 				    adAddress.substring(3)).await();
 		} catch (Exception e) {
-			//to be done
+			coords[0] = 0;
+			coords[1] = 1;
+			return coords;
 		}
 			
 		System.out.println(result.toString());
@@ -668,8 +630,8 @@ public class AdService {
 	}
 	
 	/**
-	 * 
-	 * @param addressesToSort an Iterable<Ad> to get sorted by placing premium Ads in the first place
+	 * sorts a given Iterable<Ad> by placing premium Ads in the first place
+	 * @param addressesToSort The Iterable<Ad> to get sorted
 	 * @return sorted Iterable<Ad> with Premium Ads in the first place
 	 */
 	public Iterable<Ad> sortByPremiumFirst(Iterable<Ad> addressesToSort){
