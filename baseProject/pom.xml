@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>ch.unibe.ese.team1</groupId>
-	<artifactId>team1-room-platform</artifactId>
+	<groupId>ch.unibe.ese.team4</groupId>
+	<artifactId>team4-room-platform</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<dependencies>
 		<dependency>
@@ -215,14 +215,14 @@
 
 						<configuration>
 							<driver>com.mysql.jdbc.Driver</driver>
-							<url>jdbc:mysql://localhost/team1?autoReconnect=true&amp;createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8</url>
+							<url>jdbc:mysql://localhost/team4?autoReconnect=true&amp;createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8</url>
 							<username>root</username>
 							<password />
 						</configuration>
 
 						<executions>
 							<execution>
-								<id>drop-team1-database</id>
+								<id>drop-team4-database</id>
 								<phase>process-test-resources</phase>
 								<goals>
 									<goal>execute</goal>
@@ -231,7 +231,7 @@
 									<!-- need another database to drop the targeted one -->
 									<url>jdbc:mysql://localhost/test?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8</url>
 									<autocommit>true</autocommit>
-									<sqlCommand>drop database team1</sqlCommand>
+									<sqlCommand>drop database team4</sqlCommand>
 									<!-- ignore error when database is not available -->
 									<onError>continue</onError>
 								</configuration>
@@ -244,7 +244,7 @@
 									<goal>execute</goal>
 								</goals>
 								<configuration>
-									<sqlCommand>drop table zipcodes</sqlCommand>
+									<sqlCommand>drop table if exists zipcodes</sqlCommand>
 									<onError>continue</onError>
 								</configuration>
 							</execution>

@@ -429,37 +429,58 @@ function initMap() {
 						path="latestMoveOutDate" /></td>
 			</tr>
 			<tr>
-				<td><form:checkbox id="field-smoker" path="smokers" value="1" /><label>Smoking inside
-						allowed</label></td>
-				<td><form:checkbox id="field-animals" path="animals" value="1" /><label>Animals
-						inside allowed</label></td>
-			</tr>
-			<tr>
-				<td><form:checkbox id="field-garden" path="garden" value="1" /><label>Garden
-						(co-use)</label></td>
-				<td><form:checkbox id="field-balcony" path="balcony" value="1" /><label>Balcony
-						or Patio</label></td>
-			</tr>
-			<tr>
-				<td><form:checkbox id="field-cellar" path="cellar" value="1" /><label>Cellar
-						or Attic</label></td>
-				<td><form:checkbox id="field-furnished" path="furnished"
-						value="1" /><label>Furnished</label></td>
-			</tr>
-			<tr>
-				<td><form:checkbox id="field-cable" path="cable" value="1" /><label>Cable
-						TV</label></td>
-				<td><form:checkbox id="field-garage" path="garage" value="1" /><label>Garage</label>
+				<td>	
+						<form:checkbox id="field-animals" path="animals" value="1" />
+						<label>Animals inside allowed</label>
+				</td>
+				<td>
+					<form:checkbox id="field-garage" path="garage" value="1" />
+					<label>Garage</label>
 				</td>
 			</tr>
 			<tr>
-				<td><form:checkbox id="field-internet" path="internet" value="1" /><label>WiFi</label></td>
+			<td>	<form:checkbox id="field-balcony" path="balcony" value="1" />
+					<label>Balcony or Patio</label></td>
+				<td>
+					<form:checkbox id="field-garden" path="garden" value="1" />
+					<label>Garden (co-use)</label>
+				</td>
 			</tr>
 			<tr>
-				<td><form:checkbox id="field-dishwasher" path="dishwasher" value="1" /><label>Dishwasher</label></td>
+				<td>
+					<form:checkbox id="field-cable" path="cable" value="1" />
+					<label>Cable TV</label>
+				</td>
+				<td>
+					<form:checkbox id="field-smoker" path="smokers" value="1" />
+					<label>Smoking inside allowed</label>
+				</td>
 			</tr>
 			<tr>
-				<td><form:checkbox id="field-washingMachine" path="washingMachine" value="1" /><label>Washing machine</label></td>
+				<td>
+					<form:checkbox id="field-cellar" path="cellar" value="1" />
+					<label>Cellar or Attic</label>
+				</td>
+				<td>
+					<form:checkbox id="field-washingMachine" path="washingMachine" value="1" />
+					<label>Washing machine</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<form:checkbox id="field-dishwasher" path="dishwasher" value="1" />
+					<label>Dishwasher</label>
+				</td>
+				<td>
+					<form:checkbox id="field-internet" path="internet" value="1" />
+					<label>WiFi</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<form:checkbox id="field-furnished" path="furnished" value="1" />
+					<label>Furnished</label>
+				</td>
 			</tr>
 		</table>
 		<%-- used to redirect to the previous page if form input was erroneous --%>

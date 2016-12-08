@@ -1,0 +1,499 @@
+package ch.unibe.ese.team4.model;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+/** Describes an advertisement that users can place and search for. */
+@Entity
+public class Ad {
+	public static final int RENT = 1;
+	public static final int BUY = 2;
+	public static final int AUCTION = 3;
+	@Id
+	@GeneratedValue
+	private long id;
+
+	@Column(nullable = true)
+	private int sellType;
+
+	@Column(nullable = true)
+	private int propertyType;
+
+
+	@Column(nullable = false)
+	private String title;
+
+
+	@Column(nullable = false)
+	private String street;
+
+	@Column(nullable = false)
+	private int zipcode;
+
+	@Column(nullable = false)
+	private String city;
+
+	@Column(nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date creationDate;
+
+	@Column(nullable = true)
+	@Temporal(TemporalType.DATE)
+	private Date moveInDate;
+
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = true)
+	private Date moveOutDate;
+
+	@Column(nullable = true)
+	private int prizePerMonth;
+	
+	@Column(nullable = true)
+	private int startOffer;
+	
+	@Column(nullable = true)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date auctionEndDate;
+
+	@Column(nullable = true)
+	private int prizeOfSale;
+
+	@Column(nullable = false)
+	private int squareFootage;
+
+	@Column(nullable = false)
+	@Lob
+	private String roomDescription;
+
+	@Column(nullable = false)
+	@Lob
+	private String preferences;
+
+	@Column(nullable = false)
+	private String roommates;
+
+	@Fetch(FetchMode.SELECT)
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<User> registeredRoommates;
+
+	@Column(nullable = false)
+	private boolean smokers;
+
+	@Column(nullable = false)
+	private boolean animals;
+
+	@Column(nullable = false)
+	private boolean garden;
+
+	@Column(nullable = false)
+	private boolean balcony;
+
+	@Column(nullable = false)
+	private boolean cellar;
+
+	@Column(nullable = false)
+	private boolean furnished;
+
+	@Column(nullable = false)
+	private boolean cable;
+
+	@Column(nullable = false)
+	private boolean garage;
+
+	@Column(nullable = false)
+	private boolean internet;
+	
+	@Column(nullable = false)
+	private boolean dishwasher;
+	
+	@Column(nullable = false)
+	private boolean washingMachine;
+
+	@Fetch(FetchMode.SELECT)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<AdPicture> pictures;
+
+	@ManyToOne(optional = false)
+	private User user;
+
+	@OneToMany(mappedBy = "ad", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Visit> visits;
+	
+	@Column(nullable = false)
+	private boolean auctionFinished = false;
+	
+	@Column(nullable = true)
+	private double latitude;
+
+	@Column(nullable = true)
+	private double longitude;
+
+	public int getPropertyType() {
+		return propertyType;
+	}
+
+	public void setPropertyType(int propertyType) {
+		this.propertyType = propertyType;
+	}
+
+	public int getSellType() {
+		return sellType;
+	}
+
+	public void setSellType(int sellType) {
+		this.sellType = sellType;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public long getCreationMs(){
+		return creationDate.getTime();
+	}
+
+	public long getMoveOutMs(){
+		if (moveOutDate != null) return moveOutDate.getTime();
+		return 0;
+	}
+	
+	public long getTimeToAuctionEnd(){
+		Date now = new Date();
+		if(auctionEndDate != null)
+			return auctionEndDate.getTime() - now.getTime();
+		return -1;
+	}
+	
+	public long getAuctionEndTime(){
+		if(auctionEndDate != null)
+			return auctionEndDate.getTime();
+		return -1;
+	}
+
+	public boolean getSmokers() {
+		return smokers;
+	}
+
+	public void setSmokers(boolean allowsSmokers) {
+		this.smokers = allowsSmokers;
+	}
+
+	public boolean getAnimals() {
+		return animals;
+	}
+
+	public void setAnimals(boolean allowsAnimals) {
+		this.animals = allowsAnimals;
+	}
+
+	public boolean getGarden() {
+		return garden;
+	}
+
+	public void setGarden(boolean hasGarden) {
+		this.garden = hasGarden;
+	}
+
+	public boolean getBalcony() {
+		return balcony;
+	}
+
+	public void setBalcony(boolean hasBalcony) {
+		this.balcony = hasBalcony;
+	}
+
+	public boolean getCellar() {
+		return cellar;
+	}
+
+	public void setCellar(boolean hasCellar) {
+		this.cellar = hasCellar;
+	}
+
+	public boolean getFurnished() {
+		return furnished;
+	}
+
+	public void setFurnished(boolean furnished) {
+		this.furnished = furnished;
+	}
+
+	public boolean getCable() {
+		return cable;
+	}
+
+	public void setCable(boolean hasCable) {
+		this.cable = hasCable;
+	}
+
+	public boolean getGarage() {
+		return garage;
+	}
+
+	public void setGarage(boolean garage) {
+		this.garage = garage;
+	}
+
+	public boolean getInternet() {
+		return internet;
+	}
+
+	public void setInternet(boolean internet) {
+		this.internet = internet;
+	}
+	
+	public boolean getDishwasher() {
+		return dishwasher;
+	}
+	
+	public void setDishwasher(boolean dishwasher) {
+		this.dishwasher = dishwasher;
+	}
+	
+	public boolean getWashingMachine() {
+		return washingMachine;
+	}
+	
+	public void setWashingMachine(boolean washingMachine) {
+		this.washingMachine = washingMachine;
+	}
+	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public int getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(int zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	public Date getMoveInDate() {
+		return moveInDate;
+	}
+
+	public void setMoveInDate(Date moveInDate) {
+		this.moveInDate = moveInDate;
+	}
+
+	public void setMoveOutDate(Date moveOutDate) {
+		this.moveOutDate = moveOutDate;
+	}
+
+	public int getPrizePerMonth() {
+		return prizePerMonth;
+	}
+
+	public void setPrizePerMonth(int prizePerMonth) {
+		this.prizePerMonth = prizePerMonth;
+	}
+
+	public int getSquareFootage() {
+		return squareFootage;
+	}
+
+	public void setSquareFootage(int squareFootage) {
+		this.squareFootage = squareFootage;
+	}
+
+	public String getRoomDescription() {
+		return roomDescription;
+	}
+
+	public void setRoomDescription(String roomDescription) {
+		this.roomDescription = roomDescription;
+	}
+
+	public String getPreferences() {
+		return preferences;
+	}
+
+	public void setPreferences(String preferences) {
+		this.preferences = preferences;
+	}
+
+	public String getRoommates() {
+		return roommates;
+	}
+
+	public void setRoommates(String roommates) {
+		this.roommates = roommates;
+	}
+
+	public List<AdPicture> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(List<AdPicture> pictures) {
+		this.pictures = pictures;
+	}
+
+	public Date getMoveOutDate() {
+		return moveOutDate;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public List<User> getRegisteredRoommates() {
+		return registeredRoommates;
+	}
+
+	public void setRegisteredRoommates(List<User> registeredRoommates) {
+		this.registeredRoommates = registeredRoommates;
+	}
+
+	public List<Visit> getVisits() {
+		return visits;
+	}
+
+	public void setVisits(List<Visit> visits) {
+		this.visits = visits;
+	}
+	
+	public int getStartOffer() {
+		return startOffer;
+	}
+
+	public void setStartOffer(int startOffer) {
+		this.startOffer = startOffer;
+	}
+	
+	public Date getAuctionEndDate() {
+		return auctionEndDate;
+	}
+
+	public void setAuctionEndDate(Date auctionEndDate) {
+		this.auctionEndDate = auctionEndDate;
+	}
+	
+	public boolean getFinished() {
+		return auctionFinished;
+	}
+
+	public void setFinished(boolean auctionFinished) {
+		this.auctionFinished = auctionFinished;
+	}
+	
+	public int getPrizeOfSale() {
+		return prizeOfSale;
+	}
+
+	public void setPrizeOfSale(int prizeOfSale) {
+		this.prizeOfSale = prizeOfSale;
+	}
+	
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	// equals method is defined to check for id only
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ad other = (Ad) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+
+	public boolean isAuctionAvailable() {
+		return getTimeToAuctionEnd()>0;
+	}
+	
+	public static int getSellType(String sellType){
+		switch ( sellType.toLowerCase()){
+		case "rent":
+			return RENT;
+		case "buy":
+			return BUY;
+		case "auction":
+			return AUCTION;
+		default:
+			return 0;
+		}
+	}
+}
