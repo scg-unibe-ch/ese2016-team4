@@ -575,7 +575,7 @@ public class AdService {
 				    adAddress.substring(3)).await();
 		} catch (Exception e) {
 			coords[0] = 0;
-			coords[1] = 1;
+			coords[1] = 0;
 			return coords;
 		}
 			
@@ -600,21 +600,6 @@ public class AdService {
 		return coords;
 	}
 	
-	/**
-	 * makes an Iterable of Strings based on Ads to represent them on a google map
-	 * @param adList An Iterable<Ad> with Ad's to be represented on a google map 
-	 * @return Iterable of Strings in the form 0 + Ad.Id + Ad.Latitude + Ad.Longitude to be represented as markers on a google map
-	 * 
-	 */
-	public Iterable<String> getGoogleCoords(Iterable<Ad> adList){
-		List<String> googleMapCoords = new ArrayList<>();
-		for(Ad adForCoords : adList){ 
-			String adCoord = "0"+adForCoords.getId()+" "+ adForCoords.getLatitude()+" "+adForCoords.getLongitude();
-			if(adForCoords.getId() > 10) adCoord = adCoord.substring(1);
-			googleMapCoords.add(adCoord);
-			}
-		return googleMapCoords;
-	}
 
 	/** converts a String to a dd.MM.yyyy HH:mm:ss Date*/
 	public Date stringToDate(String stringDate){
@@ -635,9 +620,9 @@ public class AdService {
 	}
 	
 	/**
-	 * sorts a given Iterable<Ad> by placing premium Ads in the first place
-	 * @param addressesToSort The Iterable<Ad> to get sorted
-	 * @return sorted Iterable<Ad> with Premium Ads in the first place
+	 * sorts an Iterable by placing premium Ads in the first place
+	 * @param addressesToSort The Iterable to get sorted
+	 * @return sorted Iterable with Premium Ads in the first place
 	 */
 	public Iterable<Ad> sortByPremiumFirst(Iterable<Ad> addressesToSort){
 		ArrayList<Ad> premiumFirst = new ArrayList<>();

@@ -66,11 +66,9 @@ public class SearchController {
 		if (!result.hasErrors()) {
 			ModelAndView model = new ModelAndView("results");
 			Iterable<Ad> searchFormResults = adService.queryResults(searchForm);
-			Iterable<String> googleMapCoords = adService.getGoogleCoords(searchFormResults);
 			//placing Premium Ads in searchFormResults to the head
 			Iterable<Ad> sortedSearchFormResults = adService.sortByPremiumFirst(searchFormResults);
 			model.addObject("results", sortedSearchFormResults);
-			model.addObject("coords", googleMapCoords);
 			//bad, only temporary fix
 			model.addObject("bidService", bidService);
 			return model;
