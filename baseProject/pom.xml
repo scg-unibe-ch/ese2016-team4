@@ -244,7 +244,7 @@
 									<goal>execute</goal>
 								</goals>
 								<configuration>
-									<sqlCommand>drop table zipcodes</sqlCommand>
+									<sqlCommand>drop table if exists zipcodes</sqlCommand>
 									<onError>continue</onError>
 								</configuration>
 							</execution>
