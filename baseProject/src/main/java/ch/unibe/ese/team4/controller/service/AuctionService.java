@@ -22,13 +22,6 @@ import ch.unibe.ese.team4.model.dao.UserDao;
 @Service
 public class AuctionService {
 	
-	
-	@Autowired
-	private MessageService messageService;
-
-	@Autowired
-    private AdService adService;
-	
 	@Autowired
     private AdDao adDao;
 	

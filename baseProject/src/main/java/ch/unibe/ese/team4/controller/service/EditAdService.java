@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,12 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 import ch.unibe.ese.team4.controller.pojos.forms.PlaceAdForm;
 import ch.unibe.ese.team4.model.Ad;
 import ch.unibe.ese.team4.model.AdPicture;
-import ch.unibe.ese.team4.model.Bid;
 import ch.unibe.ese.team4.model.User;
 import ch.unibe.ese.team4.model.Visit;
 import ch.unibe.ese.team4.model.dao.AdDao;
 import ch.unibe.ese.team4.model.dao.AdPictureDao;
-import ch.unibe.ese.team4.model.dao.BidHistoryDao;
 
 /** Provides services for editing ads in the database. */
 @Service

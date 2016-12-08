@@ -1,7 +1,6 @@
 package ch.unibe.ese.team4.controller.pojos.forms;
 
 
-import javax.persistence.Column;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;

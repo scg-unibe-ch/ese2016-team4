@@ -1,6 +1,5 @@
 package ch.unibe.ese.team4.model;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
