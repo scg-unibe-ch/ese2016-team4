@@ -222,10 +222,13 @@ public class AdService {
 	}
 
 	/**
-	 * Returns the newest ads in the database. Parameter 'newest' says how many.
+	 * Returns the newest ads from the database
+	 * @param number - how many ads
+	 * @param premium - return only premium or all ads
+	 * @return iterable of ads
 	 */
 	@Transactional
-	public Iterable<Ad> getNewestAds(int newest) {
+	public Iterable<Ad> getNewestAds(int number, boolean premium) {
 		Iterable<Ad> allAds = adDao.findAll();
 		List<Ad> ads = new ArrayList<Ad>();
 		for (Ad ad : allAds)
@@ -236,8 +239,10 @@ public class AdService {
 				return ad2.getCreationDate().compareTo(ad1.getCreationDate());
 			}
 		});
+		if(premium)
+			ads = (List<Ad>) sortByPremiumFirst(ads);
 		List<Ad> fourNewest = new ArrayList<Ad>();
-		for (int i = 0; i < newest; i++)
+		for (int i = 0; i < number; i++)
 			fourNewest.add(ads.get(i));
 		return fourNewest;
 	}

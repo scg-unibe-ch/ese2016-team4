@@ -248,7 +248,7 @@ window.onload = updateType;
 				<td><form:input id="field-city" path="city" placeholder="City" />
 					<form:errors path="city" cssClass="validationErrorText" /></td>
 				<td><form:input id="field-startOffer" type="number" path="startOffer" hidden="true"
-						placeholder="Start offer" step="50" min="0" />
+						placeholder="Start offer" step="10" min="0" />
 					<form:errors path="startOffer" cssClass="validationErrorText" /></td>
 			</tr>
 
@@ -268,7 +268,7 @@ window.onload = updateType;
 			</tr>
 			<tr>
 				<td><form:input id="field-Prize" type="number" path="prize"
-						placeholder="Prize per month" step="50" min="0" /> <form:errors
+						placeholder="Prize per month" step="10" min="0" /> <form:errors
 						path="prize" cssClass="validationErrorText" /></td>
 
 			</tr>
@@ -284,7 +284,7 @@ window.onload = updateType;
 						path="squareFootage" cssClass="validationErrorText" /></td>
 						
 				<td><form:input id="field-PrizeOfSale" type="number" path="prizeOfSale" hidden="true"
-						placeholder="Prize of sale" step="10000" min="0" /> <form:errors
+						placeholder="Prize of sale" step="100" min="0" /> <form:errors
 						path="prizeOfSale" cssClass="validationErrorText" /></td>
 								
 				<td><form:input type="text" id="field-auctionEndDate" hidden="true"
