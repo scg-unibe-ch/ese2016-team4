@@ -1,12 +1,13 @@
 package ch.unibe.ese.team4.model;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.Calendar;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Calendar;
 
 /** Describes an advertisement that users can place and search for. */
 @Entity

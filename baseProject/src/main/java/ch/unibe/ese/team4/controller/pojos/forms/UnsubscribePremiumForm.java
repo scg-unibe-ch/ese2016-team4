@@ -1,10 +1,5 @@
 package ch.unibe.ese.team4.controller.pojos.forms;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.validation.constraints.Min;
-
 public class UnsubscribePremiumForm {
 
 	private int reason;

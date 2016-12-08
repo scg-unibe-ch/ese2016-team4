@@ -25,7 +25,6 @@ import ch.unibe.ese.team4.controller.service.MessageService;
 import ch.unibe.ese.team4.controller.service.UserService;
 import ch.unibe.ese.team4.controller.service.VisitService;
 import ch.unibe.ese.team4.model.Ad;
-import ch.unibe.ese.team4.model.Bid;
 import ch.unibe.ese.team4.model.User;
 
 /**

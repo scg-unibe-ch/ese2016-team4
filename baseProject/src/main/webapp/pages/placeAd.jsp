@@ -243,7 +243,7 @@ window.onload = updateType;
 
 			<tr>
 				<td><form:input id="field-street" path="street"
-						placeholder="Street" /></td>
+						placeholder="Street" />
 					<form:errors path="street" cssClass="validationErrorText" /></td>
 				<td><form:input id="field-city" path="city" placeholder="City" />
 					<form:errors path="city" cssClass="validationErrorText" /></td>

@@ -22,20 +22,17 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import ch.unibe.ese.team4.controller.pojos.PictureUploader;
 import ch.unibe.ese.team4.controller.pojos.forms.PlaceAdForm;
 import ch.unibe.ese.team4.controller.service.AdService;
 import ch.unibe.ese.team4.controller.service.AlertService;
-import ch.unibe.ese.team4.controller.service.BookmarkService;
-import ch.unibe.ese.team4.controller.service.MessageService;
 import ch.unibe.ese.team4.controller.service.UserService;
-import ch.unibe.ese.team4.controller.service.VisitService;
 import ch.unibe.ese.team4.model.Ad;
 import ch.unibe.ese.team4.model.PictureMeta;
 import ch.unibe.ese.team4.model.User;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * This controller handles all requests concerning placing ads.
@@ -68,15 +65,6 @@ public class PlaceAdController {
 
 	@Autowired
 	private ServletContext servletContext;
-
-	@Autowired
-	private MessageService messageService;
-
-	@Autowired
-	private VisitService visitService;
-
-	@Autowired
-	private BookmarkService bookmarkService;
 
 	@Autowired
 	private UserService userService;

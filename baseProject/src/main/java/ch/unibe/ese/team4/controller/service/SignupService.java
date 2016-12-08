@@ -11,7 +11,6 @@
 package ch.unibe.ese.team4.controller.service;
 
 import java.util.Date;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,13 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson.JacksonFactory;
-
 import ch.unibe.ese.team4.controller.pojos.forms.SignupForm;
-import ch.unibe.ese.team4.model.Ad;
 import ch.unibe.ese.team4.model.Message;
 import ch.unibe.ese.team4.model.MessageState;
 import ch.unibe.ese.team4.model.User;
