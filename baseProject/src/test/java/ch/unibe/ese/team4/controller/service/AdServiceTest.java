@@ -21,7 +21,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import ch.unibe.ese.team4.controller.pojos.forms.PlaceAdForm;
-import ch.unibe.ese.team4.controller.service.AdService;
 import ch.unibe.ese.team4.model.Ad;
 import ch.unibe.ese.team4.model.Gender;
 import ch.unibe.ese.team4.model.User;

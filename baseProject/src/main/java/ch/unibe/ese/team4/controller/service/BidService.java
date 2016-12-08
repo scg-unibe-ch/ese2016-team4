@@ -1,33 +1,26 @@
 package ch.unibe.ese.team4.controller.service;
 
-import java.util.Queue;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
-
-import java.util.Date;
-
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ch.unibe.ese.team4.controller.pojos.forms.SearchForm;
 import ch.unibe.ese.team4.model.Ad;
-import ch.unibe.ese.team4.model.Alert;
 import ch.unibe.ese.team4.model.Bid;
-import ch.unibe.ese.team4.model.Message;
-import ch.unibe.ese.team4.model.MessageState;
 import ch.unibe.ese.team4.model.User;
 import ch.unibe.ese.team4.model.dao.AdDao;
 import ch.unibe.ese.team4.model.dao.AlertDao;
 import ch.unibe.ese.team4.model.dao.BidHistoryDao;
 import ch.unibe.ese.team4.model.dao.MessageDao;
 import ch.unibe.ese.team4.model.dao.UserDao;
-
-import static org.junit.Assert.assertTrue;
 
 @Service
 public class BidService {

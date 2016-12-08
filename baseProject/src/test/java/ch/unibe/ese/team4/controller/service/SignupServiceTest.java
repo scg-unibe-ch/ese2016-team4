@@ -1,6 +1,8 @@
 package ch.unibe.ese.team4.controller.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import ch.unibe.ese.team4.controller.pojos.forms.SignupForm;
-import ch.unibe.ese.team4.controller.service.SignupService;
-import ch.unibe.ese.team4.controller.service.UserService;
 import ch.unibe.ese.team4.model.Gender;
 import ch.unibe.ese.team4.model.User;
 

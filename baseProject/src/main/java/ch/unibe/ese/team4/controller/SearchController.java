@@ -1,8 +1,6 @@
 package ch.unibe.ese.team4.controller;
 
 
-import java.net.URL;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import ch.unibe.ese.team4.controller.pojos.forms.SearchForm;
 import ch.unibe.ese.team4.controller.service.AdService;
 import ch.unibe.ese.team4.controller.service.BidService;
-import ch.unibe.ese.team4.controller.service.UserService;
 import ch.unibe.ese.team4.model.Ad;
 
 /** Handles all requests concerning the search for ads. */
@@ -26,9 +23,6 @@ public class SearchController {
 
 	@Autowired
 	private AdService adService;
-
-	@Autowired
-	private UserService userService;
 	
 	@Autowired
 	private BidService bidService;
