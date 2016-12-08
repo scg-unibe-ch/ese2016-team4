@@ -1,4 +1,4 @@
-<%@page import="ch.unibe.ese.team1.model.Ad"%>
+<%@page import="ch.unibe.ese.team4.model.Ad"%>
 <%@ page language="java" pageEncoding="iso-8859-1"
 	contentType="text/html;charset=iso-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
