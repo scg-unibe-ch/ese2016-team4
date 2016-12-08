@@ -98,8 +98,7 @@
 						As a premium User you benefit from multiple things:
 						<br>- Your ads are shown on the front page
 						<br>- In the search results, premium user ads get placed before the ones of cheapskate users
-						<br>- You can place a bid before any penny-pincher user
-						<br>- You get notified immediately (as opposed to 1 hour later like a skinflint user) if a new ad gets placed that 
+						<br>- You get notified immediately (as opposed to 1 hour later like a penny-pincher user) if a new ad gets placed that 
 						matches your search alerts
 						<br><b>How to become a premium user?</b><br>
 						To access this feature, you only have to tick the premium user box and fill in your credit card info below. 
