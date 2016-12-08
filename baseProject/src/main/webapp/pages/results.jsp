@@ -184,6 +184,44 @@ var coordinates = new Array();
 	coordinates.push("${coord}");
 </c:forEach>
 
+var latitudes = new Array();
+var longitudes = new Array();
+var titles = new Array();
+var propertytypes = new Array();
+var selltypes = new Array();
+var prices = new Array();
+var ids = new Array();
+
+<c:forEach var="add" items="${results}">
+
+	latitudes.push(${add.latitude});
+    longitudes.push(${add.longitude});
+    titles.push("${add.title}");
+    ids.push(${add.id});
+    
+    switch(${add.propertyType}){
+    	case 1: propertytypes.push("Room"); break;
+    	case 2: propertytypes.push("Studio"); break;
+    	case 3: propertytypes.push("Flat"); break;
+    	case 4: propertytypes.push("House"); break;
+    	default: propertytypes.push("listen to balz");
+    }
+	 switch(${add.sellType}){
+    	case 1: selltypes.push("Rent"); 
+    			prices.push("Monthly Rent: "+${add.prizePerMonth}+" .-");
+    			break;
+    	case 2: selltypes.push("Buy"); 
+				prices.push("Sale Price: "+${add.prizeOfSale}+" .-");
+    			break;
+    	case 3: selltypes.push("Auction"); 
+				prices.push("Current Offer: "+${add.startOffer}+" .-");
+				break;
+    	default: selltypes.push("better use enums")
+    }
+</c:forEach>
+
+var markercontentlength = longitudes.length;
+
 var arrayLength = coordinates.length;
 
 var infowindow = null;
@@ -197,16 +235,23 @@ function initMap() {
     infowindow = new google.maps.InfoWindow({
 	    content: "couldnt load info"
 	});
-    
-    for (var i = 0; i < arrayLength; i++) {
+
+    for (var i = 0; i < markercontentlength; i++) {
     	var splitCoords = coordinates[i].split(" ");
     	
-    	var content = "<a href='ad?id="+splitCoords[0]+"'>"+splitCoords[0]+"</a>";
+    	var content = "<p><b><u><a href='ad?id="+ids[i]+"'>"+titles[i]+"</a></u></b></p>" +
+    			"<p>"+"Purpose: "+selltypes[i]+"</p>" +
+    			"<p>"+"Type: "+propertytypes[i]+"</p>" +
+    			"<p>"+prices[i]+"</p>"
+    			;
     	var latitude = parseFloat(splitCoords[1]);
     	var longitude = parseFloat(splitCoords[2]);
     	
+    	
+    	
+    	
 		var marker = new google.maps.Marker({
-			position: {lat: latitude, lng: longitude},
+			position: {lat: latitudes[i], lng: longitudes[i]},
 			map: map
 		});
 		

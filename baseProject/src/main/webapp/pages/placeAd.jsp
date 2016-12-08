@@ -284,7 +284,7 @@ window.onload = updateType;
 						path="squareFootage" cssClass="validationErrorText" /></td>
 						
 				<td><form:input id="field-PrizeOfSale" type="number" path="prizeOfSale" hidden="true"
-						placeholder="Prize of sale" step="10000" min="0" /> <form:errors
+						placeholder="Prize of sale" step="100" min="0" /> <form:errors
 						path="prizeOfSale" cssClass="validationErrorText" /></td>
 								
 				<td><form:input type="text" id="field-auctionEndDate" hidden="true"
