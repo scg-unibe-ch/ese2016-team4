@@ -25,19 +25,19 @@ h2 {
 }
 
 hr {
-	color: #2dc16d;
-	background-color: #2dc16d;
+	color: #F2F2F2;
+	background-color: #F2F2F2;
 	height: 4px;
 	margin-bottom: 40px;
 }
 
 .link {
-	color: #48db88;
+	color: #3A495F;
 	text-decoration: none;
 }
 
 .link:hover {
-	color: #62f4a1;
+	color: #627a9f;
 }
 
 .slim {
@@ -105,7 +105,7 @@ but not in one String (i.e. in the header) */
 }
 
 .styledTable th {
-	background-color: #2dc16d;
+	background-color: #F2F2F2;
 	color: white;
 }
 
@@ -129,7 +129,7 @@ label {
 }
 
 button {
-	background-color: #2dc16d;
+	background-color: #F2F2F2;
 	color: white;
 	padding: 5px 10px;
 	border-radius: 5px;
@@ -145,7 +145,7 @@ button {
 }
 
 .button {
-	background-color: #2dc16d;
+	background-color: #F2F2F2;
 	color: white;
 	padding: 5px 10px;
 	border-radius: 5px;
@@ -157,7 +157,7 @@ button {
 .smallPlusButton {
 	display: inline;
 	font-decoration: none;
-	background-color: #2dc16d;
+	background-color: #F2F2F2;
 	color: white;
 	width: 15px;
 	height: 15px;
@@ -215,11 +215,11 @@ button {
 }
 
 input:checked + .slider {
-  background-color: #2dc16d;
+  background-color: #F2F2F2;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2dc16d;
+  box-shadow: 0 0 1px #F2F2F2;
 }
 
 input:checked + .slider:before {
@@ -244,7 +244,7 @@ input:checked + .slider:before {
 	padding: 0px 5px 0px 5px;
 	border-width: 2px;
 	border-radius: 10px;
-	border-color: #2dc16d;
+	border-color: #F2F2F2;
 	border-style: solid; 
 	color: grey;
 	font-size: 0.9em;
@@ -262,22 +262,22 @@ input:checked + .slider:before {
 }
 
 button:hover {
-	color: #2dc16d;
+	color: #F2F2F2;
 	background-color: white;
-	border-color: #2dc16d;
+	border-color: #F2F2F2;
 	cursor: pointer;
 }
 
 .button:hover {
-	color: #2dc16d;
+	color: #F2F2F2;
 	background-color: white;
-	border-color: #2dc16d;
+	border-color: #F2F2F2;
 }
 
 .smallPlusButton:hover {
-	color: #2dc16d;
+	color: #F2F2F2;
 	background-color: white;
-	border-color: #2dc16d;
+	border-color: #F2F2F2;
 	cursor: pointer;
 }
 
@@ -325,7 +325,7 @@ button {
 	width: 20%;
 	margin: auto;
 	padding: 10px 20px;
-	border-color: #2dc16d;
+	border-color: #F2F2F2;
 }
 
 .negative-message {
@@ -333,7 +333,7 @@ button {
 	width: 20%;
 	margin: auto;
 	padding: 10px 20px;
-	border-color: #2dc16d;
+	border-color: #F2F2F2;
 }
 
 .confirmation-message img {
@@ -350,7 +350,7 @@ button {
 /* Header & Footer */
 header {
 	color: white;
-	background: #2dc16d;
+	background: #F2F2F2;
 	position: fixed;
 	top: 0px;
 	left: 0px;
@@ -437,14 +437,14 @@ header ul li {
 header ul li a {
 	display: block;
 	padding: 5px 10px;
-	color: #fff;
-	background: #2dc16d;
+	color: #000000;
+	background: #F2F2F2;
 	text-decoration: none;
 }
 
 header ul li a:hover {
 	color: #fff;
-	background: #48db88;
+	background: #bdbdbd;
 }
 
 /* it does hide the drop down menu */
@@ -466,7 +466,7 @@ header nav {
 
 footer {
 	color: white;
-	background: #2dc16d;
+	background: #F2F2F2;
 	position: fixed;
 	bottom: 0px;
 	left: 0px;
@@ -571,10 +571,7 @@ footer nav ul li {
 	margin-top: 30px;
 	padding: 10px;
 	margin-top: 10px;
-	border-style: solid;
-	border-color: #2dc16d;
-	border-width: 3px;
-	border-radius: 10px;
+	background-color: #F2F2F2;
 }
 
 /* -------------------------------------------------------------------- */
@@ -586,13 +583,12 @@ footer nav ul li {
 	margin-top: 30px;
 	margin-bottom: 30px;
 	padding: 20px;
-	border-color: #2dc16d;
+	border-color: #F2F2F2;
 	border-width: 5px;
 	border-radius: 10px;
-	background-color: #F3FAF7;
+	background-color: #F2F2F2;
 	border-style: outset;
 }
-
 
 .buttonDiv{
 	margin-top:10px;
@@ -602,31 +598,10 @@ footer nav ul li {
 	font-size: 14px;
 	color: #ffffff;
 	padding: 8px 15px;
-	background: -moz-linear-gradient(
-		top,
-		#bfffce 0%,
-		#0d782a 25%,
-		#4ffa46);
-	background: -webkit-gradient(
-		linear, left top, left bottom,
-		from(#bfffce),
-		color-stop(0.25, #0d782a),
-		to(#4ffa46));
+	background: #b3b3b3;
 
-	border-radius: 30px;
-	border: 3px solid #93a7bf;
-	-moz-box-shadow:
-		0px 3px 11px rgba(000,000,000,0.5),
-		inset 0px 0px 1px rgba(115,255,0,1);
-	-webkit-box-shadow:
-		0px 3px 11px rgba(000,000,000,0.5),
-		inset 0px 0px 1px rgba(115,255,0,1);
-	box-shadow:
-		0px 3px 11px rgba(000,000,000,0.5),
-		inset 0px 0px 1px rgba(115,255,0,1);
-	text-shadow:
-		0px -1px 0px rgba(000,000,000,0.3),
-		0px 1px 0px rgba(255,255,255,0.3);
+	border-radius: 10px;
+
 }
 
 #map {
@@ -644,7 +619,7 @@ footer nav ul li {
 	padding: 10px;
 	margin-top: 10px;
 	border-style: solid;
-	border-color: #2dc16d;
+	border-color: #F2F2F2;
 	border-width: 3px;
 	border-radius: 10px;
 }
@@ -680,7 +655,7 @@ footer nav ul li {
       
 #resultTable {
 	border-radius: 5px;
-	background-color: #2dc16d;
+	background-color: #F2F2F2;
 }
 
 #resultTable tr {
@@ -688,7 +663,7 @@ footer nav ul li {
 }
 
 #resultTable th {
-	background-color: #2dc16d;
+	background-color: #F2F2F2;
 	color: white;
 	padding: 5px;
 }
@@ -719,7 +694,7 @@ footer nav ul li {
 	padding: 10px;
 	margin-top: 10px;
 	border-style: solid;
-	border-color: #2dc16d;
+	border-color: #F2F2F2;
 	border-width: 3px;
 	border-radius: 10px;
 }
@@ -734,10 +709,7 @@ footer nav ul li {
 	height: 120px;
 	padding: 10px;
 	margin-top: 20px;
-	border-style: solid;
-	border-color: #2dc16d;
-	border-width: 3px;
-	border-radius: 10px;
+	background-color: #F2F2F2;
 }
 
 #resultsDivMaps {
@@ -780,7 +752,7 @@ footer nav ul li {
 #accordion {
 	width: 50%;
 	float: left;
-	border-color: #2dc16d;
+	border-color: #F2F2F2;
 	border-radius: 5px;
 	border-width: 3px;
 	border-style: solid;
@@ -806,7 +778,7 @@ footer nav ul li {
 }
 
 #bidTable th {
-	background-color: #2dc16d;
+	background-color: #F2F2F2;
 	border: 1px solid black;
 	color: white;
 	padding: 5px;
@@ -947,7 +919,7 @@ footer nav ul li {
 }
 
 .adDescDiv {
-	border-color: #2dc16d;
+	border-color: #F2F2F2;
 	border-radius: 5px;
 	border-width: 3px;
 	border-style: solid;
@@ -956,7 +928,7 @@ footer nav ul li {
 }
 
 .thinButton {
-	background-color: #2dc16d;
+	background-color: #F2F2F2;
 	color: white;
 	padding: 2px 10px;
 	border-radius: 5px;
@@ -1022,7 +994,7 @@ footer nav ul li {
 	width: 10%;
 	height: 70%;
 	margin-left: 30px;
-	border-color: #2dc16d;
+	border-color: #F2F2F2;
 	border-radius: 5px;
 	border-width: 3px;
 	border-style: solid;
@@ -1035,13 +1007,13 @@ footer nav ul li {
 }
 
 #folders h2:hover {
-	background-color: #2dc16d;
+	background-color: #F2F2F2;
 	color: white;
 	cursor: pointer;
 }
 
 #messageDetail {
-	border-color: #2dc16d;
+	border-color: #F2F2F2;
 	border-radius: 5px;
 	border-width: 3px;
 	border-style: solid;
@@ -1055,7 +1027,7 @@ footer nav ul li {
 }
 
 #folders a:hover {
-	background-color: #2dc16d;
+	background-color: #F2F2F2;
 	color: white;
 	cursor: pointer;
 }
@@ -1209,7 +1181,7 @@ footer nav ul li {
 	content: "\2605";
 	position: absolute;
 	left: 0; 
-	color: #2dc16d;
+	color: #F2F2F2;
 	width: 1.1em;
 }
 
@@ -1223,7 +1195,7 @@ footer nav ul li {
 .pictureThumbnail{
 	width: 200px;
 	border-style: dashed;
-	border-color: #2dc16d;
+	border-color: #F2F2F2;
 	border-width: 2px;
 	text-align:center;
 	float: left;
