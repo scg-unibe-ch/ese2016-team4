@@ -204,5 +204,8 @@ public class ProfileControllerTest {
 		assertEquals("John", user.getFirstName());
 		assertEquals("Wayne", user.getLastName());
 		assertEquals("", user.getGoogleId());
+		assertEquals("1111222233334444", user.getCcNumber());
+		assertEquals(5 , user.getCcMonth());
+		assertEquals(2020, user.getCcYear());
 	}
 }
