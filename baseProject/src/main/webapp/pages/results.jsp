@@ -292,10 +292,10 @@ function initMap() {
 	</c:when>
 	<c:otherwise>
 		<div id="resultsDiv" class="resultsDiv">
-			<c:forEach var="ad" items="${results}">
+			<c:forEach var="ad" items="${results}" varStatus ="loop">
 				<div class="resultAd" data-rentPrice="${ad.prizePerMonth}"
 								data-moveIn="${ad.moveInDate}" data-age="${ad.creationDate}"
-								data-auctionPrice="${bidService.getHighestBid(ad.id)}"
+								data-auctionPrice="${bidPrices[loop.index]}"
 								data-buyPrice="${ad.prizeOfSale}"
 								data-sellType="${ad.sellType}"
 								data-premium="${ad.getUser().isPremium()}"
@@ -327,7 +327,7 @@ function initMap() {
 						<c:choose>
 							<c:when test="${ad.getSellType() == 1}"><h2>CHF ${ad.prizePerMonth }</h2></c:when>
 							<c:when test="${ad.getSellType() == 2}"><h2>Sale Price ${ad.prizeOfSale } CHF</h2></c:when>
-							<c:when test="${ad.getSellType() == 3}"><h2>Auction Price ${bidService.getHighestBid(ad.id)} CHF</h2></c:when>
+							<c:when test="${ad.getSellType() == 3}"><h2>Auction Price ${bidPrices[loop.index]} CHF</h2></c:when>
 						</c:choose>						<br /> <br />
 
 						<fmt:formatDate value="${ad.moveInDate}" var="formattedMoveInDate"

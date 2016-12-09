@@ -64,7 +64,6 @@ public class AdController {
 		long userBid = -1;
 		if(principal != null){
 		String username = principal.getName();
-		User user = userService.findUserByUsername(username);
 		userBid = bidHistoryService.getMyBid(username, id);
 		}
 		long highestBid = bidHistoryService.getHighestBid(id);
@@ -89,9 +88,6 @@ public class AdController {
 		model.addObject("visits", visitService.getVisitsByAd(ad));
 
 		model.addObject("bidForm", new BidForm());
-
-//		model.addObject("allBids", bidHistoryService.allBids(ad.getId()));
-		model.addObject("bidService", bidHistoryService);
 		
 		return model;
 	}

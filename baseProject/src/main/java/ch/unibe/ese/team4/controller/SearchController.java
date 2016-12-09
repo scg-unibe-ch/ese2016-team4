@@ -62,9 +62,12 @@ public class SearchController {
 			Iterable<Ad> searchFormResults = adService.queryResults(searchForm);
 			//placing Premium Ads in searchFormResults to the head
 			Iterable<Ad> sortedSearchFormResults = adService.sortByPremiumFirst(searchFormResults);
+			//replacing bidService
+			Iterable<Long> bidPrices = bidService.getBids(sortedSearchFormResults);
+			model.addObject("bidPrices", bidPrices);
+			
 			model.addObject("results", sortedSearchFormResults);
-			//bad, only temporary fix
-			model.addObject("bidService", bidService);
+
 			return model;
 		} else {
 			// go backs

@@ -90,6 +90,16 @@ public class BidService {
 		return "ghost user";
 	}
 	
+	public Iterable<Long> getBids(Iterable<Ad> ads){
+		List<Long> bids = new ArrayList<Long>();
+		long bidPrice;
+		for(Ad ad : ads){
+			bidPrice = getHighestBid(ad.getId());
+			bids.add(bidPrice);
+		}
+		return bids;
+	}
+	
 	public Iterable<String> getBidUsernames(Iterable<Bid> bids){
 		List<String> bidNames = new ArrayList<String>();
 		long userID;
