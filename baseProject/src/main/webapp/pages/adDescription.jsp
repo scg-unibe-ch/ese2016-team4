@@ -689,7 +689,7 @@ document.getElementById("SendEmail").onclick = function() {
 						<c:forEach var="bid" items="${allBids}" varStatus="loop">
 							<tr>
 								<td><a href="/user?id=${bid.userId}"><font color="blue"><u>${bidNames[loop.index]}</u></font></a></td>
-								<td>${bid.bid}</td>
+								<td>${bid.bid} CHF</td>
 								<td><fmt:formatDate value="${bid.bidTime.time}" type="date" pattern="dd.MM.yyyy" /></td>
 								<td><fmt:formatDate value="${bid.bidTime.time}" type="date" pattern="HH:mm:ss" /></td>
 							</tr>
