@@ -57,8 +57,9 @@ $(document).ready(function() {
 	id="filterForm" autocomplete="off" onsubmit="typesNotEmpty()">
 
 	    <div id="indexDiv">
-    <h1>Fast Search:</h1> <br>
-        
+	    <div align="center">
+    		<h1>Fast Search</h1> <br>
+        </div>
         
         <font size="5"><b>What?</b></font>
         <table>
@@ -92,7 +93,6 @@ $(document).ready(function() {
 		<form:input type="hidden" name="page" value="index" path=""/>
 	
         <button type="submit" class="buttonDiv" >Go!</button>
-        <button type="reset" class="buttonDiv" >Reset</button>
     </div>
 </form:form>
 
