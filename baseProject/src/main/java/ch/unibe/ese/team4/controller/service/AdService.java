@@ -114,8 +114,9 @@ public class AdService {
 		ad.setRoommates(placeAdForm.getRoommates());
 		
 		// ad coordinates
-		ad.setLatitude(findCoords(ad)[0]);
-		ad.setLongitude(findCoords(ad)[1]);		
+		double[] coordinates = findCoords(ad);
+		ad.setLatitude(coordinates[0]);
+		ad.setLongitude(coordinates[1]);		
 		
 		// ad description values
 		ad.setSmokers(placeAdForm.isSmokers());
@@ -552,8 +553,7 @@ public class AdService {
 		String id = Long.toString(ad.getId());
 		if(ad.getId() < 10) id = "0" + id; 
 		String adAddress = id + " " + ad.getStreet() +" "+ ad.getZipcode() + " CH";
-
-	
+		
 		GeoApiContext context = new GeoApiContext().setApiKey("AIzaSyCdNwB8auysJ8k7gqiKOpLwFyV2L7iBneo");
 		GeocodingResult[] result = null;
 		double latitude;
