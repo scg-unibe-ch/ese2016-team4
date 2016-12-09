@@ -25,6 +25,7 @@ import ch.unibe.ese.team4.controller.service.MessageService;
 import ch.unibe.ese.team4.controller.service.UserService;
 import ch.unibe.ese.team4.controller.service.VisitService;
 import ch.unibe.ese.team4.model.Ad;
+import ch.unibe.ese.team4.model.Bid;
 import ch.unibe.ese.team4.model.User;
 
 /**
@@ -57,6 +58,28 @@ public class AdController {
 	public ModelAndView ad(@RequestParam("id") long id, Principal principal) {
 		ModelAndView model = new ModelAndView("adDescription");
 		Ad ad = adService.getAdById(id);
+		
+		
+		//replacing bidService
+		long userBid = -1;
+		if(principal != null){
+		String username = principal.getName();
+		User user = userService.findUserByUsername(username);
+		userBid = bidHistoryService.getMyBid(username, id);
+		}
+		long highestBid = bidHistoryService.getHighestBid(id);
+		long nextBid = bidHistoryService.getNextBid(id);
+		boolean isBidden = bidHistoryService.isBidden(id);
+		Iterable<Bid> allBids = bidHistoryService.getAllBids(id);
+		Iterable<String> bidNames = bidHistoryService.getBidUsernames(allBids);
+		
+		model.addObject("userBid", userBid);
+		model.addObject("highestBid", highestBid);
+		model.addObject("nextBid", nextBid);
+		model.addObject("isBidden", isBidden);
+		model.addObject("allBids", allBids);
+		model.addObject("bidNames", bidNames);
+		
 		model.addObject("shownAd", ad);
 		model.addObject("messageForm", new MessageForm());
 

@@ -230,7 +230,7 @@ function getFormattedDate(date){
 var auctionEndMs = ${shownAd.getTimeToAuctionEnd()};
 var auctionDuration = Math.max(0, auctionEndMs);
 //var highestBid =  Math.max("${shownAd.startOffer}" ,"${allBids[0].bid}");
-var highestBid = ${bidService.getHighestBid(shownAd.getId())};
+var highestBid = ${highestBid};
 
 // create real dates
 var creationDate = new Date(${shownAd.getCreationMs()});
@@ -249,7 +249,7 @@ window.ready = function() {
 	auctionEndMs = ${shownAd.getTimeToAuctionEnd()};
 	auctionDuration = Math.max(0, auctionEndMs);
 	//var highestBid =  Math.max("${shownAd.startOffer}" ,"${allBids[0].bid}");
-	highestBid = ${bidService.getHighestBid(shownAd.getId())};
+	highestBid = ${highestBid};
 	document.getElementById('datetoday').innerHTML = "Today: " + getFormattedDate(dateNow).toString();
 	document.getElementById('auctionstart').innerHTML = getFormattedDate(creationDate).toString();
 	document.getElementById('auctionend').innerHTML = getFormattedDate(auctionEnd).toString();
@@ -372,12 +372,12 @@ $(function(){
    <td></td>
   	<td>
   	<c:choose>
-  	<c:when test="${bidService.getMyBid(loggedInUserEmail,shownAd.getId()) != bidService.getHighestBid(shownAd.getId()) 
+  	<c:when test="${userBid != highestBid 
   				&& loggedInUserEmail != shownAd.user.username}">
           <label for="bid" >Your bid:</label>
 
-          <form:input type="number" value="${bidService.getNextBid(shownAd.getId())}"
-            path="bid" placeholder="e.g. 150" step="1" min="${bidService.getNextBid(shownAd.getId())}" />
+          <form:input type="number" value="${nextBid}"
+            path="bid" placeholder="e.g. 150" step="1" min="${nextBid}" />
 
           <button type="submit" >Place bid</button>
 	</c:when>
@@ -639,7 +639,7 @@ document.getElementById("SendEmail").onclick = function() {
 					<table id="bidTable">
 						<tr>
 							<c:choose>
-								<c:when test="${!bidService.isBidden(shownAd.getId())}">
+								<c:when test="${!isBidden}">
 									<td>Start Offer:</td>
 								</c:when>
 								<c:otherwise>
@@ -647,14 +647,14 @@ document.getElementById("SendEmail").onclick = function() {
 								</c:otherwise>
 							</c:choose>
 							<td colspan="2">
-								${bidService.getHighestBid(shownAd.getId())} CHF
+								${highestBid} CHF
 							</td>
 						</tr>
 						<tr>
 							<td>Your Bid:</td>
 							<td colspan="2">
 								<c:choose> 
-									<c:when test="${bidService.getMyBid(loggedInUserEmail,shownAd.getId())==-1}">
+									<c:when test="${userBid == -1}">
 										<c:choose>
 											<c:when test="${loggedInUserEmail == shownAd.user.username }">
 												<p>You are the owner of the auction and
@@ -669,7 +669,7 @@ document.getElementById("SendEmail").onclick = function() {
 										</c:choose>
 									</c:when>
 									<c:otherwise>
-										${bidService.getMyBid(loggedInUserEmail,shownAd.getId())} CHF
+										${userBid} CHF
 									</c:otherwise>
 								</c:choose>
 							</td>
@@ -686,9 +686,9 @@ document.getElementById("SendEmail").onclick = function() {
 							<th>Date</th>
 							<th>Time</th>
 						</tr>
-						<c:forEach var="bid" items="${bidService.getAllBids(shownAd.getId())}">
+						<c:forEach var="bid" items="${allBids}" varStatus="loop">
 							<tr>
-								<td><a href="/user?id=${bid.userId}"><font color="blue"><u>${bidService.getUserName(bid.userId)}</u></font></a></td>
+								<td><a href="/user?id=${bid.userId}"><font color="blue"><u>${bidNames[loop.index]}</u></font></a></td>
 								<td>${bid.bid}</td>
 								<td><fmt:formatDate value="${bid.bidTime.time}" type="date" pattern="dd.MM.yyyy" /></td>
 								<td><fmt:formatDate value="${bid.bidTime.time}" type="date" pattern="HH:mm:ss" /></td>
