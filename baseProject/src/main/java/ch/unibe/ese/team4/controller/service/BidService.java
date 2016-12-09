@@ -90,6 +90,22 @@ public class BidService {
 		return "ghost user";
 	}
 	
+	public Iterable<String> getBidUsernames(Iterable<Bid> bids){
+		List<String> bidNames = new ArrayList<String>();
+		long userID;
+		String name;
+		
+		for(Bid bid : bids){
+			userID=bid.getUserId();
+			if(userService.findUserById(userID) != null){
+					name = userService.findUserById(userID).getUsername();
+			}
+			else{	name = "ghost user"; }
+		bidNames.add(name);
+		}
+		return bidNames;
+	}
+	
 	public boolean isHighestBid(Bid bidHistory){
 		Bid bidH = bidHistoryDao.findTop1ByadIdOrderByBidDesc( bidHistory.getAdId() );
 		if(bidH == null) return true; 
