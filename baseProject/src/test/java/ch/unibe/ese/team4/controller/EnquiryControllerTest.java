@@ -44,6 +44,7 @@ public class EnquiryControllerTest {
 					.with(user("ese@unibe.ch").password("ese").roles("USER")))
 					.andExpect(model().hasNoErrors())
 					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful())
 					.andExpect(forwardedUrl("/pages/enquiries.jsp"))
 					.andExpect(view().name("enquiries"));
 	}

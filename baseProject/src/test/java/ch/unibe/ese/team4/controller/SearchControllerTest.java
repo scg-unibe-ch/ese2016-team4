@@ -46,6 +46,7 @@ public class SearchControllerTest {
 	public void indexTest() throws Exception{
 		this.mockMvc.perform(get("/"))
         			.andExpect(status().isOk())
+        			.andExpect(status().is2xxSuccessful())
         			.andExpect(view().name("index"));
 	}
 	
@@ -67,8 +68,9 @@ public class SearchControllerTest {
 					.param("prize", "1000"))
 					.andExpect(model().hasNoErrors())
 					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful())
 					.andExpect(forwardedUrl("/pages/results.jsp"))
 					.andExpect(view().name("results"));
 	}
-
+	
 }

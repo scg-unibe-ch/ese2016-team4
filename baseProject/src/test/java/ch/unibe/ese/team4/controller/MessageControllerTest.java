@@ -45,10 +45,46 @@ public class MessageControllerTest {
 					.with(user("ese@unibe.ch").password("ese").roles("USER")))
 					.andExpect(model().hasNoErrors())
 					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful())
 					.andExpect(forwardedUrl("/pages/messages.jsp"))
 					.andExpect(view().name("messages"));
 	}
+	
+	@Test
+	public void testGetInbox() throws Exception{
+		this.mockMvc.perform(post("/profile/message/inbox")
+					.with(user("ese@unibe.ch").password("ese").roles("USER")))
+					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful());
+	}
+	
+	@Test
+	public void testGetSent() throws Exception{
+		this.mockMvc.perform(post("/profile/message/sent")
+					.with(user("ese@unibe.ch").password("ese").roles("USER")))
+					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful());
+	}
 
+	@Test
+	public void testUnread() throws Exception{
+		this.mockMvc.perform(get("/profile/unread")
+					.with(user("ese@unibe.ch").password("ese").roles("USER")))
+					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful());
+	}
+	
+	@Test
+	public void testSendMessage() throws Exception{
+		this.mockMvc.perform(post("/profile/messages/sendMessage")
+					.with(user("ese@unibe.ch").password("ese").roles("USER"))
+					.param("recipientEmail", "rob.gronkowski@patriots.boston")
+					.param("subject", "New contract")
+					.param("text", "I need more money"))
+					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful());
+	}
+	
 	@Test
 	public void testMessageSent() throws Exception{
 		this.mockMvc.perform(post("/profile/messages")
@@ -58,6 +94,7 @@ public class MessageControllerTest {
 					.param("text", "Just No"))
 					.andExpect(model().hasNoErrors())
 					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful())
 					.andExpect(forwardedUrl("/pages/messages.jsp"))
 					.andExpect(view().name("messages"));
 	}

@@ -44,6 +44,7 @@ public class AdControllerTest {
 					.with(user("ese@unibe.ch").password("ese").roles("USER")))
 					.andExpect(model().hasNoErrors())
 					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful())
 					.andExpect(forwardedUrl("/pages/myRooms.jsp"))
 					.andExpect(view().name("myRooms"));
 	}
