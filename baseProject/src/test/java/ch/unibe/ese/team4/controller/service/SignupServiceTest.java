@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import ch.unibe.ese.team4.controller.ProfileController;
 import ch.unibe.ese.team4.controller.pojos.forms.SignupForm;
 import ch.unibe.ese.team4.model.Gender;
 import ch.unibe.ese.team4.model.User;
@@ -79,5 +80,21 @@ public class SignupServiceTest {
 		//false because user didn't enter a creditcard, even though premium user was checked
 		assertFalse(user.isPremium());
 
+	}
+	
+
+	@Test
+	public void testSaveGoogleUser(){
+		User user = signupService.signupGoogleUser("googleEse@unibe.ch", "ese", "John", "Wayne",
+				"/img/test/portrait.jpg", Gender.UNDEFINED, true, "738992114");
+		
+		assertEquals("googleEse@unibe.ch", user.getEmail());
+		assertEquals("ese", user.getPassword());
+		assertEquals("John", user.getFirstName());
+		assertEquals("Wayne", user.getLastName());
+		assertEquals("738992114", user.getGoogleId());
+		assertEquals("1111222233334444", user.getCcNumber());
+		assertEquals(5 , user.getCcMonth());
+		assertEquals(2020, user.getCcYear());
 	}
 }
