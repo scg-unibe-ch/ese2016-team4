@@ -264,7 +264,7 @@ public class ProfileController {
 		return model;
 	}
 	
-	/** Returns the visitors page for the visit with the given id. */
+	/** Returns the new generated onetime password for a user with a google-login. */
 	@RequestMapping(value = "/authenticateGoogleUser", method = RequestMethod.GET)
 	public @ResponseBody String authenticateG(
 			@RequestParam("userName") String userName,
@@ -273,8 +273,6 @@ public class ProfileController {
 			@RequestParam("email") String email,
 			@RequestParam("imageURL") String imageURL,
 			@RequestParam("googleId") String googleId) {
-
-		System.out.println("GoogleID: "+googleId);
 		User user = userService.findUserByGoogleId(googleId);
 		if (user!=null){
 			user.setEmail(email);
@@ -285,7 +283,6 @@ public class ProfileController {
 			UserPicture pic = user.getPicture();
 			if (pic!=null){
 				String picPath = pic.getFilePath();
-				System.out.println("URLIMG: "+picPath);
 				try(InputStream in = new URL(imageURL).openStream()){
 				    Files.copy(in, Paths.get(picPath));
 				}catch(Exception e){
@@ -293,7 +290,6 @@ public class ProfileController {
 					picPath = null;
 				}
 			}
-			System.out.println("Loaded User");
 		}else{
 			String realPath = servletContext.getRealPath(IMAGE_DIRECTORY);
 			String picName = email.replace('@', '_').replace('.','_') + ".jpg";
@@ -306,11 +302,11 @@ public class ProfileController {
 			user = createUser(email, getRandomString(24), firstName, lastName, IMAGE_DIRECTORY+picName, Gender.FEMALE, false, googleId);
 		}
 		userDao.save(user);
-		System.out.println("Saved User: pw="+user.getPassword());
 		return user.getPassword();
 	}
 	private static String VALID_CHARACHTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789abcdefghijklmnopqrstuvwxyz";
 	private static Random rnd = new Random(System.currentTimeMillis());
+	/**returns a random string*/
 	public static String getRandomString(int length) {
 		StringBuffer str = new StringBuffer();
 		for (int i =0;i<length;i++){
@@ -319,6 +315,7 @@ public class ProfileController {
 	    return str.toString();
 	}
 	
+	/**creates new user with accordingly to the inputs*/
 	public User createUser(String email, String password, String firstName,
 			String lastName, String picPath, Gender gender, boolean premium, String googleID) {
 		User user = new User();
