@@ -264,7 +264,7 @@ public class ProfileController {
 		return model;
 	}
 	
-	/** Returns the new generated onetime password for a user with a google-login. */
+	/** Returns the new generated one-time password for a user with a google-login. */
 	@RequestMapping(value = "/authenticateGoogleUser", method = RequestMethod.GET)
 	public @ResponseBody String authenticateG(
 			@RequestParam("userName") String userName,
@@ -274,34 +274,26 @@ public class ProfileController {
 			@RequestParam("imageURL") String imageURL,
 			@RequestParam("googleId") String googleId) {
 		User user = userService.findUserByGoogleId(googleId);
-		if (user!=null){
+		String realPath = servletContext.getRealPath(IMAGE_DIRECTORY);
+		String picName = email.replace('@', '_').replace('.','_') + ".jpg";
+		try(InputStream in = new URL(imageURL).openStream()){
+		    Files.copy(in, Paths.get(realPath,picName),StandardCopyOption.REPLACE_EXISTING);
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			picName = null;
+		}
+		if (user == null){
+			user = signupService.signupGoogleUser(email, getRandomString(24),
+					firstName, lastName, IMAGE_DIRECTORY+picName, 
+					Gender.UNDEFINED, false, googleId);
+		}else {
 			user.setEmail(email);
 //			user.setUsername(userName);
 			user.setFirstName(firstName);
 			user.setLastName(lastName);
 			user.setPassword(getRandomString(24));
-			UserPicture pic = user.getPicture();
-			if (pic!=null){
-				String picPath = pic.getFilePath();
-				try(InputStream in = new URL(imageURL).openStream()){
-				    Files.copy(in, Paths.get(picPath));
-				}catch(Exception e){
-					System.out.println(e.getMessage());
-					picPath = null;
-				}
-			}
-		}else{
-			String realPath = servletContext.getRealPath(IMAGE_DIRECTORY);
-			String picName = email.replace('@', '_').replace('.','_') + ".jpg";
-			try(InputStream in = new URL(imageURL).openStream()){
-			    Files.copy(in, Paths.get(realPath,picName),StandardCopyOption.REPLACE_EXISTING);
-			}catch(Exception e){
-				System.out.println(e.getMessage());
-				picName = null;
-			}
-			user = createUser(email, getRandomString(24), firstName, lastName, IMAGE_DIRECTORY+picName, Gender.FEMALE, false, googleId);
+			userDao.save(user);
 		}
-		userDao.save(user);
 		return user.getPassword();
 	}
 	private static String VALID_CHARACHTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789abcdefghijklmnopqrstuvwxyz";
@@ -315,36 +307,36 @@ public class ProfileController {
 	    return str.toString();
 	}
 	
-	/**creates new user with accordingly to the inputs*/
-	public User createUser(String email, String password, String firstName,
-			String lastName, String picPath, Gender gender, boolean premium, String googleID) {
-		User user = new User();
-		user.setUsername(email);
-		user.setPassword(password);
-		user.setEmail(email);
-		user.setFirstName(firstName);
-		user.setLastName(lastName);
-		user.setEnabled(true);
-		user.setGender(gender);
-		user.setPremium(premium);
-		user.setGoogleId(googleID);
-		if(premium){ 
-			user.setCcNumber("1111222233334444");
-			user.setCcMonth(5);
-			user.setCcYear(2020);
-		}
-		Set<UserRole> userRoles = new HashSet<>();
-		UserRole role = new UserRole();
-		role.setRole("ROLE_USER");
-		role.setUser(user);
-		userRoles.add(role);
-		user.setUserRoles(userRoles);
-		if (picPath != null){
-			UserPicture picture = new UserPicture();
-			picture.setUser(user);
-			picture.setFilePath(picPath);
-			user.setPicture(picture);
-		}
-		return user;
-	}
+//	/**creates new user with accordingly to the inputs*/
+//	public User createUser(String email, String password, String firstName,
+//			String lastName, String picPath, Gender gender, boolean premium, String googleID) {
+//		User user = new User();
+//		user.setUsername(email);
+//		user.setPassword(password);
+//		user.setEmail(email);
+//		user.setFirstName(firstName);
+//		user.setLastName(lastName);
+//		user.setEnabled(true);
+//		user.setGender(gender);
+//		user.setPremium(premium);
+//		user.setGoogleId(googleID);
+//		if(premium){ 
+//			user.setCcNumber("1111222233334444");
+//			user.setCcMonth(5);
+//			user.setCcYear(2020);
+//		}
+//		Set<UserRole> userRoles = new HashSet<>();
+//		UserRole role = new UserRole();
+//		role.setRole("ROLE_USER");
+//		role.setUser(user);
+//		userRoles.add(role);
+//		user.setUserRoles(userRoles);
+//		if (picPath != null){
+//			UserPicture picture = new UserPicture();
+//			picture.setUser(user);
+//			picture.setFilePath(picPath);
+//			user.setPicture(picture);
+//		}
+//		return user;
+//	}
 }
