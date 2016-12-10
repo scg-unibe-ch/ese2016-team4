@@ -85,14 +85,14 @@ public class SignupServiceTest {
 
 	@Test
 	public void testSaveGoogleUser(){
-		User user = signupService.signupGoogleUser("ese@unibe.ch", "ese", "John", "Wayne",
-				"/img/test/portrait.jpg", Gender.MALE, true, "");
+		User user = signupService.signupGoogleUser("googleEse@unibe.ch", "ese", "John", "Wayne",
+				"/img/test/portrait.jpg", Gender.UNDEFINED, true, "738992114");
 		
-		assertEquals("ese@unibe.ch", user.getEmail());
+		assertEquals("googleEse@unibe.ch", user.getEmail());
 		assertEquals("ese", user.getPassword());
 		assertEquals("John", user.getFirstName());
 		assertEquals("Wayne", user.getLastName());
-		assertEquals("", user.getGoogleId());
+		assertEquals("738992114", user.getGoogleId());
 		assertEquals("1111222233334444", user.getCcNumber());
 		assertEquals(5 , user.getCcMonth());
 		assertEquals(2020, user.getCcYear());
