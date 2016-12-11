@@ -19,9 +19,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ch.unibe.ese.team4.controller.pojos.forms.SignupForm;
+import ch.unibe.ese.team4.model.Gender;
 import ch.unibe.ese.team4.model.Message;
 import ch.unibe.ese.team4.model.MessageState;
 import ch.unibe.ese.team4.model.User;
+import ch.unibe.ese.team4.model.UserPicture;
 import ch.unibe.ese.team4.model.UserRole;
 import ch.unibe.ese.team4.model.dao.MessageDao;
 import ch.unibe.ese.team4.model.dao.UserDao;
@@ -67,6 +69,46 @@ public class SignupService {
 		
 		userDao.save(user);
 	}
+	
+	/**
+	 * Creates the new user according to the google account.
+	 * @return
+	 * 		new user
+	 */
+	@Transactional
+	public User signupGoogleUser(String email, String password, String firstName,
+			String lastName, String picPath, Gender gender, boolean premium, String googleID) {
+		User user = new User();
+		user.setUsername(email);
+		user.setPassword(password);
+		user.setEmail(email);
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setEnabled(true);
+		user.setGender(gender);
+		user.setPremium(premium);
+		user.setGoogleId(googleID);
+		if(premium){ 
+			user.setCcNumber("1111222233334444");
+			user.setCcMonth(5);
+			user.setCcYear(2020);
+		}
+		Set<UserRole> userRoles = new HashSet<>();
+		UserRole role = new UserRole();
+		role.setRole("ROLE_USER");
+		role.setUser(user);
+		userRoles.add(role);
+		user.setUserRoles(userRoles);
+		if (picPath != null){
+			UserPicture picture = new UserPicture();
+			picture.setUser(user);
+			picture.setFilePath(picPath);
+			user.setPicture(picture);
+		}
+		user = userDao.save(user);
+		sendWelcomeMessage(user);
+		return user;
+	}
 
 	/**
 	 * Returns whether a user with the given username already exists.
@@ -79,6 +121,13 @@ public class SignupService {
 	public boolean doesUserWithUsernameExist(String username) {
 		return userDao.findByUsername(username) != null;
 	}
+	
+	/**
+	 * Sends a welcome message to a new user.
+	 * 
+	 * @param user
+	 * 		the user that has just signed up
+	 */
 	@Transactional
 	public void sendWelcomeMessage(User user) {
 		Date now = new Date();
@@ -93,6 +142,7 @@ public class SignupService {
 		
 	}
 	
+	// Message that is sent to the new user
 	private String getAlertText() {
 		return "Welcome to FlatFindr!"
 				+ "<br><br>Thank you for using our Website"

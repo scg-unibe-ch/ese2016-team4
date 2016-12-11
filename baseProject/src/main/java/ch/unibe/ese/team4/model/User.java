@@ -70,6 +70,17 @@ public class User {
 	
 	@Column(nullable = false)
 	private boolean premium;
+	
+	@Column(nullable = true)
+	private int unsubscribeReason;
+
+	public int getUnsubscribeReason() {
+		return unsubscribeReason;
+	}
+
+	public void setUnsubscribeReason(int unsubscribeReason) {
+		this.unsubscribeReason = unsubscribeReason;
+	}
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

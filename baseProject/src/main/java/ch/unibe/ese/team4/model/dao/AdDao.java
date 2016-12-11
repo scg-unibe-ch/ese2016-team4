@@ -19,7 +19,9 @@ public interface AdDao extends CrudRepository<Ad, Long> {
 	/** this will be used if selected propertyTypes are searched */
 	public Iterable<Ad> findByPropertyTypeAndSellType(int propertyType, int sellType);
 
+	/** this will be used to find the ads of a given user */
 	public Iterable<Ad> findByUser(User user);
 	
+	/** this is used to check whether an auction has expired */
 	public Iterable<Ad> findByAuctionEndDateLessThanAndAuctionFinished(Date date, boolean auctionFinished);
 }

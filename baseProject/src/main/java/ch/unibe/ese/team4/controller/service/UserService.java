@@ -1,9 +1,14 @@
 package ch.unibe.ese.team4.controller.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ch.unibe.ese.team4.controller.pojos.forms.PlaceAdForm;
+import ch.unibe.ese.team4.controller.pojos.forms.UnsubscribePremiumForm;
+import ch.unibe.ese.team4.model.Ad;
 import ch.unibe.ese.team4.model.User;
 import ch.unibe.ese.team4.model.dao.UserDao;
 
@@ -31,5 +36,5 @@ public class UserService {
 	public User findUserByGoogleId(String googleId) {
 		return userDao.findByGoogleid(googleId);
 	}
-
+	
 }

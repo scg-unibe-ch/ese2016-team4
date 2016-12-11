@@ -46,7 +46,7 @@ public class UserUpdateService {
 	public void updateFrom(GetPremiumForm getPremiumForm, String username) {
 		
 		User currentUser = userService.findUserByUsername(username);
-
+		currentUser.setUnsubscribeReason(0);
 		currentUser.setPremium(true);
 		userDao.save(currentUser);
 	}
@@ -56,11 +56,9 @@ public class UserUpdateService {
 	public void updateFrom(UnsubscribePremiumForm unsubscribePremiumForm, String username) {
 		
 		User currentUser = userService.findUserByUsername(username);
-
+		currentUser.setUnsubscribeReason(unsubscribePremiumForm.getUnsubscribeReason());
 		currentUser.setPremium(false);
 		userDao.save(currentUser);
 	}
-
-	
 	
 }

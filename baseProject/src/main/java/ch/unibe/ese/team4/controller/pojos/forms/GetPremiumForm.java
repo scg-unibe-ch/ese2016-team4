@@ -7,51 +7,50 @@ import javax.validation.constraints.Pattern;
 
 public class GetPremiumForm {
 	
-	//@Pattern(regexp = "(0[1-9]|1[012])", message = "Please enter a valid month")
-		@Min(value=0, message = "Please enter a valid month")
-		@Max(value=12, message = "Please enter a valid month")
-		private int ccMonth;
+	@Min(value=0, message = "Please enter a valid month")
+	@Max(value=12, message = "Please enter a valid month")
+	private int ccMonth;
 		
-		//@Pattern(regexp = "^$|^(20)\\d{2}$", message = "Please enter a valid year")
-		private int ccYear;
+	@Min(value=0, message = "Please enter a valid year")
+	private int ccYear;
 
 		
-		@Pattern(regexp = "^$|^\\d{16}$", message = "Please enter a valid 16 digit credit card number")
-		private String ccNumber;
+	@Pattern(regexp = "\\b([0-9]{4})([0-9]{4})([0-9]{4})([0-9]{4})\\b", message = "Please enter a valid 16 digit credit card number")
+	private String ccNumber;
 		
-		@NotNull
-		private boolean premiumUser;
+	@NotNull
+	private boolean premiumUser;
 		
-		public int getCcMonth() {
-			return ccMonth;
-		}
+	public int getCcMonth() {
+		return ccMonth;
+	}
 
-		public void setCcMonth(int ccMonth) {
-			this.ccMonth = ccMonth;
-		}
+	public void setCcMonth(int ccMonth) {
+		this.ccMonth = ccMonth;
+	}
 
-		public int getCcYear() {
-			return ccYear;
-		}
+	public int getCcYear() {
+		return ccYear;
+	}
 
-		public void setCcYear(int ccYear) {
-			this.ccYear = ccYear;
-		}
+	public void setCcYear(int ccYear) {
+		this.ccYear = ccYear;
+	}
 
-		public String getCcNumber() {
-			return ccNumber;
-		}
+	public String getCcNumber() {
+		return ccNumber;
+	}
 
-		public void setCcNumber(String ccNumber) {
-			this.ccNumber = ccNumber;
-		}
+	public void setCcNumber(String ccNumber) {
+		this.ccNumber = ccNumber;
+	}
 		
-		public boolean isPremiumUser() {
-			return premiumUser;
-		}
+	public boolean isPremiumUser() {
+		return premiumUser;
+	}
 
-		public void setPremiumUser(boolean premiumUser) {
-			this.premiumUser = premiumUser;
-		}
+	public void setPremiumUser(boolean premiumUser) {
+		this.premiumUser = premiumUser;
+	}
 
 }

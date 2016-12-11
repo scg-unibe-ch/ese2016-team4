@@ -21,10 +21,10 @@
 			Please let us know why you would like to unsubscribe. 
 						
 			<table>
-			<tr><form:checkbox name="expensive" id="expensive" path="expensive"/><label>Too expensive</label></tr><br>
-			<tr><form:checkbox name="noUse" id="noUse" path="noUse"/><label>I do not use FlatFindr anymore</label></tr><br>
-			<tr><form:checkbox name="badService" id="badService" path="badService"/><label>Not enough advantages</label></tr><br>
-			<tr><form:checkbox name="otherReasons" id="otherReasons" path="otherReasons" /><label>Other reasons</label></tr>
+			<tr><form:radiobutton path="unsubscribeReason" value="1" /><label>Too expensive</label></tr><br>
+			<tr><form:radiobutton path="unsubscribeReason" value="2" /><label>I do not use FlatFindr anymore</label></tr><br>
+			<tr><form:radiobutton path="unsubscribeReason" value="3"/><label>Not enough advantages</label></tr><br>
+			<tr><form:radiobutton path="unsubscribeReason" value="4"/><label>Other reasons</label></tr>
 			</table>
 			
 		<div>

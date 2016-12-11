@@ -30,16 +30,15 @@ public class SignupForm {
 	@NotNull
 	private Gender gender;
 	
-	//@Pattern(regexp = "(0[1-9]|1[012])", message = "Please enter a valid month")
 	@Min(value=0, message = "Please enter a valid month")
 	@Max(value=12, message = "Please enter a valid month")
 	private int ccMonth;
 	
-	//@Pattern(regexp = "^$|^(20)\\d{2}$", message = "Please enter a valid year")
+	@Min(value=0, message = "Please enter a valid year")
 	private int ccYear;
 
 	
-	@Pattern(regexp = "^$|^\\d{16}$", message = "Please enter a valid 16 digit credit card number")
+	@Pattern(regexp = "\\b([0-9]{4})([0-9]{4})([0-9]{4})([0-9]{4})\\b", message = "Please enter a valid 16 digit credit card number")
 	private String ccNumber;
 	
 	@NotNull

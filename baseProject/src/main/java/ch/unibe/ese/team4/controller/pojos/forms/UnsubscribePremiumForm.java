@@ -1,5 +1,8 @@
 package ch.unibe.ese.team4.controller.pojos.forms;
 
+import javax.persistence.Column;
+import javax.validation.constraints.Min;
+
 public class UnsubscribePremiumForm {
 
 	private int reason;
@@ -8,6 +11,18 @@ public class UnsubscribePremiumForm {
 	private boolean noUse;
 	private boolean badService;
 	private boolean otherReasons;
+	
+	@Min(value=1, message = "Please choose one")
+	private int unsubscribeReason;
+
+	public int getUnsubscribeReason() {
+		return unsubscribeReason;
+	}
+
+	public void setUnsubscribeReason(int unsubscribeReason) {
+		this.unsubscribeReason = unsubscribeReason;
+	}
+
 
 	public int getReason() {
 		return reason;
