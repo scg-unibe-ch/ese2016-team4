@@ -5,16 +5,17 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+
 public class GetPremiumForm {
 	
-	@Min(value=0, message = "Please enter a valid month")
+	@Min(value=1, message = "Please enter a valid month")
 	@Max(value=12, message = "Please enter a valid month")
 	private int ccMonth;
-		
+	
 	@Min(value=0, message = "Please enter a valid year")
 	private int ccYear;
 
-		
+	
 	@Pattern(regexp = "\\b([0-9]{4})([0-9]{4})([0-9]{4})([0-9]{4})\\b", message = "Please enter a valid 16 digit credit card number")
 	private String ccNumber;
 		

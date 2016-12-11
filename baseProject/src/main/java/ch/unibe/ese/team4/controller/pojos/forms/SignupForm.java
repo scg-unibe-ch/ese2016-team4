@@ -30,7 +30,7 @@ public class SignupForm {
 	@NotNull
 	private Gender gender;
 	
-	@Min(value=0, message = "Please enter a valid month")
+	@Min(value=1, message = "Please enter a valid month")
 	@Max(value=12, message = "Please enter a valid month")
 	private int ccMonth;
 	
