@@ -42,13 +42,13 @@
 			<param-value>/WEB-INF/config/springMVC.xml</param-value>		<!-- Servlet config -->
 		</init-param>
 		<load-on-startup>1</load-on-startup>
-		<!--  picture upload -->
+		<!--  
 		<multipart-config>
 		    <location>/img/ads</location>
 		    <max-file-size>20848820</max-file-size>
             <max-request-size>418018841</max-request-size>
             <file-size-threshold>1048576</file-size-threshold>
-		</multipart-config> 
+		</multipart-config> picture upload -->
 	</servlet>
 
 	<servlet-mapping>
