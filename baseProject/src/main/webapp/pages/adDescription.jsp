@@ -546,8 +546,8 @@ document.getElementById("SendEmail").onclick = function() {
 	</div>
 </div>
 
-	<div id="map" style="height:295px;width:545px;position: relative;
-	border-color: #2dc16d; border-radius: 5px; border-width: 3px; border-style: solid;"></div>
+	<div id="map" style="height:295px;width:545px;position: relative; background-color: white;
+	<%--border-color: #2dc16d; border-radius: 5px; border-width: 3px; border-style: solid;--%>"></div>
 
     <script type="text/javascript">
 	var map;

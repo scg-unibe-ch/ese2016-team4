@@ -129,11 +129,11 @@ label {
 }
 
 button {
-	background-color: #F2F2F2;
-	color: white;
+	background-color: #BDBDBD;
+	color: black;
 	padding: 5px 10px;
 	border-radius: 5px;
-	border-color: white;
+	border-color: #F2F2F2;
 	border-style: solid;
 	font-size: 1.1em;
 }
@@ -262,9 +262,11 @@ input:checked + .slider:before {
 }
 
 button:hover {
-	color: #F2F2F2;
-	background-color: white;
-	border-color: #F2F2F2;
+	color: white;
+	background-color: #BDBDBD;
+	border-radius: 5px;
+	border-color: #BDBDBD;
+	border-style: solid;
 	cursor: pointer;
 }
 
@@ -596,13 +598,13 @@ footer nav ul li {
 	width: 20%;
 	height: 20%;
 
-	font-family: Arial, Helvetica, sans-serif;
+	/*font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
-	color: #ffffff;
+	color: black;
 	padding: 8px 15px;
 	background: #b3b3b3;
 
-	border-radius: 10px;
+	border-radius: 10px;*/
 
 }
 
@@ -690,6 +692,7 @@ footer nav ul li {
 }
 
 #filterDiv {
+	background-color: #F2F2F2;
 	width: 30%;
 	margin-top: 30px;
 	float: right;
@@ -754,10 +757,10 @@ footer nav ul li {
 #accordion {
 	width: 50%;
 	float: left;
-	border-color: #F2F2F2;
+	/*border-color: #F2F2F2;
 	border-radius: 5px;
 	border-width: 3px;
-	border-style: solid;
+	border-style: solid;*/
 	padding: 15px;
 	
 }
@@ -921,6 +924,7 @@ footer nav ul li {
 }
 
 .adDescDiv {
+	background-color: #F2F2F2;
 	border-color: #F2F2F2;
 	border-radius: 5px;
 	border-width: 3px;
@@ -941,20 +945,19 @@ footer nav ul li {
 }
 
 .thinInactiveButton {
-	background-color: #bbbbbb;
-	color: white;
+	background-color: #BDBDBD;
+	color: black;
 	padding: 2px 10px;
-	border-radius: 5px;
-	border-color: white;
-	border-style: solid;
 	font-size: 1.1em;
 	margin-left: 30px;
 }
 
 .thinInactiveButton:hover {
-	background-color: #white;
-	color: #bbbbbb;
-	border-color: #bbbbbb;
+	background-color: #BDBDBD;
+	color: white;
+	border-radius: 5px;
+	border-color: #BDBDBD;
+	border-style: solid;
 	cursor: pointer;
 }
 
