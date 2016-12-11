@@ -45,7 +45,6 @@
 			<form:input id="field-creditcard" placeholder="1111222233334444" path="ccNumber"/>										
 			<form:errors path="ccNumber" cssClass="validationErrorText" />
 			<br>
-			<sub><i>If you leave the credit card info blank, a normal user account will be created</i></sub>						
 			</p>
 			
 		<div>

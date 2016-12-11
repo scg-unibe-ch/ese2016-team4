@@ -70,6 +70,11 @@ public class SignupService {
 		userDao.save(user);
 	}
 	
+	/**
+	 * Creates the new user according to the google account.
+	 * @return
+	 * 		new user
+	 */
 	@Transactional
 	public User signupGoogleUser(String email, String password, String firstName,
 			String lastName, String picPath, Gender gender, boolean premium, String googleID) {
@@ -116,6 +121,13 @@ public class SignupService {
 	public boolean doesUserWithUsernameExist(String username) {
 		return userDao.findByUsername(username) != null;
 	}
+	
+	/**
+	 * Sends a welcome message to a new user.
+	 * 
+	 * @param user
+	 * 		the user that has just signed up
+	 */
 	@Transactional
 	public void sendWelcomeMessage(User user) {
 		Date now = new Date();
@@ -130,6 +142,7 @@ public class SignupService {
 		
 	}
 	
+	// Message that is sent to the new user
 	private String getAlertText() {
 		return "Welcome to FlatFindr!"
 				+ "<br><br>Thank you for using our Website"

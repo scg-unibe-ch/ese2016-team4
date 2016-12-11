@@ -386,6 +386,7 @@ public class AlertService {
 		return (distance > alert.getRadius());
 	}
 	
+	/** Checks if an ad is conforming to the size in an alert. */
 	private boolean sizeMismatchWith(Ad ad, Alert alert) {
 		boolean mismatch = false;
 		double sizeAd = ad.getSquareFootage();
@@ -398,6 +399,7 @@ public class AlertService {
 		return  mismatch;
 	}
 	
+	/** Checks if an ad is conforming to the properties in an alert. */
 	private boolean propertyMismatchWith(Ad ad, Alert alert) {
 		boolean mismatch = false;
 		if(ad.getAnimals() != alert.getAnimals() || ad.getBalcony() != alert.getBalcony() 
@@ -411,6 +413,7 @@ public class AlertService {
 		return mismatch;
 	}
 	
+	/** Checks if an ad is conforming to the date in an alert. */
 	private boolean dateMismatchWith(Ad ad, Alert alert) {
 		boolean mismatch = false;
 		

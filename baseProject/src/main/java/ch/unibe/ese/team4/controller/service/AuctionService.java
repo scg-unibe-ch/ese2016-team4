@@ -37,6 +37,8 @@ public class AuctionService {
 	@Autowired
 	private UserService userService;
 
+	
+	/** Checks for finished auction */
 	@Transactional
 	@Scheduled(fixedRate = 10000)
 	public void checkForFinishedAuctions(){   
@@ -53,6 +55,11 @@ public class AuctionService {
 		
 	}
 	
+	/** 
+	 * Sends a message to the owner of an ad when the auction was successful.
+	 * 
+	 * @param ad The ad to check whether the auction was successful
+	 */
 	private void successWithAuctionMessage(Ad ad){
         User user = ad.getUser();
 		
@@ -67,6 +74,11 @@ public class AuctionService {
 		messageDao.save(message);
 	}
 	
+	/** 
+	 * Sends a message to the owner of an ad when the auction was not successful.
+	 * 
+	 * @param ad The ad to check whether the auction was successful
+	 */
 	private void noSuccessWithAuctionMessage(Ad ad){
 		User user = ad.getUser();
 		
@@ -82,6 +94,7 @@ public class AuctionService {
 
 	}
 	
+	// Message that is sent when the auction was not successful
 	public String getNoSuccessWithAuctionMessage(Ad ad) {
 		return "Dear user,<br>Your auction has ended. Unfortunately no one placed a bid on your advertisement: "
 				+ "<a class=\"link\" href=/ad?id="
@@ -93,6 +106,7 @@ public class AuctionService {
 				+ "Your FlatFindr crew";
 	}
 	
+	// Message that is sent when the auction was successful
 	public String getSuccessWithAuctionMessage(Ad ad) {
 		return "Dear user,<br>Congratulations! You found a buyer for your: "
 				+ "<a class=\"link\" href=/ad?id="
@@ -106,7 +120,10 @@ public class AuctionService {
 	
 
 	
-	// sends a message to all users who got overbidden. Only one message per user.
+	/**
+	 * Triggers all bids for a given ad to check if a user has been overbid. 
+	 * For every user, only one message is sent.
+	 */
 	public void triggerBids(Ad ad) {
 		Iterable<Bid> bids = bidHistoryDao.findByAdIdOrderByBidDesc(ad.getId());
 		List<User> users = new ArrayList<User>();
@@ -134,7 +151,7 @@ public class AuctionService {
 	}
 	
 	
-	
+	// Message that is sent when a user has been overbid
 	private String getBidText(Ad ad) {
 		return "Dear user,<br>Another user placed a bid. "
 				+ "You can visit it here:<br><br>"
