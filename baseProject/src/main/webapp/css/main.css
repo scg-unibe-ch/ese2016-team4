@@ -99,14 +99,14 @@ but not in one String (i.e. in the header) */
 }
 
 .styledTable {
-	background-color: #3dc16d;
+	background-color: #F2F2F2;
 	border-radius: 5px;
 	margin-top: 20px;
 }
 
 .styledTable th {
 	background-color: #F2F2F2;
-	color: white;
+	color: black;
 }
 
 .styledTable td {
@@ -585,11 +585,11 @@ footer nav ul li {
 	margin-top: 30px;
 	margin-bottom: 30px;
 	padding: 20px;
-	border-color: #F2F2F2;
+	background-color: #F2F2F2;
+	/*border-color: #F2F2F2;
 	border-width: 5px;
 	border-radius: 10px;
-	background-color: #F2F2F2;
-	border-style: outset;
+	border-style: outset;*/
 }
 
 .buttonDiv{
@@ -995,6 +995,7 @@ footer nav ul li {
 }
 
 #folders {
+	background-color: #F2F2F2;
 	float: left;
 	width: 10%;
 	height: 70%;
@@ -1012,7 +1013,7 @@ footer nav ul li {
 }
 
 #folders h2:hover {
-	background-color: #F2F2F2;
+	background-color: #BDBDBD;
 	color: white;
 	cursor: pointer;
 }
