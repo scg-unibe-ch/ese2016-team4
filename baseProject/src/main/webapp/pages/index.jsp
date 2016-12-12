@@ -8,7 +8,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Welcome to FlatFindr</title>
+<title>Welcome to PropertyFindr</title>
 </head>
 
 <body>
@@ -51,7 +51,7 @@ $(document).ready(function() {
 
 <pre>Home</pre>
 
-<h1>Welcome to FlatFindr!</h1>
+<h1>Welcome!</h1>
 
 <form:form method="get" modelAttribute="searchForm" action="/results"
 	id="filterForm" autocomplete="off" onsubmit="typesNotEmpty()">
@@ -101,18 +101,31 @@ $(document).ready(function() {
 		<h2>No ads placed yet</h2>
 	</c:when>
 	<c:otherwise>
-		<div id="resultsDiv" class="resultsDiv">	
+		<div class="resultAd">
 			<h2>Our newest ads:</h2>		
 			<c:forEach var="ad" items="${newest}">
-				<div class="resultAd">
+				<div id="IndexResultsDiv" class="IndexResultsDiv">	
 					<div class="resultLeft">
-						<a href="<c:url value='/ad?id=${ad.id}' />"><img
-							src="${ad.pictures[0].filePath}" /></a>
 						<h2>
 							<a class="link" href="<c:url value='/ad?id=${ad.id}' />">${ad.title}</a>
 						</h2>
-						<p>${ad.street}, ${ad.zipcode} ${ad.city}</p>
-						<br />
+						<a href="<c:url value='/ad?id=${ad.id}' />"><img
+							src="${ad.pictures[0].filePath}" /></a>
+
+						<c:choose>
+							<c:when test="${ad.getSellType() == 1}"><h2>Monthly Rent ${ad.prizePerMonth } CHF</h2></c:when>
+							<c:when test="${ad.getSellType() == 2}"><h2>Sale Price ${ad.prizeOfSale } CHF</h2></c:when>
+							<c:when test="${ad.getSellType() == 3 && !bidService.isBidden(ad.getId())}"><h2>Auction Price ${ad.startOffer} CHF</h2></c:when>
+							<c:when test="${ad.getSellType() == 3 && bidService.isBidden(ad.getId())}"><h2>Auction Price ${bidService.getHighestBid(ad.getId())} CHF</h2></c:when>
+						</c:choose>
+					</div>
+					
+					
+					<div class="resultRight">
+						<c:choose>
+					<c:when test="${ad.getUser().isPremium()==true}"><p><IMG SRC="/img/premium.png" ALT="Premium User" style="width:60px;height:60px;" class="premiumRight"></p></c:when>
+				</c:choose>
+						<br /> 
 						<p>
 							
 							<i><c:choose>
@@ -121,35 +134,17 @@ $(document).ready(function() {
 									<c:when test="${ad.getPropertyType() == 3}">Flat</c:when>
 									<c:when test="${ad.getPropertyType() == 4}">House</c:when>
 								</c:choose></i>
-							<br /><br />
-							<i><c:choose>
-									<c:when test="${ad.getSellType() == 1}">Rent</c:when>
-									<c:when test="${ad.getSellType() == 2}">Buy</c:when>
-									<c:when test="${ad.getSellType() == 3}">Auction</c:when>
-								</c:choose></i>
+							<br /> 
 						
 						</p>
-					</div>
-					
-					
-					<div class="resultRight">
-						<c:choose>
-							<c:when test="${ad.getSellType() == 1}"><h2>Monthly Rent ${ad.prizePerMonth } CHF</h2></c:when>
-							<c:when test="${ad.getSellType() == 2}"><h2>Sale Price ${ad.prizeOfSale } CHF</h2></c:when>
-							<c:when test="${ad.getSellType() == 3 && !bidService.isBidden(ad.getId())}"><h2>Auction Price ${ad.startOffer} CHF</h2></c:when>
-							<c:when test="${ad.getSellType() == 3 && bidService.isBidden(ad.getId())}"><h2>Auction Price ${bidService.getHighestBid(ad.getId())} CHF</h2></c:when>
-						</c:choose>
-						<br /> 
-
+						<p>${ad.street}, ${ad.zipcode} ${ad.city}</p>
+						<br />
 						<fmt:formatDate value="${ad.moveInDate}" var="formattedMoveInDate"
 							type="date" pattern="dd.MM.yyyy" />
 						<c:choose>
 							<c:when test="${ad.getSellType() == 1}"><p>Move-in date: ${formattedMoveInDate }</p></c:when>
+							<c:when test="${ad.getSellType() == 2 || ad.getSellType() == 3}"><p> </p></c:when>
 						</c:choose>
-						<c:choose>
-							<c:when test="${ad.getUser().isPremium()==true}"><p>>>>Premium<<<</p></c:when>
-						</c:choose>
-
 						
 					</div>
 				</div>
