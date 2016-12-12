@@ -328,17 +328,19 @@ function initMap() {
 							<c:when test="${ad.getSellType() == 1}"><h2>CHF ${ad.prizePerMonth }</h2></c:when>
 							<c:when test="${ad.getSellType() == 2}"><h2>Sale Price ${ad.prizeOfSale } CHF</h2></c:when>
 							<c:when test="${ad.getSellType() == 3}"><h2>Auction Price ${bidPrices[loop.index]} CHF</h2></c:when>
-						</c:choose>						<br /> <br />
+						</c:choose>						<br />
 
 						<fmt:formatDate value="${ad.moveInDate}" var="formattedMoveInDate"
 							type="date" pattern="dd.MM.yyyy" />
 
 						<c:choose>
 							<c:when test="${ad.getSellType() == 1}"><p>Move-in date: ${formattedMoveInDate }</p></c:when>
+							<c:when test="${ad.getSellType() == 2 || ad.getSellType() == 3}"><p> </p></c:when>
 						</c:choose>
 						<c:choose>
-							<c:when test="${ad.getUser().isPremium()==true}"><p>>>>Premium<<<</p></c:when>
+							<c:when test="${ad.getUser().isPremium()==true}"><p><IMG SRC="/img/premium.png" ALT="Premium User" style="width:60px;height:60px;"></p></c:when>						
 						</c:choose>
+						
 					</div>
 				</div>
 			</c:forEach>
