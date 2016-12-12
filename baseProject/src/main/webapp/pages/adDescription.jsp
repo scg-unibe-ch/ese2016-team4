@@ -540,7 +540,7 @@ document.getElementById("SendEmail").onclick = function() {
 	<section>
 
     <div id="map" style="height:295px;width:545px;float:right;
-	border-color: #2dc16d; border-radius: 5px; border-width: 3px; border-style: solid;"></div>
+	border-color: #2dc16d; border-radius: 5px; border-width: 3px; border-style: solid; margin-bottom: 100px;"></div>
 
     <script type="text/javascript">
 	var map;
@@ -571,29 +571,20 @@ document.getElementById("SendEmail").onclick = function() {
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdNwB8auysJ8k7gqiKOpLwFyV2L7iBneo&callback=initMap">
     </script>
-    
 </section>
 
-<hr class="clearBoth" />
+<hr class="clearBoth"/>
 
 
 
 <div>
-<!--
-	<div id="left-arrow">
-		<img src="/img/left-arrow.png" />
-	</div>-->
 	<div >
 		<c:forEach items="${shownAd.pictures}" var="picture">
 			<a href="${picture.filePath}" src="${picture.filePath}" data-lightbox="ad"><img src="${picture.filePath}"  width="214" height="138" data-lightbox="image-1""/>
 			</a>
 		</c:forEach>
 	</div>
-	<!--
-	<div id="right-arrow">
-		<img src="/img/right-arrow.png" />
-	</div>
-	-->
+
 </div>
 
 
