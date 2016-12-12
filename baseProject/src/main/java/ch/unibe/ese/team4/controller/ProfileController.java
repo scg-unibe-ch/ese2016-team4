@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
 
 import ch.unibe.ese.team4.controller.pojos.forms.EditProfileForm;
 import ch.unibe.ese.team4.controller.pojos.forms.GetPremiumForm;
@@ -165,46 +168,58 @@ public class ProfileController {
 		}
 	}
 	
-	/** Handles the request for get premium. */
+	/** Handles the request for get premium. 
+	 * @param redirectAttributes */
 	@RequestMapping(value = "/profile/getPremium", method = RequestMethod.POST)
 	public ModelAndView getPremiumResultPage(
 			@Valid GetPremiumForm getPremiumForm,
-			BindingResult bindingResult, Principal principal) {
+			BindingResult bindingResult, Principal principal, RedirectAttributes redirectAttributes) {
 		ModelAndView model;
 		String username = principal.getName();
 		User user = userService.findUserByUsername(username);
 		if (!bindingResult.hasErrors()) {
 			userUpdateService.updateFrom(getPremiumForm, username);
+			/*
 			model = new ModelAndView("updatedProfile");
 			model.addObject("message", "Congrats! You are Premium user now.");
 			model.addObject("currentUser", user);
 			return model;
+			*/
+			model = new ModelAndView("redirect:/user?id=" + user.getId());
+			redirectAttributes.addFlashAttribute("confirmationMessage",
+					"Congrats! You are Premium user now.");
+			return model;
 		} else {
+			model = new ModelAndView("getPremium");
+			model.addObject("getPremiumForm", getPremiumForm);
+			return model;
+			/*
 			model = new ModelAndView("updatedProfile");
 			model.addObject("message",
 					"Something went wrong, please contact the WebAdmin if the problem persists!");
 			return model;
+			*/
 		}
 	}
 	
-	/** Handles the request for unsubscribe premium. */
+	/** Handles the request for unsubscribe premium. 
+	 * @param redirectAttributes */
 	@RequestMapping(value = "/profile/unsubscribePremium", method = RequestMethod.POST)
 	public ModelAndView unsubscribePremiumResultPage(
 			@Valid UnsubscribePremiumForm unsubscribePremiumForm,
-			BindingResult bindingResult, Principal principal) {
+			BindingResult bindingResult, Principal principal, RedirectAttributes redirectAttributes) {
 		ModelAndView model;
 		String username = principal.getName();
 		User user = userService.findUserByUsername(username);
 		if (!bindingResult.hasErrors()) {
 			userUpdateService.updateFrom(unsubscribePremiumForm, username);
-			model = new ModelAndView("updatedProfile");
-			model.addObject("message", "You unsubscribed successfully.");
-			model.addObject("currentUser", user);
+			model = new ModelAndView("redirect:/user?id=" + user.getId());
+			redirectAttributes.addFlashAttribute("confirmationMessage",
+					"You unsubscribed successfully.");
 			return model;
 		} else {
-			model = new ModelAndView("updatedProfile");
-			model.addObject("message",
-					"Something went wrong, please contact the WebAdmin if the problem persists!");
+			model = new ModelAndView("unsubscribePremium");
+			model.addObject("unsubscribePremium", unsubscribePremiumForm);
 			return model;
 		}
 	}
