@@ -12,6 +12,7 @@ html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, img, b, i, fieldset,
 /* Global element styling & global classes */
 p {
 	margin-bottom: 10px;
+	font-size: 1.5em;
 }
 
 h1 {
@@ -20,7 +21,7 @@ h1 {
 }
 
 h2 {
-	font-size: 1.5em;
+	font-size: 1.7em;
 	margin-bottom: 10px;
 }
 
@@ -590,6 +591,60 @@ footer nav ul li {
 	border-width: 5px;
 	border-radius: 10px;
 	border-style: outset;*/
+}
+
+#IndexResultsDiv {
+	width: 30%;
+	margin-top: 10px;
+	float: left;
+}
+
+#IndexResultsDiv div {
+	height: 340px;
+	padding: 10px;
+	margin-top: 20px;
+	background-color: #F2F2F2;
+}
+
+#IndexResultsDiv div:first-child {
+	margin-top: 0px;
+}
+
+#IndexResultsDiv div img {
+	height: 240px;
+	float: left;
+	margin-right: 50px;
+}
+
+#IndexResultsDiv div div {
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+#IndexResultsDiv .resultAd {
+	float: left;
+}
+
+#IndexResultsDiv .resultLeft {
+	float: left;
+	width: 60%;
+	margin-left: 10px;
+}
+
+#IndexResultsDiv .resultRight {
+	float: left;
+	width: 29%;
+	text-align: left;
+	padding-right: 5px;
+	margin-left: 40px;
+}
+
+#IndexResultsDiv .premiumRight{
+	float: left;
+	padding-top: 0px;
+	margin-top: 0px;
+	padding-left: 110px;
 }
 
 .buttonDiv{
