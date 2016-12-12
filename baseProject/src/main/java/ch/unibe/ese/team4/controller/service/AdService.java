@@ -231,6 +231,9 @@ public class AdService {
 		if(premium)
 			ads = (List<Ad>) sortByPremiumFirst(ads);
 		List<Ad> fourNewest = new ArrayList<Ad>();
+		if (number > ads.size()){
+			number = ads.size();
+		}
 		for (int i = 0; i < number; i++)
 			fourNewest.add(ads.get(i));
 		return fourNewest;

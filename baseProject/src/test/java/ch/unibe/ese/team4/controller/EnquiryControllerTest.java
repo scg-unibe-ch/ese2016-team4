@@ -19,6 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import ch.unibe.ese.team4.model.dao.UserDao;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -32,10 +34,20 @@ public class EnquiryControllerTest {
     private WebApplicationContext wac;
  
     private MockMvc mockMvc;
+    
+    //needed to test controllerMethods with param id
+    private long userId;
+    
+    private long userIdOfRatedOne;
+    
+    @Autowired
+    private UserDao userDao;
  
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).apply(springSecurity()).build();
+        userId = userDao.findByUsername("ese@unibe.ch").getId();
+        userIdOfRatedOne = userDao.findByUsername("jane@doe.com").getId();
     }
 	
 	@Test
@@ -47,6 +59,61 @@ public class EnquiryControllerTest {
 					.andExpect(status().is2xxSuccessful())
 					.andExpect(forwardedUrl("/pages/enquiries.jsp"))
 					.andExpect(view().name("enquiries"));
+	}
+	
+	@Test
+	public void testSendingEnquiry() throws Exception{
+		this.mockMvc.perform(get("/profile/enquiries/sendEnquiryForVisit")
+					.with(user("ese@unibe.ch").password("ese").roles("USER"))
+					.param("id", String.valueOf(userId)))
+					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful());
+	}
+	
+	@Test
+	public void testSavingEnquiry() throws Exception{
+		this.mockMvc.perform(get("/profile/enquiries/acceptEnquiry")
+					.with(user("ese@unibe.ch").password("ese").roles("USER"))
+					.param("id", String.valueOf(userId)))
+					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful());
+	}
+	
+	@Test
+	public void testDeclineEnquiry() throws Exception{
+		this.mockMvc.perform(get("/profile/enquiries/declineEnquiry")
+					.with(user("ese@unibe.ch").password("ese").roles("USER"))
+					.param("id", String.valueOf(userId)))
+					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful());
+	}
+	
+	@Test
+	public void testReopenEnquiry() throws Exception{
+		this.mockMvc.perform(get("/profile/enquiries/reopenEnquiry")
+					.with(user("ese@unibe.ch").password("ese").roles("USER"))
+					.param("id", String.valueOf(userId)))
+					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful());
+	}
+	
+	@Test
+	public void testRateUser() throws Exception{
+		this.mockMvc.perform(get("/profile/rateUser")
+					.with(user("ese@unibe.ch").password("ese").roles("USER"))
+					.param("rate", String.valueOf(userIdOfRatedOne))
+					.param("stars", "2"))
+					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful());
+	}
+	
+	@Test
+	public void testRatingForUser() throws Exception{
+		this.mockMvc.perform(get("/profile/ratingFor")
+					.with(user("ese@unibe.ch").password("ese").roles("USER"))
+					.param("user", String.valueOf(userIdOfRatedOne)))
+					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful());
 	}
 
 }

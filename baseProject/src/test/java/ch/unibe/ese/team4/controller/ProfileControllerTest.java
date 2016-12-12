@@ -6,6 +6,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ch.unibe.ese.team4.model.Gender;
 import ch.unibe.ese.team4.model.User;
+import ch.unibe.ese.team4.model.dao.UserDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -33,7 +35,6 @@ import ch.unibe.ese.team4.model.User;
 @WebAppConfiguration
 public class ProfileControllerTest {
 
-
 	@Autowired
 	private ProfileController profileController;
 	
@@ -41,10 +42,17 @@ public class ProfileControllerTest {
     private WebApplicationContext wac;
  
     private MockMvc mockMvc;
+    
+    //needed to test controllerMethods with param id
+    private long userId;
+    
+    @Autowired
+    private UserDao userDao;
  
     @Before
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).apply(springSecurity()).build();
+        userId = userDao.findByUsername("ese@unibe.ch").getId();
     }
 	
 	@Test
@@ -57,6 +65,7 @@ public class ProfileControllerTest {
 	
 	@Test
 	public void testLoadSignupPage() throws Exception{
+
 		this.mockMvc.perform(get("/signup"))
     				.andExpect(status().isOk())
     				.andExpect(status().is2xxSuccessful())
@@ -129,10 +138,23 @@ public class ProfileControllerTest {
 					.param("ccNumber", "1234567890123456")
 					.param("premiumUser", "true"))
 					.andExpect(model().hasNoErrors())
-					.andExpect(status().isOk())
-					.andExpect(status().is2xxSuccessful())
-					.andExpect(forwardedUrl("/pages/updatedProfile.jsp"))
-					.andExpect(view().name("updatedProfile"));
+					.andExpect(status().isFound())
+					.andExpect(status().is3xxRedirection())
+					.andExpect(redirectedUrl("/user?id=" + userId))
+					.andExpect(view().name("redirect:/user?id="+ userId));
+	}
+	
+	@Test
+	public void testUserShouldNotGetPremiumBecauseOfErrors() throws Exception{
+		this.mockMvc.perform(post("/profile/getPremium")
+					.with(user("ese@unibe.ch").password("ese").roles("USER"))
+					.param("ccMonth", "11")
+					.param("ccYear", "")
+					.param("ccNumber", "1234567890123456")
+					.param("premiumUser", "true"))
+					.andExpect(model().hasErrors())
+					.andExpect(forwardedUrl("/pages/getPremium.jsp"))
+					.andExpect(view().name("getPremium"));
 	}
 	
 	@Test
@@ -142,12 +164,49 @@ public class ProfileControllerTest {
 					.param("expensive", "false")
 					.param("noUse", "false")
 					.param("badService", "false")
-					.param("otherReasons", "false"))
+					.param("otherReasons", "true"))
+					.andExpect(model().hasNoErrors())
+					.andExpect(status().isFound())
+					.andExpect(status().is3xxRedirection())
+					.andExpect(redirectedUrl("/user?id=" + userId))
+					.andExpect(view().name("redirect:/user?id="+ userId));
+	}
+	
+	@Test
+	public void testUserShouldNotUnsubscribePremiumBecauseOfErrors() throws Exception{
+		this.mockMvc.perform(post("/profile/unsubscribePremium")
+					.with(user("ese@unibe.ch").password("ese").roles("USER"))
+					.param("expensive", "")
+					.param("noUse", "")
+					.param("badService", "")
+					.param("otherReasons", "")
+					.param("Reason", "0"))
+					.andExpect(model().hasErrors())
+					.andExpect(forwardedUrl("/pages/unsubscribePremium.jsp"))
+					.andExpect(view().name("unsubscribePremium"));
+	}
+	
+	@Test
+	public void showPublicProfileOfUserWithTheGivenId() throws Exception{
+		this.mockMvc.perform(get("/user")
+					.with(user("ese@unibe.ch").password("ese").roles("USER"))
+					.param("id", String.valueOf(userId)))
 					.andExpect(model().hasNoErrors())
 					.andExpect(status().isOk())
 					.andExpect(status().is2xxSuccessful())
-					.andExpect(forwardedUrl("/pages/updatedProfile.jsp"))
-					.andExpect(view().name("updatedProfile"));
+					.andExpect(forwardedUrl("/pages/user.jsp"))
+					.andExpect(view().name("user"));
+	}
+	
+	@Test
+	public void testMethodVisitors() throws Exception{
+		this.mockMvc.perform(get("/profile/visitors")
+					.with(user("ese@unibe.ch").password("ese").roles("USER"))
+					.param("visit", String.valueOf(userId)))
+					.andExpect(model().hasNoErrors())
+					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful())
+					.andExpect(view().name("visitors"));
 	}
 	
 	@Test
