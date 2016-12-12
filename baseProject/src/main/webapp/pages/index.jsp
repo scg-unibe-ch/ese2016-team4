@@ -145,9 +145,10 @@ $(document).ready(function() {
 							type="date" pattern="dd.MM.yyyy" />
 						<c:choose>
 							<c:when test="${ad.getSellType() == 1}"><p>Move-in date: ${formattedMoveInDate }</p></c:when>
+							<c:when test="${ad.getSellType() == 2 || ad.getSellType() == 3}"><p> </p></c:when>
 						</c:choose>
 						<c:choose>
-							<c:when test="${ad.getUser().isPremium()==true}"><p>>>>Premium<<<</p></c:when>
+							<c:when test="${ad.getUser().isPremium()==true}"><p><IMG SRC="/img/premium.png" ALT="Premium User" style="width:60px;height:60px;"></p></c:when>
 						</c:choose>
 
 						
