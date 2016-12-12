@@ -101,10 +101,13 @@ $(document).ready(function() {
 		<h2>No ads placed yet</h2>
 	</c:when>
 	<c:otherwise>
-		<div id="IndexResultsDiv" class="IndexResultsDiv">	
+		<div class="resultAd">
 			<h2>Our newest ads:</h2>		
 			<c:forEach var="ad" items="${newest}">
-				<div class="resultAd">
+				<div id="IndexResultsDiv" class="IndexResultsDiv">	
+				<%--<c:choose>
+					<c:when test="${ad.getUser().isPremium()==true}"><p><IMG SRC="/img/premium.png" ALT="Premium User" style="width:60px;height:60px;" class="premiumRight"></p></c:when>
+				</c:choose>--%>
 					<div class="resultLeft">
 						<h2>
 							<a class="link" href="<c:url value='/ad?id=${ad.id}' />">${ad.title}</a>

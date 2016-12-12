@@ -594,7 +594,7 @@ footer nav ul li {
 }
 
 #IndexResultsDiv {
-	width: 30%;
+	width: 35%;
 	margin-top: 10px;
 	float: left;
 }
@@ -628,23 +628,22 @@ footer nav ul li {
 
 #IndexResultsDiv .resultLeft {
 	float: left;
-	width: 60%;
+	width: 55%;
 	margin-left: 10px;
 }
 
 #IndexResultsDiv .resultRight {
 	float: left;
-	width: 29%;
+	width: 25%;
 	text-align: left;
 	padding-right: 5px;
-	margin-left: 40px;
+	margin-top: 0px;
+	margin-left: 0px;
 }
 
 #IndexResultsDiv .premiumRight{
 	float: left;
-	padding-top: 0px;
-	margin-top: 0px;
-	padding-left: 110px;
+	padding-left: 60px;
 }
 
 .buttonDiv{
