@@ -93,6 +93,21 @@ public class AdControllerTest {
 	}
     
     @Test
+	public void testMethodMessageSent() throws Exception{    	
+		this.mockMvc.perform(post("/ad")
+					.with(user("ese@unibe.ch").password("ese").roles("USER"))
+					.param("id", String.valueOf(adId))
+					.param("bid", "1000")
+					.param("recipient", "TestUser")
+					.param("subject", "testCase")
+					.param("text", "testText"))
+					.andExpect(model().hasNoErrors())
+					.andExpect(status().isFound())
+					.andExpect(status().is3xxRedirection())
+					.andExpect(view().name("redirect:/ad?id="+String.valueOf(adId)));
+	}
+    
+    @Test
 	public void testIsBookmarked() throws Exception{
     	// when ad is not bookmarked and button "bookmark" is hit, ad should be marked!
     	boolean bookmarked = false; //ad is currently not bookmarked
