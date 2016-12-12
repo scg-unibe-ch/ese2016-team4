@@ -205,7 +205,7 @@ window.onload = updateType;
 				<td><label for="field-title">Ad Title</label></td>
 				
 				<td>
-				<form:select path="sellType" id="myselect">
+				<form:select path="sellType" id="myselect" style="background-color:#a6c1fd">
 				<form:option value ="0">Select a Sale Type</form:option>
 				<form:option id="type-room" value="1">Rent</form:option>
 				<form:option id="type-room" value="2">Buy</form:option>
@@ -224,7 +224,7 @@ window.onload = updateType;
 						placeholder="Ad Title" /></td>
 				
 				<td>
-				<form:select path="propertyType">
+				<form:select path="propertyType" style="background-color:#a6c1fd">
 				<form:option value ="0">Select a Property Type</form:option>
 				<form:option id="type-room" value="1">Room</form:option>
 				<form:option id="type-room" value="2">Studio</form:option>

@@ -25,8 +25,8 @@ h2 {
 }
 
 hr {
-	color: #2dc16d;
-	background-color: #2dc16d;
+	color: #6d8cce;
+	background-color: #6d8cce;
 	height: 4px;
 	margin-bottom: 40px;
 }
@@ -99,13 +99,13 @@ but not in one String (i.e. in the header) */
 }
 
 .styledTable {
-	background-color: #3dc16d;
+	background-color: #a6c1fd;
 	border-radius: 5px;
 	margin-top: 20px;
 }
 
 .styledTable th {
-	background-color: #2dc16d;
+	background-color: #6d8cce;
 	color: white;
 }
 
@@ -129,7 +129,7 @@ label {
 }
 
 button {
-	background-color: #2dc16d;
+	background-color: #6d8cce;
 	color: white;
 	padding: 5px 10px;
 	border-radius: 5px;
@@ -145,7 +145,7 @@ button {
 }
 
 .button {
-	background-color: #2dc16d;
+	background-color: #6d8cce;
 	color: white;
 	padding: 5px 10px;
 	border-radius: 5px;
@@ -157,7 +157,7 @@ button {
 .smallPlusButton {
 	display: inline;
 	font-decoration: none;
-	background-color: #2dc16d;
+	background-color: #6d8cce;
 	color: white;
 	width: 15px;
 	height: 15px;
@@ -244,7 +244,7 @@ input:checked + .slider:before {
 	padding: 0px 5px 0px 5px;
 	border-width: 2px;
 	border-radius: 10px;
-	border-color: #2dc16d;
+	border-color: #6d8cce;
 	border-style: solid; 
 	color: grey;
 	font-size: 0.9em;
@@ -255,39 +255,39 @@ input:checked + .slider:before {
 	padding: 0px 5px 0px 5px;
 	border-width: 2px;
 	border-radius: 10px;
-	border-color: #ff0000;
+	border-color: #6d8cce;
 	border-style: solid; 
 	color: grey;
 	font-size: 0.9em;
 }
 
 button:hover {
-	color: #2dc16d;
+	color: #779cec;
 	background-color: white;
-	border-color: #2dc16d;
+	border-color: #779cec;
 	cursor: pointer;
 }
 
 .button:hover {
-	color: #2dc16d;
+	color: #779cec;
 	background-color: white;
-	border-color: #2dc16d;
+	border-color: #779cec;
 }
 
 .smallPlusButton:hover {
-	color: #2dc16d;
+	color: #779cec;
 	background-color: white;
-	border-color: #2dc16d;
+	border-color: #779cec;
 	cursor: pointer;
 }
 
 #bookmarkButton:hover {
-	border-color: red;
+	border-color: #779cec;
 	border-style: dashed;
 }
 
 #bookmarkedButton:hover {
-	border-color: green;
+	border-color: #779cec;
 	border-style: dashed;
 }
 
@@ -325,7 +325,7 @@ button {
 	width: 20%;
 	margin: auto;
 	padding: 10px 20px;
-	border-color: #2dc16d;
+	border-color: #6d8cce;
 }
 
 .negative-message {
@@ -333,7 +333,7 @@ button {
 	width: 20%;
 	margin: auto;
 	padding: 10px 20px;
-	border-color: #2dc16d;
+	border-color: #6d8cce;
 }
 
 .confirmation-message img {
@@ -350,7 +350,7 @@ button {
 /* Header & Footer */
 header {
 	color: white;
-	background: #2dc16d;
+	background: #42484d;
 	position: fixed;
 	top: 0px;
 	left: 0px;
@@ -438,13 +438,13 @@ header ul li a {
 	display: block;
 	padding: 5px 10px;
 	color: #fff;
-	background: #2dc16d;
+	background: #6d8cce;
 	text-decoration: none;
 }
 
 header ul li a:hover {
-	color: #fff;
-	background: #48db88;
+	color: #779cec;
+	background: #779cec;
 }
 
 /* it does hide the drop down menu */
@@ -466,7 +466,7 @@ header nav {
 
 footer {
 	color: white;
-	background: #2dc16d;
+	background: #42484d;
 	position: fixed;
 	bottom: 0px;
 	left: 0px;
@@ -572,7 +572,7 @@ footer nav ul li {
 	padding: 10px;
 	margin-top: 10px;
 	border-style: solid;
-	border-color: #2dc16d;
+	border-color: #6d8cce;
 	border-width: 3px;
 	border-radius: 10px;
 }
@@ -586,10 +586,10 @@ footer nav ul li {
 	margin-top: 30px;
 	margin-bottom: 30px;
 	padding: 20px;
-	border-color: #2dc16d;
+	border-color: #6d8cce;
 	border-width: 5px;
 	border-radius: 10px;
-	background-color: #F3FAF7;
+	background-color: #e8eaf2;
 	border-style: outset;
 }
 
@@ -646,7 +646,7 @@ footer nav ul li {
 	padding: 10px;
 	margin-top: 10px;
 	border-style: solid;
-	border-color: #2dc16d;
+	border-color: #6d8cce;
 	border-width: 3px;
 	border-radius: 10px;
 }
@@ -721,7 +721,7 @@ footer nav ul li {
 	padding: 10px;
 	margin-top: 10px;
 	border-style: solid;
-	border-color: #2dc16d;
+	border-color: #6d8cce;
 	border-width: 3px;
 	border-radius: 10px;
 }
@@ -737,7 +737,7 @@ footer nav ul li {
 	padding: 10px;
 	margin-top: 20px;
 	border-style: solid;
-	border-color: #2dc16d;
+	border-color: #6d8cce;
 	border-width: 3px;
 	border-radius: 10px;
 }
@@ -782,7 +782,7 @@ footer nav ul li {
 #accordion {
 	width: 50%;
 	float: left;
-	border-color: #2dc16d;
+	border-color: #6d8cce;
 	border-radius: 5px;
 	border-width: 3px;
 	border-style: solid;
@@ -949,7 +949,7 @@ footer nav ul li {
 }
 
 .adDescDiv {
-	border-color: #2dc16d;
+	border-color: #6d8cce;
 	border-radius: 5px;
 	border-width: 3px;
 	border-style: solid;
@@ -981,8 +981,8 @@ footer nav ul li {
 
 .thinInactiveButton:hover {
 	background-color: #white;
-	color: #bbbbbb;
-	border-color: #bbbbbb;
+	color: #779cec;
+	border-color: #779cec;
 	cursor: pointer;
 }
 
@@ -1024,7 +1024,7 @@ footer nav ul li {
 	width: 10%;
 	height: 70%;
 	margin-left: 30px;
-	border-color: #2dc16d;
+	border-color: #6d8cce;
 	border-radius: 5px;
 	border-width: 3px;
 	border-style: solid;
@@ -1037,13 +1037,13 @@ footer nav ul li {
 }
 
 #folders h2:hover {
-	background-color: #2dc16d;
+	background-color:#779cec;
 	color: white;
 	cursor: pointer;
 }
 
 #messageDetail {
-	border-color: #2dc16d;
+	border-color: #6d8cce;
 	border-radius: 5px;
 	border-width: 3px;
 	border-style: solid;
@@ -1057,7 +1057,7 @@ footer nav ul li {
 }
 
 #folders a:hover {
-	background-color: #2dc16d;
+	background-color: #779cec;
 	color: white;
 	cursor: pointer;
 }
@@ -1167,7 +1167,7 @@ footer nav ul li {
 }
 
 .declineButton:hover{
-	border-color: #ff4a4f;
+	border-color: #779cec;
 	color: #ff4a4f;
 }
 
@@ -1211,7 +1211,7 @@ footer nav ul li {
 	content: "\2605";
 	position: absolute;
 	left: 0; 
-	color: #2dc16d;
+	color: #779cec;
 	width: 1.1em;
 }
 
@@ -1225,7 +1225,7 @@ footer nav ul li {
 .pictureThumbnail{
 	width: 200px;
 	border-style: dashed;
-	border-color: #2dc16d;
+	border-color: #6d8cce;
 	border-width: 2px;
 	text-align:center;
 	float: left;
