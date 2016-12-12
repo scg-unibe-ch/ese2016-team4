@@ -316,18 +316,13 @@ function initMap() {
 									<c:when test="${ad.getPropertyType() == 4}">House</c:when>
 								</c:choose></i>
 							<br /><br />
-							<i><c:choose>
-									<c:when test="${ad.getSellType() == 1}">Rent</c:when>
-									<c:when test="${ad.getSellType() == 2}">Buy</c:when>
-									<c:when test="${ad.getSellType() == 3}">Auction</c:when>
-								</c:choose></i>
 						</p>
 					</div>
 					<div class="resultRight">
 						<c:choose>
-							<c:when test="${ad.getSellType() == 1}"><h2>CHF ${ad.prizePerMonth }</h2></c:when>
-							<c:when test="${ad.getSellType() == 2}"><h2>Sale Price ${ad.prizeOfSale } CHF</h2></c:when>
-							<c:when test="${ad.getSellType() == 3}"><h2>Auction Price ${bidPrices[loop.index]} CHF</h2></c:when>
+							<c:when test="${ad.getSellType() == 1}"><h2>Rent ${ad.prizePerMonth } CHF</h2></c:when>
+							<c:when test="${ad.getSellType() == 2}"><h2>Sale ${ad.prizeOfSale } CHF</h2></c:when>
+							<c:when test="${ad.getSellType() == 3}"><h2>Auction ${bidPrices[loop.index]} CHF</h2></c:when>
 						</c:choose>						<br />
 
 						<fmt:formatDate value="${ad.moveInDate}" var="formattedMoveInDate"

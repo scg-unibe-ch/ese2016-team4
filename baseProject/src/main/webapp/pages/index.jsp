@@ -8,7 +8,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Welcome to FlatFindr</title>
+<title>Welcome to PropertyFindr</title>
 </head>
 
 <body>
@@ -51,7 +51,7 @@ $(document).ready(function() {
 
 <pre>Home</pre>
 
-<h1>Welcome to FlatFindr!</h1>
+<h1>Welcome!</h1>
 
 <form:form method="get" modelAttribute="searchForm" action="/results"
 	id="filterForm" autocomplete="off" onsubmit="typesNotEmpty()">
@@ -105,9 +105,6 @@ $(document).ready(function() {
 			<h2>Our newest ads:</h2>		
 			<c:forEach var="ad" items="${newest}">
 				<div id="IndexResultsDiv" class="IndexResultsDiv">	
-				<%--<c:choose>
-					<c:when test="${ad.getUser().isPremium()==true}"><p><IMG SRC="/img/premium.png" ALT="Premium User" style="width:60px;height:60px;" class="premiumRight"></p></c:when>
-				</c:choose>--%>
 					<div class="resultLeft">
 						<h2>
 							<a class="link" href="<c:url value='/ad?id=${ad.id}' />">${ad.title}</a>
@@ -125,11 +122,10 @@ $(document).ready(function() {
 					
 					
 					<div class="resultRight">
-
-						<br /> 
 						<c:choose>
-							<c:when test="${ad.getUser().isPremium()==true}"><p><IMG SRC="/img/premium.png" ALT="Premium User" style="width:60px;height:60px;" class="premiumRight"></p></c:when>
-						</c:choose>
+					<c:when test="${ad.getUser().isPremium()==true}"><p><IMG SRC="/img/premium.png" ALT="Premium User" style="width:60px;height:60px;" class="premiumRight"></p></c:when>
+				</c:choose>
+						<br /> 
 						<p>
 							
 							<i><c:choose>
