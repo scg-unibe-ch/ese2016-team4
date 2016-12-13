@@ -1,7 +1,5 @@
 package ch.unibe.ese.team4.controller;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -22,8 +20,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import ch.unibe.ese.team4.controller.service.AdService;
-import ch.unibe.ese.team4.controller.service.BookmarkService;
 import ch.unibe.ese.team4.model.Ad;
 import ch.unibe.ese.team4.model.User;
 import ch.unibe.ese.team4.model.dao.AdDao;
