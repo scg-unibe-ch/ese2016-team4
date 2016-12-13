@@ -937,7 +937,7 @@ document.getElementById("SendEmail").onclick = function() {
 
 <div id="confirmationDialog">
 	<form>
-		<p>Send enquiry to advertiser?</p>
+		<p><font color="black">Send enquiry to advertiser?</font></p>
 		<button type="button" id="confirmationDialogSend">Send</button>
 		<button type="button" id="confirmationDialogCancel">Cancel</button>
 	</form>

@@ -42,7 +42,7 @@ hr {
 }
 
 .link {
-	color: var(--ad-header-color);;
+	color: var(--base-header-color);
 	text-decoration: none;
 }
 
@@ -156,8 +156,8 @@ button {
 }
 
 .button {
-	background-color: var(--base-color);
-	color: white;
+	background-color: #BDBDBD;
+	color: black;
 	padding: 5px 10px;
 	border-radius: 5px;
 	border-color: white;
@@ -849,7 +849,7 @@ footer nav ul li {
 #bidTable th {
 	background-color: var(--base-color);
 	border: 1px solid black;
-	color: white;
+	color: black;
 	padding: 5px;
 }
 
@@ -999,7 +999,7 @@ footer nav ul li {
 
 .thinButton {
 	background-color: var(--base-color);
-	color: white;
+	color: grey;
 	padding: 2px 10px;
 	border-radius: 5px;
 	border-color: white;
