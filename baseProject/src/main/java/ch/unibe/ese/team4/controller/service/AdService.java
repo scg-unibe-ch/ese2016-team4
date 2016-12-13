@@ -620,12 +620,16 @@ public class AdService {
 		ArrayList<Ad> premiumFirst = new ArrayList<>();
 		for(Ad adToSort : addressesToSort){
 			if (adToSort.getUser().isPremium()){
-				premiumFirst.add(adToSort);
+				if(!adToSort.getFinished()) {
+					premiumFirst.add(adToSort);
+				}
 			}
 		}
 		for(Ad adToSort : addressesToSort){
 			if (!adToSort.getUser().isPremium()){
-				premiumFirst.add(adToSort);
+				if(!adToSort.getFinished()) {
+					premiumFirst.add(adToSort);
+				}
 			}
 		}
 		return premiumFirst;
