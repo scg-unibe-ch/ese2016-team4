@@ -281,8 +281,8 @@ public class BidService {
 	public Iterable<Long> getHighestBids(Iterable<Ad> ads){
 		List<Long> highestBids = new ArrayList<Long>();
 		for(Ad ad : ads){
-			long highestbid = getHighestBid(ad.getId());
-			highestBids.add(highestbid);
+			long highestBid = getHighestBid(ad.getId());
+			highestBids.add(highestBid);
 		}
 		return highestBids;
 	}
