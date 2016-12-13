@@ -231,23 +231,18 @@ public class ProfileControllerTest {
 					.andExpect(status().is2xxSuccessful())
 					.andExpect(forwardedUrl("/pages/login.jsp"))
 					.andExpect(view().name("login"));
-	}
+	}	
 	
 	@Test
-	public void testInvalidSignUpForm() throws Exception{
-		this.mockMvc.perform(post("/signup")
-					.param("firstName", "")
-					.param("lastName", "")
-					.param("email", "")
-					.param("password", "")
-					.param("gender", "MALE"))
+	public void testAuthenticateG() throws Exception{
+		this.mockMvc.perform(get("/authenticateGoogleUser")
+					.param("firstName", "Test")
+					.param("lastName", "Test")
+					.param("userName", "test.test@testes.gov")
+					.param("email", "test.test@testes.gov")
+					.param("imageURL", "")
+					.param("googleId", "1"))
 					.andExpect(status().isOk())
-					.andExpect(status().is2xxSuccessful())
-					.andExpect(model().attributeHasFieldErrors("signupForm", "firstName"))
-					.andExpect(model().attributeHasFieldErrors("signupForm", "lastName"))
-					.andExpect(model().attributeHasFieldErrors("signupForm", "email"))
-					.andExpect(model().attributeHasFieldErrors("signupForm", "password"))
-					.andExpect(view().name("signup"));
+					.andExpect(status().is2xxSuccessful());
 	}
-	
 }
