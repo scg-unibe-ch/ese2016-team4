@@ -825,6 +825,10 @@ footer nav ul li {
 	padding: 0;
 }
 
+#resultsDiv .premiumPic {
+	float: right;
+}
+
 #resultsDiv .resultLeft {
 	float: left;
 	width: 75%;
