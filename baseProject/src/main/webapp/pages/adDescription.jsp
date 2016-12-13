@@ -40,11 +40,11 @@
 <script>
 function deleteAd(button) {
 	if (confirm('Do you really want to delete this Ad?')) {
-		var id = $(button).attr("data-id");
-		$.get("/ad/deleteAd?id=" + id, function(){
-		});
+		/*var id = $(button).attr("data-id");
+		$.get("/ad/deleteAd?id=" + "${shownAd.id}", function(){
+		});*/
+		location.href = "/ad/deleteAd?id=" + "${shownAd.id}";
     }
-	
 }
 
 function notDeletable() {
@@ -436,9 +436,8 @@ $(function(){
 					<button type="button">Edit Ad</button>
 				</a>
 				<c:if test="${adDeletable}">
-					<a href="<c:url value='/ad?id=${shownAd.id}' />">
-					<button class="deleteButton" data-id="${shownAd.id}" onClick="deleteAd(this)">Delete</button>
-					</a>
+					<%-- <a href="<c:url value='/ad/deleteAd?id=${shownAd.id}' />"> --%>
+					<button class="deleteButton" onClick="deleteAd(this)">Delete</button>
 				</c:if>
 				<c:if test="${!adDeletable}">
 					<button onClick="notDeletable()">Delete</button>

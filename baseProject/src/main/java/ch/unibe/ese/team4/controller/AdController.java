@@ -134,8 +134,27 @@ public class AdController {
 	
 	/** Deletes the ad with the given id */
 	@RequestMapping(value = "/ad/deleteAd", method = RequestMethod.GET)
-	public @ResponseBody void deleteAd(@RequestParam("id") long id) {
-		adService.deleteAd(id);
+	public @ResponseBody ModelAndView deleteAd(@RequestParam("id") long id, Principal principal, RedirectAttributes redirectAttributes) {
+		ModelAndView redirModel = new ModelAndView("redirect:/");
+		if(principal != null){
+			String username = principal.getName();
+			User loggedUser = userService.findUserByUsername(username);
+			User adUser = adService.getAdById(id).getUser();
+			if(loggedUser.getId() == adUser.getId() && adService.adDeletable(id)){
+				adService.deleteAd(id);
+				redirectAttributes.addFlashAttribute("confirmationMessage",
+						"Ad successfully deleted");
+			}else{
+				redirectAttributes.addFlashAttribute("errorMessage",
+						"The Ad couldn't be deleted. Make sure you're owner of the Ad and there are no more planned visits");
+			}
+		}else{
+			redirectAttributes.addFlashAttribute("errorMessage",
+					"The Ad couldn't be deleted. Make sure you're logged in");
+		}
+		
+		
+		return redirModel;
 	}
 
 	/**
