@@ -4,6 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:import url="template/header.jsp" />
 
@@ -38,7 +39,6 @@
 							<a href="<c:url value='/ad?id=${ad.id}' />">${ad.title }</a>
 						</h2>
 						<p>${ad.street}, ${ad.zipcode} ${ad.city}</p>
-						<br />
 						<p>
 							<i><c:choose>
 									<c:when test="${ad.getPropertyType() == 1}">Room</c:when>
@@ -46,7 +46,7 @@
 									<c:when test="${ad.getPropertyType() == 3}">Flat</c:when>
 									<c:when test="${ad.getPropertyType() == 4}">House</c:when>
 								</c:choose></i>
-							<br /><br />
+							<br />
 							<i><c:choose>
 									<c:when test="${ad.getSellType() == 1}">Rent</c:when>
 									<c:when test="${ad.getSellType() == 2}">Buy</c:when>
@@ -98,7 +98,6 @@
 							<a href="<c:url value='/ad?id=${ad.id}' />">${ad.title }</a>
 						</h2>
 						<p>${ad.street}, ${ad.zipcode} ${ad.city}</p>
-						<br />
 						<p>
 							<i><c:choose>
 									<c:when test="${ad.getPropertyType() == 1}">Room</c:when>
@@ -106,7 +105,7 @@
 									<c:when test="${ad.getPropertyType() == 3}">Flat</c:when>
 									<c:when test="${ad.getPropertyType() == 4}">House</c:when>
 								</c:choose></i>
-							<br /><br />
+							<br />
 							<i><c:choose>
 									<c:when test="${ad.getSellType() == 1}">Rent</c:when>
 									<c:when test="${ad.getSellType() == 2}">Buy</c:when>
