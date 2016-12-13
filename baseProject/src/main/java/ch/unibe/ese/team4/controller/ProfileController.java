@@ -15,6 +15,10 @@ import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -281,7 +285,7 @@ public class ProfileController {
 	
 	/** Returns the new generated one-time password for a user with a google-login. */
 	@RequestMapping(value = "/authenticateGoogleUser", method = RequestMethod.GET)
-	public @ResponseBody String authenticateG(
+	public @ResponseBody boolean authenticateG(
 			@RequestParam("userName") String userName,
 			@RequestParam("firstName") String firstName,
 			@RequestParam("lastName") String lastName,
@@ -307,10 +311,20 @@ public class ProfileController {
 			user.setFirstName(firstName);
 			user.setLastName(lastName);
 			user.setPassword(getRandomString(24));
-			userDao.save(user);
+			user = userDao.save(user);
 		}
-		return user.getPassword();
+		//should be only done when you are certain that the credentials are valid!!
+		org.springframework.security.core.userdetails.User authUser = 
+				new org.springframework.security.core.userdetails.User(
+						user.getUsername(), user.getPassword(), true, true, true, true, 
+						AuthorityUtils.createAuthorityList("ROLE_USER"));
+		Authentication authentication = new UsernamePasswordAuthenticationToken(authUser,authUser.getPassword(),
+		AuthorityUtils.createAuthorityList("ROLE_USER"));
+//		Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		return true;
 	}
+	
 	private static String VALID_CHARACHTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789abcdefghijklmnopqrstuvwxyz";
 	private static Random rnd = new Random(System.currentTimeMillis());
 	/**returns a random string*/
