@@ -59,7 +59,6 @@ public class AdController {
 		ModelAndView model = new ModelAndView("adDescription");
 		Ad ad = adService.getAdById(id);
 		
-		
 		//replacing bidService
 		long userBid = -1;
 		if(principal != null){
@@ -69,6 +68,8 @@ public class AdController {
 		long highestBid = bidHistoryService.getHighestBid(id);
 		long nextBid = bidHistoryService.getNextBid(id);
 		boolean isBidden = bidHistoryService.isBidden(id);
+		boolean adExists = ad != null;
+		boolean adDeletable = adService.adDeletable(id);
 		Iterable<Bid> allBids = bidHistoryService.getAllBids(id);
 		Iterable<String> bidNames = bidHistoryService.getBidUsernames(allBids);
 		
@@ -79,7 +80,9 @@ public class AdController {
 		model.addObject("allBids", allBids);
 		model.addObject("bidNames", bidNames);
 		
+		model.addObject("adDeletable", adDeletable);
 		model.addObject("shownAd", ad);
+		model.addObject("adExists", adExists);
 		model.addObject("messageForm", new MessageForm());
 
 		String loggedInUserEmail = (principal == null) ? "" : principal.getName();
@@ -127,6 +130,12 @@ public class AdController {
 		
 		*/
 		return redirModel;
+	}
+	
+	/** Deletes the ad with the given id */
+	@RequestMapping(value = "/ad/deleteAd", method = RequestMethod.GET)
+	public @ResponseBody void deleteAd(@RequestParam("id") long id) {
+		adService.deleteAd(id);
 	}
 
 	/**
