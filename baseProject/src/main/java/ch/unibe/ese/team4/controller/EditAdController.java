@@ -69,23 +69,28 @@ public class EditAdController {
 	 */
 	@RequestMapping(value = "/profile/editAd", method = RequestMethod.GET)
 	public ModelAndView editAdPage(@RequestParam long id, Principal principal) {
-		ModelAndView model = new ModelAndView("editAd");
 		Ad ad = adService.getAdById(id);
-		model.addObject("ad", ad);
-
-		PlaceAdForm form = editAdService.fillForm(ad);
-
-		model.addObject("placeAdForm", form);
-
-		Bid bid = bidHistoryDao.findTop1ByadIdOrderByBidDesc(ad.getId());
-		model.addObject("hasBid", bid!=null);
-
-		String realPath = servletContext.getRealPath(IMAGE_DIRECTORY);
-		if (pictureUploader == null) {
-			pictureUploader = new PictureUploader(realPath, IMAGE_DIRECTORY);
+		if (ad.getUser().getUsername().equals(principal.getName())){
+			ModelAndView model = new ModelAndView("editAd");
+			model.addObject("ad", ad);
+	
+			PlaceAdForm form = editAdService.fillForm(ad);
+	
+			model.addObject("placeAdForm", form);
+	
+			Bid bid = bidHistoryDao.findTop1ByadIdOrderByBidDesc(ad.getId());
+			model.addObject("hasBid", bid!=null);
+	
+			String realPath = servletContext.getRealPath(IMAGE_DIRECTORY);
+			if (pictureUploader == null) {
+				pictureUploader = new PictureUploader(realPath, IMAGE_DIRECTORY);
+			}
+	
+			return model;
+		}else{
+			ModelAndView model = new ModelAndView("redirect:/ad?id=" + ad.getId());
+			return model;
 		}
-
-		return model;
 	}
 
 	/**
