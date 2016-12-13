@@ -19,7 +19,6 @@ public class GetPremiumForm {
 	@Pattern(regexp = "\\b([0-9]{4})([0-9]{4})([0-9]{4})([0-9]{4})\\b", message = "Please enter a valid 16 digit credit card number")
 	private String ccNumber;
 		
-	@NotNull
 	private boolean premiumUser;
 		
 	public int getCcMonth() {

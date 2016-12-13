@@ -1,5 +1,6 @@
 package ch.unibe.ese.team4.controller.pojos.forms;
 
+import javax.annotation.Nullable;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -37,11 +38,9 @@ public class SignupForm {
 	@Min(value=0, message = "Please enter a valid year")
 	private int ccYear;
 
-	
-	@Pattern(regexp = "\\b([0-9]{4})([0-9]{4})([0-9]{4})([0-9]{4})\\b", message = "Please enter a valid 16 digit credit card number")
+	@Pattern(regexp = "|([0-9]{4})([0-9]{4})([0-9]{4})([0-9]{4})", message = "Please enter a valid 16 digit credit card number")
 	private String ccNumber;
 	
-	@NotNull
 	private boolean premiumUser;
 
 	public String getEmail() {

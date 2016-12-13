@@ -68,7 +68,7 @@ public class User {
 	@Column(nullable = true)
 	private String ccNumber;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private boolean premium;
 	
 	@Column(nullable = true)

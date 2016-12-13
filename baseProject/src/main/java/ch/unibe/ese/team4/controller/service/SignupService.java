@@ -133,7 +133,7 @@ public class SignupService {
 		Date now = new Date();
 		Message message = new Message();
 		message.setSubject("Welcome");
-		message.setText(getAlertText());
+		message.setText(getWelcomeMessageText());
 		message.setSender(userDao.findByUsername("System"));
 		message.setRecipient(user);
 		message.setState(MessageState.UNREAD);
@@ -143,11 +143,11 @@ public class SignupService {
 	}
 	
 	// Message that is sent to the new user
-	private String getAlertText() {
+	private String getWelcomeMessageText() {
 		return "Welcome to FlatFindr!"
 				+ "<br><br>Thank you for using our Website"
 				+ "<br>Have fun looking around and do not hesitate to contact us "
-				+ "when you have question!"
+				+ "when you have questions!"
 				+ "<br><br>Have a nice day"
 				+ "<br><br>Your FlatFindr crew";
 	}

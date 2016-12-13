@@ -37,10 +37,10 @@
 			<br>
 						
 			<label>Validation-Date:</label>
-			<form:input id="field-validationmonth" maxlength="2" type="number" style="width: 40px;" placeholder="02" value="1" path="ccMonth"/>
+			<form:input id="field-validationmonth" maxlength="2" type="number" style="width: 40px;" value="1" path="ccMonth"/>
 			<form:errors path="ccMonth" cssClass="validationErrorText" />
 			/ 
-			<form:input id="field-validationyear" maxlength="4" type="number" style="width: 60px;" value="0" placeholder="2018" path="ccYear"/>
+			<form:input id="field-validationyear" maxlength="4" type="number" style="width: 60px;" value="0" path="ccYear"/>
 			<form:errors path="ccYear" cssClass="validationErrorText" />	 
 			<br>
 			<label for="field-creditcard">16 digit credit card number:</label>

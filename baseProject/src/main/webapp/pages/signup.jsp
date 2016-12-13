@@ -112,14 +112,14 @@
 						<br>
 						
 						<label>Validation-Date:</label>
-						<form:input id="field-validationmonth" maxlength="2" type="number" style="width: 40px;" placeholder="02" path="ccMonth"/>
+						<form:input id="field-validationmonth" maxlength="2" type="number" style="width: 40px;" value="1" path="ccMonth"/>
 						<form:errors path="ccMonth" cssClass="validationErrorText" />
 						/ 
-						<form:input id="field-validationyear" maxlength="4" type="number" style="width: 60px;" placeholder= "2018" path="ccYear"/>
+						<form:input id="field-validationyear" maxlength="4" type="number" style="width: 60px;" path="ccYear"/>
 						<form:errors path="ccYear" cssClass="validationErrorText" />	 
 						<br>
 						<label for="field-creditcard">16 digit credit card number:</label>
-						<form:input id="field-creditcard" placeholder="1111222233334444" path="ccNumber"/>										
+						<form:input id="field-creditcard" placeholder="1111222233334444" maxlength="16" path="ccNumber"/>										
 						<form:errors path="ccNumber" cssClass="validationErrorText" />
 						<br>
 						<sub><i>If you leave the credit card info blank, a normal user account will be created</i></sub>						

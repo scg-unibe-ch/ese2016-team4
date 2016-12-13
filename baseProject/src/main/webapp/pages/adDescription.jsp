@@ -539,7 +539,7 @@ document.getElementById("SendEmail").onclick = function() {
 	
 	<section>
 
-	<div id="map" style="height:295px;width:545px;position: relative; background-color: white;">
+	<div id="map" style="height:295px;width:545px;position: relative; background-color: white; float:right;">
 	</div>
 
     <script type="text/javascript">
