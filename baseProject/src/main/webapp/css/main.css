@@ -156,7 +156,7 @@ button {
 .inactiveButton {
 	background-color: #bbbbbb;
 	color: white;
-	border-color: white;
+	border-color: black;
 }
 
 .button {
@@ -164,7 +164,7 @@ button {
 	color: black;
 	padding: 5px 10px;
 	border-radius: 5px;
-	border-color: white;
+	border-color: var(--base-color);
 	border-style: solid;
 	font-size: 1.1em;
 }
@@ -286,9 +286,12 @@ button:hover {
 }
 
 .button:hover {
-	color: var(--base-color);
-	background-color: white;
-	border-color: var(--base-color);
+	color: white;
+	background-color: #BDBDBD;
+	border-radius: 5px;
+	border-color: #BDBDBD;
+	border-style: solid;
+	cursor: pointer;
 }
 
 .smallPlusButton:hover {
