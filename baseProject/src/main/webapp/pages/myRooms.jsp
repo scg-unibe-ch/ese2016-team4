@@ -88,7 +88,7 @@
 		<div id="resultsDiv" class="resultsDiv">
 		<h1>My Bookmarks</h1>
 		<hr />			
-			<c:forEach var="ad" items="${bookmarkedAdvertisements}">
+			<c:forEach var="ad" items="${bookmarkedAdvertisements}" varStatus="loop">
 				<div class="resultAd" data-price="${ad.prizePerMonth}" 
 								data-moveIn="${ad.moveInDate}" data-age="${ad.moveInDate}">
 					<div class="resultLeft">
@@ -118,7 +118,7 @@
 						<c:choose>
 							<c:when test="${ad.getSellType() == 1}"><h2>CHF ${ad.prizePerMonth }</h2></c:when>
 							<c:when test="${ad.getSellType() == 2}"><h2>Sale Prize ${ad.prizeOfSale }</h2></c:when>
-							<c:when test="${ad.getSellType() == 3}"><h2>Current Bid ${ad.startOffer }</h2></c:when>
+							<c:when test="${ad.getSellType() == 3}"><h2>Current Bid ${highestBids[loop.index]}</h2></c:when>
 						</c:choose>						
 						<br /> <br />
 
