@@ -25,7 +25,7 @@ public class PremiumService {
 	
 	
 	//messages to be sent after the added delay in setMessages()
-	static List<Message> messagesToSend = new ArrayList<Message>();
+	private static List<Message> messagesToSend = new ArrayList<Message>();
 	
 	//sends the messages from the messagesToSend List with the set message.remainingTime delay
 	@Scheduled(cron="*/60 * * * * *")
@@ -56,8 +56,23 @@ public class PremiumService {
 	 */
 	public static void setMessage(Message msg) {
 		msg.setRemainingTime(1);
+		
 		PremiumService.messagesToSend.add(msg);
 		}
-
-
+	
+	/**
+	 * sets the remaining time in minutes to a message by which it will be delayed and adds the message to messagesToSend List.
+	 * @param msg Message which will be sent with a nonPremium delay
+	 * @param delay The nonPremium delay to add
+	 */
+	public static void setMessageAndDelay(Message msg, int delay){
+		msg.setRemainingTime(delay);
+		
+		PremiumService.messagesToSend.add(msg);
+		
+	}
+	
+	public static List<Message> getMessagesToSend(){
+		return PremiumService.messagesToSend;
+	}
 }
