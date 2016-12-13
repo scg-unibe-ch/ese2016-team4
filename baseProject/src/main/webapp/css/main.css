@@ -34,6 +34,8 @@ h1 {
 h2 {
 	font-size: 1.7em;
 	margin-bottom: 10px;
+	/*white-space: nowrap;
+	text-overflow: ellipsis;*/
 }
 
 hr {
@@ -591,26 +593,44 @@ footer nav ul li {
 
 /* -------------------------------------------------------------------- */
 /* index.jsp */
+#IndexResultsDiv .adTitle {
+	font-size: 1.7em;
+	margin-bottom: 10px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+#IndexResultsDiv .IndexPrice {
+	font-weight: bold;
+}
+
 #indexDiv {
 	margin-left: auto;
     margin-right: auto;
-	width: 30%;
+	width: 33%;
 	margin-top: 30px;
 	margin-bottom: 30px;
 	padding: 10px;
 	background-color: var(--base-color);
-	/*border-color: var(--base-color);
-	border-width: 5px;
-	border-radius: 10px;
-	border-style: outset;*/
+}
+
+#IndexResultAd{
+	margin-left: auto;
+    margin-right: auto;
+	width: 100%;
+	text-align: center;
 }
 
 #IndexResultsDiv {
-	width: 35%;
+	margin-left: auto;
+    margin-right: auto;
+	width: 33%;
 	padding: 0px;
 	max-width: 550px;
 	margin-top: 10px;
-	float: left;
+	display:inline-block;
+	/*float:left;*/
 }
 
 #IndexResultsDiv div {
@@ -637,23 +657,20 @@ footer nav ul li {
 	padding: 0;
 }
 
-#IndexResultsDiv .resultAd {
-	float: left;
-}
-
 #IndexResultsDiv .resultLeft {
 	float: left;
-	width: 60%;
-	margin-left: 10px;
+	width: 55%;
+	margin-left: 4%;
 }
 
 #IndexResultsDiv .resultRight {
 	float: left;
-	width: 30%;
+	width: 28%;
 	text-align: left;
 	padding-right: 5px;
 	margin-top: 0px;
 	margin-left: 0px;
+	margin-right: 4%;
 }
 
 #IndexResultsDiv .premiumRight{

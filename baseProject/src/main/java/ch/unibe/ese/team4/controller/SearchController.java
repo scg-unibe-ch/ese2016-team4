@@ -38,7 +38,7 @@ public class SearchController {
 	public ModelAndView index() {
 		ModelAndView model = new ModelAndView("index");
 		// returns the 4 newest premium ads
-		model.addObject("newest", adService.getNewestAds(4, true));
+		model.addObject("newest", adService.getNewestAds(6, true));
 		model.addObject("bidService", bidService);
 		return model;
 	}
