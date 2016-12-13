@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import ch.unibe.ese.team4.controller.pojos.forms.PlaceAdForm;
+import ch.unibe.ese.team4.controller.pojos.forms.SearchForm;
 import ch.unibe.ese.team4.model.Ad;
 import ch.unibe.ese.team4.model.Gender;
 import ch.unibe.ese.team4.model.User;
@@ -41,7 +43,8 @@ public class AdServiceTest {
 	
 	@Autowired
 	private UserDao userDao;
-
+	
+	
 	/**
 	 * In order to test the saved ad, I need to get it back from the DB again, so these
 	 * two methods need to be tested together, normally we want to test things isolated of
@@ -130,4 +133,33 @@ public class AdServiceTest {
 		return user;
 	}
 	
+	@Test
+	public void compareEmailString(){
+		String email = "hans@glueck.de";
+		String toCompareTrue = "nanana@batman.de;apfel@baum.com:hans@glueck.de";
+		assertTrue(adService.checkIfAlreadyAdded(email, toCompareTrue));
+		
+		String toCompareFalse = "nanana@batman.de;apfel@baum.com:bohne@glueck.de";
+		assertFalse(adService.checkIfAlreadyAdded(email, toCompareFalse));
+	}
+	
+	@Test
+	public void queryResultTest(){
+		SearchForm firstForm = new SearchForm();
+		SearchForm secondForm = new SearchForm();
+		
+		firstForm.setAnimals(true);
+		firstForm.setBalcony(true);
+		firstForm.setCable(true);
+		firstForm.setCellar(true);
+		firstForm.setDishwasher(true);
+		firstForm.setFurnished(true);
+		firstForm.setGarage(true);
+		firstForm.setGarden(true);
+		firstForm.setInternet(true);
+		firstForm.setSmokers(true);
+		firstForm.setWashingMachine(true);
+		
+		
+	}
 }

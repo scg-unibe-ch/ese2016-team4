@@ -45,28 +45,4 @@ public class PlaceAdControllerTest {
         			.andExpect(status().is2xxSuccessful())
         			.andExpect(view().name("placeAd"));
 	}
-	
-	@Test
-	public void placingAnAdTest() throws Exception{
-		this.mockMvc.perform(post("/profile/placeAd")
-					.with(user("ese@unibe.ch").password("ese").roles("USER"))
-					.param("propertyType", "4")
-					.param("sellType", "2")
-					.param("city", "3018 - Bern")
-					.param("prizeOfSale", "0")
-					.param("prize", "0")
-					.param("startOffer", "0")
-					.param("squareFootage", "0")
-					.param("title", "This is a test Ad")
-					.param("street", "Hochschulstrasse 6")
-					.param("roomDescription", "This is just for test cases")
-					.param("moveInDate", "22.12.2020")
-					.param("auctionEndDate", "25.12.2020")
-					.param("moveOutDate", "25.12.2020")
-					)
-        			.andExpect(status().isOk())
-        			.andExpect(status().is2xxSuccessful())
-        			.andExpect(view().name("placeAd"));
-	}
-	
 }

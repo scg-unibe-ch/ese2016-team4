@@ -278,6 +278,15 @@ public class BidService {
 		return currentBid;
 	}
 	
+	public Iterable<Long> getHighestBids(Iterable<Ad> ads){
+		List<Long> highestBids = new ArrayList<Long>();
+		for(Ad ad : ads){
+			long highestbid = getHighestBid(ad.getId());
+			highestBids.add(highestbid);
+		}
+		return highestBids;
+	}
+	
 	/**
 	 * Checks whether at least one bid has been placed at a given ad.
 	 * 
@@ -290,6 +299,15 @@ public class BidService {
 		return bidHistoryDao.findTop1ByadIdOrderByBidDesc(adId) != null;
 	}
 	
+	public Iterable<Boolean> areBidden(Iterable<Ad> ads){
+		List<Boolean> adHasBids = new ArrayList<Boolean>();
+		for(Ad ad : ads){
+			boolean hasBid = isBidden(ad.getId());
+			adHasBids.add(hasBid);
+		}	
+		return adHasBids;
+		
+	}
 	/**
 	 * Finds all bids that belong to a given ad.
 	 * 

@@ -36,9 +36,17 @@ public class SearchController {
 	/** Displays the homepage */
 	@RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView index() {
+		
+		//gets the 6 newest ads and a bool list if they have bids and a list with the highest bids
+		Iterable<Ad> newestAds = adService.getNewestAds(6,true);
+		Iterable<Boolean> hasBids = bidService.areBidden(newestAds);
+		Iterable<Long> highestBids = bidService.getHighestBids(newestAds);
+		
 		ModelAndView model = new ModelAndView("index");
-		// returns the 4 newest premium ads
-		model.addObject("newest", adService.getNewestAds(6, true));
+		model.addObject("newest", newestAds);
+		model.addObject("hasBids", hasBids);
+		model.addObject("highestBids", highestBids);
+		
 		model.addObject("bidService", bidService);
 		return model;
 	}

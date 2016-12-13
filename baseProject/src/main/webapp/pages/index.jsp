@@ -103,7 +103,7 @@ $(document).ready(function() {
 	<c:otherwise>
 		<div id="IndexResultAd" class="IndexResultAd">
 			<h2>Our newest ads:</h2>		
-			<c:forEach var="ad" items="${newest}">
+			<c:forEach var="ad" items="${newest}" varStatus="loop">
 				<div id="IndexResultsDiv" class="IndexResultsDiv">	
 					<div class="resultLeft">
 						<h2 class="adTitle">
@@ -115,8 +115,8 @@ $(document).ready(function() {
 						<c:choose>
 							<c:when test="${ad.getSellType() == 1}"><p class="IndexPrice">Monthly Rent ${ad.prizePerMonth } CHF</p></c:when>
 							<c:when test="${ad.getSellType() == 2}"><p class="IndexPrice">Sale Price ${ad.prizeOfSale } CHF</p></c:when>
-							<c:when test="${ad.getSellType() == 3 && !bidService.isBidden(ad.getId())}"><p class="IndexPrice">Auction Price ${ad.startOffer} CHF</p></c:when>
-							<c:when test="${ad.getSellType() == 3 && bidService.isBidden(ad.getId())}"><p class="IndexPrice">Auction Price ${bidService.getHighestBid(ad.getId())} CHF</p></c:when>
+							<c:when test="${ad.getSellType() == 3 && !hasBids[loop.index]}"><p class="IndexPrice">Auction Price ${ad.startOffer} CHF</p></c:when>
+							<c:when test="${ad.getSellType() == 3 && hasBids[loop.index]}"><p class="IndexPrice">Auction Price ${highestBids[loop.index]} CHF</p></c:when>
 						</c:choose>
 					</div>
 					
