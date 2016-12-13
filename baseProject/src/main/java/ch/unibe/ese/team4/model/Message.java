@@ -20,6 +20,10 @@ public class Message {
 	@Id
 	@GeneratedValue
 	private long id;
+	
+	//nonPremium Delay in minutes
+	@Column(nullable = true)
+	private int remainingTime;
 
 	@Column(nullable = false)
 	private MessageState state;
@@ -47,6 +51,14 @@ public class Message {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	public int getRemainingTime(){
+		return this.remainingTime;
+	}
+	
+	public void setRemainingTime(int rTime){
+		this.remainingTime = rTime;
 	}
 
 	public MessageState getState() {
