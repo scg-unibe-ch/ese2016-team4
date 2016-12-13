@@ -23,8 +23,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
-import ch.unibe.ese.team4.model.Gender;
-import ch.unibe.ese.team4.model.User;
 import ch.unibe.ese.team4.model.dao.UserDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)

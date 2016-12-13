@@ -20,6 +20,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import ch.unibe.ese.team4.model.Message;
+import ch.unibe.ese.team4.model.User;
+import ch.unibe.ese.team4.model.dao.MessageDao;
+import ch.unibe.ese.team4.model.dao.UserDao;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -33,10 +38,21 @@ public class MessageControllerTest {
     private WebApplicationContext wac;
  
     private MockMvc mockMvc;
+    
+    @Autowired
+    private MessageDao messageDao;
+    
+    @Autowired 
+    private UserDao userDao;
+    
+    private long messageId;
  
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).apply(springSecurity()).build();
+        User user = userDao.findByUsername("ese@unibe.ch");
+        Message message = messageDao.findByRecipient(user).iterator().next();
+        messageId = message.getId();
     }
 	
 	@Test
@@ -97,5 +113,23 @@ public class MessageControllerTest {
 					.andExpect(status().is2xxSuccessful())
 					.andExpect(forwardedUrl("/pages/messages.jsp"))
 					.andExpect(view().name("messages"));
+	}
+	
+    @Test
+	public void testGetMessage() throws Exception{    	
+		this.mockMvc.perform(get("/profile/messages/getMessage")
+					.with(user("ese@unibe.ch").password("ese").roles("USER"))
+					.param("id", String.valueOf(messageId)))
+					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful());
+	}
+    
+    @Test
+	public void testReadMessage() throws Exception{    	
+		this.mockMvc.perform(get("/profile/readMessage")
+					.with(user("ese@unibe.ch").password("ese").roles("USER"))
+					.param("id", String.valueOf(messageId)))
+					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful());
 	}
 }
