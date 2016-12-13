@@ -32,19 +32,17 @@ public class PremiumService {
 	public void nonPremiumHandler(){
 		List<Message> messagesToDelete = new ArrayList<Message>();
 		Date now = new Date();
-		delayedAlertLoop:
+
 		for(Message message : messagesToSend ){
-			//Date is null if there was a parse problem in AlertService.triggerAlerts() and will be sent directly
-			if(message.getDateSent() == null){
+			if(message.getRemainingTime() <= 0){
 				message.setDateSent(now);
 				messageDao.save(message);
 				messagesToDelete.add(message);
 			}
-			else if(message.getDateSent().after(now)){
-				messageDao.save(message);
-				messagesToDelete.add(message);
+			else{
+				int rTime = message.getRemainingTime();
+				message.setRemainingTime(rTime-1);
 			}
-			else break delayedAlertLoop;
 		}
 
 		for(Message msgTD : messagesToDelete){
@@ -56,6 +54,8 @@ public class PremiumService {
 	 * @param msg Message which will be sent with a nonPremium delay
 	 */
 	public static void setMessage(Message msg) {
+		//remainingTime in Minutes
+		msg.setRemainingTime(1);
 		PremiumService.messagesToSend.add(msg);
 		}
 
