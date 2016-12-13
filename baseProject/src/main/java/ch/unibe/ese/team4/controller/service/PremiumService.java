@@ -24,10 +24,10 @@ public class PremiumService {
 	MessageDao messageDao;
 	
 	
-	//messages to be sent after the added delay in AlertService.triggerAlerts
+	//messages to be sent after the added delay in setMessages()
 	static List<Message> messagesToSend = new ArrayList<Message>();
 	
-	//handles delayed messages for nonPremium User's in a certain interval
+	//sends the messages from the messagesToSend List with the set message.remainingTime delay
 	@Scheduled(cron="*/60 * * * * *")
 	public void nonPremiumHandler(){
 		List<Message> messagesToDelete = new ArrayList<Message>();
@@ -51,10 +51,10 @@ public class PremiumService {
 	}
 
 	/**
+	 * sets the remaining time in minutes to a message by which it will be delayed and adds the message to messagesToSend List.
 	 * @param msg Message which will be sent with a nonPremium delay
 	 */
 	public static void setMessage(Message msg) {
-		//remainingTime in Minutes
 		msg.setRemainingTime(1);
 		PremiumService.messagesToSend.add(msg);
 		}
