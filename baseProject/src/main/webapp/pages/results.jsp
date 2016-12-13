@@ -307,6 +307,9 @@ function initMap() {
 							<a class="link" href="<c:url value='/ad?id=${ad.id}' />">${ad.title }</a>
 						</h2>
 						<p>${ad.street}, ${ad.zipcode} ${ad.city}</p>
+						<c:choose>
+							<c:when test="${ad.getUser().isPremium()==true}"><p class="premiumPic"><IMG SRC="/img/premium.png" ALT="Premium User" style="width:60px;height:60px;"></p></c:when>						
+						</c:choose>
 						<br />
 						<p>
 							<i><c:choose>
@@ -315,7 +318,6 @@ function initMap() {
 									<c:when test="${ad.getPropertyType() == 3}">Flat</c:when>
 									<c:when test="${ad.getPropertyType() == 4}">House</c:when>
 								</c:choose></i>
-							<br /><br />
 						</p>
 					</div>
 					<div class="resultRight">
@@ -331,11 +333,7 @@ function initMap() {
 						<c:choose>
 							<c:when test="${ad.getSellType() == 1}"><p>Move-in date: ${formattedMoveInDate }</p></c:when>
 							<c:when test="${ad.getSellType() == 2 || ad.getSellType() == 3}"><p> </p></c:when>
-						</c:choose>
-						<c:choose>
-							<c:when test="${ad.getUser().isPremium()==true}"><p><IMG SRC="/img/premium.png" ALT="Premium User" style="width:60px;height:60px;"></p></c:when>						
-						</c:choose>
-						
+						</c:choose>	
 					</div>
 				</div>
 			</c:forEach>

@@ -101,22 +101,22 @@ $(document).ready(function() {
 		<h2>No ads placed yet</h2>
 	</c:when>
 	<c:otherwise>
-		<div class="resultAd">
+		<div id="IndexResultAd" class="IndexResultAd">
 			<h2>Our newest ads:</h2>		
 			<c:forEach var="ad" items="${newest}">
 				<div id="IndexResultsDiv" class="IndexResultsDiv">	
 					<div class="resultLeft">
-						<h2>
-							<a class="link" href="<c:url value='/ad?id=${ad.id}' />">${ad.title}</a>
+						<h2 class="adTitle">
+							<a class="link" title="${ad.title}" href="<c:url value='/ad?id=${ad.id}' />">${ad.title}</a>
 						</h2>
 						<a href="<c:url value='/ad?id=${ad.id}' />"><img
 							src="${ad.pictures[0].filePath}" /></a>
 
 						<c:choose>
-							<c:when test="${ad.getSellType() == 1}"><h2>Monthly Rent ${ad.prizePerMonth } CHF</h2></c:when>
-							<c:when test="${ad.getSellType() == 2}"><h2>Sale Price ${ad.prizeOfSale } CHF</h2></c:when>
-							<c:when test="${ad.getSellType() == 3 && !bidService.isBidden(ad.getId())}"><h2>Auction Price ${ad.startOffer} CHF</h2></c:when>
-							<c:when test="${ad.getSellType() == 3 && bidService.isBidden(ad.getId())}"><h2>Auction Price ${bidService.getHighestBid(ad.getId())} CHF</h2></c:when>
+							<c:when test="${ad.getSellType() == 1}"><p class="IndexPrice">Monthly Rent ${ad.prizePerMonth } CHF</p></c:when>
+							<c:when test="${ad.getSellType() == 2}"><p class="IndexPrice">Sale Price ${ad.prizeOfSale } CHF</p></c:when>
+							<c:when test="${ad.getSellType() == 3 && !bidService.isBidden(ad.getId())}"><p class="IndexPrice">Auction Price ${ad.startOffer} CHF</p></c:when>
+							<c:when test="${ad.getSellType() == 3 && bidService.isBidden(ad.getId())}"><p class="IndexPrice">Auction Price ${bidService.getHighestBid(ad.getId())} CHF</p></c:when>
 						</c:choose>
 					</div>
 					
@@ -125,7 +125,7 @@ $(document).ready(function() {
 						<c:choose>
 					<c:when test="${ad.getUser().isPremium()==true}"><p><IMG SRC="/img/premium.png" ALT="Premium User" style="width:60px;height:60px;" class="premiumRight"></p></c:when>
 				</c:choose>
-						<br /> 
+						<br /> <br /> 
 						<p>
 							
 							<i><c:choose>
