@@ -40,6 +40,9 @@ public class AdController {
 	private AdService adService;
 	
 	@Autowired
+	private BidService bidService;
+	
+	@Autowired
 	private UserService userService;
 
 	@Autowired
@@ -192,9 +195,11 @@ public class AdController {
 			user = userService.findUserByUsername(username);
 
 			Iterable<Ad> ownAds = adService.getAdsByUser(user);
+			Iterable<Long> highestBids = bidService.getHighestBids(ownAds);
 
 			model.addObject("bookmarkedAdvertisements", user.getBookmarkedAds());
 			model.addObject("ownAdvertisements", ownAds);
+			model.addObject("highestBids", highestBids);
 			return model;
 		} else {
 			model = new ModelAndView("home");

@@ -24,12 +24,12 @@
 			googleUser.reloadAuthResponse()
 			var id_token = googleUser.getAuthResponse().id_token;
 			var profile = googleUser.getBasicProfile();
-			console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+			/*console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
 			console.log('Name: ' + profile.getName());
 			console.log('Given Name: ' + profile.getGivenName());
 			console.log('Family Name: ' + profile.getFamilyName());
 			console.log('Image URL: ' + profile.getImageUrl());
-			console.log('Email: ' + profile.getEmail());
+			console.log('Email: ' + profile.getEmail());*/
 			var email = profile.getEmail()?profile.getEmail():"Undefined";
 			if (email == 'Undefined'){
 				return;
@@ -43,7 +43,12 @@
 				googleId: profile.getId(),
 			};
 			var get = $.get("/authenticateGoogleUser", values);
-
+			get.done(function(isLoggedIn){
+				if (isLoggedIn){
+					window.location.href = "/";
+				}
+			})
+/*
 			console.log("startaAuth");
 			get.done(function(pw) {
 				console.log("pw: "+pw);
@@ -57,7 +62,7 @@
 				document.body.appendChild(form);
 				form.submit();
 				document.body.removeChild(form);
-			});
+			});*/
 		}
 	}
 	</script>

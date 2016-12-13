@@ -22,10 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import ch.unibe.ese.team4.controller.pojos.forms.BidForm;
-import ch.unibe.ese.team4.controller.pojos.forms.MessageForm;
-import ch.unibe.ese.team4.controller.service.AdService;
-import ch.unibe.ese.team4.controller.service.BookmarkService;
 import ch.unibe.ese.team4.model.Ad;
 import ch.unibe.ese.team4.model.User;
 import ch.unibe.ese.team4.model.dao.AdDao;
@@ -51,10 +47,6 @@ public class AdControllerTest {
     private AdDao adDao;
     @Autowired
     private UserDao userDao;
-	@Autowired
-	private BookmarkService bookmarkService;
-	@Autowired
-	private AdService adService;
     
  
     @Before

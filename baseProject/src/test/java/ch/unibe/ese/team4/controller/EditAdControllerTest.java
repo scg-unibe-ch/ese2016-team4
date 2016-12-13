@@ -1,6 +1,7 @@
 package ch.unibe.ese.team4.controller;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
@@ -18,7 +19,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.ModelAndView;
+
+import ch.unibe.ese.team4.model.Ad;
+import ch.unibe.ese.team4.model.User;
+import ch.unibe.ese.team4.model.dao.AdDao;
+import ch.unibe.ese.team4.model.dao.UserDao;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -26,23 +32,48 @@ import org.springframework.web.servlet.ModelAndView;
 		"file:src/main/webapp/WEB-INF/config/springData.xml",
 		"file:src/main/webapp/WEB-INF/config/springSecurity.xml"})
 @WebAppConfiguration
-public class PlaceAdControllerTest {	
+public class EditAdControllerTest {
 	
 	@Autowired
     private WebApplicationContext wac;
  
     private MockMvc mockMvc;
+    
+    //needed to test controllerMethods with param id
+    private long adId;
+
+    @Autowired
+    private AdDao adDao;
+    @Autowired
+    private UserDao userDao;    
  
     @Before
     public void setup() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).apply(springSecurity()).build();
+        User user = userDao.findByUsername("ese@unibe.ch");
+        Ad ad = adDao.findByUser(user).iterator().next();
+        adId = ad.getId();
     }
-	  
-	@Test
-	public void showingPlaceAdPageTest() throws Exception{
-		this.mockMvc.perform(get("/profile/placeAd"))
-        			.andExpect(status().isOk())
-        			.andExpect(status().is2xxSuccessful())
-        			.andExpect(view().name("placeAd"));
+    
+    @Test
+	public void testGettingEditAdPage() throws Exception{
+		this.mockMvc.perform(get("/profile/editAd")
+					.with(user("ese@unibe.ch").password("ese").roles("USER"))
+					.param("id", String.valueOf(adId)))
+					.andExpect(model().hasNoErrors())
+					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful())
+					.andExpect(forwardedUrl("/pages/editAd.jsp"))
+					.andExpect(view().name("editAd"));
+	}
+    
+    @Test
+	public void testDeleteRoomate() throws Exception{
+		this.mockMvc.perform(post("/profile/editAd/deleteRoommate")
+					.with(user("ese@unibe.ch").password("ese").roles("USER"))
+					.param("adId", "1")
+					.param("userId", "6"))
+					.andExpect(status().isOk())
+					.andExpect(status().is2xxSuccessful());
 	}
 }
