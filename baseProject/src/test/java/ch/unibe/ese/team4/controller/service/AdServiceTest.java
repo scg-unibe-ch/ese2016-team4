@@ -11,7 +11,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+
+import javax.servlet.ServletContext;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +24,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.google.common.collect.Lists;
+
+import ch.unibe.ese.team4.controller.pojos.PictureUploader;
 import ch.unibe.ese.team4.controller.pojos.forms.PlaceAdForm;
 import ch.unibe.ese.team4.controller.pojos.forms.SearchForm;
 import ch.unibe.ese.team4.model.Ad;
@@ -28,6 +34,7 @@ import ch.unibe.ese.team4.model.Gender;
 import ch.unibe.ese.team4.model.User;
 import ch.unibe.ese.team4.model.UserRole;
 import ch.unibe.ese.team4.model.dao.UserDao;
+import javax.servlet.ServletContext;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -43,6 +50,9 @@ public class AdServiceTest {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private ServletContext servletContext;
 	
 	
 	/**
@@ -143,23 +153,84 @@ public class AdServiceTest {
 		assertFalse(adService.checkIfAlreadyAdded(email, toCompareFalse));
 	}
 	
+	//checks optional and date filtering by resulting in no found ads by unrealistic dates
 	@Test
-	public void queryResultTest(){
-		SearchForm firstForm = new SearchForm();
-		SearchForm secondForm = new SearchForm();
+	public void queryResultTestNoResults(){
+		SearchForm searchForm = new SearchForm();
 		
-		firstForm.setAnimals(true);
-		firstForm.setBalcony(true);
-		firstForm.setCable(true);
-		firstForm.setCellar(true);
-		firstForm.setDishwasher(true);
-		firstForm.setFurnished(true);
-		firstForm.setGarage(true);
-		firstForm.setGarden(true);
-		firstForm.setInternet(true);
-		firstForm.setSmokers(true);
-		firstForm.setWashingMachine(true);
+		searchForm.setAnimals(true);
+		searchForm.setBalcony(true);
+		searchForm.setCable(true);
+		searchForm.setCellar(true);
+		searchForm.setDishwasher(true);
+		searchForm.setFurnished(true);
+		searchForm.setGarage(true);
+		searchForm.setGarden(true);
+		searchForm.setInternet(true);
+		searchForm.setSmokers(true);
+		searchForm.setWashingMachine(true);
 		
+		searchForm.setRoom(true);
+		searchForm.setStudio(true);
+		searchForm.setFlat(true);
+		searchForm.setHouse(true);
 		
+		searchForm.setAuction(true);
+		searchForm.setBuy(true);
+		searchForm.setRent(true);
+		
+		searchForm.setCity("3012 - Bern");
+		searchForm.setRadius(5000);
+		searchForm.setPrize(1);
+		
+		searchForm.setEarliestMoveInDate("12.01.1950");
+		searchForm.setEarliestMoveOutDate("14.01.1950");
+		searchForm.setLatestMoveInDate("13.01.1950");
+		searchForm.setLatestMoveOutDate("15.01.1950");
+		
+		assertEquals(adService.queryResults(searchForm).iterator().hasNext(),false);		
 	}
+	
+	@Test
+	public void queryResultTestAllResults(){
+		SearchForm searchForm = new SearchForm();
+		
+		searchForm.setAnimals(false);
+		searchForm.setBalcony(false);
+		searchForm.setCable(false);
+		searchForm.setCellar(false);
+		searchForm.setDishwasher(false);
+		searchForm.setFurnished(false);
+		searchForm.setGarage(false);
+		searchForm.setGarden(false);
+		searchForm.setInternet(false);
+		searchForm.setSmokers(false);
+		searchForm.setWashingMachine(false);
+		
+		searchForm.setRoom(true);
+		searchForm.setStudio(true);
+		searchForm.setFlat(true);
+		searchForm.setHouse(true);
+		
+		searchForm.setAuction(true);
+		searchForm.setBuy(true);
+		searchForm.setRent(true);
+		
+		searchForm.setCity("3012 - Bern");
+		searchForm.setRadius(5000);
+		searchForm.setPrize(999999999);
+		
+		List<Ad> adsByForm = new ArrayList<Ad>();
+		List<Ad> allAds = new ArrayList<Ad>();
+		
+		for(Ad ad : adService.queryResults(searchForm)){
+			adsByForm.add(ad);
+		}
+		
+		for(Ad ad : adService.getAllAds()){
+			allAds.add(ad);
+		}
+		assertEquals(adsByForm.size(),allAds.size()-1);
+	}
+	
 }
