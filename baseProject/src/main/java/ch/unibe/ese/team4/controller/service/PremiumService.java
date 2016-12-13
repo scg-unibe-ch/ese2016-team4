@@ -24,27 +24,25 @@ public class PremiumService {
 	MessageDao messageDao;
 	
 	
-	//messages to be sent after the added delay in AlertService.triggerAlerts
+	//messages to be sent after the added delay in setMessages()
 	static List<Message> messagesToSend = new ArrayList<Message>();
 	
-	//handles delayed messages for nonPremium User's in a certain interval
+	//sends the messages from the messagesToSend List with the set message.remainingTime delay
 	@Scheduled(cron="*/60 * * * * *")
 	public void nonPremiumHandler(){
 		List<Message> messagesToDelete = new ArrayList<Message>();
 		Date now = new Date();
-		delayedAlertLoop:
+
 		for(Message message : messagesToSend ){
-			//Date is null if there was a parse problem in AlertService.triggerAlerts() and will be sent directly
-			if(message.getDateSent() == null){
+			if(message.getRemainingTime() <= 0){
 				message.setDateSent(now);
 				messageDao.save(message);
 				messagesToDelete.add(message);
 			}
-			else if(message.getDateSent().after(now)){
-				messageDao.save(message);
-				messagesToDelete.add(message);
+			else{
+				int rTime = message.getRemainingTime();
+				message.setRemainingTime(rTime-1);
 			}
-			else break delayedAlertLoop;
 		}
 
 		for(Message msgTD : messagesToDelete){
@@ -53,9 +51,11 @@ public class PremiumService {
 	}
 
 	/**
+	 * sets the remaining time in minutes to a message by which it will be delayed and adds the message to messagesToSend List.
 	 * @param msg Message which will be sent with a nonPremium delay
 	 */
 	public static void setMessage(Message msg) {
+		msg.setRemainingTime(1);
 		PremiumService.messagesToSend.add(msg);
 		}
 

@@ -3,9 +3,9 @@
 <footer>
 <nav>
 	<ul>
-		<li><a class="link" href="/about">About us</a></li>
-		<li><a class="link" href="/disclaimer">Disclaimer</a></li>
-		<li>&copy;2014 by the FlatFoundrs. All rights reserved.</li>
+		<li><a class="link" href="/about"><font color="grey">About us</font></a></li>
+		<li><a class="link" href="/disclaimer"><font color="grey">Disclaimer</font></a></li>
+		<li><font color="grey">&copy;2014 by the FlatFoundrs. All rights reserved.</font></li>
 	</ul>
 </nav>
 </footer>
