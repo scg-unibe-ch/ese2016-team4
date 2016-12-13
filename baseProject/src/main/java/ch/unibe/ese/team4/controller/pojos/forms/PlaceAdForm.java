@@ -42,6 +42,9 @@ public class PlaceAdForm {
 	private int prize;
 	
 	@Min(value=0, message = "Negative prizes aren't allowed")
+	private int instantBuyPrice;
+
+	@Min(value=0, message = "Negative prizes aren't allowed")
 	private int prizeOfSale;
 	
 	@Min(value=0, message = "Negative start offers aren't allowed")
@@ -110,6 +113,14 @@ public class PlaceAdForm {
 
 	public void setPrize(int prize) {
 		this.prize = prize;
+	}
+	
+	public int getInstantBuyPrice() {
+		return instantBuyPrice;
+	}
+
+	public void setInstantBuyPrice(int instantBuyPrice) {
+		this.instantBuyPrice = instantBuyPrice;
 	}
 
 	public String getRoomDescription() {

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ch.unibe.ese.team4.controller.pojos.forms.BidForm;
 import ch.unibe.ese.team4.controller.pojos.forms.MessageForm;
 import ch.unibe.ese.team4.controller.service.AdService;
+import ch.unibe.ese.team4.controller.service.AuctionService;
 import ch.unibe.ese.team4.controller.service.BidService;
 import ch.unibe.ese.team4.controller.service.BookmarkService;
 import ch.unibe.ese.team4.controller.service.MessageService;
@@ -128,6 +129,8 @@ public class AdController {
 		*/
 		return redirModel;
 	}
+	
+	
 
 	/**
 	 * Checks if the adID passed as post parameter is already inside user's

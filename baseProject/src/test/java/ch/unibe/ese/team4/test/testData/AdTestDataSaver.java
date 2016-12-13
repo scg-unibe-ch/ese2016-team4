@@ -188,6 +188,7 @@ public class AdTestDataSaver {
 		adLuzern1.setSquareFootage(100);
 		adLuzern1.setPropertyType(2);
 		adLuzern1.setSellType(3);
+		adLuzern1.setInstantBuyPrice(100000);
 		adLuzern1.setAuctionEndDate(auctionEndDate2);
 		adLuzern1.setRoomDescription("TEST");
 		adLuzern1.setPreferences(preferences1);
@@ -220,6 +221,7 @@ public class AdTestDataSaver {
 		adLuzern2.setSquareFootage(100);
 		adLuzern2.setPropertyType(3);
 		adLuzern2.setSellType(3);
+		adLuzern2.setInstantBuyPrice(50000);
 		adLuzern2.setAuctionEndDate(auctionEndDate3);
 		adLuzern2.setRoomDescription("TEST");
 		adLuzern2.setPreferences(preferences1);

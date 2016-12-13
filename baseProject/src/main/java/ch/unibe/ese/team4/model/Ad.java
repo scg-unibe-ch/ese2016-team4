@@ -68,6 +68,9 @@ public class Ad {
 	private int startOffer;
 	
 	@Column(nullable = true)
+	private int instantBuyPrice;
+
+	@Column(nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date auctionEndDate;
 
@@ -438,6 +441,15 @@ public class Ad {
 	public void setPrizeOfSale(int prizeOfSale) {
 		this.prizeOfSale = prizeOfSale;
 	}
+	
+	public int getInstantBuyPrice() {
+		return instantBuyPrice;
+	}
+
+	public void setInstantBuyPrice(int instantBuyPrice) {
+		this.instantBuyPrice = instantBuyPrice;
+	}
+	
 	
 	public double getLatitude() {
 		return latitude;

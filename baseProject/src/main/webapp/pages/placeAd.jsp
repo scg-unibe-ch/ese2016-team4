@@ -145,11 +145,13 @@ function updateType() {
 			document.getElementById("prize").hidden = true;
 			document.getElementById("prizeOfSale").hidden = true;
 			document.getElementById("startOffer").hidden = false;
+			document.getElementById("instantBuyPrice").hidden = false;
 			document.getElementById("field-moveInDate").hidden = true;
 			document.getElementById("field-moveOutDate").hidden = true;
 			document.getElementById("field-Prize").hidden = true;
 			document.getElementById("field-PrizeOfSale").hidden = true;
 			document.getElementById("field-startOffer").hidden = false;
+			document.getElementById("field-instantBuyPrice").hidden = false;
 		} else if(document.getElementById("myselect").value == 2) {
 			$('#field-moveInDate').val(null);
 			$('#field-auctionEndDate').val(null);
@@ -160,11 +162,13 @@ function updateType() {
 			document.getElementById("prize").hidden = true;
 			document.getElementById("prizeOfSale").hidden = false;
 			document.getElementById("startOffer").hidden = true;
+			document.getElementById("instantBuyPrice").hidden = true;
 			document.getElementById("field-moveInDate").hidden = true;
 			document.getElementById("field-moveOutDate").hidden = true;
 			document.getElementById("field-Prize").hidden = true;
 			document.getElementById("field-PrizeOfSale").hidden = false;
 			document.getElementById("field-startOffer").hidden = true;
+			document.getElementById("field-instantBuyPrice").hidden = true;
 		} else {
 			$('#field-auctionEndDate').val(null);
 			document.getElementById("auctionEndDate").hidden = true;
@@ -174,11 +178,13 @@ function updateType() {
 			document.getElementById("prize").hidden = false;
 			document.getElementById("prizeOfSale").hidden = true;
 			document.getElementById("startOffer").hidden = true;
+			document.getElementById("instantBuyPrice").hidden = true;
 			document.getElementById("field-moveInDate").hidden = false;
 			document.getElementById("field-moveOutDate").hidden = false;
 			document.getElementById("field-Prize").hidden = false;
 			document.getElementById("field-PrizeOfSale").hidden = true;
 			document.getElementById("field-startOffer").hidden = true;
+			document.getElementById("field-instantBuyPrice").hidden = true;
 		}
 }
 
@@ -239,6 +245,7 @@ window.onload = updateType;
 				<td><label for="field-street">Street</label></td>
 				<td><label for="field-city">City / Zip code</label></td>
 				<td><label for="field-PrizeBuy" id="startOffer" hidden="true">Start offer</label></td>
+				<td><label for="field-instantBuyPrice" id="instantBuyPrice" hidden="true">Instant Buy Price</label></td>
 			</tr>
 
 			<tr>
@@ -249,6 +256,9 @@ window.onload = updateType;
 					<form:errors path="city" cssClass="validationErrorText" /></td>
 				<td><form:input id="field-startOffer" type="number" path="startOffer" hidden="true"
 						placeholder="Start offer" step="10" min="0" />
+					<form:errors path="startOffer" cssClass="validationErrorText" /></td>
+				<td><form:input id="field-instantBuyPrice" type="number" path="instantBuyPrice" hidden="true"
+						placeholder="10000" step="10" min="0" />
 					<form:errors path="startOffer" cssClass="validationErrorText" /></td>
 			</tr>
 

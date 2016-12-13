@@ -139,6 +139,13 @@
 </script>
 
 <script>
+$(document).ready(function() {
+		$("#instantBuy").click(function() {
+			$.post("/instantBuy", {id: shownAdvertisementId}) 
+		});
+});
+</script>
+<script>
 function copyTextToClipboard(text) {
   var textArea = document.createElement("textarea");
 
@@ -200,6 +207,7 @@ function CopyLink() {
   copyTextToClipboard(location.href);
 }
 </script>
+
 
 
 <!-- Handles the auction date infos and the remaining time -->
@@ -385,6 +393,10 @@ $(function(){
             path="bid" placeholder="e.g. 150" step="1" min="${nextBid}" />
 
           <button type="submit" >Place bid</button>
+          <a class="button" href="/instantBuy?id=${shownAd.id}">Instant Buy for CHF ${shownAd.instantBuyPrice}</a>
+
+          
+          
 	</c:when>
 	</c:choose>
   	</td>
@@ -514,6 +526,15 @@ document.getElementById("SendEmail").onclick = function() {
 				<c:when test="${shownAd.getSellType() == 3}">
 					<td><h2>Starting Price</h2></td>
 					<td>${shownAd.startOffer}&#32;CHF</td>
+				</c:when>
+			</c:choose>
+		</tr>
+		
+		<tr>
+			<c:choose>
+				<c:when test="${shownAd.getSellType() == 3}">
+					<td><h2>Instant Buy Price</h2></td>
+					<td>${shownAd.instantBuyPrice}&#32;CHF</td>
 				</c:when>
 			</c:choose>
 		</tr>
@@ -937,7 +958,7 @@ document.getElementById("SendEmail").onclick = function() {
 
 <div id="confirmationDialog">
 	<form>
-		<p><font color="black">Send enquiry to advertiser?</font></p>
+		<p>Send enquiry to advertiser?</p>
 		<button type="button" id="confirmationDialogSend">Send</button>
 		<button type="button" id="confirmationDialogCancel">Cancel</button>
 	</form>

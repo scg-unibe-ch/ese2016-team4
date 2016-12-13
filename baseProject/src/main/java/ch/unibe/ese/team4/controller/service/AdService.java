@@ -106,7 +106,8 @@ public class AdService {
 		// new for buy and auction
 		ad.setPrizeOfSale(placeAdForm.getPrizeOfSale());
 		ad.setStartOffer(placeAdForm.getStartOffer());
-
+		ad.setInstantBuyPrice(placeAdForm.getInstantBuyPrice());
+		
 		ad.setSquareFootage(placeAdForm.getSquareFootage());
 
 		ad.setRoomDescription(placeAdForm.getRoomDescription());
