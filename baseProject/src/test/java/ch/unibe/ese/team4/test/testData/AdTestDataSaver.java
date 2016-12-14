@@ -151,7 +151,7 @@ public class AdTestDataSaver {
 		adBern2.setRoommates("None");
 		adBern2.setUser(ese);
 		adBern2.setTitle("Cheap studio in Bern!");
-		adBern2.setStreet("Länggassstrasse 40");
+		adBern2.setStreet("Länggassstr. 40");
 		adBern2.setLatitude(46.954198);
 		adBern2.setLongitude(7.431547);
 		adBern2.setCity("Bern");
