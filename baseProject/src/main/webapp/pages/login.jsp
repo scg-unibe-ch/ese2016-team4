@@ -15,56 +15,51 @@
 
 
 <script>
-	var logged = ("${loggedIn}"=='true');
-	function onSignIn(googleUser) {
-		console.log("signed in: " + logged);
-		console.log(!logged);
-		if (!logged){
-			console.log("im here!");
-			googleUser.reloadAuthResponse()
-			var id_token = googleUser.getAuthResponse().id_token;
-			var profile = googleUser.getBasicProfile();
-			/*console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-			console.log('Name: ' + profile.getName());
-			console.log('Given Name: ' + profile.getGivenName());
-			console.log('Family Name: ' + profile.getFamilyName());
-			console.log('Image URL: ' + profile.getImageUrl());
-			console.log('Email: ' + profile.getEmail());*/
-			var email = profile.getEmail()?profile.getEmail():"Undefined";
-			if (email == 'Undefined'){
-				return;
-			}
-			var values = {
-				userName : profile.getName() ? profile.getName() : "Glögglifrösch",
-				firstName : profile.getGivenName() ? profile.getGivenName() : "Blöd",
-				lastName : profile.getFamilyName() ? profile.getFamilyName() : "Gange",
-				email : email,
-				imageURL : profile.getImageUrl()?profile.getImageUrl():"https://thumbs.dreamstime.com/z/indian-head-profile-vector-image-traditional-headdress-feathers-caricature-symbol-sign-logo-element-68779563.jpg",
-				googleId: profile.getId(),
-			};
-			var get = $.get("/authenticateGoogleUser", values);
-			get.done(function(isLoggedIn){
-				if (isLoggedIn){
-					window.location.href = "/";
-				}
-			})
-/*
-			console.log("startaAuth");
-			get.done(function(pw) {
-				console.log("pw: "+pw);
-				var form = createElement("form",{action:"/j_spring_security_check", 
-												 method: "post",
-												 id:"login-form",
-												 autocomplete:"off"});		
-				form.appendChild(createElement("input",{name:"j_username",id:"field-email", value:email,autocomplete:"off"}));
-				form.appendChild(createElement("input",{name:"j_password",id:"field-password", value:pw, type:"text",autocomplete:"off"}));
-				logged = true;
-				document.body.appendChild(form);
-				form.submit();
-				document.body.removeChild(form);
-			});*/
-		}
-	}
+var logged = ("${loggedIn}"=='true');
+function onSignIn(googleUser) {
+    console.log("signed in: " + logged);
+    console.log(!logged);
+    if (!logged){
+        console.log("im here!");
+        googleUser.reloadAuthResponse()
+        var id_token = googleUser.getAuthResponse().id_token;
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail());
+        var email = profile.getEmail()?profile.getEmail():"Undefined";
+        if (email == 'Undefined'){
+            return;
+        }
+        var values = {
+            userName : profile.getName() ? profile.getName() : "Glögglifrösch",
+            firstName : profile.getGivenName() ? profile.getGivenName() : "Blöd",
+            lastName : profile.getFamilyName() ? profile.getFamilyName() : "Gange",
+            email : email,
+            imageURL : profile.getImageUrl()?profile.getImageUrl():"https://thumbs.dreamstime.com/z/indian-head-profile-vector-image-traditional-headdress-feathers-caricature-symbol-sign-logo-element-68779563.jpg",
+            googleId: profile.getId(),
+        };
+        var get = $.get("/authenticateGoogleUser", values);
+
+        console.log("startaAuth");
+        get.done(function(pw) {
+            console.log("pw: "+pw);
+            var form = createElement("form",{action:"/j_spring_security_check", 
+                                             method: "post",
+                                             id:"login-form",
+                                             autocomplete:"off"});		
+            form.appendChild(createElement("input",{name:"j_username",id:"field-email", value:email,autocomplete:"off"}));
+            form.appendChild(createElement("input",{name:"j_password",id:"field-password", value:pw, type:"text",autocomplete:"off"}));
+            logged = true;
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        });
+    }
+}
 	</script>
 	<script> 
 		// prevent google from auto-login!

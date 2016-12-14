@@ -272,46 +272,36 @@ public class ProfileController {
 		return model;
 	}
 	
-	/** Returns the new generated one-time password for a user with a google-login. */
 	@RequestMapping(value = "/authenticateGoogleUser", method = RequestMethod.GET)
-	public @ResponseBody boolean authenticateG(
-			@RequestParam("userName") String userName,
-			@RequestParam("firstName") String firstName,
-			@RequestParam("lastName") String lastName,
-			@RequestParam("email") String email,
-			@RequestParam("imageURL") String imageURL,
-			@RequestParam("googleId") String googleId) {
-		User user = userService.findUserByGoogleId(googleId);
-		String realPath = servletContext.getRealPath(IMAGE_DIRECTORY);
-		String picName = email.replace('@', '_').replace('.','_') + ".jpg";
-		try(InputStream in = new URL(imageURL).openStream()){
-		    Files.copy(in, Paths.get(realPath,picName),StandardCopyOption.REPLACE_EXISTING);
-		}catch(Exception e){
-			System.out.println(e.getMessage());
-			picName = null;
-		}
-		if (user == null){
-			user = signupService.signupGoogleUser(email, getRandomString(24),
-					firstName, lastName, IMAGE_DIRECTORY+picName, 
-					Gender.UNDEFINED, false, googleId);
-		}else {
-			user.setEmail(email);
-//			user.setUsername(userName);
-			user.setFirstName(firstName);
-			user.setLastName(lastName);
-			user.setPassword(getRandomString(24));
-			user = userDao.save(user);
-		}
-		//should be only done when you are certain that the credentials are valid!!
-		org.springframework.security.core.userdetails.User authUser = 
-				new org.springframework.security.core.userdetails.User(
-						user.getUsername(), user.getPassword(), true, true, true, true, 
-						AuthorityUtils.createAuthorityList("ROLE_USER"));
-		Authentication authentication = new UsernamePasswordAuthenticationToken(authUser,authUser.getPassword(),
-		AuthorityUtils.createAuthorityList("ROLE_USER"));
-//		Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		return true;
+	public @ResponseBody String authenticateG(
+	        @RequestParam("userName") String userName,
+	        @RequestParam("firstName") String firstName,
+	        @RequestParam("lastName") String lastName,
+	        @RequestParam("email") String email,
+	        @RequestParam("imageURL") String imageURL,
+	        @RequestParam("googleId") String googleId) {
+	    User user = userService.findUserByGoogleId(googleId);
+	    String realPath = servletContext.getRealPath(IMAGE_DIRECTORY);
+	    String picName = email.replace('@', '_').replace('.','_') + ".jpg";
+	    try(InputStream in = new URL(imageURL).openStream()){
+	        Files.copy(in, Paths.get(realPath,picName),StandardCopyOption.REPLACE_EXISTING);
+	    }catch(Exception e){
+	        System.out.println(e.getMessage());
+	        picName = null;
+	    }
+	    if (user == null){
+	        user = signupService.signupGoogleUser(email, getRandomString(24),
+	                firstName, lastName, IMAGE_DIRECTORY+picName, 
+	                Gender.UNDEFINED, false, googleId);
+	    }else {
+	        user.setEmail(email);
+//				user.setUsername(userName);
+	        user.setFirstName(firstName);
+	        user.setLastName(lastName);
+	        user.setPassword(getRandomString(24));
+	        userDao.save(user);
+	    }
+	    return user.getPassword();
 	}
 	
 	private static String VALID_CHARACHTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789abcdefghijklmnopqrstuvwxyz";
