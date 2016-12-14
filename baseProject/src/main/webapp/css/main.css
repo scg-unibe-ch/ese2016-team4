@@ -300,10 +300,12 @@ button:hover {
 
 #bookmarkButton:hover {
 	color: #627a9f;
+	cursor: pointer;
 }
 
 #bookmarkedButton:hover {
 	color: #3A495F;
+	cursor: pointer;
 }
 
 fieldset {
