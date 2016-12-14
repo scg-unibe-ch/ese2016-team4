@@ -98,3 +98,9 @@
 				<p>${confirmationMessage }</p>
 			</div>
 		</c:if>
+		<c:if test="${not empty errorMessage }">
+			<div class="negative-message">
+				<img src="/img/x_mark_red.png" />
+				<p>${errorMessage }</p>
+			</div>
+		</c:if>

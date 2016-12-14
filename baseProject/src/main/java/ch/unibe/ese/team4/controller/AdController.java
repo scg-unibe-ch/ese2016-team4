@@ -63,7 +63,6 @@ public class AdController {
 		ModelAndView model = new ModelAndView("adDescription");
 		Ad ad = adService.getAdById(id);
 		
-		
 		//replacing bidService
 		long userBid = -1;
 		if(principal != null){
@@ -73,6 +72,8 @@ public class AdController {
 		long highestBid = bidHistoryService.getHighestBid(id);
 		long nextBid = bidHistoryService.getNextBid(id);
 		boolean isBidden = bidHistoryService.isBidden(id);
+		boolean adExists = ad != null;
+		boolean adDeletable = adService.adDeletable(id);
 		Iterable<Bid> allBids = bidHistoryService.getAllBids(id);
 		Iterable<String> bidNames = bidHistoryService.getBidUsernames(allBids);
 		
@@ -83,7 +84,9 @@ public class AdController {
 		model.addObject("allBids", allBids);
 		model.addObject("bidNames", bidNames);
 		
+		model.addObject("adDeletable", adDeletable);
 		model.addObject("shownAd", ad);
+		model.addObject("adExists", adExists);
 		model.addObject("messageForm", new MessageForm());
 
 		String loggedInUserEmail = (principal == null) ? "" : principal.getName();
@@ -134,6 +137,31 @@ public class AdController {
 	}
 	
 	
+	/** Deletes the ad with the given id */
+	@RequestMapping(value = "/ad/deleteAd", method = RequestMethod.GET)
+	public @ResponseBody ModelAndView deleteAd(@RequestParam("id") long id, Principal principal, RedirectAttributes redirectAttributes) {
+		ModelAndView redirModel = new ModelAndView("redirect:/");
+		if(principal != null){
+			String username = principal.getName();
+			User loggedUser = userService.findUserByUsername(username);
+			User adUser = adService.getAdById(id).getUser();
+			if(loggedUser.getId() == adUser.getId() && adService.adDeletable(id)){
+				adService.deleteAd(id);
+				redirectAttributes.addFlashAttribute("confirmationMessage",
+						"Ad successfully deleted");
+			}else{
+				redirectAttributes.addFlashAttribute("errorMessage",
+						"The Ad couldn't be deleted. Make sure you're owner of the Ad and there are no more planned visits");
+			}
+		}else{
+			redirectAttributes.addFlashAttribute("errorMessage",
+					"The Ad couldn't be deleted. Make sure you're logged in");
+		}
+		
+		
+		return redirModel;
+	}
+
 
 	/**
 	 * Checks if the adID passed as post parameter is already inside user's

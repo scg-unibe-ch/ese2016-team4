@@ -30,6 +30,8 @@ import ch.unibe.ese.team4.model.Location;
 import ch.unibe.ese.team4.model.User;
 import ch.unibe.ese.team4.model.Visit;
 import ch.unibe.ese.team4.model.dao.AdDao;
+import ch.unibe.ese.team4.model.dao.VisitDao;
+import ch.unibe.ese.team4.model.dao.VisitEnquiryDao;
 
 /** Handles all persistence operations concerning ad placement and retrieval. */
 /**
@@ -45,6 +47,12 @@ public class AdService {
 
 	@Autowired
 	private AdDao adDao;
+	
+	@Autowired
+	private VisitDao visitDao;
+	
+	@Autowired
+	private VisitEnquiryDao visitEnquiryDao;
 
 	@Autowired
 	private UserService userService;
@@ -187,7 +195,6 @@ public class AdService {
 		}
 
 		ad.setUser(user);
-		System.out.println(ad.getCreationDate());
 		adDao.save(ad);
 
 		return ad;
@@ -209,6 +216,12 @@ public class AdService {
 	@Transactional
 	public Iterable<Ad> getAllAds() {
 		return adDao.findAll();
+	}
+	
+	/** Deletes the ad with the given id, returns whether the deletion was successful or not*/
+	@Transactional
+	public void deleteAd(Long id) {
+		if(adDeletable(id)) adDao.delete(id);
 	}
 
 	/**
@@ -634,4 +647,13 @@ public class AdService {
 		}
 		return premiumFirst;
 	}
+	
+	public boolean adDeletable(Long id) {
+		Iterable<Visit> visitList = visitDao.findByAd(adDao.findOne(id));
+		for (Visit visit : visitList) {
+	        if(visitEnquiryDao.exists(visit.getId())) return false;
+	    }
+		return true;
+	}
+	
 }
