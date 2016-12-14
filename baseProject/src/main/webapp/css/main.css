@@ -637,6 +637,7 @@ footer nav ul li {
 	width: 33%;
 	padding: 0px;
 	max-width: 550px;
+	min-width: 400px;
 	margin-top: 10px;
 	display:inline-block;
 	/*float:left;*/
@@ -656,6 +657,7 @@ footer nav ul li {
 #IndexResultsDiv div img {
 	height: 100%;
 	max-height: 240px;
+	max-width: 350px;
 	float: left;
 	margin-right: 50px;
 }
