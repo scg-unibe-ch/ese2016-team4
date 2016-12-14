@@ -258,21 +258,16 @@ input:checked + .slider:before {
 	background-color: white;
 	padding: 0px 5px 0px 5px;
 	border-width: 2px;
-	border-radius: 10px;
-	border-color: var(--base-color);
-	border-style: solid;
-	color: grey;
+	color: #3A495F;
 	font-size: 0.9em;
+	text-decoration: underline;
 }
 
 #bookmarkedButton {
 	background-color: white;
 	padding: 0px 5px 0px 5px;
 	border-width: 2px;
-	border-radius: 10px;
-	border-color: #ff0000;
-	border-style: solid;
-	color: grey;
+	color: #627a9f;
 	font-size: 0.9em;
 }
 
@@ -304,13 +299,11 @@ button:hover {
 }
 
 #bookmarkButton:hover {
-	border-color: red;
-	border-style: dashed;
+	color: #627a9f;
 }
 
 #bookmarkedButton:hover {
-	border-color: green;
-	border-style: dashed;
+	color: #3A495F;
 }
 
 fieldset {
@@ -525,6 +518,17 @@ footer nav ul li {
 .test-users {
 	margin-left: 30px;
 	line-height: 1.5;
+}
+
+.signup {
+	color: var(--ad-header-color);
+	text-decoration: none;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+.signup:hover {
+	color: var(--ad-header-color-hoover);
 }
 
 /* about.jsp*/
@@ -867,8 +871,18 @@ footer nav ul li {
 
 }
 
+#accordion p {
+	font-size: 1em;
+}
 
+#accordion td {
+	font-size: 1em;
+	color: black;
+}
 
+#accordion a {
+	text-decoration: underline;
+}
 
 #bidTable {
 	border-collapse: collapse;
@@ -1028,12 +1042,16 @@ footer nav ul li {
 	width: 300px;
 }
 
+.adDescDiv a{
+	text-decoration: underline;
+}
+
 .thinButton {
 	background-color: var(--base-color);
 	color: grey;
 	padding: 2px 10px;
 	border-radius: 5px;
-	border-color: white;
+	border-color: #BDBDBD;
 	border-style: solid;
 	font-size: 1.1em;
 	margin-left: 30px;

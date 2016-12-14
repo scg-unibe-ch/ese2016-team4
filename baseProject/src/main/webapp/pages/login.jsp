@@ -225,7 +225,7 @@
 		</ul>
 		<br />
 		
-			Or <a class="link" href="<c:url value="/signup" />"><font size="5" color="blue">sign up</font></a> as a new user.
+			<p>Or <a class="signup" href="<c:url value="/signup" />">sign up</a> as a new user.</p>
 		
 	</c:otherwise>
 </c:choose>
