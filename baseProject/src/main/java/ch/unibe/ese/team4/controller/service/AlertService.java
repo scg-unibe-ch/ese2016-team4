@@ -284,7 +284,7 @@ public class AlertService {
 				+ ad.getTitle()
 				+ "</a><br><br>"
 				+ "Good luck and enjoy,<br>"
-				+ "Your FlatFindr crew";
+				+ "Your PropertyFindr crew";
 	}
 
 	/** Checks if an ad is conforming to the criteria in an alert. */

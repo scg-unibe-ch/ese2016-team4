@@ -23,7 +23,7 @@
 			<table>
 			<tr><form:errors path="unsubscribeReason" cssClass="validationErrorText" /></tr><br><br>
 			<tr><form:radiobutton path="unsubscribeReason" value="1" /><label>Too expensive</label></tr><br>
-			<tr><form:radiobutton path="unsubscribeReason" value="2" /><label>I do not use FlatFindr anymore</label></tr><br>
+			<tr><form:radiobutton path="unsubscribeReason" value="2" /><label>I do not use PropertyFindr anymore</label></tr><br>
 			<tr><form:radiobutton path="unsubscribeReason" value="3"/><label>Not enough advantages</label></tr><br>
 			<tr><form:radiobutton path="unsubscribeReason" value="4"/><label>Other reasons</label></tr>
 			</table>

@@ -144,12 +144,12 @@ public class SignupService {
 	
 	// Message that is sent to the new user
 	private String getWelcomeMessageText() {
-		return "Welcome to FlatFindr!"
+		return "Welcome to PropertyFindr!"
 				+ "<br><br>Thank you for using our Website"
 				+ "<br>Have fun looking around and do not hesitate to contact us "
 				+ "when you have questions!"
 				+ "<br><br>Have a nice day"
-				+ "<br><br>Your FlatFindr crew";
+				+ "<br><br>Your PropertyFindr crew";
 	}
 
 	@Transactional
