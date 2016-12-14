@@ -54,10 +54,13 @@ public class AlertService {
 	@Transactional
 	public void saveFrom(AlertForm alertForm, User user) {
 		Alert alert = new Alert();
-
+		
 		String zip = alertForm.getCity().substring(0, 4);
-		alert.setZipcode(Integer.parseInt(zip));
-		alert.setCity(alertForm.getCity().substring(7));
+		int zipcode = Integer.parseInt(zip);
+		alert.setZipcode(zipcode);
+		List<Location> locs = geoDataService.getLocationsByZipcode(zipcode);
+		assert(!locs.isEmpty()):"ad with an unknown zip-code was requested";	
+		alert.setCity(locs.get(0).getCity());
 		alert.setPrice(alertForm.getPrize());
 		alert.setRadius(alertForm.getRadius());
 		alert.setSquareFootage(alertForm.getSquareFootage());

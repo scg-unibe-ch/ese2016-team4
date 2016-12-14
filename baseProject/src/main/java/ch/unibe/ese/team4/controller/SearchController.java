@@ -68,6 +68,13 @@ public class SearchController {
 		if (!result.hasErrors()) {
 			ModelAndView model = new ModelAndView("results");
 			Iterable<Ad> searchFormResults = adService.queryResults(searchForm);
+			if (searchFormResults==null){// go backs				
+				if(page != null && page.equalsIgnoreCase("index")) {
+					return index();
+				}else {
+					return searchAd();
+				}
+			}
 			//placing Premium Ads in searchFormResults to the head
 			Iterable<Ad> sortedSearchFormResults = adService.sortByPremiumFirst(searchFormResults);
 			//replacing bidService

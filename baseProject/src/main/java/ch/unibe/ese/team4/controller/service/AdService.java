@@ -83,8 +83,11 @@ public class AdService {
 
 		// take the zipcode - first four digits
 		String zip = placeAdForm.getCity().substring(0, 4);
-		ad.setZipcode(Integer.parseInt(zip));
-		ad.setCity(placeAdForm.getCity().substring(7));
+		int zipcode = Integer.parseInt(zip);
+		ad.setZipcode(zipcode);
+		List<Location> locs = geoDataService.getLocationsByZipcode(zipcode);
+		assert(!locs.isEmpty()):"ad with an unknown zip-code was requested";
+		ad.setCity(locs.get(0).getCity());
 
 
 		if(stringToDate(placeAdForm.getAuctionEndDate()) != null){
@@ -257,8 +260,11 @@ public class AdService {
 
 		// get the location that the user searched for and take the one with the
 		// lowest zip code
-		Location searchedLocation = geoDataService.getLocationsByCity(city)
-				.get(0);
+		List<Location> locs = geoDataService.getLocationsByCity(city);
+		if (locs.isEmpty()){
+			return null;
+		}
+		Location searchedLocation = locs.get(0);
 
 		// create a list of the results and of their locations. Adds together the lists of the different properties
 		List<Ad> locatedResults = new ArrayList<>();
