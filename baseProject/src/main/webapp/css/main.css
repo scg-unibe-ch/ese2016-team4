@@ -4,9 +4,9 @@
 	--body-text-color: gray;
 	--base-color: #F2F2F2;
 	--ad-header-color: #3A495F;
-	--ad-header-color-hoover: #627a9f;
+	--ad-header-color-hover: #627a9f;
 	--page-background-color: #FFFFFF;
-	--footer-text-color: white;
+	--footer-text-color: graytext;
 }
 
 /* Basic resets to equalize inconsistencies across browsers */
@@ -51,7 +51,7 @@ hr {
 }
 
 .link:hover {
-	color: var(--ad-header-color-hoover);
+	color: var(--ad-header-color-hover);
 }
 
 .slim {
@@ -498,11 +498,11 @@ footer nav {
 }
 
 footer .link {
-	color: #AFFFEE;
+	color: var(--ad-header-color);
 }
 
 footer .link:hover {
-	color: var(--footer-text-color);;
+	color: var(--ad-header-color-hover);;
 }
 
 footer nav ul li {
@@ -530,7 +530,7 @@ footer nav ul li {
 }
 
 .signup:hover {
-	color: var(--ad-header-color-hoover);
+	color: var(--ad-header-color-hover);
 }
 
 /* about.jsp*/
