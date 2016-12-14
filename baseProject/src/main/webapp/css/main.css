@@ -367,7 +367,7 @@ button {
 /* Header & Footer */
 header {
 	color: var(--footer-text-color);
-	background: var(--base-color);
+	background: #d3d3d3;
 	position: fixed;
 	top: 0px;
 	left: 0px;
@@ -455,7 +455,7 @@ header ul li a {
 	display: block;
 	padding: 5px 10px;
 	color: #000000;
-	background: var(--base-color);
+	background: #d3d3d3;
 	text-decoration: none;
 }
 
@@ -483,7 +483,7 @@ header nav {
 
 footer {
 	color: var(--footer-text-color);;
-	background: var(--base-color);
+	background: #d3d3d3;
 	position: fixed;
 	bottom: 0px;
 	left: 0px;
