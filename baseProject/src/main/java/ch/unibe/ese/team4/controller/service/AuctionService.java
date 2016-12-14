@@ -67,7 +67,9 @@ public class AuctionService {
 	/**
      * Sets expired to true
      * Sends message to winner
-     * @param id of ad
+     * 
+     * @param id The id of the ad that was bought
+     * @param winner The user that has bought a property instantly
      */
     @Transactional
     public void instantBuy(long id, User winner){
@@ -79,6 +81,12 @@ public class AuctionService {
         adDao.save(ad);
       }
 	
+    /**
+     * Sends a message to the owner of the ad that was bought instantly.
+     * 
+     * @param ad The ad that belongs the auction to
+     * @param winner The user that has bought the property instantly
+     */ 
     private void instantBuyMessage(Ad ad, User winner) {
     	
     	User user = ad.getUser();
@@ -94,6 +102,12 @@ public class AuctionService {
     	
     }
     
+    /**
+     * Sends a message to the user that bought a property instantly.
+     * 
+     * @param ad The ad that belongs the auction to
+     * @param winner The user that has bought the property instantly
+     */
     private void purchaseCompleteMessage(Ad ad, User winner) {
     	Date now = new Date();
 		Message message = new Message();
@@ -106,6 +120,7 @@ public class AuctionService {
 		messageDao.save(message);
     }
     
+    // Mesage that is sent to the owner of a given ad that was bought instantly
     private String getInstantBuyMessage(Ad ad, User winner) {
     	User user = ad.getUser();
     	
@@ -122,6 +137,7 @@ public class AuctionService {
 				+ "Your PropertyFindr crew";
     }
     
+    // Message that is sent to the user that has bought an ad instantly
     private String getPurchaseCompleteMessage(Ad ad, User winner) {
     	User user = ad.getUser();
     	return "Dear " + winner.getFirstName()
@@ -157,6 +173,12 @@ public class AuctionService {
 		messageDao.save(message);
 	}
 	
+	/** 
+	 * Sends a message to the user that won the auction.
+	 * 
+	 * @param ad The ad to check whether the auction was successful
+	 * @param user The user that won the auction
+	 */
 	private void successWithAuctionMessage(Ad ad, User user) {
 		Date now = new Date();
 		Message message = new Message();
@@ -168,6 +190,7 @@ public class AuctionService {
 		message.setDateSent(now);
 		messageDao.save(message);
 	}
+	
 	/** 
 	 * Sends a message to the owner of an ad when the auction was not successful.
 	 * 
@@ -203,6 +226,7 @@ public class AuctionService {
 				+ "Your PropertyFindr crew";
 	}
 	
+	// Message that is sent when a user has won the auction
 	public String getAuctionWinnerMessage(Ad ad) {
     	User user = ad.getUser();
 
@@ -264,7 +288,6 @@ public class AuctionService {
 			messageDao.save(message);
 		}
 	}
-	
 	
 	// Message that is sent when a user has been overbid
 	private String getBidText(Ad ad, User allUsers) {

@@ -412,7 +412,10 @@ $(function(){
             path="bid" placeholder="e.g. 150" step="1" min="${nextBid}" />
 
           <button type="submit" >Place bid</button>
-          <a class="button" href="/instantBuy?id=${shownAd.id}">Instant Buy for CHF ${shownAd.instantBuyPrice}</a>
+          <a class="button" href="/instantBuy?id=${shownAd.id}" 
+          	onclick="return confirm('Are you sure you want to continue and buy this 
+          	property for ${shownAd.instantBuyPrice} CHF?')">
+          	Instant Buy for CHF ${shownAd.instantBuyPrice}</a>
 
           
           

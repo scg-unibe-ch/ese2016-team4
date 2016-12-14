@@ -30,10 +30,9 @@ public class AuctionController {
 	private AuctionService auctionService;
 	
 	/**
-     * Ends auction
-     * Sends messages to the guy who bought the estate
-	 * @param redirectAttributes 
-     */
+	 * Ends auction of an ad that was bought instantly.
+     * Displays a confirmation message on the screen.
+	 */
 	@RequestMapping(value = "/instantBuy", method = RequestMethod.GET)
 	@ResponseBody
     public  ModelAndView instantBuy(@RequestParam("id") long id, Principal principal, RedirectAttributes redirectAttributes){
