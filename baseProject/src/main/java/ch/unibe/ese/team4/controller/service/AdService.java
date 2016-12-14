@@ -66,12 +66,10 @@ public class AdService {
 	/**
 	 * Handles persisting a new ad to the database.
 	 *
-	 * @param placeAdForm
-	 *            the form to take the data from
-	 * @param a
-	 *            list of the file paths the pictures are saved under
-	 * @param the
-	 *            currently logged in user
+	 * @param placeAdForm he form to take the data from
+	 * @param filePaths list of the file paths the pictures are saved under
+	 * @param user currently logged in user
+	 * @return saved ad
 	 */
 	@Transactional
 	public Ad saveFrom(PlaceAdForm placeAdForm, List<String> filePaths,

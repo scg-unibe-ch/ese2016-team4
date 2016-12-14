@@ -168,7 +168,7 @@ public class AlertService {
 					Date now = new Date();
 					Message message = new Message();
 					message.setSubject("It's a match!");
-					message.setText(getAlertText(ad));
+					message.setText(getAlertText(ad, user));
 					message.setSender(userDao.findByUsername("System"));
 					message.setRecipient(user);
 					message.setState(MessageState.UNREAD);
@@ -212,7 +212,7 @@ public class AlertService {
 				Date now = new Date();
 				Message message = new Message();
 				message.setSubject("It's a match!");
-				message.setText(getAlertText(ad));
+				message.setText(getAlertText(ad, user));
 				message.setSender(userDao.findByUsername("System"));
 				message.setRecipient(user);
 				message.setState(MessageState.UNREAD);
@@ -256,7 +256,7 @@ public class AlertService {
 				Date now = new Date();
 				Message message = new Message();
 				message.setSubject("It's a match!");
-				message.setText(getAlertText(ad));
+				message.setText(getAlertText(ad, user));
 				message.setSender(userDao.findByUsername("System"));
 				message.setRecipient(user);
 				message.setState(MessageState.UNREAD);
@@ -275,8 +275,8 @@ public class AlertService {
 	 * Returns the text for an alert message with the properties of the given
 	 * ad.
 	 */
-	private String getAlertText(Ad ad) {
-		return "Dear user,<br>good news. A new ad matching one of your alerts has been "
+	private String getAlertText(Ad ad, User user) {
+		return "Dear" + user + " ,<br>good news. A new ad matching one of your alerts has been "
 				+ "entered into our system. You can visit it here:<br><br>"
 				+ "<a class=\"link\" href=/ad?id="
 				+ ad.getId()

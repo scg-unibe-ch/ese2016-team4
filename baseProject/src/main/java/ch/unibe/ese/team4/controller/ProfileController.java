@@ -183,12 +183,7 @@ public class ProfileController {
 		User user = userService.findUserByUsername(username);
 		if (!bindingResult.hasErrors()) {
 			userUpdateService.updateFrom(getPremiumForm, username);
-			/*
-			model = new ModelAndView("updatedProfile");
-			model.addObject("message", "Congrats! You are Premium user now.");
-			model.addObject("currentUser", user);
-			return model;
-			*/
+			
 			model = new ModelAndView("redirect:/user?id=" + user.getId());
 			redirectAttributes.addFlashAttribute("confirmationMessage",
 					"Congrats! You are Premium user now.");
@@ -197,12 +192,6 @@ public class ProfileController {
 			model = new ModelAndView("getPremium");
 			model.addObject("getPremiumForm", getPremiumForm);
 			return model;
-			/*
-			model = new ModelAndView("updatedProfile");
-			model.addObject("message",
-					"Something went wrong, please contact the WebAdmin if the problem persists!");
-			return model;
-			*/
 		}
 	}
 	
@@ -335,37 +324,4 @@ public class ProfileController {
 		}
 	    return str.toString();
 	}
-	
-//	/**creates new user with accordingly to the inputs*/
-//	public User createUser(String email, String password, String firstName,
-//			String lastName, String picPath, Gender gender, boolean premium, String googleID) {
-//		User user = new User();
-//		user.setUsername(email);
-//		user.setPassword(password);
-//		user.setEmail(email);
-//		user.setFirstName(firstName);
-//		user.setLastName(lastName);
-//		user.setEnabled(true);
-//		user.setGender(gender);
-//		user.setPremium(premium);
-//		user.setGoogleId(googleID);
-//		if(premium){ 
-//			user.setCcNumber("1111222233334444");
-//			user.setCcMonth(5);
-//			user.setCcYear(2020);
-//		}
-//		Set<UserRole> userRoles = new HashSet<>();
-//		UserRole role = new UserRole();
-//		role.setRole("ROLE_USER");
-//		role.setUser(user);
-//		userRoles.add(role);
-//		user.setUserRoles(userRoles);
-//		if (picPath != null){
-//			UserPicture picture = new UserPicture();
-//			picture.setUser(user);
-//			picture.setFilePath(picPath);
-//			user.setPicture(picture);
-//		}
-//		return user;
-//	}
 }
