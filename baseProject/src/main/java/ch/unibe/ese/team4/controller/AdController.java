@@ -145,13 +145,16 @@ public class AdController {
 			String username = principal.getName();
 			User loggedUser = userService.findUserByUsername(username);
 			User adUser = adService.getAdById(id).getUser();
-			if(loggedUser.getId() == adUser.getId() && adService.adDeletable(id)){
+			if(loggedUser.getId() == adUser.getId() && adService.adDeletable(id) && !(bidHistoryService.isBidden(id))){
 				adService.deleteAd(id);
 				redirectAttributes.addFlashAttribute("confirmationMessage",
 						"Ad successfully deleted");
 			}else{
 				redirectAttributes.addFlashAttribute("errorMessage",
-						"The Ad couldn't be deleted. Make sure you're owner of the Ad and there are no more planned visits");
+						"The Ad couldn't be deleted. Make sure you're owner of the Ad, "
+						+ "there are no more planned visits and, in case of an auction, "
+						+ "there haven't been made any bids yet");
+	
 			}
 		}else{
 			redirectAttributes.addFlashAttribute("errorMessage",

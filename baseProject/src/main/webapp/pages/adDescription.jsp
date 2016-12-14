@@ -48,7 +48,8 @@ function deleteAd(button) {
 }
 
 function notDeletable() {
-	alert("This Ad can't be deleted, because there are still visits planned")
+	alert("This Ad can't be deleted, because there are still visits planned or, bids have already been made (in case of an auction)");
+	
 }
 </script>
 
@@ -447,11 +448,11 @@ $(function(){
 				<a href="<c:url value='/profile/editAd?id=${shownAd.id}' />">
 					<button type="button">Edit Ad</button>
 				</a>
-				<c:if test="${adDeletable}">
+				<c:if test="${adDeletable && !isBidden}">
 					<%-- <a href="<c:url value='/ad/deleteAd?id=${shownAd.id}' />"> --%>
 					<button class="deleteButton" onClick="deleteAd(this)">Delete</button>
 				</c:if>
-				<c:if test="${!adDeletable}">
+				<c:if test="${!adDeletable || isBidden}">
 					<button onClick="notDeletable()">Delete</button>
 				</c:if>
 			</c:if>
@@ -589,6 +590,7 @@ document.getElementById("SendEmail").onclick = function() {
 	</div>
 
     <script type="text/javascript">
+    if("${shownAd.getLatitude()}".length > 3 && "${shownAd.getLongitude()}".length > 3){
 	var map;
 	function initMap() {
 		map = new google.maps.Map(document.getElementById('map'), {
@@ -613,6 +615,9 @@ document.getElementById("SendEmail").onclick = function() {
         }
       }
 	}
+    }else{
+    	document.getElementById("map").innerHTML = "<i>This address couldn't be located</i>";
+    }
 	</script>
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdNwB8auysJ8k7gqiKOpLwFyV2L7iBneo&callback=initMap">
@@ -688,7 +693,14 @@ document.getElementById("SendEmail").onclick = function() {
 				<h2>Bidding (Auction)</h2>
 				<div id="helperDiv">
 					<p id="datetoday"></p>
-					<p class="timeTilEnd" id="timeTilEnd"></p>
+					<c:choose>
+  						<c:when test="${shownAd.getSellType() == 3 && shownAd.getFinished() == true}">
+        					<p>Auction expired!</p>        	
+						</c:when>
+						<c:otherwise>
+							<p class="timeTilEnd" id="timeTilEnd"></p>
+						</c:otherwise>
+ 				</c:choose>
 
 					<br />
 					<table id="bidTable">
