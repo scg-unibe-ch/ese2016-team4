@@ -26,8 +26,6 @@
 <script src="/js/flipclock.js"></script>
 <script src="/js/lightbox.js"></script>
 
-
-
 <script>
   $( function() {
     $( "#accordion" ).accordion({
@@ -37,6 +35,21 @@
     });
 	});
 
+</script>
+
+<script>
+function deleteAd(button) {
+	if (confirm('Do you really want to delete this Ad?')) {
+		/*var id = $(button).attr("data-id");
+		$.get("/ad/deleteAd?id=" + "${shownAd.id}", function(){
+		});*/
+		location.href = "/ad/deleteAd?id=" + "${shownAd.id}";
+    }
+}
+
+function notDeletable() {
+	alert("This Ad can't be deleted, because there are still visits planned")
+}
 </script>
 
 <script>
@@ -326,6 +339,11 @@ $(function(){
 
 </script>
 
+<c:choose>
+	<c:when test="${!adExists}">
+		<meta http-equiv="refresh" content="0;url=/">
+	</c:when>
+</c:choose>
 
 <!-- format the dates -->
 <fmt:formatDate value="${shownAd.moveInDate}" var="formattedMoveInDate"
@@ -429,6 +447,13 @@ $(function(){
 				<a href="<c:url value='/profile/editAd?id=${shownAd.id}' />">
 					<button type="button">Edit Ad</button>
 				</a>
+				<c:if test="${adDeletable}">
+					<%-- <a href="<c:url value='/ad/deleteAd?id=${shownAd.id}' />"> --%>
+					<button class="deleteButton" onClick="deleteAd(this)">Delete</button>
+				</c:if>
+				<c:if test="${!adDeletable}">
+					<button onClick="notDeletable()">Delete</button>
+				</c:if>
 			</c:if>
 		</c:when>
 	</c:choose>
@@ -444,7 +469,7 @@ $(function(){
 <script>
 document.getElementById("SendEmail").onclick = function() {
 	var subject = document.getElementById("field-email").value;
-	var string = 'Hi, I found an interesting ad on FlatFindr! Please open the link: ' + window.location.href;   
+	var string = 'Hi, I found an interesting ad on PropertyFindr! Please open the link: ' + window.location.href;   
 	window.location = "mailto:"+subject+"?&body="+string;
 }
 </script>
