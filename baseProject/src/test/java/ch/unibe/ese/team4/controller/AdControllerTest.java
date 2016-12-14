@@ -22,10 +22,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import ch.unibe.ese.team4.controller.service.AdService;
+import ch.unibe.ese.team4.controller.service.UserService;
 import ch.unibe.ese.team4.model.Ad;
 import ch.unibe.ese.team4.model.User;
-import ch.unibe.ese.team4.model.dao.AdDao;
-import ch.unibe.ese.team4.model.dao.UserDao;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -40,19 +40,20 @@ public class AdControllerTest {
     private WebApplicationContext wac;
  
     private MockMvc mockMvc;
+    
     //needed to test controllerMethods with param id
     private long adId;
 
     @Autowired
-    private AdDao adDao;
+    private AdService adService;
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
     
  
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).apply(springSecurity()).build();
-        Iterable<Ad> ads = adDao.findAll();
+        Iterable<Ad> ads = adService.getAllAds();
         adId=-1; 
         for(Ad a : ads){
         	if (a.getSellType()==Ad.AUCTION){
@@ -85,6 +86,24 @@ public class AdControllerTest {
 	}
     
     @Test
+	public void testDeleteAdButNotDeletableBecauseOfVisits() throws Exception{    	
+		this.mockMvc.perform(get("/ad/deleteAd")
+					.with(user("ese@unibe.ch").password("ese").roles("USER"))
+					.param("id", String.valueOf(adId)))
+					.andExpect(model().hasNoErrors())
+					.andExpect(status().isFound())
+					.andExpect(status().is3xxRedirection())
+					.andExpect(view().name("redirect:/"));
+	}
+    
+    @Test
+	public void testDeleteAdWithErrorUser() throws Exception{    	
+		this.mockMvc.perform(get("/ad/deleteAd")
+					.param("id", String.valueOf(adId)))
+					.andExpect(status().isFound());
+	}
+    
+    @Test
 	public void testMethodMessageSent() throws Exception{    	
 		this.mockMvc.perform(post("/ad")
 					.with(user("ese@unibe.ch").password("ese").roles("USER"))
@@ -110,7 +129,7 @@ public class AdControllerTest {
 					.param("bookmarked",String.valueOf(bookmarked)))
 					.andExpect(status().isOk())
 					.andExpect(status().is2xxSuccessful());
-    	User jane = userDao.findByUsername("jane@doe.com");
+    	User jane = userService.findUserByUsername("jane@doe.com");
     	boolean isBookmarked = false;
     	for (Ad a : jane.getBookmarkedAds()){
     		if (a.getId() == adId){
@@ -130,7 +149,7 @@ public class AdControllerTest {
 					.andExpect(status().isOk())
 					.andExpect(status().is2xxSuccessful());
     	isBookmarked = false;
-    	jane = userDao.findByUsername("jane@doe.com");
+    	jane = userService.findUserByUsername("jane@doe.com");
     	for (Ad a : jane.getBookmarkedAds()){
     		if (a.getId() == adId){
     			isBookmarked = true;

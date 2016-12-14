@@ -20,10 +20,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import ch.unibe.ese.team4.controller.service.AlertService;
+import ch.unibe.ese.team4.controller.service.UserService;
 import ch.unibe.ese.team4.model.Alert;
 import ch.unibe.ese.team4.model.User;
-import ch.unibe.ese.team4.model.dao.AlertDao;
-import ch.unibe.ese.team4.model.dao.UserDao;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -40,18 +40,18 @@ public class AlertControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private AlertDao alertDao;
+    private AlertService alertService;
     
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
     
     private long alertId;
  
     @Before
     public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).apply(springSecurity()).build();
-        User user = userDao.findByUsername("ese@unibe.ch");
-        Alert alert = alertDao.findByUser(user).iterator().next();
+        User user = userService.findUserByUsername("ese@unibe.ch");
+        Alert alert = alertService.getAlertsByUser(user).iterator().next();
         alertId = alert.getId();
     }
     

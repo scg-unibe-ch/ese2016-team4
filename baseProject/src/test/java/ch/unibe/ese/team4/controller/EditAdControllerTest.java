@@ -20,10 +20,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import ch.unibe.ese.team4.controller.service.AdService;
+import ch.unibe.ese.team4.controller.service.UserService;
 import ch.unibe.ese.team4.model.Ad;
 import ch.unibe.ese.team4.model.User;
-import ch.unibe.ese.team4.model.dao.AdDao;
-import ch.unibe.ese.team4.model.dao.UserDao;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -43,15 +43,16 @@ public class EditAdControllerTest {
     private long adId;
 
     @Autowired
-    private AdDao adDao;
+    private AdService adService;
+    
     @Autowired
-    private UserDao userDao;    
+    private UserService userService;    
  
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).apply(springSecurity()).build();
-        User user = userDao.findByUsername("ese@unibe.ch");
-        Ad ad = adDao.findByUser(user).iterator().next();
+        User user = userService.findUserByUsername("ese@unibe.ch");
+        Ad ad = adService.getAdsByUser(user).iterator().next();
         adId = ad.getId();
     }
     

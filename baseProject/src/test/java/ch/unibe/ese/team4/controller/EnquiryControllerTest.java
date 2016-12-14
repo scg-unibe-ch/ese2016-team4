@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import ch.unibe.ese.team4.model.dao.UserDao;
+import ch.unibe.ese.team4.controller.service.UserService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -41,13 +41,13 @@ public class EnquiryControllerTest {
     private long userIdOfRatedOne;
     
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
  
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).apply(springSecurity()).build();
-        userId = userDao.findByUsername("ese@unibe.ch").getId();
-        userIdOfRatedOne = userDao.findByUsername("jane@doe.com").getId();
+        userId = userService.findUserByUsername("ese@unibe.ch").getId();
+        userIdOfRatedOne = userService.findUserByUsername("jane@doe.com").getId();
     }
 	
 	@Test

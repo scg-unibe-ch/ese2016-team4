@@ -20,10 +20,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import ch.unibe.ese.team4.controller.service.MessageService;
+import ch.unibe.ese.team4.controller.service.UserService;
 import ch.unibe.ese.team4.model.Message;
 import ch.unibe.ese.team4.model.User;
-import ch.unibe.ese.team4.model.dao.MessageDao;
-import ch.unibe.ese.team4.model.dao.UserDao;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -40,18 +40,18 @@ public class MessageControllerTest {
     private MockMvc mockMvc;
     
     @Autowired
-    private MessageDao messageDao;
+    private MessageService messageService;
     
     @Autowired 
-    private UserDao userDao;
+    private UserService userService;
     
     private long messageId;
  
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).apply(springSecurity()).build();
-        User user = userDao.findByUsername("ese@unibe.ch");
-        Message message = messageDao.findByRecipient(user).iterator().next();
+        User user = userService.findUserByUsername("ese@unibe.ch");
+        Message message = messageService.getInboxForUser(user).iterator().next();
         messageId = message.getId();
     }
 	
