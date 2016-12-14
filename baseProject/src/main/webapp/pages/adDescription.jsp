@@ -498,7 +498,7 @@ document.getElementById("SendEmail").onclick = function() {
 			<c:when test="${shownAd.getSellType() == 3}">
 				<tr>
 					<td><h2>Auction start</h2></td>
-					<td><p id="auctionstart"></p></td>
+					<td><span id="auctionstart"></span></td>
 				</tr>
 			</c:when>
 		</c:choose>
@@ -507,7 +507,7 @@ document.getElementById("SendEmail").onclick = function() {
 			<c:when test="${shownAd.getSellType() == 3}">
 				<tr>
 					<td><h2>Auction end</h2></td>
-					<td><p id="auctionend"></p></td>
+					<td><span id="auctionend"></span></td>
 				</tr>
 			</c:when>
 		</c:choose>
@@ -743,7 +743,7 @@ document.getElementById("SendEmail").onclick = function() {
 						</tr>
 						<c:forEach var="bid" items="${allBids}" varStatus="loop">
 							<tr>
-								<td><a href="/user?id=${bid.userId}"><font color="blue"><u>${bidNames[loop.index]}</u></font></a></td>
+								<td><a href="/user?id=${bid.userId}" class="link">${bidNames[loop.index]}</a></td>
 								<td>${bid.bid} CHF</td>
 								<td><fmt:formatDate value="${bid.bidTime.time}" type="date" pattern="dd.MM.yyyy" /></td>
 								<td><fmt:formatDate value="${bid.bidTime.time}" type="date" pattern="HH:mm:ss" /></td>
