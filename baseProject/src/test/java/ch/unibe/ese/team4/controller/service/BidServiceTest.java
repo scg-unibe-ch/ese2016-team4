@@ -19,12 +19,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import ch.unibe.ese.team4.model.Ad;
 import ch.unibe.ese.team4.model.Bid;
 import ch.unibe.ese.team4.model.Gender;
-import ch.unibe.ese.team4.model.Message;
-import ch.unibe.ese.team4.model.MessageState;
 import ch.unibe.ese.team4.model.User;
 import ch.unibe.ese.team4.model.dao.AdDao;
 import ch.unibe.ese.team4.model.dao.BidHistoryDao;
-import ch.unibe.ese.team4.model.dao.MessageDao;
 import ch.unibe.ese.team4.model.dao.UserDao;
 
 
@@ -125,37 +122,46 @@ public class BidServiceTest {
 		bidService.addBid(testAd.getId(), bidusertwo.getId(), 5000000);
 		
 		Iterable<Bid> bids = bidHistoryDao.findByAdIdOrderByBidDesc(testAd.getId());
-
 		assertEquals(bids.iterator().next().getBid(),5000000);
 
+		//allBids()
 		Iterable<Bid> allbids = bidService.allBids(testAd.getId());
 		assertEquals(allbids.iterator().next().getBid(), 5000000);
 		
+		//getBids()
 		List<Ad> adlist = new ArrayList<Ad>();
 		adlist.add(testAd);
 		Iterable<Long> bidsofadlist = bidService.getBids(adlist);
 		assertEquals(bidsofadlist.iterator().next().longValue(),5000000);
 		
+		//getBidUsernames()
 		Iterable<String> bidusernames = bidService.getBidUsernames(allbids);
 		assertTrue(bidusernames.iterator().next().equals("hanswillbietenq"));
 		
+		//getMyBid()
 		long mybid = bidService.getMyBid("hanswillbietenq", testAd.getId());
 		assertEquals(mybid,5000000);
 		
+		//getNextBid()
 		long nextbid = bidService.getNextBid(testAd.getId());
 		assertEquals(nextbid,5000001);
 		
+		//getHighestBid()
 		long highestBid = bidService.getHighestBid(testAd.getId());
 		assertEquals(highestBid, 5000000);
 		
+		//getHighestBids()
 		Iterable<Long> highestBids = bidService.getHighestBids(adlist);
 		assertEquals(highestBids.iterator().next().longValue(), 5000000);
 		
+		//isBidden()
 		assertTrue(bidService.isBidden(testAd.getId()));
 
+		//areBidden()
 		Iterable<Boolean> areBidden = bidService.areBidden(adlist);
 		assertTrue(areBidden.iterator().next().booleanValue());
 		
+		//getAllBids()
 		Iterable<Bid> allBidsOfAd = bidService.getAllBids(testAd.getId());
 		List<Bid> allBidsOfAdList = new ArrayList<Bid>();
 		for(Bid bid : allBidsOfAd){
