@@ -14,9 +14,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.servlet.ServletContext;
-
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +21,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.google.common.collect.Lists;
-
-import ch.unibe.ese.team4.controller.pojos.PictureUploader;
 import ch.unibe.ese.team4.controller.pojos.forms.PlaceAdForm;
 import ch.unibe.ese.team4.controller.pojos.forms.SearchForm;
 import ch.unibe.ese.team4.model.Ad;
@@ -34,7 +28,6 @@ import ch.unibe.ese.team4.model.Gender;
 import ch.unibe.ese.team4.model.User;
 import ch.unibe.ese.team4.model.UserRole;
 import ch.unibe.ese.team4.model.dao.UserDao;
-import javax.servlet.ServletContext;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -50,10 +43,6 @@ public class AdServiceTest {
 	
 	@Autowired
 	private UserDao userDao;
-	
-	@Autowired
-	private ServletContext servletContext;
-	
 	
 	/**
 	 * In order to test the saved ad, I need to get it back from the DB again, so these

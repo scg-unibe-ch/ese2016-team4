@@ -4,19 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.ServletContext;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,22 +15,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.google.common.collect.Lists;
-
-import ch.unibe.ese.team4.controller.pojos.PictureUploader;
-import ch.unibe.ese.team4.controller.pojos.forms.PlaceAdForm;
-import ch.unibe.ese.team4.controller.pojos.forms.SearchForm;
 import ch.unibe.ese.team4.model.Ad;
 import ch.unibe.ese.team4.model.Bid;
 import ch.unibe.ese.team4.model.Gender;
 import ch.unibe.ese.team4.model.Message;
 import ch.unibe.ese.team4.model.User;
-import ch.unibe.ese.team4.model.UserRole;
 import ch.unibe.ese.team4.model.dao.AdDao;
 import ch.unibe.ese.team4.model.dao.BidHistoryDao;
 import ch.unibe.ese.team4.model.dao.MessageDao;
 import ch.unibe.ese.team4.model.dao.UserDao;
-import javax.servlet.ServletContext;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -52,16 +35,7 @@ import javax.servlet.ServletContext;
 public class AuctionServiceTest {
 
 	@Autowired
-	private AdService adService;
-	
-	@Autowired
-	private EditAdService editAdService;
-	
-	@Autowired
 	private UserDao userDao;
-	
-	@Autowired
-	private ServletContext servletContext;
 	
 	@Autowired
 	private AdDao adDao;
